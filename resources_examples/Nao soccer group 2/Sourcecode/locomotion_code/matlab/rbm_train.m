@@ -1,0 +1,145 @@
+function [rbm, continuation] = rbm_train(rbm, xtrain, xvalid, epoch_count, options, continuation, plotter)
+plotter_provided = exist('plotter', 'var');
+
+if ~exist('continuation', 'var')
+    continuation = [];
+    continuation.overfitting = 0;
+    continuation.nonsparsity = options.desired_sparsity * ones(1, rbm.nh);
+    continuation.mse_train = [];
+    continuation.mse_valid = [];
+    continuation.activations_by_example = figure();
+    continuation.histogram_figure = figure();
+    continuation.se_figure = figure();
+end
+
+batch_count = floor(size(xtrain, 1) / options.batch_size);
+
+overfitting = continuation.overfitting;
+kappa = options.overfitting_estimate_decay;
+
+q = continuation.nonsparsity;
+
+% parameter velocities
+vW  = zeros(size(rbm.W));
+vbv = zeros(size(rbm.bv));
+vbh = zeros(size(rbm.bh));
+momentum = options.initial_momentum;
+
+if plotter_provided
+    feature_figure = figure();
+    reconstruction_figure = figure();
+end
+
+for epoch = 1:epoch_count
+    if epoch > 5
+        momentum = options.final_momentum;
+    end
+    
+    % validate
+    if mod(epoch, options.validation_interval) == 0
+        ftrain = mean(rbm_free_energy(rbm, xtrain(1:size(xvalid, 1), :)), 1);
+        fvalid = mean(rbm_free_energy(rbm, xvalid), 1);
+        overfitting = kappa*overfitting + (1 - kappa)*(fvalid - ftrain);
+        fprintf('overfitting: %f running average: %f\n', fvalid - ftrain, overfitting);
+        if overfitting > options.overfitting_threshold
+            fprintf('stopping early due to overfitting');
+            break
+        end
+    end
+    
+    % train
+    for i = 1:batch_count
+        batch = xtrain((i-1)*options.batch_size+1:i*options.batch_size, :);
+        [dW, dbv, dbh, q] = rbm_updates(rbm, batch, q, options);
+        vW = momentum * vW + dW;
+        vbv = momentum * vbv + dbv;
+        vbh = momentum * vbh + dbh;
+        rbm = rbm_update(rbm, vW, vbv, vbh);
+        drawnow; % just so I can see the most recent plots whenever I want
+    end
+
+    % inspect
+    epoch_dW = vW;
+
+    recon_valid = rbm_down(rbm, rbm_up(rbm, xvalid));
+    se_valid = sum((xvalid - recon_valid).^2, 2);
+    % number of validation set examples to show in activation image
+    nvalid = max(min(size(xvalid, 1), round(rbm.nh*16/9)), 50);
+    qvalid = rbm_up(rbm, xvalid(1:nvalid,:));
+    meanqvalid = mean(qvalid, 1);
+
+    ntrain = min(10000, size(xtrain, 1)); % don't spend too much time computing this stuff
+    qtrain = rbm_up(rbm, xtrain(1:ntrain, :));
+    recon_train = rbm_down(rbm, qtrain);
+    se_train = sum((xtrain(1:ntrain, :) - recon_train).^2, 2);
+    meanqtrain = mean(qtrain, 1);
+    
+    continuation.mse_train(end+1) = mean(se_train);
+    continuation.mse_valid(end+1) = mean(se_valid);
+    
+    figure(continuation.histogram_figure);
+    subplot(2, 3, 1);
+    hist(rbm.W(:));
+    title('W');
+    subplot(2, 3, 4);
+    hist(epoch_dW(:));
+    title('epoch dW');
+    subplot(2, 3, 2);
+    hist(meanqtrain);
+    title('mean hidden unit activity (train)');
+    subplot(2, 3, 5);
+    hist(se_train(:));
+    title('reconstruction errors (train)');
+    subplot(2, 3, 3);
+    hist(meanqvalid);
+    title('mean hidden unit activity (valid)');
+    subplot(2, 3, 6);
+    hist(se_valid(:));
+    title('reconstruction errors (valid)');
+
+    figure(continuation.activations_by_example);
+    imshow(qvalid', [0 1]);
+    title('hidden activations per example');
+    xlabel('validation set examples');
+    ylabel('hidden units');
+    
+    figure(continuation.se_figure);
+    clf(continuation.se_figure);
+    total_history_length = length(continuation.mse_train);
+    history_length = min(10, total_history_length);
+    history_indices = total_history_length-(history_length:-1:1) + 1;
+    plot(history_indices, continuation.mse_train(history_indices), 'b');
+    hold on;
+    plot(history_indices, continuation.mse_valid(history_indices), 'r');
+    title('mean squared reconstruction errors');
+    legend('train', 'valid');
+    xlabel('time');
+    ylabel('mse');
+    
+    if plotter_provided
+        % this is out of date
+        figure(reconstruction_figure);
+        subplot(1, 2, 1);
+        plotter(recon_valid);
+        title(sprintf('reconstructions epoch %i', epoch));
+        subplot(1, 2, 2);
+        plotter(xvalid);
+        title('originals');
+
+        figure(feature_figure);
+        subplot(1, 2, 1);
+        plotter(meanqvalid');
+        title('mean feature activations');
+        subplot(1, 2, 2);
+        features = rbm_down(rbm, eye(rbm.nh));
+        plotter(features);
+        title('features');
+    end
+
+    drawnow();
+    fprintf('epoch %i complete\n', epoch);
+end
+
+continuation.overfitting = overfitting;
+continuation.nonsparsity = q;
+end

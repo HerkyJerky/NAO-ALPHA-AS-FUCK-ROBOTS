@@ -1,0 +1,6 @@
+<worktree>
+  <project src="randomwalk" />
+  <project src="observer" />
+  <project src="controller" />
+  <project src="linewalk" />
+</worktree>
