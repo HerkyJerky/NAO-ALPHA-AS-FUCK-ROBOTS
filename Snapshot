@@ -1,0 +1,29 @@
+import cv2
+from matplotlib import pyplot as plt
+
+class Snapshot():
+    
+    def __init__(self, parent = None):
+        self.cam_index = 0
+        self.ramp_frames = 30
+        self.camera = cv2.VideoCapture(self.cam_index)
+        
+    def getImage(self):
+        for i in xrange(self.ramp_frames):
+            temp = self.getActualImage()
+        image = self.getActualImage()
+        return image
+        
+    def getActualImage(self):
+        retval, img = self.camera.read()
+        return img
+    
+    def destroyCamera(self):
+        del(self.camera)
+    
+
+#testing the class, works woohoo
+snap = Snapshot()
+img = snap.getImage()
+plt.imshow(img)
+plt.show()
