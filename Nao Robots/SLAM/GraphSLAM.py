@@ -1,14 +1,10 @@
 '''
 Created on 7 nov. 2013
 
+@author: Taghi
 @author: Dennis
 '''
 
-'''
-Created on 9 Oct 2013
-
-@author: Taghi
-'''
 import numpy as np
 import random
 import math as MH
