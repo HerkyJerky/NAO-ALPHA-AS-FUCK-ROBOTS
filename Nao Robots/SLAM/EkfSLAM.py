@@ -5,6 +5,7 @@ Created on 7 nov. 2013
 '''
 
 from AbstractSLAMProblem import AbstractSLAMProblem;
+import numpy;
 
 '''
 Notes from: http://ais.informatik.uni-freiburg.de/teaching/ws12/mapping/pdf/slam04-ekf-slam.pdf
@@ -63,8 +64,16 @@ def ekfSlam(data, num_steps, num_landmarks, motion_noise, measurement_noise, ini
                     ( .  .  .    .       .     .  )
                     ( 0  0  0    0    . . .   inf )
     """
+    dim = 3 + 2*num_landmarks
+    mu_0 = numpy.zeros(dim)
+    Sigma_0 = numpy.zeros((dim, dim))
     
-    return;
+    for i in range(3, dim):
+        Sigma_0[i, i] = float("inf");
+        
+    printMatrix(mu_0)
+        
+    return Sigma_0;
     
 def print_result(num_steps, num_landmarks, result):
     print
@@ -77,6 +86,13 @@ def print_result(num_steps, num_landmarks, result):
     for i in range(num_landmarks):
         print '    ['+ ', '.join('%.3f'%x for x in result[2*(num_steps+i)]) + ', ' \
             + ', '.join('%.3f'%x for x in result[2*(num_steps+i)+1]) +']'
+            
+def printArray(args):
+    print "\t".join(args)
+    
+def printMatrix(matrix):
+    for row in matrix:
+        printArray([str(x) for x in row])
 
 '''
 This is the test case. I will just assume some numbers to check if it actually works
