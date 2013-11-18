@@ -8,7 +8,10 @@ from AbstractSLAMProblem import AbstractSLAMProblem;
 import numpy;
 
 '''
-Notes from: http://ais.informatik.uni-freiburg.de/teaching/ws12/mapping/pdf/slam04-ekf-slam.pdf
+Notes from: 
+http://ais.informatik.uni-freiburg.de/teaching/ws12/mapping/pdf/slam04-ekf-slam.pdf  and
+http://ocw.mit.edu/courses/aeronautics-and-astronautics/16-412j-cognitive-robotics-spring-2005/projects/1aslam_blas_repo.pdf
+
 
 ==== Definition SLAM Problem ====
 Given:
@@ -38,12 +41,42 @@ State Representation for map with n landmarks: (3 + 2n)-dimensional Gaussian
     ( m_n,x )    (    m_n,x x    m_n,x y            theta      |    m_n,x m_1,x    m_n,x m_1,y    . . .      m_n,x m_n,x    m_n,x m_n,y    )
     ( m_n,y )    (    m_n,y x    m_n,y y            theta      |    m_n,y m_1,x    m_n,y m_1,y    . . .      m_n,y m_n,x    m_n,y m_n,y    )
 
-        mu                                                            Sigma
+        mu = System State                                              Sigma = Covariance Matrix
     
     More compactly:
     
     mu =    (    x    )        Sigma =    (    Sigma_xx    Sigma_xm    )
             (    m    )                   (    Sigma_mx    Sigma_mm    )
+            
+    Sigma_xx contains covariance on robot position
+    
+    If Sigma_mx =    D        then D contains covariance between robot state and first landmark,
+                    ...
+                    ...
+                     H        and H contains covariance between robot state and nth landmark.
+                     
+    If Sigma_xm =    E ... ... I    then E contains covariance between first landmark and robot state,
+                                    and I contains covariance between nth landmark and robot state.
+                                    
+    If Sigma_mm =    B   ...   G    then B contains covariance on first landmark,
+                     ... ... ...    G contains covariance between the first landmark and the last landmark
+                     ... ... ...    F contains covariance between the last landmark and the first landmark
+                     F   ...   C    and C contains covariance on nth landmark
+
+Innovation = difference in estimated robot position from odometry and robot position based on vision.
+                  
+Kalman gain K =     x_r      x_b
+                    y_r      y_b
+                    t_r      t_b
+                    x_1,r    x_1,b
+                    y_1,r    y_1,b
+                    . . .    . . .
+                    . . .    . . .
+                    x_n,r    x_n,b
+                    y_n,r    y_n,b
+
+    For every row, the first column shows how much should be gained from the innovation for the corresponding
+    row of the system state mu in terms of range, and the second column in terms of bearing (angle).
     
 '''
 def ekfSlam(data, num_steps, num_landmarks, motion_noise, measurement_noise, initialX, initialY):
@@ -71,7 +104,7 @@ def ekfSlam(data, num_steps, num_landmarks, motion_noise, measurement_noise, ini
     for i in range(3, dim):
         Sigma_0[i, i] = float("inf");
         
-    printMatrix(mu_0)
+    printMatrix(Sigma_0)
         
     return Sigma_0;
     
