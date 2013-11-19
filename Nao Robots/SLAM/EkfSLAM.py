@@ -78,6 +78,8 @@ Kalman gain K =     x_r      x_b
     For every row, the first column shows how much should be gained from the innovation for the corresponding
     row of the system state mu in terms of range, and the second column in terms of bearing (angle).
     
+Jacobian
+    
 '''
 def ekfSlam(data, num_steps, num_landmarks, motion_noise, measurement_noise, initialX, initialY):
     """
@@ -102,11 +104,9 @@ def ekfSlam(data, num_steps, num_landmarks, motion_noise, measurement_noise, ini
     Sigma_0 = numpy.zeros((dim, dim))
     
     for i in range(3, dim):
-        Sigma_0[i, i] = float("inf");
+        Sigma_0[i, i] = float("inf")
         
-    printMatrix(Sigma_0)
-        
-    return Sigma_0;
+    return
     
 def print_result(num_steps, num_landmarks, result):
     print
@@ -141,5 +141,8 @@ if __name__ == "__main__":
     
     problem = AbstractSLAMProblem(world_size, measurement_range, motion_noise, measurement_noise, num_landmarks);
     data = problem.run_simulation(numSteps, num_landmarks, world_size, measurement_range, motion_noise, measurement_noise, walkingDistancePerStep);
+    print "Printing Data Matrix:"
+    printMatrix(data)
+    print "End printing Data Matrix"
     mu = ekfSlam(data, numSteps, num_landmarks, motion_noise, measurement_noise, 50.0, 50.0)
     print_result(numSteps,num_landmarks, mu)
