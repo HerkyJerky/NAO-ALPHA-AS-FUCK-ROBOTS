@@ -105,6 +105,11 @@ def ekfSlam(data, num_steps, num_landmarks, motion_noise, measurement_noise, ini
         Sigma[i, i] = float("inf")
         
     """
+    A: Jacobian of the prediction model. Initialized as 3x3 Identity matrix
+    """
+    A = numpy.eye(3)
+        
+    """
     =============== LOOP THROUGH ALL TIME STEPS ===============
     """
     for i in range(0, num_steps): 
@@ -118,6 +123,11 @@ def ekfSlam(data, num_steps, num_landmarks, motion_noise, measurement_noise, ini
         mu[0] = mu[0] + dx
         mu[1] = mu[1] + dy
         mu[2] = mu[2] + dtheta
+        
+        # update A according to page 37 of SLAM for dummies
+        # TODO: CHECK! Maybe it should be old values -dy +dx instead of replacing by -dy and +dx ???
+        A[0, 2] = - dy
+        A[1, 2] = dx
         
     return
     
