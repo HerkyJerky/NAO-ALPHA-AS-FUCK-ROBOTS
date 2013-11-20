@@ -78,8 +78,6 @@ Kalman gain K =     x_r      x_b
     For every row, the first column shows how much should be gained from the innovation for the corresponding
     row of the system state mu in terms of range, and the second column in terms of bearing (angle).
     
-Jacobian
-    
 '''
 def ekfSlam(data, num_steps, num_landmarks, motion_noise, measurement_noise, initialX, initialY):
     """
@@ -100,11 +98,26 @@ def ekfSlam(data, num_steps, num_landmarks, motion_noise, measurement_noise, ini
                     ( 0  0  0    0    . . .   inf )
     """
     dim = 3 + 2*num_landmarks
-    mu_0 = numpy.zeros(dim)
-    Sigma_0 = numpy.zeros((dim, dim))
+    mu = numpy.zeros(dim)
+    Sigma = numpy.zeros((dim, dim))
     
     for i in range(3, dim):
-        Sigma_0[i, i] = float("inf")
+        Sigma[i, i] = float("inf")
+        
+    """
+    =============== LOOP THROUGH ALL TIME STEPS ===============
+    """
+    for i in range(0, num_steps): 
+        # Step 1: Update current state using the odometry data
+        iterationData = data.getIterationData(i)        # THIS FUNCTION DOESNT EXIST YET. Assumed to fetch data of the i'th timestep only
+        
+        dx = iterationData.dx
+        dy = iterationData.dy
+        dtheta = iterationData.dtheta
+        
+        mu[0] = mu[0] + dx
+        mu[1] = mu[1] + dy
+        mu[2] = mu[2] + dtheta
         
     return
     
