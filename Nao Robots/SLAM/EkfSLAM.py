@@ -78,11 +78,20 @@ Kalman gain K =     x_r      x_b
     For every row, the first column shows how much should be gained from the innovation for the corresponding
     row of the system state mu in terms of range, and the second column in terms of bearing (angle).
     
+q = movement error term (on command to move 1 unit, robot will move q extra or less)
+    
 '''
 def ekfSlam(data, num_steps, num_landmarks, motion_noise, measurement_noise, initialX, initialY):
     """
     Runs EKF Slam algorithm on given data.
     """
+    
+    """
+    Precompute some values/arrays which are reused often
+    """
+    dim = 3 + 2*num_landmarks        # dimensions of the covariance matrix
+    RANGE_0_3 = range(0, 3)          # we often need to loop through arrays/matrices with dimension of 3
+    RANGE_3_DIM = range(3, dim)      # also often need to loop through arrays/matrices starting from index 3 all the way till dim
     
     """ 
     =============== INITIALIZATION =============== 
@@ -97,11 +106,10 @@ def ekfSlam(data, num_steps, num_landmarks, motion_noise, measurement_noise, ini
                     ( .  .  .    .       .     .  )
                     ( 0  0  0    0    . . .   inf )
     """
-    dim = 3 + 2*num_landmarks
     mu = numpy.zeros(dim)
     Sigma = numpy.zeros((dim, dim))
     
-    for i in range(3, dim):
+    for i in RANGE_3_DIM:
         Sigma[i, i] = float("inf")
         
     """
@@ -112,13 +120,16 @@ def ekfSlam(data, num_steps, num_landmarks, motion_noise, measurement_noise, ini
     """
     =============== LOOP THROUGH ALL TIME STEPS ===============
     """
-    for i in range(0, num_steps): 
-        # Step 1: Update current state using the odometry data
-        iterationData = data.getIterationData(i)        # THIS FUNCTION DOESNT EXIST YET. Assumed to fetch data of the i'th timestep only
+    for step in range(0, num_steps): 
+        # =============== Step 1: Update current state using the odometry data ===============
+        iterationData = data.getIterationData(step)        # THIS FUNCTION DOESNT EXIST YET. Assumed to fetch data of the i'th timestep only
         
         dx = iterationData.dx
         dy = iterationData.dy
         dtheta = iterationData.dtheta
+        dx = 2
+        dy = 3
+        dtheta = 5
         
         mu[0] = mu[0] + dx
         mu[1] = mu[1] + dy
@@ -128,6 +139,43 @@ def ekfSlam(data, num_steps, num_landmarks, motion_noise, measurement_noise, ini
         # TODO: CHECK! Maybe it should be old values -dy +dx instead of replacing by -dy and +dx ???
         A[0, 2] = - dy
         A[1, 2] = dx
+        
+        # update Q (= a 3x3 matrix used for movement noise) according to page 37 of SLAM for dummies
+        c = motion_noise
+        
+        Q = [[c*dx*dx,      c*dx*dy,     c*dx*dtheta    ],
+             [c*dy*dx,      c*dy*dy,     c*dy*dtheta    ],
+             [c*dtheta*dx,  c*dtheta*dy, c*dtheta*dtheta]]
+        
+        # Calculate covariance for robot position
+        # start with top left 3x3 matrix of Sigma
+        P = [[Sigma[0,0], Sigma[0,1], Sigma[0,2]],
+             [Sigma[1,0], Sigma[1,1], Sigma[1,2]],
+             [Sigma[2,0], Sigma[2,1], Sigma[2,2]]]
+        
+        # calculate changes: Pnew = A P A + Q
+        P = numpy.add( numpy.dot(numpy.dot(A, P), A) )
+        
+        # insert entries back into Sigma
+        for i in RANGE_0_3:
+            for j in RANGE_0_3:
+                Sigma[i, j] = P[i, j]
+        
+        # update robot to feature cross-relations according to page 38 of SLAM for dummies
+        # start with top 3 rows of Sigma excluding the first 3 columns
+        P = numpy.zeros(3, num_landmarks)       # we can reuse the P variable since we're done using the data above. Re-initialize it to zeros
+        
+        for i in RANGE_0_3:
+            for j in RANGE_3_DIM:
+                P[i, j - 3] = Sigma[i, j]       # fill P with current values in Sigma
+                
+        # calculate changes: Pnew = A P
+        P = numpy.dot(A, P)
+        
+        # insert entries back into Sigma
+        for i in RANGE_0_3:
+            for j in RANGE_3_DIM:
+                Sigma[i, j] = P[i, j - 3]
         
     return
     
@@ -164,8 +212,5 @@ if __name__ == "__main__":
     
     problem = AbstractSLAMProblem(world_size, measurement_range, motion_noise, measurement_noise, num_landmarks);
     data = problem.run_simulation(numSteps, num_landmarks, world_size, measurement_range, motion_noise, measurement_noise, walkingDistancePerStep);
-    print "Printing Data Matrix:"
-    printMatrix(data)
-    print "End printing Data Matrix"
     mu = ekfSlam(data, numSteps, num_landmarks, motion_noise, measurement_noise, 50.0, 50.0)
     print_result(numSteps,num_landmarks, mu)
