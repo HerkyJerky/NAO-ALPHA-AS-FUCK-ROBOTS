@@ -89,9 +89,7 @@ def ekfSlam(data, num_steps, num_landmarks, motion_noise, measurement_noise, ini
     """
     Precompute some values/arrays which are reused often
     """
-    dim = 3 + 2*num_landmarks        # dimensions of the covariance matrix
     RANGE_0_3 = range(0, 3)          # we often need to loop through arrays/matrices with dimension of 3
-    RANGE_3_DIM = range(3, dim)      # also often need to loop through arrays/matrices starting from index 3 all the way till dim
     
     """ 
     =============== INITIALIZATION =============== 
@@ -106,10 +104,14 @@ def ekfSlam(data, num_steps, num_landmarks, motion_noise, measurement_noise, ini
                     ( .  .  .    .       .     .  )
                     ( 0  0  0    0    . . .   inf )
     """
+    num_landmarks_observed = 0
+    landmark_observe_counts = numpy.zeros(num_landmarks)
+    
+    dim = 3 + 2*num_landmarks_observed
     mu = numpy.zeros(dim)
     Sigma = numpy.zeros((dim, dim))
     
-    for i in RANGE_3_DIM:
+    for i in range(3, dim):
         Sigma[i, i] = float("inf")
         
     """
@@ -165,8 +167,10 @@ def ekfSlam(data, num_steps, num_landmarks, motion_noise, measurement_noise, ini
         # start with top 3 rows of Sigma excluding the first 3 columns
         P = numpy.zeros(3, num_landmarks)       # we can reuse the P variable since we're done using the data above. Re-initialize it to zeros
         
+        range_3_dim = range(3, dim)
+        
         for i in RANGE_0_3:
-            for j in RANGE_3_DIM:
+            for j in range_3_dim:
                 P[i, j - 3] = Sigma[i, j]       # fill P with current values in Sigma
                 
         # calculate changes: Pnew = A P
@@ -174,8 +178,15 @@ def ekfSlam(data, num_steps, num_landmarks, motion_noise, measurement_noise, ini
         
         # insert entries back into Sigma
         for i in RANGE_0_3:
-            for j in RANGE_3_DIM:
+            for j in range_3_dim:
                 Sigma[i, j] = P[i, j - 3]
+                
+        # =============== Step 2: Update state from re-observed landmarks ===============
+        for i in iterationData.getObservedLandmarks():
+            
+        
+        # lastly, update dim to accomodate for newly introduced landmarks
+        dim = 3 + 2*num_landmarks_observed
         
     return
     
