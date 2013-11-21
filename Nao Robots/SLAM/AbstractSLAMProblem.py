@@ -11,12 +11,12 @@ import math
 class AbstractSLAMProblem:
     
     def __init__(self, world_size = 100.0, measurement_range = 30.0,
-                 motion_noise = 1.0, measurement_noise = 1.0, num_landmarks = 0):
+                 motion_noise = 1.0, measurement_noise = 1.0, num_landmarks = 0, initialX = 0, initialY = 0):
         """ Construct an Abstract SLAM Problem world """
         self.world_size = world_size
         self.measurement_range = measurement_range
-        self.x = world_size / 2.0
-        self.y = world_size / 2.0
+        self.x = initialX
+        self.y = initialY
         self.motion_noise = motion_noise
         self.measurement_noise = measurement_noise
         self.landmarks = []
@@ -76,6 +76,19 @@ class AbstractSLAMProblem:
         """
         Runs a full simulation of a robot moving through the map, and returns the data gathered
         throughout the entire simulation.
+        
+        So, how the data actually looks like (Sorry for delay Dennis, I know it is very much of a mind fuck going on here)
+        
+        First, I will try to explain with words what is happening : 
+        - So, data is assumed to be big matrix saving all data( this might have down side but whatever). It takes number of steps simulation
+        had and loops through. dx and dy are movement towards x and y direction each time step.
+        - Each time step we sense around to see if we see some landmark and we "move" towards where we should be moving
+        - After those are done we end up with some sense array and new coordinate of where we "are"
+        - Data array keeps those stuff depending on time step. So if you need data from time step t you access data[t]
+        - To access sense of data[t] you call data[t][0]
+        - To access coordinate at time step t you call data[t][1]
+        - This might lead to some issues maybe especially on fact that Z might be empty at some points but that will be checked
+        by make data method probably and in slam if it is empty then we do not append anything to slam Matrix(omega)
         
         """
         data = []
