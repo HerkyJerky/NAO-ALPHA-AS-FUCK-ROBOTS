@@ -2,7 +2,7 @@ import cv2
 from matplotlib import pyplot as plt
 import numpy as np
 from PIL import Image
-import colorsys as cs
+import ColorSysCustom as csc
 from cv2 import cv
 
 class ImageProcessing():
@@ -29,7 +29,7 @@ class ImageProcessing():
             R = np.double(R)/255
             G = np.double(G)/255
             B = np.double(B)/255
-            H, L, S = cs.rgb_to_hls(R, G, B)
+            L = csc.rgb_to_luminance(R, G, B)
             sum = sum + L
         self.Lic = (sum/self.n)
         
@@ -44,7 +44,9 @@ class ImageProcessing():
         self.new_img = Image.new('RGB', (self.height, self.width), "black")
         pixels = self.new_img.load()
         
-        
+        # ROEL! ''randomsX'' is entirely unused and ''randomsY'' is only ''used'' by sorting it, after that unused.
+        # Are you sure these 3 lines of code can't be deleted? (just not deleting them myself in case you're gonna use
+        # them in the future)
         randomsX = np.random.uniform(0, np.int(self.width), size = self.n)
         randomsY = np.random.uniform(0, np.int(self.height), size = self.n)
         randomsY.sort()
@@ -59,7 +61,7 @@ class ImageProcessing():
                 R = np.double(R)/255
                 G = np.double(G)/255
                 B = np.double(B)/255
-                H, S, V = cs.rgb_to_hsv(R, G, B)
+                H = csc.rgb_to_hue(R, G, B)
                 
                 if(self.acceptedLumi(Y)):
                     pixels[x, y] = (255,255,255)
