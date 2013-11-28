@@ -56,6 +56,7 @@ class ImageProcessing():
                 B = np.double(B)/255
                 H = csc.rgb_to_hue(R, G, B)
                 
+                #accepted white
                 if(self.acceptedLumi(Y)):
                     self.img[x, y] = (255,255,255)
                 elif(self.acceptedGreen(H)):
@@ -143,7 +144,7 @@ class ImageProcessing():
         
     def abstractImage(self):
         
-        self.clusterpoints = []
+        self.clusterpoins = []
         w = self.getHeightImage()
         h = self.getWidthImage()
         
@@ -167,7 +168,7 @@ class ImageProcessing():
                             for i in xrange(0, len(whites)):
                                 sumX = sumX + whites[i][1]
                                 sumY = sumY + whites[i][0]
-                            self.clusterpoints.append([sumX/len(whites), sumY/len(whites)])
+                            self.clusterpoins.append([sumX/len(whites), sumY/len(whites)])
                             whites = []
                             break
                 self.y = self.y + 1
@@ -179,7 +180,7 @@ class ImageProcessing():
             for y in xrange(0, self.getHeightImage()):
                 self.img[x, y] = (0, 0, 0)
         for c in xrange(0, len(self.clusterpoins)):
-            self.img[self.clusterpoins[c][1], self.clusterpoins[c][0]] = (255, 255, 255)
+            self.img[self.clusterpoins[c][0], self.clusterpoins[c][1]] = (255, 255, 255)
         
     def onlyWhite(self):
         for x in xrange(0, self.getWidthImage()):
