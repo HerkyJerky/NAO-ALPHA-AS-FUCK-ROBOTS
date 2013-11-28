@@ -42,19 +42,12 @@ class ImageProcessing():
     
     def startLumi(self):    
         self.new_img = Image.new('RGB', (self.height, self.width), "black")
-        pixels = self.new_img.load()
+        #pixels = self.img.load()
         
-        # ROEL! ''randomsX'' is entirely unused and ''randomsY'' is only ''used'' by sorting it, after that unused.
-        # Are you sure these 3 lines of code can't be deleted? (just not deleting them myself in case you're gonna use
-        # them in the future)
-        randomsX = np.random.uniform(0, np.int(self.width), size = self.n)
-        randomsY = np.random.uniform(0, np.int(self.height), size = self.n)
-        randomsY.sort()
-        
-        for x in xrange(0, self.height):
-            for y in xrange(0, self.width):
-                B, G, R = self.img[y][x]
-                #Using REC. 601 algorithm to calculate the luminance of RGB value
+        for x in xrange(0, self.width):
+            for y in xrange(0, self.height):
+                B, G, R = self.img[x][y]
+                #Using REC. 601 algorithm to calculate the grayscale of RGB value
                 Y = 0.2126 * R + 0.7152 * G + 0.0722 * B
                 
                 #Getting the Hue
@@ -64,38 +57,40 @@ class ImageProcessing():
                 H = csc.rgb_to_hue(R, G, B)
                 
                 if(self.acceptedLumi(Y)):
-                    pixels[x, y] = (255,255,255)
+                    self.img[x, y] = (255,255,255)
                 elif(self.acceptedGreen(H)):
-                    pixels[x, y] = (0,255,0)
+                    self.img[x, y] = (0,255,0)
                 #elif(self.acceptedBlack(Y)):
                 #    pixels[x, y] = (0,255,0)
+                else:
+                    self.img[x, y] = (0, 0, 0)
                     
-        self.removeBackGround(pixels)
+        self.removeBackGround()
 
    
-    def removeBackGround(self, pixels):
+    def removeBackGround(self):
         
         #self.white_list = []
+        w = self.getHeightImage()
         h = self.getWidthImage()
-        
-        for x in xrange(0, self.getHeightImage()):
+        for x in xrange(0, w):
             count = 0
             
             for y in xrange(0, h):
-                
-                if(pixels[x, y][0] is 0 and pixels[x, y][1] is 255 and pixels[x, y][2] is 0):
+                B, G, R = self.img[y][x]
+                if(B == 0 and G == 255 and R == 0):
                     count = count + 1
                 else:
                     count = 0
                 if(count > self.maxSpacing):
                     for r in xrange(0, y-count+1):
-                        pixels[x, r] = (0, 0, 0)
+                        self.img[r, x] = (0, 0, 0)
                     break
         
-        self.abstractImage(pixels)
+        self.abstractImage()
+        #self.onlyWhite()
         
-        
-    def abstractImage(self, pixels):
+    def clusterImage(self):
         clusterSize = self.getHeightImage()/20
         self.clusterpoins = []
         h = self.getWidthImage()
@@ -112,20 +107,24 @@ class ImageProcessing():
                 ry = np.random.random()*h
                 
                 #check if white
-                if (pixels[rx, ry][0] is 255 and pixels[rx, ry][1] is 255 and pixels[rx, ry][2] is 255):
+                B, G, R = self.img[ry][rx]
+                if (B == 255 and G == 255 and R == 255):
                     
                     #if there are no points assigned yet:
                     if (len(tempPoints) is 0):
                         tempPoints.append([0, rx, ry])
                     #else go though the individual clusters and check where it belongs to, if it doesn't belong to any, make a new cluster
                     else:
+                        close = False
                         for c in xrange(0, len(tempPoints)):
                             cn, cx, cy = tempPoints[c]
                             if(np.abs(ry - cy) <= self.maxSpacing):
+                                close = True
                                 tempPoints.append([cn, rx, ry])
                                 break
-                        nrClusters = nrClusters + 1
-                        tempPoints.append([nrClusters, rx, ry])
+                        if(close is False):
+                            nrClusters = nrClusters + 1
+                            tempPoints.append([nrClusters, rx, ry])
             
             #averaging the clusterpoints and add to clusterlist
             if (len(tempPoints) is not 0):
@@ -140,10 +139,55 @@ class ImageProcessing():
                             xsum = xsum + cx
                             ysum = ysum + cy
                     self.clusterpoins.append([xsum/n, ysum/n])
-                    pixels[xsum/n, ysum/n] = (255, 0, 0)
-                        
+        self.finalizeImage()
+        
+    def abstractImage(self):
+        
+        self.clusterpoints = []
+        w = self.getHeightImage()
+        h = self.getWidthImage()
+        
+        for x in xrange(0, np.int(w)):
+            whites = []
+            self.y = 0
+            while self.y < np.int(h):
+                #check if white
+                B, G, R = self.img[self.y][x]
+                if (B == 255 and G == 255 and R == 255):
+                    whites.append([x, self.y])
+                    #if white, check next ones until there are no more whites and average the point
+                    for y2 in xrange(self.y+1, np.int(h)):
+                        B, G, R = self.img[y2][x]
+                        if (B == 255 and G == 255 and R == 255):
+                            whites.append([x, y2])
+                        else:
+                            self.y = y2+1
+                            sumX = 0
+                            sumY = 0
+                            for i in xrange(0, len(whites)):
+                                sumX = sumX + whites[i][1]
+                                sumY = sumY + whites[i][0]
+                            self.clusterpoints.append([sumX/len(whites), sumY/len(whites)])
+                            whites = []
+                            break
+                self.y = self.y + 1
                     
-                 
+        self.finalizeImage()
+        
+    def finalizeImage(self):
+        for x in xrange(0, self.getWidthImage()):
+            for y in xrange(0, self.getHeightImage()):
+                self.img[x, y] = (0, 0, 0)
+        for c in xrange(0, len(self.clusterpoins)):
+            self.img[self.clusterpoins[c][1], self.clusterpoins[c][0]] = (255, 255, 255)
+        
+    def onlyWhite(self):
+        for x in xrange(0, self.getWidthImage()):
+            for y in xrange(0, self.getHeightImage()):
+                B, G, R = self.img[x][y]
+                if (B == 0 and G == 255 and R == 0):
+                    self.img[x, y] = (0, 0, 0)
+        
         
     def setMaxSpacing(self, m):
         self.maxSpacing = self.getWidthImage()*m
@@ -156,13 +200,13 @@ class ImageProcessing():
         return False
     
     def acceptedGreen(self, H):
-        #Y in [0, 255]
+        #H in [0, 255]
         if (H >= 0.222222 and H <= 0.466667):
             return True
         return False
     
     def getClusterPoints(self):
-        return self.clusterpoins
+        return self.clusterpoints
     
     def acceptedBlack(self, H):
         #Y in [0, 255]
@@ -171,7 +215,7 @@ class ImageProcessing():
         return False
      
     def getNewImage(self):
-        return self.new_img
+        return self.img
     
     def getOriginalImage(self):
         return self.img
