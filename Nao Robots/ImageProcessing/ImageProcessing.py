@@ -12,7 +12,7 @@ class ImageProcessing():
         self.height, self.width = imgTemp.size
         self.img = cv2.imread(imgString)
         self.maxSpacing = 0.0;
-        
+               
                 
     # width of image, height of image, image, fraction of the image to be randomly taken pixels from            
     def getAverageLightIntensity(self, width, height, img, fractionOfImage):   
@@ -33,13 +33,15 @@ class ImageProcessing():
             sum = sum + L
         self.Lic = (sum/self.n)
         
+        
     def setThreshold(self, t):
         self.threshold = t
+        
         
     def getThreshold(self):
         return self.threshold
    
-    
+   
     def startLumi(self):    
         self.new_img = Image.new('RGB', (self.height, self.width), "black")
         #pixels = self.img.load()
@@ -68,9 +70,8 @@ class ImageProcessing():
                     
         self.removeBackGround()
 
-   
+
     def removeBackGround(self):
-        
         #self.white_list = []
         w = self.getHeightImage()
         h = self.getWidthImage()
@@ -87,17 +88,19 @@ class ImageProcessing():
                     for r in xrange(0, y-count+1):
                         self.img[r, x] = (0, 0, 0)
                     break
-        
-        self.abstractImage()
+                
+        #self.clusterImage()
         #self.onlyWhite()
+        self.abstractImage()
+        
         
     def clusterImage(self):
-        clusterSize = self.getHeightImage()/20
+        clusterSize = self.getHeightImage()/30
         self.clusterpoins = []
         h = self.getWidthImage()
         samples = h*np.int(clusterSize/3)
         
-        for x in xrange(0, 20):
+        for x in xrange(0, 30):
             
             tempPoints = []
             nrClusters = 0
@@ -142,6 +145,7 @@ class ImageProcessing():
                     self.clusterpoins.append([xsum/n, ysum/n])
         self.finalizeImage()
         
+        
     def abstractImage(self):
         
         self.clusterpoins = []
@@ -175,12 +179,14 @@ class ImageProcessing():
                     
         self.finalizeImage()
         
+        
     def finalizeImage(self):
         for x in xrange(0, self.getWidthImage()):
             for y in xrange(0, self.getHeightImage()):
                 self.img[x, y] = (0, 0, 0)
         for c in xrange(0, len(self.clusterpoins)):
             self.img[self.clusterpoins[c][0], self.clusterpoins[c][1]] = (255, 255, 255)
+        
         
     def onlyWhite(self):
         for x in xrange(0, self.getWidthImage()):
@@ -194,11 +200,13 @@ class ImageProcessing():
         self.maxSpacing = self.getWidthImage()*m
         print(self.maxSpacing)
     
+    
     def acceptedLumi(self, Y):
         #Y in [0, 255]
         if (Y > self.threshold + (255-self.threshold)*self.Lic):
             return True
         return False
+    
     
     def acceptedGreen(self, H):
         #H in [0, 255]
@@ -208,27 +216,23 @@ class ImageProcessing():
     
     def getClusterPoints(self):
         return self.clusterpoints
-    
-    def acceptedBlack(self, H):
-        #Y in [0, 255]
-        if (H < (40 + 40*self.Lic)):
-            return True
-        return False
-     
-    def getNewImage(self):
+   
+   
+    def getImage(self):
         return self.img
     
-    def getOriginalImage(self):
-        return self.img
     
     def getWidthImage(self):
         return self.width  
     
+    
     def getHeightImage(self):
         return self.height
         
+        
     def getLightIntensityScalar(self):
         return self.Lis
+    
     
     def getSortedWhites(self):
         return self.white_list
