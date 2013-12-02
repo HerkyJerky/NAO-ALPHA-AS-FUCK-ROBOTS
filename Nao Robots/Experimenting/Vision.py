@@ -18,6 +18,7 @@ class Vision:
         pass
 
     def takePic(self, name):
+        print("picture being taken...")
         videoClient = self.visionProxy.subscribe("python_client", resolution, colorSpace, 5)
         picture = self.visionProxy.getImageRemote(videoClient)
         self.visionProxy.unsubscribe(videoClient)
@@ -33,6 +34,10 @@ class Vision:
     def analyze(self):
         # TODO: Roel fill in your beautiful code.
         logObj.logWrite(time.time().__str__() + "_6_0_0_0_0")
+        pass
+
+    def getDistanceFromLandMark(self, x, y):
+
         pass
 
 #vis = Vision()

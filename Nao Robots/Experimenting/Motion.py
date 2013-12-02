@@ -25,6 +25,13 @@ class Motion:
         motionProxy.stiffnessInterpolation(allJoints, pStiffnessLists, pTimeLists)
         pass
 
+    def stiffnessOff(self, motionProxy):
+        allJoints = "Body"
+        pStiffnessLists = 0.0
+        pTimeLists = 1.0
+        motionProxy.stiffnessInterpolation(allJoints, pStiffnessLists, pTimeLists)
+        pass
+
     # make robot stand up
     def stand(self):  # def stand(self, name, speed):
         self.stiffnessOn(motionProxy=self.motionProxy)
@@ -63,6 +70,20 @@ class Motion:
     def talk(self, word):
         self.talkProxy.say(word)
         logObj.logWrite(time.time().__str__() + "_8_{0}_0_0_0".format(word))
+        pass
+
+    def moveHeadPitch(self, theta, speed):
+        theta = float(theta)
+        speed = float(speed)
+        self.motionProxy.setAngles("HeadPitch", theta, speed)
+        logObj.logWrite(time.time().__str__() + "_9_{0}_{1}_0_0".format(theta, speed))
+        pass
+
+    def lieDownRelax(self):
+        self.stiffnessOn(motionProxy=self.motionProxy)
+        self.postureProxy.goToPosture("LyingBack", 1.0)
+        self.stiffnessOff(motionProxy=self.motionProxy)
+        logObj.logWrite(time.time().__str__() + "_10_0_0_0_0")
         pass
 
 #mot = Motion()

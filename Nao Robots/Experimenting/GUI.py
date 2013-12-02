@@ -45,14 +45,21 @@ class GUI:
                            command=lambda: self.wrapper(visionObj.takePic(self.name.get())))
         picButton.pack()
         self.makeNameEntry()
-        slamButton = Button(frame, text="SLAM", background="orange", foreground="black", command=lambda: self.meth("slam"))
-        slamButton.pack()
-        # yze
-        analButton = Button(frame, text="analyze", background="orange", foreground="black", command=lambda: self.meth("analyze"))
-        analButton.pack()
+        #slamButton = Button(frame, text="SLAM", background="orange", foreground="black", command=lambda: self.meth("slam"))
+        #slamButton.pack()
+        ## yze
+        #analButton = Button(frame, text="analyze", background="orange", foreground="black", command=lambda: self.meth("analyze"))
+        #analButton.pack()
         talkButton = Button(frame, text="talk", background="blue", foreground="black", command=lambda : self.wrapper(motionObj.talk(self.chirp.get())))
         talkButton.pack()
         self.makeChirpEntry()
+        moveHeadPitchButton = Button(frame, text="headPitch", background="orange", foreground="black",
+                                     command=lambda:self.wrapper(motionObj.moveHeadPitch(self.headPitchTheta.get(), self.headPitchSpeed.get())))
+        moveHeadPitchButton.pack()
+        self.makeHeadPitchThetaEntry()
+        self.makeHeadPitchSpeedEntry()
+        lieDownRelaxButton = Button(frame, text="Relax", background="orange", foreground="black",command=lambda:self.wrapper(motionObj.lieDownRelax()))
+        lieDownRelaxButton.pack()
         self.makeLogPanel()
 
         pass
@@ -89,7 +96,7 @@ class GUI:
         self.name = Entry(frame)
         self.name.pack()
         self.name.delete(0, END)
-        self.name.insert(0, "selfie0")
+        self.name.insert(0, "selfie560")
         pass
 
     def makeChirpEntry(self):
@@ -100,19 +107,37 @@ class GUI:
         pass
 
     def makeLogPanel(self):
+
         self.logPanel = Text(frame, width=400, height=450)
+        self.logPanel.configure(state='normal')
         self.logPanel.insert(END, logObj.getData())
         self.logPanel.pack()
+        self.logPanel.configure(state='disabled')
         pass
 
     def update(self):
-        self.logPanel.insert(logObj.getLastEntry())
+        self.logPanel.configure(state='normal')
+        self.logPanel.insert(END, logObj.getLastEntry() + "\n")
+        self.logPanel.configure(state='disabled')
         pass
 
     def wrapper(self, fun):
-        fun()
+        fun
         self.update()
         pass
 
+    def makeHeadPitchThetaEntry(self):
+            self.headPitchTheta = Entry(frame)
+            self.headPitchTheta.pack()
+            self.headPitchTheta.delete(0, END)
+            self.headPitchTheta.insert(0, "0")
+            pass
+
+    def makeHeadPitchSpeedEntry(self):
+            self.headPitchSpeed = Entry(frame)
+            self.headPitchSpeed.pack()
+            self.headPitchSpeed.delete(0, END)
+            self.headPitchSpeed.insert(0, "0.5")
+            pass
 
 #gui = GUI()
