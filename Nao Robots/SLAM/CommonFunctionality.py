@@ -91,6 +91,7 @@ class CommonFunctionality:
     def landmark_check(self,roughNewLandmarkX,roughNewLandmarkY):
         
         threshold = 1 #Threshold value for euclidean distance between two landmarks
+        threshold = threshold*threshold
         
         indexFound = -1
         
@@ -98,7 +99,7 @@ class CommonFunctionality:
             landmark = self.landmarks[k]
             xDistance = math.pow(roughNewLandmarkX - landmark[0], 2)
             yDistance = math.pow(roughNewLandmarkY - landmark[1], 2)
-            if (math.sqrt(xDistance + yDistance) < threshold):
+            if ((xDistance + yDistance) < threshold):
                 # This means landmark is way too similar, so should just give it an existing index.
                 indexFound = k
         
