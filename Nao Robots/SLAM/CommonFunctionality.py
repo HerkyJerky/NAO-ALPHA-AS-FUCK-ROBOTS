@@ -84,6 +84,7 @@ class CommonFunctionality:
             roughYlandmark = initialY + yDistance
             index = self.landmark_check(roughXlandmark,roughYlandmark)
             roel_data.append([index,xDistance,yDistance])
+            
         
         return [gabi_data,roel_data]
     
