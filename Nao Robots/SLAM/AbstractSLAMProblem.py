@@ -117,35 +117,6 @@ class AbstractSLAMProblem:
         print 'Landmarks: ', self.landmarks
         print self
     
-        return data  
-    
-    def make_data(self,motion_array,measurement_array):
-        '''
-        This method is same as run_simulation but points are not random. I get data from Roel and others and put it in data
-        array which is used by graph slam algo. Structure of array is same as before. But I will try to think of some way
-        to deal with non square array thing. Idea is that, size of data array is size of motion array but we also append
-        landmarks to it. So, if we haven`t seen anything at that moment, we won`t update our matrix with any data about landmarks
-        but motion will still be updated. So, to summarize, every element of data is one whole step of motion and measurements.
-        As already mentioned at time step t, motion at t is data[t][1] and measurements of time step t is data[t][0]
-        '''
-        data = []
-        
-        # We do not need any randomness, so we will just go through arrays and add data
-        
-        numSteps = len(motion_array)
-        
-        # This part should be clarified, because I am not sure how data is going to be send around
-        # My assumption : measurement_array has measurement send from Roel but we update that array with newer one before sending it here where indices are specified as well
-        # For motion I assume it is an array that has dx and dy in it. Some preprocessing might be needed
-        # Preprocessing needed might be about addind data send by Gabi to history of motions in case Gabi sends only last motion.
-        
-        # For now this method just loops through two arrays and appends them in a way that was done before.
-        # This might need some altering.
-        
-        for k in range(numSteps):
-            
-            data.append([measurement_array[k],motion_array[k]])
-            
         return data
             
         
