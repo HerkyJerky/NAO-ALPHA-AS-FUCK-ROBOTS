@@ -67,7 +67,7 @@ def print_result(num_steps, num_landmarks, result):
     for i in range(num_landmarks):
         print '    ['+ ', '.join('%.3f'%x for x in result[2*(num_steps+i)]) + ', ' \
             + ', '.join('%.3f'%x for x in result[2*(num_steps+i)+1]) +']'
-  
+            
 '''
 This is the test case. I will just assume some numbers to check if it actually works
 ''' 

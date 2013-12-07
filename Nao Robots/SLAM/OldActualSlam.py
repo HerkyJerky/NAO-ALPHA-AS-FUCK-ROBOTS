@@ -171,13 +171,13 @@ This is the test case. I will just assume some numbers to check if it actually w
 '''        
 if __name__ == "__main__":
     import sys
-    N = 2
+    N = 20
     world_size = 100.0
     measurement_range = 50.0
-    distance = 3.0
-    num_landmarks = 0
-    measurement_noise = 1.0
-    motion_noise = 1.0
+    distance = 20.0
+    num_landmarks = 5
+    measurement_noise = 2.0
+    motion_noise = 2.0
     data = make_data(N,num_landmarks,world_size,measurement_range,motion_noise,measurement_noise,distance)
     a = slam(data,N,num_landmarks,motion_noise,measurement_noise, 50.0, 50.0)
     print_result(N,num_landmarks, a)
