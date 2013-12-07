@@ -76,14 +76,20 @@ class CommonFunctionality:
             initialY += dy*math.sin(orientation)
             
             #Processing Roel`s data which is of format [d(r,l),relAngle]
-            distanceToLand = roel_data[i][0]
-            relativeAngle = roel_data[i][1]
-            xDistance = distanceToLand * math.cos(relativeAngle)
-            yDistance = distanceToLand * math.sin(relativeAngle)
-            roughXlandmark = initialX + xDistance
-            roughYlandmark = initialY + yDistance
-            index = self.landmark_check(roughXlandmark,roughYlandmark)
-            roel_data.append([index,xDistance,yDistance])
+            
+            # Accessing data from time step i.
+            # It might have more than one sensed landmark, so we will loop through for each of them
+            
+            sense_data = roel_array[i]
+            for k in range(len(sense_data)):
+                distanceToLand = sense_data[k][0]
+                relativeAngle = sense_data[k][1]
+                xDistance = distanceToLand * math.cos(relativeAngle)
+                yDistance = distanceToLand * math.sin(relativeAngle)
+                roughXlandmark = initialX + xDistance
+                roughYlandmark = initialY + yDistance
+                index = self.landmark_check(roughXlandmark,roughYlandmark)
+                roel_data.append([index,xDistance,yDistance])
             
         
         return [gabi_data,roel_data]
