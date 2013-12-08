@@ -55,23 +55,25 @@ class CommonFunctionality:
             gabi_data = []
             roel_data = []
             motion_info = gabi_array[i]
-            type = motion_info[1]
+            motion_type = motion_info[1]
             #Only adding data from gabi if it is of type 3(move/rotate)
-            if (type == 3):
-                dx = motion_info[2]
-                dy = motion_info[3]
+            if (motion_type == 3):
+                forwardMove = motion_info[2]
+                sideMove = motion_info[3]
                 dtheta = motion_info[4]
                 orientation += dtheta
+                dx = forwardMove * math.cos(orientation) + sideMove * math.sin(orientation)
+                dy = forwardMove * math.sin(orientation) + sideMove * math.cos(orientation)
                 # If orientation is zero, then y might not change.
                 # This part is interesting. It basically says that, if there is no orientation, then y can not change?
                 # That just sounds silly to me. I guess it moves sideways, soo this code WILL/SHOULD CHANGE!!!
-                gabi_data.append([dx * math.cos(orientation),dy * math.sin(orientation)])
-                # TODO : do this!
-                # I PROBABLY HAVE TO CHANGE THIS PART AS IT DOES NOT MAKE SENSE MUCH, OTHERWISE REST WORKS
+                # Ok, changed it. Also, I think we should keep them as being dx and dy as cos and sin are already taken
+                # into account.
+                gabi_data.append([dx ,dy])
             #Keeping rough estimate of where we are for each step
             
-            initialX += dx*math.cos(orientation)
-            initialY += dy*math.sin(orientation)
+            initialX += dx
+            initialY += dy
             
             #Processing Roel`s data which is of format [d(r,l),relAngle]
             
@@ -82,8 +84,11 @@ class CommonFunctionality:
             for k in range(len(sense_data)):
                 distanceToLand = sense_data[k][0]
                 relativeAngle = sense_data[k][1]
-                xDistance = distanceToLand * math.cos(relativeAngle)
-                yDistance = distanceToLand * math.sin(relativeAngle)
+                # Added orientation to relative angle as I think it should be like this
+                # (As discussed with Dennis)
+                xDistance = distanceToLand * math.cos(relativeAngle + orientation)
+                yDistance = distanceToLand * math.sin(relativeAngle + orientation)
+                # Rough estimates of where landmark is (very rough)
                 roughXlandmark = initialX + xDistance
                 roughYlandmark = initialY + yDistance
                 index = self.landmark_check(roughXlandmark,roughYlandmark)
