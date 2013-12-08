@@ -82,9 +82,17 @@ Kalman gain K =     x_r      x_b
 q = movement error term (on command to move 1 unit, robot will move q extra or less)
     
 '''
-def ekfSlam(data, num_steps, motion_noise, measurement_noise_range, measurement_noise_bearing, initialX, initialY):
+def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_noise_range, measurement_noise_bearing, initialX, initialY):
     '''
     Runs EKF Slam algorithm on given data.
+    
+    Expected format of input:
+        motion_data is a 2 dimensional array where
+        motion_data[i] gives [time,action,dx,dy,dtheta,speed] at time-step i
+        
+        measurement_data is a 3 dimensional array where
+        measurement_data[i][j] gives [distance(robot, landmark), relative angle] 
+        measured at time-step i with respect to the j'th landmark observed at that time-step
     '''
     
     # TODO!!!!!!!!!!!!!!!!!!!!
@@ -95,7 +103,6 @@ def ekfSlam(data, num_steps, motion_noise, measurement_noise_range, measurement_
     '''
     RANGE_0_3 = range(0, 3)                         # we often need to loop through arrays/matrices with dimension of 3
     EYE_2 = numpy.eye(2)                            # 2x2 identity matrix
-    EYE_2_TRANSPOSE = numpy.transpose(EYE_2)        # 2x2 identity matrix transposed
     
     ''' 
     =============== INITIALIZATION =============== 
@@ -130,11 +137,12 @@ def ekfSlam(data, num_steps, motion_noise, measurement_noise_range, measurement_
     =============== LOOP THROUGH ALL TIME STEPS ===============
     '''
     for step in range(0, num_steps): 
-        iterationData = data.getIterationData(step)        # THIS FUNCTION DOESNT EXIST YET. Assumed to fetch data of the i'th timestep only
+        motion_data_step = motion_data[step]
+        measurement_data_step = measurement_data[step]
         
-        dxRobot = iterationData.dx
-        dyRobot = iterationData.dy
-        dthetaRobot = iterationData.dtheta
+        dthetaRobot = motion_data_step[4]
+        dxRobot = motion_data_step[2] * math.cos(X[2])
+        dyRobot = motion_data_step[3] * math.sin(X[2])
         
         X[0] = X[0] + dxRobot
         X[1] = X[1] + dyRobot
@@ -214,6 +222,13 @@ def ekfSlam(data, num_steps, motion_noise, measurement_noise_range, measurement_
             for j in range_3_dim:
                 P[i, j] = P_ri[i, j - 3]
                 
+        # figure out which landmarks were seen before and which landmarks are new
+        reobserved_landmarks = []
+        newly_observed_landmarks = []
+        
+        for i in range(len(measurement_data_step)):
+            
+                
         # =============== Step 2: Update state from re-observed landmarks ===============
         for i in iterationData.getReObservedLandmarks():
             '''
@@ -273,7 +288,7 @@ def ekfSlam(data, num_steps, motion_noise, measurement_noise_range, measurement_
             PH_transpose = numpy.dot(P, H_transpose)
             HPH_transpose = numpy.dot(H, PH_transpose)
             VR = numpy.dot(EYE_2, R)
-            VRV_transpose = numpy.dot(VR, EYE_2_TRANSPOSE)
+            VRV_transpose = numpy.dot(VR, EYE_2)            # EYE_2_TRANSPOSE = EYE_2
             LargeTermInBrackets = numpy.add(HPH_transpose, VRV_transpose)
             Inverse = numpy.linalg.inv(LargeTermInBrackets)
             
