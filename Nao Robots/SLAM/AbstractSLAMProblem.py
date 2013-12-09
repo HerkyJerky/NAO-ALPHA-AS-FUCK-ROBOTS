@@ -7,28 +7,38 @@ Created on 7 nov. 2013
 
 import random
 import math
+import numpy
+
+def rand_minus1_plus1(self):
+    """ returns a random number between -1.0 and 1.0 """
+    return random.random() * 2.0 - 1.0
 
 class AbstractSLAMProblem:
     
-    def __init__(self, world_size = 100.0, measurement_range = 30.0,
-                 motion_noise = 1.0, measurement_noise = 1.0, num_landmarks = 0, initialX = 0, initialY = 0):
+    def __init__(self, world_size = 100.0, measurement_range = 30.0, motion_noise = 1.0, 
+                 measurement_noise = 1.0, num_landmarks = 0, initialX = 0, initialY = 0, initialTheta = 0):
         """ Construct an Abstract SLAM Problem world """
         self.world_size = world_size
         self.measurement_range = measurement_range
         self.x = initialX
         self.y = initialY
+        self.theta = initialTheta
         self.motion_noise = motion_noise
         self.measurement_noise = measurement_noise
         self.landmarks = []
         self.num_landmarks = num_landmarks
         self.make_landmarks(num_landmarks)
+        self.true_robot_positions = [[self.x, self.y, self.theta]]
+        self.observed_motions = []
+        self.observed_measurements = []
         
     def make_landmarks(self, num_landmarks):
         """ Randomly places a given number of landmarks in the world """
-        self.landmarks = []
-        for i in range(num_landmarks):
-            self.landmarks.append([round(random.random() * self.world_size),
-                                   round(random.random() * self.world_size)])
+        self.landmarks = numpy.zeros((num_landmarks), 2)
+        for i in xrange(num_landmarks):
+            self.landmarks[i] = [round(rand_minus1_plus1() * self.world_size/2),
+                                   round(rand_minus1_plus1() * self.world_size/2)]
+
         self.num_landmarks = num_landmarks
         
     def moveRobot(self, dx, dy):
@@ -68,9 +78,47 @@ class AbstractSLAMProblem:
                 Z.append([i, dx, dy])
         return Z
     
-    def rand_minus1_plus1(self):
-        """ returns a random number between -1.0 and 1.0 """
-        return random.random() * 2.0 - 1.0
+    def run_simulation_dennis(self, num_steps, num_landmarks, world_size, 
+                              measurement_range, motion_noise, measurement_noise, distance):
+        '''
+        At every step, robot will attempt to move distance in whatever direction he's facing
+        
+        For every 1 unit distance the robot attempts to move, he'll move between -1 and 1 * motion_noise
+        extra
+        '''
+        self.observed_measurements = [None]*num_steps
+        
+        for i in xrange(num_steps):
+            # move robot
+            d = distance * (1 + (motion_noise * rand_minus1_plus1()))
+            dx = math.cos(self.theta) * d
+            dy = math.sin(self.theta) * d
+            x = self.x + dx
+            y = self.y + dy
+            
+            if(x > self.world_size/2 or y > self.world_size/2):
+                '''
+                movement determined above would result in moving out of the world
+                
+                So, instead we turn around 180 degrees, and dont move
+                '''
+                self.theta += math.pi
+                self.observed_motions.append([0, 0, 0, 0, math.pi, 0])
+            else:
+                # execute movement determined above, THEN turn a random amount
+                dtheta = rand_minus1_plus1 * math.pi
+                self.x += dx
+                self.y += dy
+                self.theta += dtheta
+                self.observed_motions.append([0, 0, dx, dy, dtheta, 0])
+                
+            self.true_robot_positions.append([self.x, self.y, self.theta])
+            
+            # now figure out landmark measurements
+            self.observed_measurements[i] = []
+            
+            for index in xrange(num_landmarks):
+                landmark = self.landmarks[index]
     
     def run_simulation(self, num_steps, num_landmarks, world_size, measurement_range, motion_noise, measurement_noise, distance):
         """
