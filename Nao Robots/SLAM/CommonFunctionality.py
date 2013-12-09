@@ -64,6 +64,8 @@ class CommonFunctionality:
                 orientation += dtheta
                 dx = forwardMove * math.cos(orientation) + sideMove * math.sin(orientation)
                 dy = forwardMove * math.sin(orientation) + sideMove * math.cos(orientation)
+                print dx
+                print dy
                 # If orientation is zero, then y might not change.
                 # This part is interesting. It basically says that, if there is no orientation, then y can not change?
                 # That just sounds silly to me. I guess it moves sideways, soo this code WILL/SHOULD CHANGE!!!
@@ -82,17 +84,19 @@ class CommonFunctionality:
             
             sense_data = roel_array[i]
             for k in range(len(sense_data)):
-                distanceToLand = sense_data[k][0]
-                relativeAngle = sense_data[k][1]
-                # Added orientation to relative angle as I think it should be like this
-                # (As discussed with Dennis)
-                xDistance = distanceToLand * math.cos(relativeAngle + orientation)
-                yDistance = distanceToLand * math.sin(relativeAngle + orientation)
-                # Rough estimates of where landmark is (very rough)
-                roughXlandmark = initialX + xDistance
-                roughYlandmark = initialY + yDistance
-                index = self.landmark_check(roughXlandmark,roughYlandmark)
-                roel_data.append([index,xDistance,yDistance])
+                one_sense = sense_data[k]
+                if (len(one_sense) != 0):
+                    distanceToLand = sense_data[k][0]
+                    relativeAngle = sense_data[k][1]
+                    # Added orientation to relative angle as I think it should be like this
+                    # (As discussed with Dennis)
+                    xDistance = distanceToLand * math.cos(relativeAngle + orientation)
+                    yDistance = distanceToLand * math.sin(relativeAngle + orientation)
+                    # Rough estimates of where landmark is (very rough)
+                    roughXlandmark = initialX + xDistance
+                    roughYlandmark = initialY + yDistance
+                    index = self.landmark_check(roughXlandmark,roughYlandmark)
+                    roel_data.append([index,xDistance,yDistance])
             result.append([roel_data,gabi_data])
             
         
@@ -118,7 +122,7 @@ class CommonFunctionality:
             self.landmarks.append([roughNewLandmarkX,roughNewLandmarkY])
             indexFound = len(self.landmarks) - 1
                 
-        return [indexFound]     
+        return indexFound     
     
     
 if __name__ == "__main__":
@@ -127,7 +131,7 @@ if __name__ == "__main__":
     # Structure of gabi array : [time,action,dx,dy,dtheta,speed]
     gabi_array = [[0,3,2,0,0,10],[1,3,0,2,0,10],[2,3,0,0,45,10],[3,3,4,0,0,10]] # Moves 2 towards x, 2 towards y, turn 45 degrees and goes 4 towards x in that direction.
     # Structure of roel array : [d(r,l),relAngle] of landmarks seen at time step t.
-    roel_array = [[[5,0],[3,0]],[[3,0],[1,0]],[[4,0]],[[4,0]]]
+    roel_array = [[[5,0],[3,0]],[[3,0],[1,0]],[[4,0]],[[]]]
     engine = CommonFunctionality()
     data = engine.make_data(gabi_array, roel_array)
     for k in range(len(data)):
