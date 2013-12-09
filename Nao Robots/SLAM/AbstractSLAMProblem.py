@@ -9,7 +9,9 @@ import random
 import math
 import numpy
 
-def rand_minus1_plus1(self):
+PRINT_RESULTS = True
+
+def rand_minus1_plus1():
     """ returns a random number between -1.0 and 1.0 """
     return random.random() * 2.0 - 1.0
 
@@ -34,7 +36,7 @@ class AbstractSLAMProblem:
         
     def make_landmarks(self, num_landmarks):
         """ Randomly places a given number of landmarks in the world """
-        self.landmarks = numpy.zeros((num_landmarks), 2)
+        self.landmarks = numpy.zeros((num_landmarks, 2))
         for i in xrange(num_landmarks):
             self.landmarks[i] = [round(rand_minus1_plus1() * self.world_size/2),
                                    round(rand_minus1_plus1() * self.world_size/2)]
@@ -93,6 +95,7 @@ class AbstractSLAMProblem:
             d = distance * (1 + (motion_noise * rand_minus1_plus1()))
             dx = math.cos(self.theta) * d
             dy = math.sin(self.theta) * d
+            dtheta = 0
             x = self.x + dx
             y = self.y + dy
             
@@ -102,15 +105,16 @@ class AbstractSLAMProblem:
                 
                 So, instead we turn around 180 degrees, and dont move
                 '''
-                self.theta += math.pi
-                self.observed_motions.append([0, 0, 0, 0, math.pi, 0])
+                dtheta = math.pi
+                self.theta += dtheta
+                self.observed_motions.append([0, 0, 0, 0, dtheta, 0])
             else:
                 # execute movement determined above, THEN turn a random amount
-                dtheta = rand_minus1_plus1 * math.pi
+                dtheta = rand_minus1_plus1() * math.pi
                 self.x += dx
                 self.y += dy
                 self.theta += dtheta
-                self.observed_motions.append([0, 0, dx, dy, dtheta, 0])
+                self.observed_motions.append([0, 0, d, 0, dtheta, 0])
                 
             self.true_robot_positions.append([self.x, self.y, self.theta])
             
@@ -119,6 +123,30 @@ class AbstractSLAMProblem:
             
             for index in xrange(num_landmarks):
                 landmark = self.landmarks[index]
+                
+                x_lm = landmark[0]
+                y_lm = landmark[1]
+                
+                dx = x_lm - self.x
+                dy = y_lm - self.y
+                
+                dist_to_lm = math.sqrt(dx*dx + dy*dy) * (1 + (measurement_noise * rand_minus1_plus1()))
+                        #     actual distance         * (            n o i s e     t e r m            )
+                
+                if dist_to_lm < measurement_range:
+                    rel_angle = math.atan2(dy, dx)
+                    self.observed_measurements[i].append([dist_to_lm, rel_angle])
+                    
+            if(PRINT_RESULTS):
+                print "STEP " + str(i) + ": "
+                print "    Robot moved " + str(d) + " ahead, and then rotated " + str(dtheta) + " radians."
+                
+                for index in xrange(len(self.observed_measurements[i])):
+                    landmark = self.observed_measurements[i][index]
+                    print "    Landmark detected at distance = " + str(landmark[0]) + ", relative angle = " + str(landmark[1])
+                
+                print ""
+                
     
     def run_simulation(self, num_steps, num_landmarks, world_size, measurement_range, motion_noise, measurement_noise, distance):
         """
@@ -166,6 +194,14 @@ class AbstractSLAMProblem:
         print self
     
         return data
-            
-        
-        
+    
+if __name__ == "__main__":
+    num_steps = 10
+    num_landmarks = 5
+    world_size = 75
+    measurement_range = 15
+    motion_noise = 0.1
+    measurement_noise = 0.1
+    distance = 5
+    problem = AbstractSLAMProblem(world_size, measurement_range, motion_noise, measurement_noise, num_landmarks)
+    problem.run_simulation_dennis(num_steps, num_landmarks, world_size, measurement_range, motion_noise, measurement_noise, distance)
