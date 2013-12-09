@@ -20,29 +20,19 @@ class CommonFunctionality:
         but motion will still be updated. So, to summarize, every element of data is one whole step of motion and measurements.
         As already mentioned at time step t, motion at t is data[t][1] and measurements of time step t is data[t][0]
         '''
-        
-        pre_processed = self.pre_process_data(motion_array,measurement_array,initialX,initialY)
-        
-        processed_motion_array = pre_processed[0]
-        processed_measurement_array = pre_processed[1]
-        
         data = []
+        
+        # Changed method so that it returns whole data array for once(without separations, it just puts all together)
+        data = self.pre_process_data(motion_array,measurement_array,initialX,initialY)
+        
             
         # We do not need any randomness, so we will just go through arrays and add data
-            
-        numSteps = len(processed_motion_array)
-            
+          
         # This part should be clarified, because I am not sure how data is going to be send around
         # My assumption : measurement_array has measurement send from Roel but we update that array with newer one before sending it here where indices are specified as well
         # For motion I assume it is an array that has dx and dy in it. Some preprocessing might be needed
         # Preprocessing needed might be about addind data send by Gabi to history of motions in case Gabi sends only last motion.
-            
-        # For now this method just loops through two arrays and appends them in a way that was done before.
-        # This might need some altering.
-            
-        for k in range(numSteps):
-                
-            data.append([processed_measurement_array[k],processed_motion_array[k]])
+  
                 
         return data
     
@@ -54,8 +44,7 @@ class CommonFunctionality:
         Information we get from gabi : [time,action,dx,dy,dtheta,speed]
         Information we get from roel : [d(r,l),relativeAngle]
         '''
-        gabi_data = []
-        roel_data = []
+        result = []
         orientation = 0;
         '''
         Processing of gabi`s informations.
@@ -63,17 +52,30 @@ class CommonFunctionality:
         and then I add new data to gabi_data array, adding last movement and I guess size of Gabi and Roel`s arrays are same
         '''
         for i in range(len(gabi_array)):
+            gabi_data = []
+            roel_data = []
             motion_info = gabi_array[i]
-            action = motion_info[1]
-            dx = motion_info[2]
-            dy = motion_info[3]
-            dtheta = motion_info[4]
-            orientation += dtheta
-            gabi_data.append([dx * math.cos(orientation),dy * math.sin(orientation)])
+            motion_type = motion_info[1]
+            #Only adding data from gabi if it is of type 3(move/rotate)
+            if (motion_type == 3):
+                forwardMove = motion_info[2]
+                sideMove = motion_info[3]
+                dtheta = motion_info[4]
+                orientation += dtheta
+                dx = forwardMove * math.cos(orientation) + sideMove * math.sin(orientation)
+                dy = forwardMove * math.sin(orientation) + sideMove * math.cos(orientation)
+                print dx
+                print dy
+                # If orientation is zero, then y might not change.
+                # This part is interesting. It basically says that, if there is no orientation, then y can not change?
+                # That just sounds silly to me. I guess it moves sideways, soo this code WILL/SHOULD CHANGE!!!
+                # Ok, changed it. Also, I think we should keep them as being dx and dy as cos and sin are already taken
+                # into account.
+                gabi_data.append([dx ,dy])
             #Keeping rough estimate of where we are for each step
             
-            initialX += dx*math.cos(orientation)
-            initialY += dy*math.sin(orientation)
+            initialX += dx
+            initialY += dy
             
             #Processing Roel`s data which is of format [d(r,l),relAngle]
             
@@ -82,17 +84,23 @@ class CommonFunctionality:
             
             sense_data = roel_array[i]
             for k in range(len(sense_data)):
-                distanceToLand = sense_data[k][0]
-                relativeAngle = sense_data[k][1]
-                xDistance = distanceToLand * math.cos(relativeAngle)
-                yDistance = distanceToLand * math.sin(relativeAngle)
-                roughXlandmark = initialX + xDistance
-                roughYlandmark = initialY + yDistance
-                index = self.landmark_check(roughXlandmark,roughYlandmark)
-                roel_data.append([index,xDistance,yDistance])
+                one_sense = sense_data[k]
+                if (len(one_sense) != 0):
+                    distanceToLand = sense_data[k][0]
+                    relativeAngle = sense_data[k][1]
+                    # Added orientation to relative angle as I think it should be like this
+                    # (As discussed with Dennis)
+                    xDistance = distanceToLand * math.cos(relativeAngle + orientation)
+                    yDistance = distanceToLand * math.sin(relativeAngle + orientation)
+                    # Rough estimates of where landmark is (very rough)
+                    roughXlandmark = initialX + xDistance
+                    roughYlandmark = initialY + yDistance
+                    index = self.landmark_check(roughXlandmark,roughYlandmark)
+                    roel_data.append([index,xDistance,yDistance])
+            result.append([roel_data,gabi_data])
             
         
-        return [gabi_data,roel_data]
+        return result
     
     def landmark_check(self,roughNewLandmarkX,roughNewLandmarkY):
         
@@ -114,4 +122,21 @@ class CommonFunctionality:
             self.landmarks.append([roughNewLandmarkX,roughNewLandmarkY])
             indexFound = len(self.landmarks) - 1
                 
-        return [indexFound]     
+        return indexFound     
+    
+    
+if __name__ == "__main__":
+    # This is the test case to see if data will be created correctly
+    
+    # Structure of gabi array : [time,action,dx,dy,dtheta,speed]
+    gabi_array = [[0,3,2,0,0,10],[1,3,0,2,0,10],[2,3,0,0,45,10],[3,3,4,0,0,10]] # Moves 2 towards x, 2 towards y, turn 45 degrees and goes 4 towards x in that direction.
+    # Structure of roel array : [d(r,l),relAngle] of landmarks seen at time step t.
+    roel_array = [[[5,0],[3,0]],[[3,0],[1,0]],[[4,0]],[[]]]
+    engine = CommonFunctionality()
+    data = engine.make_data(gabi_array, roel_array)
+    for k in range(len(data)):
+        print "Roel:"
+        print data[k][0]
+        print "Gabi:"
+        print data[k][1]
+    
