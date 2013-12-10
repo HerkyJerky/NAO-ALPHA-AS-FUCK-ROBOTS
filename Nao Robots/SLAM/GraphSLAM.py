@@ -9,7 +9,7 @@ from AbstractSLAMProblem import *
 from CommonFunctionality import *
 import numpy
 
-def graphSlam(data, N, num_landmarks_seen, motion_noise, measurement_noise, initialX, initialY):
+def graphSlam(data, N, num_landmarks_seen, motion_noise, measurement_noise, initialX = 0, initialY = 0):
     #dim = 2*(N + num_landmarks)
     
     # Initialize 2x2 zeros matrix to start with. Meaning one motion?
@@ -78,6 +78,25 @@ def print_result(num_steps, num_landmarks, result):
         print '    ['+ ', '.join('%.3f'%x for x in result[2*(num_steps+i)]) + ', ' \
             + ', '.join('%.3f'%x for x in result[2*(num_steps+i)+1]) +']'
             
+            
+def slam_experiment(num_steps, num_landmarks, world_size, 
+                              measurement_range, motion_noise, measurement_noise, distance):
+    # For now, I am asking for exactly the parameters that run_simulation_dennis method needs + world_size
+    simulation = AbstractSLAMProblem(world_size, measurement_range, motion_noise, measurement_noise, num_landmarks)  
+    # running the simulation
+    simulation.run_simulation_dennis(num_steps, num_landmarks, world_size, measurement_range, motion_noise, measurement_noise, distance) 
+    # Reading data after simulation
+    gabi_array = simulation.observed_motions
+    roel_array = simulation.observed_measurements
+    
+    engine = CommonFunctionality()
+    data = engine.make_data(gabi_array,roel_array)
+    
+    calculation_motion_noise = 2.0
+    calculation_measurement_noise = 2.0
+    mu = graphSlam(data,len(data),len(engine.landmark),calculation_motion_noise,calculation_measurement_noise)
+    
+    print_result(len(data),len(engine.landmarks),mu)       
 '''
 This is the test case. I will just assume some numbers to check if it actually works
 ''' 
