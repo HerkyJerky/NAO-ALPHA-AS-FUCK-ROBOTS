@@ -89,9 +89,11 @@ def slam_experiment(num_steps, num_landmarks, world_size,
     gabi_array = simulation.observed_motions
     roel_array = simulation.observed_measurements
     
+    # Creating engine for pre-processing and making data array
     engine = CommonFunctionality()
     data = engine.make_data(gabi_array,roel_array)
     
+    # Making calculations.
     calculation_motion_noise = 2.0
     calculation_measurement_noise = 2.0
     mu = graphSlam(data,len(data),len(engine.landmark),calculation_motion_noise,calculation_measurement_noise)
