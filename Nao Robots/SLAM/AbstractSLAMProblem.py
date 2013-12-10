@@ -99,7 +99,7 @@ class AbstractSLAMProblem:
             x = self.x + dx
             y = self.y + dy
             
-            if(x > self.world_size/2 or y > self.world_size/2):
+            if(abs(x) > self.world_size/2 or abs(y) > self.world_size/2):
                 '''
                 movement determined above would result in moving out of the world
                 
