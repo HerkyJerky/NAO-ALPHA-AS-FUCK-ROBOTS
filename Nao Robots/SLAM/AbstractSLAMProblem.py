@@ -134,7 +134,7 @@ class AbstractSLAMProblem:
                         #     actual distance         * (            n o i s e     t e r m            )
                 
                 if dist_to_lm < measurement_range:
-                    rel_angle = math.atan2(dy, dx)
+                    rel_angle = math.atan2(dy, dx)-self.theta
                     self.observed_measurements[i].append([dist_to_lm, rel_angle])
                     
             if(PRINT_RESULTS):
