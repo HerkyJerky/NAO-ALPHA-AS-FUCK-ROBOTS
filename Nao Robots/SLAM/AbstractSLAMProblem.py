@@ -9,7 +9,7 @@ import random
 import math
 import numpy
 
-PRINT_RESULTS = True
+PRINT_RESULTS = False
 
 def rand_minus1_plus1():
     """ returns a random number between -1.0 and 1.0 """
@@ -146,6 +146,8 @@ class AbstractSLAMProblem:
                     print "    Landmark detected at distance = " + str(landmark[0]) + ", relative angle = " + str(landmark[1])
                 
                 print ""
+                
+        return [self.true_robot_positions, self.landmarks, self.observed_motions, self.observed_measurements]
                 
     
     def run_simulation(self, num_steps, num_landmarks, world_size, measurement_range, motion_noise, measurement_noise, distance):

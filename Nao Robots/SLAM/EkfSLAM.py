@@ -503,18 +503,6 @@ def insertLandmark(x, y, X, reobserved_landmarks, newly_observed_landmarks):
     
     new_index = len(X) + len(newly_observed_landmarks)
     newly_observed_landmarks.append([x, y, new_index])
-    
-def print_result(num_steps, num_landmarks, result):
-    print
-    print 'Estimated Pose(s):'
-    for i in range(num_steps):
-        print '    ['+ ', '.join('%.3f'%x for x in result[2*i]) + ', ' \
-            + ', '.join('%.3f'%x for x in result[2*i+1]) +']'
-    print 
-    print 'Estimated Landmarks:'
-    for i in range(num_landmarks):
-        print '    ['+ ', '.join('%.3f'%x for x in result[2*(num_steps+i)]) + ', ' \
-            + ', '.join('%.3f'%x for x in result[2*(num_steps+i)+1]) +']'
             
 def printArray(args):
     print "\t".join(args)
@@ -536,42 +524,15 @@ def printSystemState(time_step, X):
 This is the test case. I will just assume some numbers to check if it actually works
 ''' 
 if __name__ == "__main__":
-    r = 90 * math.pi / 180      # 90 degrees converted to radians, named r for nice alignment in array declaration
-    
-    motion_data = [[0, 0, 5, 0, 0, 0],          # move 5 to the east
-                   [0, 0, 0, 0, r, 0],          # rotate 90 degrees  
-                   [0, 0, 5, 0, 0, 0],          # move 5 to the north
-                   [0, 0, 0, 0, r, 0],          # rotate 90 degrees
-                   [0, 0, 5, 0, 0, 0],          # move 5 to the west
-                   [0, 0, 0, 0, r, 0],          # rotate 90 degrees
-                   [0, 0, 5, 0, 0, 0],          # move 5 to the south
-                   [0, 0, 0, 0, r, 0]]          # rotate 90 degrees
-    
-    # after every movement, we observe exactly 1 landmark at a distance of 2, and relative angle of -45 degrees
-    # after every rotation, we observe nothing
-    
-    measurement_data = [[[2, -r/2]],
-                        [],
-                        [[2, -r/2]],
-                        [],
-                        [[2, -r/2]],
-                        [],
-                        [[2, -r/2]],
-                        []]
-    ekfSlam(motion_data, measurement_data, 8, 0.5, 0.5, 0.5, 0, 0)
-
-'''
-if __name__ == "__main__":
-    numSteps = 3
-    world_size = 100.0
-    measurement_range = 50.0
-    walkingDistancePerStep = 3.0
+    num_steps = 5
     num_landmarks = 2
-    measurement_noise = 1.0
-    motion_noise = 1.0
+    world_size = 75
+    measurement_range = 25
+    motion_noise = 0.1
+    measurement_noise = 0.1
+    distance = 5
     
-    problem = AbstractSLAMProblem(world_size, measurement_range, motion_noise, measurement_noise, num_landmarks);
-    data = problem.run_simulation(numSteps, num_landmarks, world_size, measurement_range, motion_noise, measurement_noise, walkingDistancePerStep);
-    mu = ekfSlam(data, numSteps, num_landmarks, motion_noise, measurement_noise, 50.0, 50.0)
-    print_result(numSteps,num_landmarks, mu)
-'''
+    problem = AbstractSLAMProblem(world_size, measurement_range, motion_noise, measurement_noise, num_landmarks)
+    data = problem.run_simulation_dennis(num_steps, num_landmarks, world_size, measurement_range, motion_noise, measurement_noise, distance)
+    
+    ekfSlam(data[2], data[3], num_steps, motion_noise, measurement_noise, measurement_noise, 0, 0)
