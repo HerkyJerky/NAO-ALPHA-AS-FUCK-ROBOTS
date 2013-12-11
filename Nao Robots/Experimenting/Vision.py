@@ -59,13 +59,12 @@ class Vision:
         yAngle = B + y/RESH * FOVVER
         yAngle = yAngle * DEG2RAD
         xAngle = xAngle * DEG2RAD
-        distance = HB * np.tan(yAngle)
-        distance = distance / np.cos(xAngle)
+        distance = HB * np.tan(yAngle) / np.cos(xAngle)
 
         return xAngle, distance
         pass
 
-
+#
 #vis = Vision()
 ##vis.takePic("selfie2")
 #print(vis.getDistanceFromLandMark(35, 100))
