@@ -10,7 +10,7 @@ import numpy;
 
 # The square root of the constant below is the minimum distance that needs to separate
 # 2 landmarks for the algorithm to treat them as being different landmarks
-ASSOCIATE_LANDMARK_THRESHOLD = 4.0
+ASSOCIATE_LANDMARK_THRESHOLD = 0.001
 
 '''
 Notes from: 
@@ -446,10 +446,6 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
             P[dim - 1, 1] = P_New[1, 1]
             P[dim - 1, 2] = P_New[1, 0]
             
-            # if this is the very first landmark we ever observe, we are actually already finished
-            if(num_landmarks_observed == 1):
-                continue
-            
             '''
             Add landmark to landmark covariance to the last 2 rows:
             
@@ -461,7 +457,7 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
             P_New = numpy.dot(Jxr, P_ri)
             
             # insert values
-            for col in range(3, dim - 2):
+            for col in range(3, dim - 3):
                 P[dim - 2, col] = P_New[0, col - 3]
                 P[dim - 1, col] = P_New[1, col - 3]
                 
@@ -471,9 +467,18 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
             P_New = numpy.transpose(P_New)
             
             # insert values
-            for row in range(3, dim - 2):
+            for row in range(3, dim - 3):
                 P[row, dim - 2] = P_New[row - 3, 0]
                 P[row, dim - 1] = P_New[row - 3, 1]
+                
+            # In case we see multiple landmarks in this single time-step, need to update P_ri now.
+            # TODO: Optimization! Should declare P_ri outside the very first loop through timesteps
+            P_ri = numpy.zeros((3, num_landmarks_observed*2))
+            range_3_dim = range(3, dim)
+            
+            for i in RANGE_0_3:
+                for j in range_3_dim:
+                    P_ri[i, j - 3] = P[i, j]       # fill P_ri with current values in Sigma
         
         # printSystemState(step, X)
         OUTPUT[step] = numpy.copy(X)
@@ -504,6 +509,7 @@ def insertLandmark(x, y, X, reobserved_landmarks, newly_observed_landmarks):
         
         if((dx*dx + dy*dy) <= ASSOCIATE_LANDMARK_THRESHOLD):
             reobserved_landmarks.append([x, y, i])
+            # print "LANDMARKS ASSOCIATED"
             return
     
     new_index = len(X) + len(newly_observed_landmarks)
@@ -529,13 +535,16 @@ def printSystemState(time_step, X):
 This is the test case. I will just assume some numbers to check if it actually works
 ''' 
 if __name__ == "__main__":
-    num_steps = 5
-    num_landmarks = 3
+    PRINT_ROBOT_LOCATIONS = False
+    PRINT_LANDMARK_LOCATIONS = True
+    
+    num_steps = 100
+    num_landmarks = 6
     world_size = 75
-    measurement_range = 25
-    motion_noise = 0.000005
-    measurement_noise = 0.00005
-    distance = 5
+    measurement_range = 50
+    motion_noise = 0.000001
+    measurement_noise = 0.00001
+    distance = 2
     
     problem = AbstractSLAMProblem(world_size, measurement_range, motion_noise, measurement_noise, num_landmarks)
     data = problem.run_simulation_dennis(num_steps, num_landmarks, world_size, measurement_range, motion_noise, measurement_noise, distance)
@@ -544,21 +553,32 @@ if __name__ == "__main__":
     
     true_robot_positions = data[0]
     
-    for step in xrange(num_steps):
-        X = results[step]
-        robot = true_robot_positions[step]
+    if PRINT_ROBOT_LOCATIONS:
+        for step in xrange(num_steps):
+            X = results[step]
+            robot = true_robot_positions[step]
+            
+            true_x = robot[0]
+            true_y = robot[1]
+            true_theta = robot[2]
+            
+            estimate_x = X[0]
+            estimate_y = X[1]
+            estimate_theta = X[2]
+            
+            print ""
+            print "STEP " + str(step)
+            print "True robot x = " + str(true_x) + ", estimated robot x = " + str(estimate_x)
+            print "True robot y = " + str(true_y) + ", estimated robot y = " + str(estimate_y)
+            print "True robot theta = " + str(true_theta) + ", estimated robot theta = " + str(estimate_theta)
+            print ""
+            
+    if PRINT_LANDMARK_LOCATIONS:
+        landmarks = data[1]
+        for i in xrange(len(landmarks)):
+            landmark = landmarks[i]
+            print "LANDMARK " + str(i) + " at: (" + str(landmark[0]) + ", " + str(landmark[1]) + ")"
         
-        true_x = robot[0]
-        true_y = robot[1]
-        true_theta = robot[2]
-        
-        estimate_x = X[0]
-        estimate_y = X[1]
-        estimate_theta = X[2]
-        
-        print ""
-        print "STEP " + str(step)
-        print "True robot x = " + str(true_x) + ", estimated robot x = " + str(estimate_x)
-        print "True robot y = " + str(true_y) + ", estimated robot y = " + str(estimate_y)
-        print "True robot theta = " + str(true_theta) + ", estimated robot theta = " + str(estimate_theta)
-        print ""
+        for step in xrange(num_steps):
+            X = results[step]
+            

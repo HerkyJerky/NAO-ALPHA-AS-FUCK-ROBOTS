@@ -106,7 +106,7 @@ class AbstractSLAMProblem:
                 
                 So, instead we turn around 180 degrees, and dont move
                 '''
-                dtheta = math.pi * (1 + (motion_noise * rand_minus1_plus1()))
+                dtheta = math.pi                                                # * (1 + (motion_noise * rand_minus1_plus1())) no noise here, for now
                 self.theta += dtheta
                 self.observed_motions.append([0, 0, 0, 0, math.pi, 0])
             else:
@@ -114,7 +114,7 @@ class AbstractSLAMProblem:
                 dtheta = rand_minus1_plus1() * math.pi
                 self.x += dx
                 self.y += dy
-                self.theta += dtheta * (1 + (motion_noise * rand_minus1_plus1()))
+                self.theta += dtheta                                            # * (1 + (motion_noise * rand_minus1_plus1())) no noise here, for now
                 self.observed_motions.append([0, 0, distance, 0, dtheta, 0])
                 
             self.true_robot_positions.append([self.x, self.y, self.theta])
