@@ -239,7 +239,7 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
         # to the next time-step
         if(len(measurement_data_step) == 0):
             # printSystemState(step, X)
-            OUTPUT[step] = X
+            OUTPUT[step] = numpy.copy(X)
             continue
                 
         # figure out which landmarks were seen before and which landmarks are new
@@ -476,7 +476,7 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
                 P[row, dim - 1] = P_New[row - 3, 1]
         
         # printSystemState(step, X)
-        OUTPUT[step] = X
+        OUTPUT[step] = numpy.copy(X)
         
     return OUTPUT
 
@@ -533,8 +533,8 @@ if __name__ == "__main__":
     num_landmarks = 0
     world_size = 75
     measurement_range = 25
-    motion_noise = 0.0001
-    measurement_noise = 0.0001
+    motion_noise = 0.1
+    measurement_noise = 0.1
     distance = 5
     
     problem = AbstractSLAMProblem(world_size, measurement_range, motion_noise, measurement_noise, num_landmarks)
