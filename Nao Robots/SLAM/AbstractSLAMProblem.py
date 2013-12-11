@@ -30,7 +30,7 @@ class AbstractSLAMProblem:
         self.landmarks = []
         self.num_landmarks = num_landmarks
         self.make_landmarks(num_landmarks)
-        self.true_robot_positions = [[self.x, self.y, self.theta]]
+        self.true_robot_positions = []
         self.observed_motions = []
         self.observed_measurements = []
         
