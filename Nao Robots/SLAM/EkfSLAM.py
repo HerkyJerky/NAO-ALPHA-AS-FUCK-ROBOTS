@@ -10,7 +10,7 @@ import numpy;
 
 # The square root of the constant below is the minimum distance that needs to separate
 # 2 landmarks for the algorithm to treat them as being different landmarks
-ASSOCIATE_LANDMARK_THRESHOLD = 0.001
+ASSOCIATE_LANDMARK_THRESHOLD = 0.00001
 
 '''
 Notes from: 
@@ -353,6 +353,7 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
             # X = X + K * (z - h)
             zMinh = numpy.subtract(z, h)
             K_zMinh = numpy.dot(K, zMinh)
+            printArray(K_zMinh, "K")
             X = numpy.add(X, K_zMinh)
             
         # =============== Step 3: Add new landmarks to the current state ===============
@@ -516,7 +517,8 @@ def insertLandmark(x, y, X, reobserved_landmarks, newly_observed_landmarks):
     newly_observed_landmarks.append([x, y, new_index])
             
 def printArray(args, name = ""):
-    print name + ": " + "\t".join(args)
+    print name + ":"
+    print(args)
     
 def printMatrix(matrix, matrix_name = ""):
     print ""
@@ -542,8 +544,8 @@ if __name__ == "__main__":
     num_landmarks = 6
     world_size = 75
     measurement_range = 50
-    motion_noise = 0.000001
-    measurement_noise = 0.00001
+    motion_noise = 0.1
+    measurement_noise = 0.1
     distance = 2
     
     problem = AbstractSLAMProblem(world_size, measurement_range, motion_noise, measurement_noise, num_landmarks)
@@ -578,7 +580,8 @@ if __name__ == "__main__":
         for i in xrange(len(landmarks)):
             landmark = landmarks[i]
             print "LANDMARK " + str(i) + " at: (" + str(landmark[0]) + ", " + str(landmark[1]) + ")"
+            print ""
         
-        for step in xrange(num_steps):
-            X = results[step]
-            
+        X = results[len(results) - 1]
+        for i in xrange(3, len(X), 2):
+            print "Landmark detected at (" + str(X[i]) + ", " + str(X[i+1]) + ")"
