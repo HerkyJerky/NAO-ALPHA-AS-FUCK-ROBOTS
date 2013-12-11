@@ -530,11 +530,11 @@ This is the test case. I will just assume some numbers to check if it actually w
 ''' 
 if __name__ == "__main__":
     num_steps = 5
-    num_landmarks = 0
+    num_landmarks = 3
     world_size = 75
     measurement_range = 25
-    motion_noise = 0.1
-    measurement_noise = 0.1
+    motion_noise = 0.000005
+    measurement_noise = 0.00005
     distance = 5
     
     problem = AbstractSLAMProblem(world_size, measurement_range, motion_noise, measurement_noise, num_landmarks)
