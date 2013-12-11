@@ -5,24 +5,25 @@ from naoqi import ALProxy
 import Image
 from Logger import Logger
 import math
+import vision_definitions
+import numpy as np
 
 robotIp = "192.168.200.16"
 port = 9559
 #global visionProxy
-resolution = 2    # VGA
-colorSpace = 11   # RGB
+#resolution = 2    # VGA
+resolution = vision_definitions.kQQVGA  # QQVGA (160 * 120)
+#colorSpace = 11   # RGB
+#colorSpace = vision_definitions. nt sure whats happening here
 logObj = Logger()
-
-
-# some constants that are maybe needed
 DEG2RAD = math.pi/180.0 # Convert Deg to Rad
 RAD2DEG = 180.0/math.pi # Convert Rad to Deg
-CAMERA_H_FOV=46.4*DEG2RAD # Horizontal field of view
-CAMERA_V_FOV=34.8*DEG2RAD # Vertical field of view
-CAMERA_FOV_BEND_COEFFICIENT=math.pow(math.sin(CAMERA_H_FOV/2.0), 2) # X-Coefficient for circle segments within FOV
-BALL_DIAM = 0.087
-RESW=640 #Capture width
-RESH=480 #Capture height
+CAMERA_H_FOV = 46.4 * DEG2RAD # Horizontal field of view
+CAMERA_V_FOV = 34.8 * DEG2RAD # Vertical field of view
+RESW = 160.0 #Capture width
+RESH = 120.0 #Capture height
+FOVHOR = 46.40 #"horizontal" field of view
+FOVVER = 34.80 #"vertical" field of view
 
 class Vision:
     def __init__(self):
@@ -30,7 +31,6 @@ class Vision:
         pass
 
     def takePic(self, name):
-        print("picture being taken...")
         videoClient = self.visionProxy.subscribe("python_client", resolution, colorSpace, 5)
         picture = self.visionProxy.getImageRemote(videoClient)
         self.visionProxy.unsubscribe(videoClient)
@@ -48,24 +48,24 @@ class Vision:
         logObj.logWrite(time.time().__str__() + "_6_0_0_0_0")
         pass
 
-    def getDistanceFromLandMark(self, x, y):
+    def getDistanceFromLandMark(self, x, y): # returns x Angle and the distance from the landmark in cm
 
+        B = 45 - 0.5 * FOVVER # angle between ground to bottom of image
+        HB = 53 # height of camera
+        x = RESW - x # rotation counter clockwise
+        x = x - RESW/2 # relative to center of image
+        xAngle = x/(RESW/2) * FOVHOR/2 # in degrees
+        y = RESH - y
+        yAngle = B + y/RESH * FOVVER
+        yAngle = yAngle * DEG2RAD
+        xAngle = xAngle * DEG2RAD
+        distance = HB * np.tan(yAngle)
+        distance = distance / np.cos(xAngle)
+
+        return xAngle, distance
         pass
 
 
-
-
-def getCoordinates(image, yaw, pitch):
-    x, y, w = processImage(image)
-    ry=math.sqrt(math.pow((RESH-y)/RESH, 2)+CAMERA_FOV_BEND_COEFFICIENT*math.pow((x/(RESW/2.0))-1.0, 2))
-    alpha=ry*CAMERA_V_FOV  # angle within camera view
-    beta=((math.pi/2.0) - (CAMERA_V_FOV/2.0)) - pitch[0]  # angle of lower bound of camera view
-    h = motion.getPosition("CameraTop", 2, True)
-    dist=h[2]*math.tan(alpha+beta)
-    angle=-yaw[0]+((x-(RESW/2.0))/RESW)*CAMERA_H_FOV  # calculate angle to object
-    ypos=-math.sin(angle)*dist  # calculate rel. y position
-    xpos=math.cos(angle)*dist  # calculate rel. x position
-    return xpos, ypos, angle
-
 #vis = Vision()
-#vis.takePic("selfie2")
+##vis.takePic("selfie2")
+#print(vis.getDistanceFromLandMark(35, 100))
