@@ -107,6 +107,7 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
     '''
     RANGE_0_3 = range(0, 3)                         # we often need to loop through arrays/matrices with dimension of 3
     EYE_2 = numpy.eye(2)                            # 2x2 identity matrix
+    OUTPUT = [None]*num_steps
     
     ''' 
     =============== INITIALIZATION =============== 
@@ -237,7 +238,8 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
         # Next, we're gonna look at landmarks. If no landmarks have been observed at all, we can already continue
         # to the next time-step
         if(len(measurement_data_step) == 0):
-            printSystemState(step, X)
+            # printSystemState(step, X)
+            OUTPUT[step] = X
             continue
                 
         # figure out which landmarks were seen before and which landmarks are new
@@ -473,7 +475,10 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
                 P[row, dim - 2] = P_New[row - 3, 0]
                 P[row, dim - 1] = P_New[row - 3, 1]
         
-        printSystemState(step, X)
+        # printSystemState(step, X)
+        OUTPUT[step] = X
+        
+    return OUTPUT
 
 def insertLandmark(x, y, X, reobserved_landmarks, newly_observed_landmarks):
     '''
@@ -504,8 +509,8 @@ def insertLandmark(x, y, X, reobserved_landmarks, newly_observed_landmarks):
     new_index = len(X) + len(newly_observed_landmarks)
     newly_observed_landmarks.append([x, y, new_index])
             
-def printArray(args):
-    print "\t".join(args)
+def printArray(args, name = ""):
+    print name + ": " + "\t".join(args)
     
 def printMatrix(matrix, matrix_name = ""):
     print ""
@@ -525,14 +530,35 @@ This is the test case. I will just assume some numbers to check if it actually w
 ''' 
 if __name__ == "__main__":
     num_steps = 5
-    num_landmarks = 2
+    num_landmarks = 0
     world_size = 75
     measurement_range = 25
-    motion_noise = 0.1
-    measurement_noise = 0.1
+    motion_noise = 0.0001
+    measurement_noise = 0.0001
     distance = 5
     
     problem = AbstractSLAMProblem(world_size, measurement_range, motion_noise, measurement_noise, num_landmarks)
     data = problem.run_simulation_dennis(num_steps, num_landmarks, world_size, measurement_range, motion_noise, measurement_noise, distance)
     
-    ekfSlam(data[2], data[3], num_steps, motion_noise, measurement_noise, measurement_noise, 0, 0)
+    results = ekfSlam(data[2], data[3], num_steps, motion_noise, measurement_noise, measurement_noise, 0, 0)
+    
+    true_robot_positions = data[0]
+    
+    for step in xrange(num_steps):
+        X = results[step]
+        robot = true_robot_positions[step]
+        
+        true_x = robot[0]
+        true_y = robot[1]
+        true_theta = robot[2]
+        
+        estimate_x = X[0]
+        estimate_y = X[1]
+        estimate_theta = X[2]
+        
+        print ""
+        print "STEP " + str(step)
+        print "True robot x = " + str(true_x) + ", estimated robot x = " + str(estimate_x)
+        print "True robot y = " + str(true_y) + ", estimated robot y = " + str(estimate_y)
+        print "True robot theta = " + str(true_theta) + ", estimated robot theta = " + str(estimate_theta)
+        print ""
