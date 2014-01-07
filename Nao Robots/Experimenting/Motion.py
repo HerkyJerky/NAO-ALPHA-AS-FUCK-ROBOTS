@@ -14,6 +14,9 @@ class Motion:
         self.motionProxy = ALProxy("ALMotion", robotIp, port)
         self.postureProxy = ALProxy("ALRobotPosture", robotIp, port)
         self.talkProxy = ALProxy("ALTextToSpeech", robotIp, port)
+        robotConfig = self.motionProxy.getRobotConfig()
+        for i in range(len(robotConfig[0])):
+            print robotConfig[0][i], ": ", robotConfig[1][i]
         pass
 
     # turn on stiffness of body
@@ -72,6 +75,8 @@ class Motion:
         logObj.logWrite(time.time().__str__() + "_8_{0}_0_0_0".format(word))
         pass
 
+
+    # head pitch: 81.15 degrees
     def moveHeadPitch(self, theta, speed):
         theta = float(theta)
         speed = float(speed)

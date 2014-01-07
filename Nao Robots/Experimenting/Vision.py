@@ -12,16 +12,16 @@ robotIp = "192.168.200.16"
 port = 9559
 #global visionProxy
 #resolution = 2    # VGA
-resolution = vision_definitions.kQQVGA  # QQVGA (160 * 120)
-#colorSpace = 11   # RGB
+resolution = vision_definitions.kQVGA  # QQVGA (160 * 120)
+colorSpace = 11   # RGB
 #colorSpace = vision_definitions. nt sure whats happening here
 logObj = Logger()
 DEG2RAD = math.pi/180.0 # Convert Deg to Rad
 RAD2DEG = 180.0/math.pi # Convert Rad to Deg
 CAMERA_H_FOV = 46.4 * DEG2RAD # Horizontal field of view
 CAMERA_V_FOV = 34.8 * DEG2RAD # Vertical field of view
-RESW = 160.0 #Capture width
-RESH = 120.0 #Capture height
+RESW = 320 #160.0 #Capture width
+RESH = 240 #120.0 #Capture height
 FOVHOR = 46.40 #"horizontal" field of view
 FOVVER = 34.80 #"vertical" field of view
 
@@ -48,9 +48,10 @@ class Vision:
         logObj.logWrite(time.time().__str__() + "_6_0_0_0_0")
         pass
 
+    # 6jan0.3-4 = 166 cm
     def getDistanceFromLandMark(self, x, y): # returns x Angle and the distance from the landmark in cm
-
-        B = 45 - 0.5 * FOVVER # angle between ground to bottom of image
+        angle  = 81.15
+        B = angle - 0.5 * FOVVER # angle between ground to bottom of image
         HB = 53 # height of camera
         x = RESW - x # rotation counter clockwise
         x = x - RESW/2 # relative to center of image

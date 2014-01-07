@@ -17,6 +17,8 @@ logObj = Logger()
 
 class GUI:
     def __init__(self):
+
+
         frame.pack_propagate(0)
         self.createbuttons()
         frame.pack()

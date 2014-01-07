@@ -12,6 +12,5 @@ class SlamStuff:
 
     def slam(self):
         # TODO Dennis and Taghi, fill in some beautiful code. penis.
-        
         logObj.logWrite(time.time().__str__() + "_7_0_0_0_0")
         pass
