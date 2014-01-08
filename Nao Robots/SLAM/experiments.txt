@@ -1,0 +1,60 @@
+SEE IF ROBOT POSITION WORKS WITHOUT NOISE AND LANDMARKS
+	num_steps = 100
+    num_landmarks = 0
+    world_size = 75
+    measurement_range = 50
+    motion_noise = 0.000001
+    measurement_noise = 0.00001
+    distance = 2
+    
+SEE IF ROBOT POSITION WORKS WITH NOISE
+	num_steps = 100
+    num_landmarks = 0
+    world_size = 75
+    measurement_range = 50
+    motion_noise = 0.1
+    measurement_noise = 0.1
+    distance = 2
+    
+SEE IF LANDMARK LOCALIZATION WORKS WITHOUT LANDMARK ASSOCIATION
+	ASSOCIATE_LANDMARK_THRESHOLD = 0.0			<<< TAGHI NOTE! >>> This threshold I use is the squared version of normal distance threshold.. so I compare this directly to the squared distance
+	num_steps = 100
+    num_landmarks = 6
+    world_size = 75
+    measurement_range = 50
+    motion_noise = 0.000001
+    measurement_noise = 0.00001
+    distance = 2
+    
+SEE IF LANDMARK LOCALIZATION WORKS WITH LANDMARK ASSOCIATION SUPER SMALL THRESHOLD
+	ASSOCIATE_LANDMARK_THRESHOLD = 0.001
+	num_steps = 100
+    num_landmarks = 6
+    world_size = 75
+    measurement_range = 50
+    motion_noise = 0.000001
+    measurement_noise = 0.00001
+    distance = 2
+    
+INCREASE THRESHOLD
+	ASSOCIATE_LANDMARK_THRESHOLD = 0.1
+	num_steps = 100
+    num_landmarks = 6
+    world_size = 75
+    measurement_range = 50
+    motion_noise = 0.000001
+    measurement_noise = 0.00001
+    distance = 2
+    
+INCREASE THRESHOLD AGAIN
+	ASSOCIATE_LANDMARK_THRESHOLD = 1.0
+	num_steps = 100
+    num_landmarks = 6
+    world_size = 75
+    measurement_range = 50
+    motion_noise = 0.000001
+    measurement_noise = 0.00001
+    distance = 2
+    
+    
+MAYBE ALSO DO THE ABOVE 3 WITH NOISE?

@@ -9,7 +9,7 @@ import random
 import math
 import numpy
 
-PRINT_RESULTS = True
+PRINT_RESULTS = False
 
 def rand_minus1_plus1():
     """ returns a random number between -1.0 and 1.0 """
@@ -30,7 +30,7 @@ class AbstractSLAMProblem:
         self.landmarks = []
         self.num_landmarks = num_landmarks
         self.make_landmarks(num_landmarks)
-        self.true_robot_positions = [[self.x, self.y, self.theta]]
+        self.true_robot_positions = []
         self.observed_motions = []
         self.observed_measurements = []
         
@@ -95,6 +95,7 @@ class AbstractSLAMProblem:
             d = distance * (1 + (motion_noise * rand_minus1_plus1()))
             dx = math.cos(self.theta) * d
             dy = math.sin(self.theta) * d
+            
             dtheta = 0
             x = self.x + dx
             y = self.y + dy
@@ -105,16 +106,16 @@ class AbstractSLAMProblem:
                 
                 So, instead we turn around 180 degrees, and dont move
                 '''
-                dtheta = math.pi
+                dtheta = math.pi                                                # * (1 + (motion_noise * rand_minus1_plus1())) no noise here, for now
                 self.theta += dtheta
-                self.observed_motions.append([0, 0, 0, 0, dtheta, 0])
+                self.observed_motions.append([0, 0, 0, 0, math.pi, 0])
             else:
                 # execute movement determined above, THEN turn a random amount
                 dtheta = rand_minus1_plus1() * math.pi
                 self.x += dx
                 self.y += dy
-                self.theta += dtheta
-                self.observed_motions.append([0, 0, d, 0, dtheta, 0])
+                self.theta += dtheta                                            # * (1 + (motion_noise * rand_minus1_plus1())) no noise here, for now
+                self.observed_motions.append([0, 0, distance, 0, dtheta, 0])
                 
             self.true_robot_positions.append([self.x, self.y, self.theta])
             
@@ -146,6 +147,8 @@ class AbstractSLAMProblem:
                     print "    Landmark detected at distance = " + str(landmark[0]) + ", relative angle = " + str(landmark[1])
                 
                 print ""
+                
+        return [self.true_robot_positions, self.landmarks, self.observed_motions, self.observed_measurements]
                 
     
     def run_simulation(self, num_steps, num_landmarks, world_size, measurement_range, motion_noise, measurement_noise, distance):

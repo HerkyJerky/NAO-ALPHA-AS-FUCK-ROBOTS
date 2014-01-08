@@ -8,8 +8,9 @@ import math
 
 class CommonFunctionality:
     
-    def __init__(self):
+    def __init__(self,error = 0.25):
         self.landmarks = []
+        self.threshold_landmark_error = error
     
     def make_data(self,motion_array,measurement_array,initialX = 0,initialY = 0):
         '''
@@ -55,23 +56,19 @@ class CommonFunctionality:
             gabi_data = []
             roel_data = []
             motion_info = gabi_array[i]
-            motion_type = motion_info[1]
             #Only adding data from gabi if it is of type 3(move/rotate)
-            if (motion_type == 3):
-                forwardMove = motion_info[2]
-                sideMove = motion_info[3]
-                dtheta = motion_info[4]
-                orientation += dtheta
-                dx = forwardMove * math.cos(orientation) + sideMove * math.sin(orientation)
-                dy = forwardMove * math.sin(orientation) + sideMove * math.cos(orientation)
-                print dx
-                print dy
-                # If orientation is zero, then y might not change.
-                # This part is interesting. It basically says that, if there is no orientation, then y can not change?
-                # That just sounds silly to me. I guess it moves sideways, soo this code WILL/SHOULD CHANGE!!!
-                # Ok, changed it. Also, I think we should keep them as being dx and dy as cos and sin are already taken
-                # into account.
-                gabi_data.append([dx ,dy])
+            forwardMove = motion_info[2]
+            sideMove = motion_info[3]
+            dtheta = motion_info[4]
+            orientation += dtheta
+            dx = forwardMove * math.cos(orientation) + sideMove * math.sin(orientation)
+            dy = forwardMove * math.sin(orientation) + sideMove * math.cos(orientation)
+            # If orientation is zero, then y might not change.
+            # This part is interesting. It basically says that, if there is no orientation, then y can not change?
+            # That just sounds silly to me. I guess it moves sideways, soo this code WILL/SHOULD CHANGE!!!
+            # Ok, changed it. Also, I think we should keep them as being dx and dy as cos and sin are already taken
+            # into account.
+            gabi_data.append([dx ,dy])
             #Keeping rough estimate of where we are for each step
             
             initialX += dx
@@ -104,16 +101,13 @@ class CommonFunctionality:
     
     def landmark_check(self,roughNewLandmarkX,roughNewLandmarkY):
         
-        threshold = 1 #Threshold value for euclidean distance between two landmarks
-        threshold = threshold*threshold
-        
         indexFound = -1
         
         for k in range(len(self.landmarks)):
             landmark = self.landmarks[k]
             xDistance = math.pow(roughNewLandmarkX - landmark[0], 2)
             yDistance = math.pow(roughNewLandmarkY - landmark[1], 2)
-            if ((xDistance + yDistance) < threshold):
+            if ((xDistance + yDistance) <= self.threshold_landmark_error):
                 # This means landmark is way too similar, so should just give it an existing index.
                 indexFound = k
         

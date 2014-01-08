@@ -10,7 +10,7 @@ import numpy;
 
 # The square root of the constant below is the minimum distance that needs to separate
 # 2 landmarks for the algorithm to treat them as being different landmarks
-ASSOCIATE_LANDMARK_THRESHOLD = 4.0
+ASSOCIATE_LANDMARK_THRESHOLD = 0.0001
 
 '''
 Notes from: 
@@ -85,7 +85,7 @@ Kalman gain K =     x_r      x_b
     
 q = movement error term (on command to move 1 unit, robot will move q extra or less)
     
-'''
+''' 
 def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_noise_range, measurement_noise_bearing, initialX, initialY):
     '''
     Runs EKF Slam algorithm on given data.
@@ -107,6 +107,7 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
     '''
     RANGE_0_3 = range(0, 3)                         # we often need to loop through arrays/matrices with dimension of 3
     EYE_2 = numpy.eye(2)                            # 2x2 identity matrix
+    OUTPUT = [None]*num_steps
     
     ''' 
     =============== INITIALIZATION =============== 
@@ -133,7 +134,6 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
     '''
     A: Jacobian of the prediction model. Initialized as 3x3 Identity matrix
     '''
-        
     A = numpy.eye(3)
         
     '''
@@ -145,7 +145,7 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
         
         dForwards = motion_data_step[2]
         dSideways = motion_data_step[3]
-        dthetaRobot = motion_data_step[4]
+        dthetaRobot = normalizeAngle(motion_data_step[4])
         
         theta = X[2]
         sin_theta = math.sin(theta)
@@ -154,39 +154,11 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
         dxRobot = dForwards * cos_theta + dSideways * sin_theta
         dyRobot = dForwards * sin_theta + dSideways * cos_theta
         
-        theta = theta + dthetaRobot
+        theta = normalizeAngle(theta + dthetaRobot)
         
         X[0] = X[0] + dxRobot
         X[1] = X[1] + dyRobot
         X[2] = theta
-        
-        distanceTravelled = math.sqrt(dxRobot*dxRobot + dyRobot*dyRobot)
-        
-        '''
-        Jxr = Jacobian of prediction of landmarks without prediction of theta, with respect to robot state =
-            
-            1    0    -dyRobot
-            0    1     dxRobot
-                
-        Jz = Jacobian of prediction model for landmarks with respect to range and bearing =
-            
-            cos(theta + dthetaRobot)    -distanceTravelled * sin(theta + dthetaRobot)
-            sin(theta + dthetaRobot)     distanceTravelled * cos(theta + dthetaRobot)
-            
-        Pre-computing these matrices since we'll be re-using them in a for-loop in step 3
-        '''
-        Jxr = [[1, 0, -dyRobot],
-               [0, 1, dxRobot]]
-        
-        # recomputing sin_theta and cos_theta, this time with dtheta included
-        cos_theta = math.cos(theta)
-        sin_theta = math.sin(theta)
-            
-        Jz = [[cos_theta, -distanceTravelled*sin_theta],
-              [sin_theta, distanceTravelled*cos_theta]]
-        
-        Jxr_transpose = numpy.transpose(Jxr)
-        Jz_transpose = numpy.transpose(Jz)
         
         # =============== Step 1: Update current state using the odometry data ===============
         
@@ -237,7 +209,8 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
         # Next, we're gonna look at landmarks. If no landmarks have been observed at all, we can already continue
         # to the next time-step
         if(len(measurement_data_step) == 0):
-            printSystemState(step, X)
+            # printSystemState(step, X)
+            OUTPUT[step] = numpy.copy(X)
             continue
                 
         # figure out which landmarks were seen before and which landmarks are new
@@ -259,14 +232,14 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
             
             distance = data_landmark[0]
             relativeAngle = data_landmark[1]
-            angle = theta + relativeAngle
+            angle = normalizeAngle(theta + relativeAngle)
             xDistance = distance * math.cos(angle)
             yDistance = distance * math.sin(angle)
             
             landmark_x = X[0] + xDistance
             landmark_y = X[1] + yDistance
             
-            insertLandmark(landmark_x, landmark_y, X, reobserved_landmarks, newly_observed_landmarks)
+            insertLandmark(landmark_x, landmark_y, X, reobserved_landmarks, newly_observed_landmarks, distance, relativeAngle)
                 
         # =============== Step 2: Update state from re-observed landmarks ===============
         for i in xrange(len(reobserved_landmarks)):
@@ -298,7 +271,7 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
             H_A = dx / r 
             H_B = dy / r 
             H_D = -dy / rSquared
-            H_E = -dx / rSquared
+            H_E = dx / rSquared         # SLAM for dummies had a minus in front of this, 2 other sources don't
             
             H = numpy.zeros((2, dim))
             H[0, 0] = H_A
@@ -342,16 +315,23 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
             
             # technically should subtract robot's theta from both values below, but since we only use these
             # variables by subtracting them from each other, those terms will cancel out. OPTIMIZATION FTW!!
-            bearingPrevious = math.atan2(dy, dx)        # -X[3]
-            bearingNew = math.atan2(dyNew, dxNew)       # -X[3]
+            bearingPrevious = normalizeAngle(math.atan2(dy, dx))          # -X[2]
+            bearingNew = normalizeAngle(math.atan2(dyNew, dxNew))         # -X[2]
             
             z = [r, bearingPrevious]
             h = [rNew, bearingNew]
             
             # X = X + K * (z - h)
             zMinh = numpy.subtract(z, h)
+            print "z - h = [" + str(zMinh[0]) + ", " + str(zMinh[1]) + "]"
             K_zMinh = numpy.dot(K, zMinh)
             X = numpy.add(X, K_zMinh)
+            X[2] = normalizeAngle(X[2])
+            
+            # P = (I - K * H) * P
+            EYE = numpy.eye(dim)
+            KH = numpy.dot(K, H)
+            P = numpy.dot(  numpy.subtract(EYE, KH),    P   )
             
         # =============== Step 3: Add new landmarks to the current state ===============
         for i in xrange(len(newly_observed_landmarks)):
@@ -364,6 +344,9 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
             x = landmark[0]
             y = landmark[1]
             X = numpy.append(X, [x, y])
+            
+            r = landmark[3]
+            bearing = landmark[4]
             
             '''
             Compute covariance for the new landmark and insert it in lower right corner of P
@@ -378,10 +361,24 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
             '''
             dx = X[0] - x
             dy = X[1] - y
-            r = math.sqrt(dx*dx + dy*dy)
             
             R = [[r*measurement_noise_range,                         0],
                  [                        0, measurement_noise_bearing]]
+            
+            theta_plus_bearing = theta + bearing
+            sin_theta_plus_bearing = math.sin(theta_plus_bearing)
+            cos_theta_plus_bearing = math.cos(theta_plus_bearing)
+            r_sin = r*sin_theta_plus_bearing
+            r_cos = r*cos_theta_plus_bearing
+            
+            Jxr = [[1, 0, -r_sin],
+                   [0, 1, r_cos]]
+                
+            Jz = [[cos_theta_plus_bearing, -r_sin],
+                  [sin_theta_plus_bearing, r_cos]]
+            
+            Jxr_transpose = numpy.transpose(Jxr)
+            Jz_transpose = numpy.transpose(Jz)
             
             # executing matrix multiplications one by one to avoid long line with lots of brackets.
             # re-using the same variables to save memory
@@ -444,10 +441,6 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
             P[dim - 1, 1] = P_New[1, 1]
             P[dim - 1, 2] = P_New[1, 0]
             
-            # if this is the very first landmark we ever observe, we are actually already finished
-            if(num_landmarks_observed == 1):
-                continue
-            
             '''
             Add landmark to landmark covariance to the last 2 rows:
             
@@ -459,7 +452,7 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
             P_New = numpy.dot(Jxr, P_ri)
             
             # insert values
-            for col in range(3, dim - 2):
+            for col in range(3, dim - 3):
                 P[dim - 2, col] = P_New[0, col - 3]
                 P[dim - 1, col] = P_New[1, col - 3]
                 
@@ -469,13 +462,25 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
             P_New = numpy.transpose(P_New)
             
             # insert values
-            for row in range(3, dim - 2):
+            for row in range(3, dim - 3):
                 P[row, dim - 2] = P_New[row - 3, 0]
                 P[row, dim - 1] = P_New[row - 3, 1]
+                
+            # In case we see multiple landmarks in this single time-step, need to update P_ri now.
+            # TODO: Optimization! Should declare P_ri outside the very first loop through timesteps
+            P_ri = numpy.zeros((3, num_landmarks_observed*2))
+            range_3_dim = range(3, dim)
+            
+            for i in RANGE_0_3:
+                for j in range_3_dim:
+                    P_ri[i, j - 3] = P[i, j]       # fill P_ri with current values in Sigma
         
-        printSystemState(step, X)
+        # printSystemState(step, X)
+        OUTPUT[step] = numpy.copy(X)
+        
+    return OUTPUT
 
-def insertLandmark(x, y, X, reobserved_landmarks, newly_observed_landmarks):
+def insertLandmark(x, y, X, reobserved_landmarks, newly_observed_landmarks, r, bearing):
     '''
     Inserts a landmark observed at position (x, y) in either the array reobsered_landmarks
     if it was observed before, or newly_observed_landmarks if it was not observed before.
@@ -483,7 +488,7 @@ def insertLandmark(x, y, X, reobserved_landmarks, newly_observed_landmarks):
     Uses current state vector X to compare to previously seen landmarks.
     
     Landmarks will be inserted into the correct array in the following format:
-    landmark = [measured_x, measured_y, landmark_index]
+    landmark = [measured_x, measured_y, landmark_index, range, bearing]
     
     The lowest landmark_index possible is 3. A landmark_index will indicate where the 
     first piece of data for that landmark can be found in the X vector. This means
@@ -498,26 +503,34 @@ def insertLandmark(x, y, X, reobserved_landmarks, newly_observed_landmarks):
         dy = y - y_other
         
         if((dx*dx + dy*dy) <= ASSOCIATE_LANDMARK_THRESHOLD):
-            reobserved_landmarks.append([x, y, i])
+            reobserved_landmarks.append([x, y, i, r, bearing])
+            # print "LANDMARKS ASSOCIATED"
             return
     
     new_index = len(X) + len(newly_observed_landmarks)
-    newly_observed_landmarks.append([x, y, new_index])
+    newly_observed_landmarks.append([x, y, new_index, r, bearing])
     
-def print_result(num_steps, num_landmarks, result):
-    print
-    print 'Estimated Pose(s):'
-    for i in range(num_steps):
-        print '    ['+ ', '.join('%.3f'%x for x in result[2*i]) + ', ' \
-            + ', '.join('%.3f'%x for x in result[2*i+1]) +']'
-    print 
-    print 'Estimated Landmarks:'
-    for i in range(num_landmarks):
-        print '    ['+ ', '.join('%.3f'%x for x in result[2*(num_steps+i)]) + ', ' \
-            + ', '.join('%.3f'%x for x in result[2*(num_steps+i)+1]) +']'
+TWO_PI = math.pi*2
+    
+'''
+Returns a given angle theta, normalized to lie in [-pi, pi]
+'''
+def normalizeAngle(theta):
+    theta = theta % TWO_PI
+    
+    if(theta >= 0):
+        if(theta < math.pi):
+            return theta
+        else:
+            return theta - TWO_PI
+    elif(theta >= -math.pi):
+        return theta
+    else:
+        return theta + TWO_PI
             
-def printArray(args):
-    print "\t".join(args)
+def printArray(args, name = ""):
+    print name + ":"
+    print(args)
     
 def printMatrix(matrix, matrix_name = ""):
     print ""
@@ -536,42 +549,84 @@ def printSystemState(time_step, X):
 This is the test case. I will just assume some numbers to check if it actually works
 ''' 
 if __name__ == "__main__":
-    r = 90 * math.pi / 180      # 90 degrees converted to radians, named r for nice alignment in array declaration
+    PRINT_ROBOT_LOCATIONS = True
+    PRINT_ROBOT_LOCATION_ERRORS = False
+    ERROR_THRESHOLD = 0.5
+    PRINT_LANDMARK_LOCATIONS = True
     
-    motion_data = [[0, 0, 5, 0, 0, 0],          # move 5 to the east
-                   [0, 0, 0, 0, r, 0],          # rotate 90 degrees  
-                   [0, 0, 5, 0, 0, 0],          # move 5 to the north
-                   [0, 0, 0, 0, r, 0],          # rotate 90 degrees
-                   [0, 0, 5, 0, 0, 0],          # move 5 to the west
-                   [0, 0, 0, 0, r, 0],          # rotate 90 degrees
-                   [0, 0, 5, 0, 0, 0],          # move 5 to the south
-                   [0, 0, 0, 0, r, 0]]          # rotate 90 degrees
+    num_steps = 50
+    num_landmarks = 3
+    world_size = 75
+    measurement_range = 25
+    motion_noise = 0.01
+    measurement_noise = 0.01
+    distance = 2
     
-    # after every movement, we observe exactly 1 landmark at a distance of 2, and relative angle of -45 degrees
-    # after every rotation, we observe nothing
+    problem = AbstractSLAMProblem(world_size, measurement_range, 0.01, 0.01, num_landmarks)
+    data = problem.run_simulation_dennis(num_steps, num_landmarks, world_size, measurement_range, 0.01, 0.01, distance)
     
-    measurement_data = [[[2, -r/2]],
-                        [],
-                        [[2, -r/2]],
-                        [],
-                        [[2, -r/2]],
-                        [],
-                        [[2, -r/2]],
-                        []]
-    ekfSlam(motion_data, measurement_data, 8, 0.5, 0.5, 0.5, 0, 0)
-
-'''
-if __name__ == "__main__":
-    numSteps = 3
-    world_size = 100.0
-    measurement_range = 50.0
-    walkingDistancePerStep = 3.0
-    num_landmarks = 2
-    measurement_noise = 1.0
-    motion_noise = 1.0
+    results = ekfSlam(data[2], data[3], num_steps, motion_noise, measurement_noise, measurement_noise, 0, 0)
     
-    problem = AbstractSLAMProblem(world_size, measurement_range, motion_noise, measurement_noise, num_landmarks);
-    data = problem.run_simulation(numSteps, num_landmarks, world_size, measurement_range, motion_noise, measurement_noise, walkingDistancePerStep);
-    mu = ekfSlam(data, numSteps, num_landmarks, motion_noise, measurement_noise, 50.0, 50.0)
-    print_result(numSteps,num_landmarks, mu)
-'''
+    true_robot_positions = data[0]
+    
+    if PRINT_ROBOT_LOCATIONS:
+        for step in xrange(num_steps):
+            X = results[step]
+            robot = true_robot_positions[step]
+            
+            true_x = robot[0]
+            true_y = robot[1]
+            true_theta = normalizeAngle(robot[2])
+            
+            estimate_x = X[0]
+            estimate_y = X[1]
+            estimate_theta = X[2]
+            
+            print ""
+            print "STEP " + str(step)
+            print "True robot x = " + str(true_x) + ", estimated robot x = " + str(estimate_x)
+            print "True robot y = " + str(true_y) + ", estimated robot y = " + str(estimate_y)
+            print "True robot theta = " + str(true_theta) + ", estimated robot theta = " + str(estimate_theta)
+            
+            for i in xrange(3, len(X), 2):
+                print "Landmark " + str(i - 3) + ": ( " + str(X[i]) + ", " + str(X[i+1]) + ")"
+            
+            print ""
+            
+    if PRINT_ROBOT_LOCATION_ERRORS:
+        for step in xrange(num_steps):
+            X = results[step]
+            robot = true_robot_positions[step]
+            
+            true_x = robot[0]
+            true_y = robot[1]
+            true_theta = normalizeAngle(robot[2])
+            
+            estimate_x = X[0]
+            estimate_y = X[1]
+            estimate_theta = X[2]
+            
+            error_x = true_x - estimate_x
+            error_y = true_y - estimate_y
+            error_theta = true_theta - estimate_theta
+            
+            print ""
+            print "STEP " + str(step)
+            if(abs(error_x) >= ERROR_THRESHOLD):
+                print "ERROR ABOVE THRESHOLD! True robot x = " + str(true_x) + ", estimated robot x = " + str(estimate_x)
+            if(abs(error_y) >= ERROR_THRESHOLD):
+                print "ERROR ABOVE THRESHOLD! True robot y = " + str(true_y) + ", estimated robot y = " + str(estimate_y)
+            if(abs(error_theta) >= ERROR_THRESHOLD):
+                print "ERROR ABOVE THRESHOLD! True robot theta = " + str(true_theta) + ", estimated robot theta = " + str(estimate_theta)
+            print ""
+            
+    if PRINT_LANDMARK_LOCATIONS:
+        landmarks = data[1]
+        for i in xrange(len(landmarks)):
+            landmark = landmarks[i]
+            print "LANDMARK " + str(i) + " at: (" + str(landmark[0]) + ", " + str(landmark[1]) + ")"
+            print ""
+        
+        X = results[len(results) - 1]
+        for i in xrange(3, len(X), 2):
+            print "Landmark detected at (" + str(X[i]) + ", " + str(X[i+1]) + ")"
