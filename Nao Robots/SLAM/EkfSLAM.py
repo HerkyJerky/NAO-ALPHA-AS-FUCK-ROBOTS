@@ -92,7 +92,7 @@ def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_
     
     Expected format of input:
         motion_data is a 2 dimensional array where
-        motion_data[i] gives [time,action,dx,dy,dtheta,speed] at time-step i
+        motion_data[i] gives [time,action,dForwards,dSideways,dtheta,speed] at time-step i
         
         measurement_data is a 3 dimensional array where
         measurement_data[i][j] gives [distance(robot, landmark), relative angle] 
