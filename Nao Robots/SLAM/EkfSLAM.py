@@ -7,10 +7,40 @@ Created on 7 nov. 2013
 from AbstractSLAMProblem import AbstractSLAMProblem;
 import math;
 import numpy;
+import SLAM;
 
 # The square root of the constant below is the minimum distance that needs to separate
 # 2 landmarks for the algorithm to treat them as being different landmarks
 ASSOCIATE_LANDMARK_THRESHOLD = 0.0001
+
+'''
+TODO:
+
+Somehow initialize and allow for configuration of following values:
+
+    self.motion_noise
+    self.measurement_noise_range
+    self.measurement_noise_bearing
+    
+I assume these values are all also used by GraphSLAM, so perhaps we should plug these in the common
+interface's constructor? And make setters for them to allow configuration through GUI
+
+TODO:
+
+Ensure that in every place where self.P is updated, we also update self.P_top_left
+
+TODO:
+
+Ensure that for every member variable (every var with self.<name> in constructor), there is no variable
+with same name without the <self.> stuff in front of it in algorithm
+
+'''
+
+'''
+Precompute some values/arrays which are reused often
+'''
+RANGE_0_3 = range(0, 3)                         # we often need to loop through arrays/matrices with dimension of 3
+EYE_2 = numpy.eye(2)                            # 2x2 identity matrix
 
 '''
 Notes from: 
@@ -85,400 +115,424 @@ Kalman gain K =     x_r      x_b
     
 q = movement error term (on command to move 1 unit, robot will move q extra or less)
     
-''' 
-def ekfSlam(motion_data, measurement_data, num_steps, motion_noise, measurement_noise_range, measurement_noise_bearing, initialX, initialY):
-    '''
-    Runs EKF Slam algorithm on given data.
+'''
+
+class EkfSLAM(SLAM):
     
-    Expected format of input:
-        motion_data is a 2 dimensional array where
-        motion_data[i] gives [time,action,dForwards,dSideways,dtheta,speed] at time-step i
+    def __init__(self):
+        self.num_landmarks_observed = 0
+        self.dim = 3
+        self.X = numpy.zeros(3)
+        self.P = numpy.zeros((3, 3))
         
-        measurement_data is a 3 dimensional array where
-        measurement_data[i][j] gives [distance(robot, landmark), relative angle] 
-        measured at time-step i with respect to the j'th landmark observed at that time-step
-    '''
-    
-    # TODO!!!!!!!!!!!!!!!!!!!!
-    # MAKE SURE THAT ANGLES ARE IN CORRECT UNIT FOR SIN() / COS() FUNCTION CALLS
-    
-    '''
-    Precompute some values/arrays which are reused often
-    '''
-    RANGE_0_3 = range(0, 3)                         # we often need to loop through arrays/matrices with dimension of 3
-    EYE_2 = numpy.eye(2)                            # 2x2 identity matrix
-    OUTPUT = [None]*num_steps
-    
-    ''' 
-    =============== INITIALIZATION =============== 
-    X_0 = ( 0 0 0 ... 0 )^T
-    
-                    ( 0  0  0    0    . . .    0  )
-                    ( 0  0  0    0    . . .    0  )
-                    ( 0  0  0    0    . . .    0  )
-    P_0 =           ( 0  0  0   inf   . . .    0  )
-                    ( .  .  .    .     .       .  )
-                    ( .  .  .    .      .      .  )
-                    ( .  .  .    .       .     .  )
-                    ( 0  0  0    0    . . .   inf )
-    '''
-    num_landmarks_observed = 0
-    
-    dim = 3 + 2*num_landmarks_observed
-    X = numpy.zeros(dim)
-    P = numpy.zeros((dim, dim))
-    
-    for i in range(3, dim):
-        P[i, i] = float("inf")
-        
-    '''
-    A: Jacobian of the prediction model. Initialized as 3x3 Identity matrix
-    '''
-    A = numpy.eye(3)
-        
-    '''
-    =============== LOOP THROUGH ALL TIME STEPS ===============
-    '''
-    for step in range(0, num_steps): 
-        motion_data_step = motion_data[step]
-        measurement_data_step = measurement_data[step]
-        
-        dForwards = motion_data_step[2]
-        dSideways = motion_data_step[3]
-        dthetaRobot = normalizeAngle(motion_data_step[4])
-        
-        theta = X[2]
-        sin_theta = math.sin(theta)
-        cos_theta = math.cos(theta)
-        
-        dxRobot = dForwards * cos_theta + dSideways * sin_theta
-        dyRobot = dForwards * sin_theta + dSideways * cos_theta
-        
-        theta = normalizeAngle(theta + dthetaRobot)
-        
-        X[0] = X[0] + dxRobot
-        X[1] = X[1] + dyRobot
-        X[2] = theta
-        
-        # =============== Step 1: Update current state using the odometry data ===============
-        
-        # update A according to page 37 of SLAM for dummies
-        # TODO: CHECK! Maybe it should be old values -dy +dx instead of replacing by -dy and +dx ???
-        A[0, 2] = - dyRobot
-        A[1, 2] = dxRobot
-        
-        # update Q (= a 3x3 matrix used for movement noise) according to page 37 of SLAM for dummies
-        c = motion_noise
-        
-        Q = [[c*dxRobot*dxRobot,      c*dxRobot*dyRobot,     c*dxRobot*dthetaRobot    ],
-             [c*dyRobot*dxRobot,      c*dyRobot*dyRobot,     c*dyRobot*dthetaRobot    ],
-             [c*dthetaRobot*dxRobot,  c*dthetaRobot*dyRobot, c*dthetaRobot*dthetaRobot]]
-        
-        # Calculate covariance for robot position
-        # start with top left 3x3 matrix of P
-        P_rr = [[P[0,0], P[0,1], P[0,2]],
-                [P[1,0], P[1,1], P[1,2]],
-                [P[2,0], P[2,1], P[2,2]]]
-        
-        # calculate changes: Pnew = A PP A + Q
-        P_rr = numpy.add( numpy.dot(numpy.dot(A, P_rr), A), Q )
-        
-        # insert entries back into Sigma
-        for i in RANGE_0_3:
-            for j in RANGE_0_3:
-                P[i, j] = P_rr[i, j]
-        
-        # update robot to feature cross-relations according to page 38 of SLAM for dummies
-        # start with top 3 rows of Sigma excluding the first 3 columns
-        P_ri = numpy.zeros((3, num_landmarks_observed*2))
-        
-        range_3_dim = range(3, dim)
-        
-        for i in RANGE_0_3:
-            for j in range_3_dim:
-                P_ri[i, j - 3] = P[i, j]       # fill P_ri with current values in Sigma
-                
-        # calculate changes: P_ri = A P_ri
-        P_ri = numpy.dot(A, P_ri)
-        
-        # insert entries back into Sigma
-        for i in RANGE_0_3:
-            for j in range_3_dim:
-                P[i, j] = P_ri[i, j - 3]
-                
-        # Next, we're gonna look at landmarks. If no landmarks have been observed at all, we can already continue
-        # to the next time-step
-        if(len(measurement_data_step) == 0):
-            # printSystemState(step, X)
-            OUTPUT[step] = numpy.copy(X)
-            continue
-                
-        # figure out which landmarks were seen before and which landmarks are new
-        reobserved_landmarks = []
-        newly_observed_landmarks = []
+        self.measurement_data = []
+        self.motion_data = []
         
         '''
-        save each landmark in one of the 2 arrays above in the following format:
-        landmark = [measured_x, measured_y, landmark_index]
+        Above is stuff which definitely needs to stay in memory.
         
-        The lowest landmark_index possible is 3. A landmark_index will indicate where the 
-        first piece of data for that landmark can be found in the X vector. This means
-        that there are only uneven landmark indices (since for each landmark, there are 2 pieces
-        of data in the X vector)
+        Below are some matrices which are used so often/remain mostly similar throughout steps,
+        that it seems like a good idea to keep them in memory as well instead of re-creating them whenever
+        they're needed.
         '''
         
-        for i in xrange(len(measurement_data_step)):
-            data_landmark = measurement_data_step[i]        # = [distance(robot, landmark), relative angle] for the specific landmark
+        '''
+        A: Jacobian of the prediction model. Initialized as 3x3 Identity matrix
+        '''
+        self.A = numpy.eye(3)
+        
+        '''
+        Top-left 3x3 corner of P. 
+        
+        Yes, keeping these values in memory again. Often need to do matrix multiplications specifically 
+        with only this part, so it seems more efficient to keep this specific part in memory twice 
+        (once as part of the big matrix P, and once separately here) than it is to copy values over from
+        the big matrix every time we need them in a separate matrix for matrix multiplication
+        '''
+        self.P_top_left = numpy.zeros((3, 3))
+    
+    def reset(self):
+        self.num_landmarks_observed = 0
+        self.dim = 3
+        self.X = numpy.zeros(3)
+        self.P = numpy.zeros((3, 3))
+        
+        self.measurement_data = []
+        self.motion_data = []
+        
+        # no need to reset self.A, since the entries which might have changed since initialization will change every step again anyway.
+        
+        # still do need to reset self.P_top_left
+        self.P_top_left = numpy.zeros((3, 3))
+        
+    def send_measurement_data(self, measurement_data, time_step):
+        self.measurement_data.append(measurement_data)
+    
+    def send_motion_data(self, motion_data, time_step):
+        self.motion_data.append(motion_data)
+    
+    def set_parameter(self, parameter_name, value):
+        raise NotImplementedError("The set_paramter method of this SLAM algorithm has not yet been implemented!")
+    
+    def run_slam(self):
+        '''
+        Runs EKF Slam algorithm on given data.
+        
+        Expected format of input:
+            motion_data is a 2 dimensional array where
+            motion_data[i] gives [time,action,dForwards,dSideways,dtheta,speed] at time-step i
             
-            distance = data_landmark[0]
-            relativeAngle = data_landmark[1]
-            angle = normalizeAngle(theta + relativeAngle)
-            xDistance = distance * math.cos(angle)
-            yDistance = distance * math.sin(angle)
+            measurement_data is a 3 dimensional array where
+            measurement_data[i][j] gives [distance(robot, landmark), relative angle] 
+            measured at time-step i with respect to the j'th landmark observed at that time-step
+        '''
+        
+        num_steps = len(self.motion_data)
+        
+        # TODO: debug message, remove this as optimization when everything is confirmed to work correctly
+        if(num_steps != len(self.measurement_data)):
+            print "Size of measurement data does not equal size of motion data. Probably forgot to send measurement data when no landmarks were observed?"
+            print "Should send empty array in that case. Actually, if Graph SLAM also needs this, might be good idea to refactor so we only have a"
+            print "send_data method. That way we enforce to always receive equal amount of data stuff"
+            print "Since stuff will go horribly wrong if we continue now, I'm returning instead."
+            return 
             
-            landmark_x = X[0] + xDistance
-            landmark_y = X[1] + yDistance
+        '''
+        =============== LOOP THROUGH ALL TIME STEPS ===============
+        '''
+        for step in range(0, num_steps): 
+            motion_data_step = self.motion_data[step]
+            measurement_data_step = self.measurement_data[step]
             
-            insertLandmark(landmark_x, landmark_y, X, reobserved_landmarks, newly_observed_landmarks, distance, relativeAngle)
-                
-        # =============== Step 2: Update state from re-observed landmarks ===============
-        for i in xrange(len(reobserved_landmarks)):
-            '''
-            H = Jacobian of measurement model =
+            dForwards = motion_data_step[2]
+            dSideways = motion_data_step[3]
+            dthetaRobot = normalizeAngle(motion_data_step[4])
             
-            A    B    C    0    0    -A    -B    0    0
-            D    E    F    0    0    -D    -E    0    0
+            theta = self.X[2]
+            sin_theta = math.sin(theta)
+            cos_theta = math.cos(theta)
             
-            where the negative values are in the 2 columns corresponding to the re-observed landmarks and:
-            r = range = distance between robot and landmark
-            A = (x_robot - x_landmark) / r
-            B = (y_robot - y_landmark) / r
-            C = 0
-            D = (y_landmark - y_robot) / r^2
-            E = (x_landmark - x_robot) / r^2
-            F = -1
+            dxRobot = dForwards * cos_theta + dSideways * sin_theta
+            dyRobot = dForwards * sin_theta + dSideways * cos_theta
             
-            Note that x_landmark and y_landmark here refer to the currently saved coordinates in the X vector, NOT the new observations
-            '''
-            landmark = reobserved_landmarks[i]
-            landmarkIndex = landmark[2]
+            theta = normalizeAngle(theta + dthetaRobot)
             
-            dx = X[0] - X[landmarkIndex]
-            dy = X[1] - X[landmarkIndex + 1]
-            rSquared = dx*dx + dy*dy
-            r = math.sqrt(rSquared)
+            self.X[0] = self.X[0] + dxRobot
+            self.X[1] = self.X[1] + dyRobot
+            self.X[2] = theta
             
-            H_A = dx / r 
-            H_B = dy / r 
-            H_D = -dy / rSquared
-            H_E = dx / rSquared         # SLAM for dummies had a minus in front of this, 2 other sources don't
+            # =============== Step 1: Update current state using the odometry data ===============
             
-            H = numpy.zeros((2, dim))
-            H[0, 0] = H_A
-            H[0, 1] = H_B
-            H[0, 2] = 0.0
-            H[0, landmarkIndex    ] = -H_A
-            H[0, landmarkIndex + 1] = -H_B
+            # update A according to page 37 of SLAM for dummies
+            self.A[0, 2] = - dyRobot
+            self.A[1, 2] = dxRobot
             
-            H[1, 0] = H_D
-            H[1, 1] = H_E
-            H[1, 2] = -1.0
-            H[1, landmarkIndex    ] = -H_D
-            H[1, landmarkIndex + 1] = -H_E
+            # update Q (= a 3x3 matrix used for movement noise) according to page 37 of SLAM for dummies
+            c = self.motion_noise
             
-            H_transpose = numpy.transpose(H)    
+            # TODO: if we're really desparate for optimization, or really bored, can precompute some of these multiplications and re-use
             
-            # R =    rc    0
-            #        0    bd
-            #
-            # where c = measurement noise constant for range, bd = measurement noise for bearing
-            R = [[r*measurement_noise_range,                         0],
-                 [                        0, measurement_noise_bearing]]
+            Q = [[c*dxRobot*dxRobot,      c*dxRobot*dyRobot,     c*dxRobot*dthetaRobot    ],
+                 [c*dyRobot*dxRobot,      c*dyRobot*dyRobot,     c*dyRobot*dthetaRobot    ],
+                 [c*dthetaRobot*dxRobot,  c*dthetaRobot*dyRobot, c*dthetaRobot*dthetaRobot]]
             
-            # Kalman gain K (see description above function definition) = P * H^T * (H * P * H^T + V * R * V^T)^-1
-            # V = 2x2 identity matrix
+            # Calculate covariance for robot position
             
-            PH_transpose = numpy.dot(P, H_transpose)
-            HPH_transpose = numpy.dot(H, PH_transpose)
-            VR = numpy.dot(EYE_2, R)
-            VRV_transpose = numpy.dot(VR, EYE_2)            # EYE_2_TRANSPOSE = EYE_2
-            LargeTermInBrackets = numpy.add(HPH_transpose, VRV_transpose)
-            Inverse = numpy.linalg.inv(LargeTermInBrackets)
+            # calculate changes: Pnew = A * P_top_left * A + Q
+            self.P_top_left = numpy.add( numpy.dot(numpy.dot(self.A, self.P_top_left), self.A), Q )
             
-            K = numpy.dot(PH_transpose, Inverse)
+            # insert entries back into Sigma
+            for i in RANGE_0_3:
+                for j in RANGE_0_3:
+                    self.P[i, j] = self.P_top_left[i, j]
             
-            # h =    [  range  ] from new            z =    [  range  ] from old
-            #        [ bearing ] observation                [ bearing ] observations
-            dxNew = X[0] - landmark[0]
-            dyNew = X[1] - landmark[1]
-            rNew = math.sqrt(dxNew*dxNew + dyNew*dyNew)
+            # update robot to feature cross-relations according to page 38 of SLAM for dummies
+            # start with top 3 rows of Sigma excluding the first 3 columns
+            P_ri = numpy.zeros((3, self.num_landmarks_observed*2))
             
-            # technically should subtract robot's theta from both values below, but since we only use these
-            # variables by subtracting them from each other, those terms will cancel out. OPTIMIZATION FTW!!
-            bearingPrevious = normalizeAngle(math.atan2(dy, dx))          # -X[2]
-            bearingNew = normalizeAngle(math.atan2(dyNew, dxNew))         # -X[2]
-            
-            z = [r, bearingPrevious]
-            h = [rNew, bearingNew]
-            
-            # X = X + K * (z - h)
-            zMinh = numpy.subtract(z, h)
-            print "z - h = [" + str(zMinh[0]) + ", " + str(zMinh[1]) + "]"
-            K_zMinh = numpy.dot(K, zMinh)
-            X = numpy.add(X, K_zMinh)
-            X[2] = normalizeAngle(X[2])
-            
-            # P = (I - K * H) * P
-            EYE = numpy.eye(dim)
-            KH = numpy.dot(K, H)
-            P = numpy.dot(  numpy.subtract(EYE, KH),    P   )
-            
-        # =============== Step 3: Add new landmarks to the current state ===============
-        for i in xrange(len(newly_observed_landmarks)):
-            landmark = newly_observed_landmarks[i]
-            
-            num_landmarks_observed += 1
-            dim = 3 + 2*num_landmarks_observed
-            
-            # add landmark x and y to X
-            x = landmark[0]
-            y = landmark[1]
-            X = numpy.append(X, [x, y])
-            
-            r = landmark[3]
-            bearing = landmark[4]
-            
-            '''
-            Compute covariance for the new landmark and insert it in lower right corner of P
-            
-            P_N1_N1 = Jxr P Jxr^T + Jz R Jz^T
-            
-            
-            R =    rc    0
-                   0    bd
-            
-            where c = measurement noise constant for range, bd = measurement noise for bearing
-            '''
-            dx = X[0] - x
-            dy = X[1] - y
-            
-            R = [[r*measurement_noise_range,                         0],
-                 [                        0, measurement_noise_bearing]]
-            
-            theta_plus_bearing = theta + bearing
-            sin_theta_plus_bearing = math.sin(theta_plus_bearing)
-            cos_theta_plus_bearing = math.cos(theta_plus_bearing)
-            r_sin = r*sin_theta_plus_bearing
-            r_cos = r*cos_theta_plus_bearing
-            
-            Jxr = [[1, 0, -r_sin],
-                   [0, 1, r_cos]]
-                
-            Jz = [[cos_theta_plus_bearing, -r_sin],
-                  [sin_theta_plus_bearing, r_cos]]
-            
-            Jxr_transpose = numpy.transpose(Jxr)
-            Jz_transpose = numpy.transpose(Jz)
-            
-            # executing matrix multiplications one by one to avoid long line with lots of brackets.
-            # re-using the same variables to save memory
-            
-            '''
-            NOT SURE IF THIS IS CORRECT. However, if formulas are correct, wherever the .pdf said
-             P  there should be a 3x3 matrix. So, I'm gonna assume that we always want only the
-             top left 3x3 part of P here, since that's the only thing that makes some kind of sense
-             
-             so instead of P we use P_rr
-            '''
-            
-            P_New = numpy.dot(Jxr, P_rr)                        # Jxr * P_rr
-            P_New = numpy.dot(P_New, Jxr_transpose)             # Jxr * P_rr * Jxr^T
-            Temp = numpy.dot(Jz, R)                             # Jz * R
-            Temp = numpy.dot(Temp, Jz_transpose)                # Jz * R * Jz^T
-            P_New = numpy.add(P_New, Temp)                      # Jxr * P_rr * Jxr^T + Jz * R * Jz^T
-            
-            P = numpy.append(P, numpy.zeros((dim - 2, 2)), 1)       # add space for 2 more columns
-            P = numpy.append(P, numpy.zeros((2, dim)), 0)           # add space for 2 more rows
-            
-            # insert values
-            P[dim-2, dim-2] = P_New[0, 0]
-            P[dim-2, dim-1] = P_New[0, 1]
-            P[dim-1, dim-2] = P_New[1, 0]
-            P[dim-1, dim-1] = P_New[1, 1]
-            
-            '''
-            Compute robot to landmark covariance and insert in first 3 columns, last 2 rows of P
-            
-            Re-use P_New variable to save memory
-            
-            P_New = P_rr * Jxr^T where P_rr = top left 3x3 matrix of P
-            
-            P_rr was computed in step 1 already, so we can re-use that variable here and don't need to initialize it again
-            '''
-            P_New = numpy.dot(P_rr, Jxr_transpose)
-            
-            # insert values
-            P[0, dim - 2] = P_New[0, 0]
-            P[0, dim - 1] = P_New[0, 1]
-            P[1, dim - 2] = P_New[1, 0]
-            P[1, dim - 1] = P_New[1, 1]
-            P[2, dim - 2] = P_New[2, 0]
-            P[2, dim - 1] = P_New[2, 1]
-            
-            '''
-            Transpose robot to landmark covariance in order to get landmark to robot covariance. 
-            Insert values in first 3 rows, last 2 columns of P
-            
-            Re-use P_New variable again to save memory
-            '''
-            P_New = numpy.transpose(P_New)
-            
-            # insert values
-            P[dim - 2, 0] = P_New[0, 0]
-            P[dim - 2, 1] = P_New[0, 1]
-            P[dim - 2, 2] = P_New[0, 2]
-            P[dim - 1, 0] = P_New[1, 0]
-            P[dim - 1, 1] = P_New[1, 1]
-            P[dim - 1, 2] = P_New[1, 0]
-            
-            '''
-            Add landmark to landmark covariance to the last 2 rows:
-            
-            P_New = Jxr * (P_ri)
-            
-            P_ri are the first 3 rows of P excluding the first 3 columns (and the newly added last 2 columns). 
-            P_ri was already computed in step 1, can re-use the variable here
-            '''
-            P_New = numpy.dot(Jxr, P_ri)
-            
-            # insert values
-            for col in range(3, dim - 3):
-                P[dim - 2, col] = P_New[0, col - 3]
-                P[dim - 1, col] = P_New[1, col - 3]
-                
-            '''
-            Finally, the same values transposed need to be added to the last 2 columns
-            '''
-            P_New = numpy.transpose(P_New)
-            
-            # insert values
-            for row in range(3, dim - 3):
-                P[row, dim - 2] = P_New[row - 3, 0]
-                P[row, dim - 1] = P_New[row - 3, 1]
-                
-            # In case we see multiple landmarks in this single time-step, need to update P_ri now.
-            # TODO: Optimization! Should declare P_ri outside the very first loop through timesteps
-            P_ri = numpy.zeros((3, num_landmarks_observed*2))
-            range_3_dim = range(3, dim)
+            range_3_dim = range(3, self.dim)
             
             for i in RANGE_0_3:
                 for j in range_3_dim:
-                    P_ri[i, j - 3] = P[i, j]       # fill P_ri with current values in Sigma
-        
-        # printSystemState(step, X)
-        OUTPUT[step] = numpy.copy(X)
-        
-    return OUTPUT
+                    P_ri[i, j - 3] = self.P[i, j]       # fill P_ri with current values in Sigma
+                    
+            # calculate changes: P_ri = A P_ri
+            P_ri = numpy.dot(self.A, P_ri)
+            
+            # insert entries back into Sigma
+            for i in RANGE_0_3:
+                for j in range_3_dim:
+                    self.P[i, j] = P_ri[i, j - 3]
+                    
+            # Next, we're gonna look at landmarks. If no landmarks have been observed at all, we can already continue
+            # to the next time-step
+            if(len(measurement_data_step) == 0):
+                continue
+                    
+            # figure out which landmarks were seen before and which landmarks are new
+            reobserved_landmarks = []
+            newly_observed_landmarks = []
+            
+            '''
+            save each landmark in one of the 2 arrays above in the following format:
+            landmark = [measured_x, measured_y, landmark_index]
+            
+            The lowest landmark_index possible is 3. A landmark_index will indicate where the 
+            first piece of data for that landmark can be found in the X vector. This means
+            that there are only uneven landmark indices (since for each landmark, there are 2 pieces
+            of data in the X vector)
+            '''
+            
+            for i in xrange(len(measurement_data_step)):
+                data_landmark = measurement_data_step[i]        # = [distance(robot, landmark), relative angle] for the specific landmark
+                
+                distance = data_landmark[0]
+                relativeAngle = data_landmark[1]
+                angle = normalizeAngle(theta + relativeAngle)
+                xDistance = distance * math.cos(angle)
+                yDistance = distance * math.sin(angle)
+                
+                landmark_x = self.X[0] + xDistance
+                landmark_y = self.X[1] + yDistance
+                
+                insertLandmark(landmark_x, landmark_y, self.X, reobserved_landmarks, newly_observed_landmarks, distance, relativeAngle)
+                    
+            # =============== Step 2: Update state from re-observed landmarks ===============
+            for i in xrange(len(reobserved_landmarks)):
+                '''
+                H = Jacobian of measurement model =
+                
+                A    B    C    0    0    -A    -B    0    0
+                D    E    F    0    0    -D    -E    0    0
+                
+                where the negative values are in the 2 columns corresponding to the re-observed landmarks and:
+                r = range = distance between robot and landmark
+                A = (x_robot - x_landmark) / r
+                B = (y_robot - y_landmark) / r
+                C = 0
+                D = (y_landmark - y_robot) / r^2
+                E = (x_landmark - x_robot) / r^2
+                F = -1
+                
+                Note that x_landmark and y_landmark here refer to the currently saved coordinates in the X vector, NOT the new observations
+                '''
+                landmark = reobserved_landmarks[i]
+                landmarkIndex = landmark[2]
+                
+                dx = self.X[0] - X[landmarkIndex]
+                dy = self.X[1] - X[landmarkIndex + 1]
+                rSquared = dx*dx + dy*dy
+                r = math.sqrt(rSquared)
+                
+                H_A = dx / r 
+                H_B = dy / r 
+                H_D = -dy / rSquared
+                H_E = dx / rSquared         # SLAM for dummies had a minus in front of this, 2 other sources don't
+                
+                H = numpy.zeros((2, self.dim))
+                H[0, 0] = H_A
+                H[0, 1] = H_B
+                H[0, 2] = 0.0
+                H[0, landmarkIndex    ] = -H_A
+                H[0, landmarkIndex + 1] = -H_B
+                
+                H[1, 0] = H_D
+                H[1, 1] = H_E
+                H[1, 2] = -1.0
+                H[1, landmarkIndex    ] = -H_D
+                H[1, landmarkIndex + 1] = -H_E
+                
+                H_transpose = numpy.transpose(H)    
+                
+                # R =    rc    0
+                #        0    bd
+                #
+                # where c = measurement noise constant for range, bd = measurement noise for bearing
+                R = [[r*self.measurement_noise_range,                              0],
+                     [                             0, self.measurement_noise_bearing]]
+                
+                # Kalman gain K (see description above function definition) = P * H^T * (H * P * H^T + V * R * V^T)^-1
+                # V = 2x2 identity matrix
+                
+                # TODO: check if this can't be made more memory efficient by re-using same variable in intermediate steps
+                PH_transpose = numpy.dot(self.P, H_transpose)
+                HPH_transpose = numpy.dot(H, PH_transpose)
+                VR = numpy.dot(EYE_2, R)
+                VRV_transpose = numpy.dot(VR, EYE_2)            # EYE_2_TRANSPOSE = EYE_2
+                LargeTermInBrackets = numpy.add(HPH_transpose, VRV_transpose)
+                Inverse = numpy.linalg.inv(LargeTermInBrackets)
+                
+                K = numpy.dot(PH_transpose, Inverse)
+                
+                # h =    [  range  ] from new            z =    [  range  ] from old
+                #        [ bearing ] observation                [ bearing ] observations
+                dxNew = self.X[0] - landmark[0]
+                dyNew = self.X[1] - landmark[1]
+                rNew = math.sqrt(dxNew*dxNew + dyNew*dyNew)
+                
+                # technically should subtract robot's theta from both values below, but since we only use these
+                # variables by subtracting them from each other, those terms will cancel out. OPTIMIZATION FTW!!
+                bearingPrevious = normalizeAngle(math.atan2(dy, dx))          # -X[2]
+                bearingNew = normalizeAngle(math.atan2(dyNew, dxNew))         # -X[2]
+                
+                z = [r, bearingPrevious]
+                h = [rNew, bearingNew]
+                
+                # X = X + K * (z - h)
+                zMinh = numpy.subtract(z, h)
+                print "z - h = [" + str(zMinh[0]) + ", " + str(zMinh[1]) + "]"
+                K_zMinh = numpy.dot(K, zMinh)
+                self.X = numpy.add(self.X, K_zMinh)
+                self.X[2] = normalizeAngle(self.X[2])
+                
+                # P = (I - K * H) * P
+                EYE = numpy.eye(self.dim)
+                KH = numpy.dot(K, H)
+                self.P = numpy.dot(  numpy.subtract(EYE, KH),    self.P   )
+                
+                self.P_top_left =   [[self.P[0,0],  self.P[0,1],    self.P[0,2]],
+                                     [self.P[1,0],  self.P[1,1],    self.P[1,2]],
+                                     [self.P[2,0],  self.P[2,1],    self.P[2,2]]]
+                
+            # =============== Step 3: Add new landmarks to the current state ===============
+            for i in xrange(len(newly_observed_landmarks)):
+                landmark = newly_observed_landmarks[i]
+                
+                self.num_landmarks_observed += 1
+                self.dim = 3 + 2*self.num_landmarks_observed
+                
+                # add landmark x and y to X
+                x = landmark[0]
+                y = landmark[1]
+                self.X = numpy.append(self.X, [x, y])
+                
+                r = landmark[3]
+                bearing = landmark[4]
+                
+                '''
+                Compute covariance for the new landmark and insert it in lower right corner of P
+                
+                P_N1_N1 = Jxr P Jxr^T + Jz R Jz^T
+                
+                
+                R =    rc    0
+                       0    bd
+                
+                where c = measurement noise constant for range, bd = measurement noise for bearing
+                '''
+                dx = self.X[0] - x
+                dy = self.X[1] - y
+                
+                R = [[r*self.measurement_noise_range,                              0],
+                     [                             0, self.measurement_noise_bearing]]
+                
+                theta_plus_bearing = theta + bearing
+                sin_theta_plus_bearing = math.sin(theta_plus_bearing)
+                cos_theta_plus_bearing = math.cos(theta_plus_bearing)
+                r_sin = r*sin_theta_plus_bearing
+                r_cos = r*cos_theta_plus_bearing
+                
+                # TODO: can optimize this matrix in the same way as self.A, since 4 out of 6 elements always are the same
+                Jxr = [[1, 0, -r_sin],
+                       [0, 1, r_cos]]
+                
+                Jz = [[cos_theta_plus_bearing, -r_sin],
+                      [sin_theta_plus_bearing, r_cos]]
+                
+                Jxr_transpose = numpy.transpose(Jxr)
+                Jz_transpose = numpy.transpose(Jz)
+                
+                # executing matrix multiplications one by one to avoid long line with lots of brackets.
+                # re-using the same variables to save memory
+                
+                P_New = numpy.dot(Jxr, self.P_top_left)             # Jxr * P_top_left
+                P_New = numpy.dot(P_New, Jxr_transpose)             # Jxr * P_top_left * Jxr^T
+                Temp = numpy.dot(Jz, R)                             # Jz * R
+                Temp = numpy.dot(Temp, Jz_transpose)                # Jz * R * Jz^T
+                P_New = numpy.add(P_New, Temp)                      # Jxr * P_top_left * Jxr^T + Jz * R * Jz^T
+                
+                self.P = numpy.append(self.P, numpy.zeros((self.dim - 2, 2)), 1)       # add space for 2 more columns
+                self.P = numpy.append(self.P, numpy.zeros((2, self.dim)), 0)           # add space for 2 more rows
+                
+                # insert values
+                self.P[self.dim-2, self.dim-2] = P_New[0, 0]
+                self.P[self.dim-2, self.dim-1] = P_New[0, 1]
+                self.P[self.dim-1, self.dim-2] = P_New[1, 0]
+                self.P[self.dim-1, self.dim-1] = P_New[1, 1]
+                
+                '''
+                Compute robot to landmark covariance and insert in first 3 columns, last 2 rows of P
+                
+                Re-use P_New variable to save memory
+                
+                P_New = P_top_left * Jxr^T 
+                '''
+                P_New = numpy.dot(self.P_top_left, Jxr_transpose)
+                
+                # insert values
+                self.P[0, self.dim - 2] = P_New[0, 0]
+                self.P[0, self.dim - 1] = P_New[0, 1]
+                self.P[1, self.dim - 2] = P_New[1, 0]
+                self.P[1, self.dim - 1] = P_New[1, 1]
+                self.P[2, self.dim - 2] = P_New[2, 0]
+                self.P[2, self.dim - 1] = P_New[2, 1]
+                
+                '''
+                Transpose robot to landmark covariance in order to get landmark to robot covariance. 
+                Insert values in first 3 rows, last 2 columns of P
+                
+                Re-use P_New variable again to save memory
+                '''
+                
+                # TODO: can probably optimize this transpose function call away by thinking (ouch headache!) about
+                # where elements would end up in a transpose, since we're accessing entries manually afterwards anyway
+                P_New = numpy.transpose(P_New)
+                
+                # insert values
+                self.P[self.dim - 2, 0] = P_New[0, 0]
+                self.P[self.dim - 2, 1] = P_New[0, 1]
+                self.P[self.dim - 2, 2] = P_New[0, 2]
+                self.P[self.dim - 1, 0] = P_New[1, 0]
+                self.P[self.dim - 1, 1] = P_New[1, 1]
+                self.P[self.dim - 1, 2] = P_New[1, 0]
+                
+                '''
+                Add landmark to landmark covariance to the last 2 rows:
+                
+                P_New = Jxr * (P_ri)
+                
+                P_ri are the first 3 rows of P excluding the first 3 columns (and the newly added last 2 columns). 
+                P_ri was already computed in step 1, can re-use the variable here
+                '''
+                P_New = numpy.dot(Jxr, P_ri)
+                
+                # insert values
+                for col in range(3, self.dim - 3):
+                    self.P[self.dim - 2, col] = P_New[0, col - 3]
+                    self.P[self.dim - 1, col] = P_New[1, col - 3]
+                    
+                '''
+                Finally, the same values transposed need to be added to the last 2 columns
+                '''
+                    
+                # TODO: same optimization as above, get rid of transpose
+                P_New = numpy.transpose(P_New)
+                
+                # insert values
+                for row in range(3, self.dim - 3):
+                    self.P[row, self.dim - 2] = P_New[row - 3, 0]
+                    self.P[row, self.dim - 1] = P_New[row - 3, 1]
+                    
+                # In case we see multiple landmarks in this single time-step, need to update P_ri now.
+                # TODO: Optimization! Should declare P_ri outside the very first loop through timesteps
+                P_ri = numpy.zeros((3, self.num_landmarks_observed*2))
+                range_3_dim = range(3, self.dim)
+                
+                for i in RANGE_0_3:
+                    for j in range_3_dim:
+                        P_ri[i, j - 3] = self.P[i, j]       # fill P_ri with current values in P
+            
+        return self.X 
 
 def insertLandmark(x, y, X, reobserved_landmarks, newly_observed_landmarks, r, bearing):
     '''
