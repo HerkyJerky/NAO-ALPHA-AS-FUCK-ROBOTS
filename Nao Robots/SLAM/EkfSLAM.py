@@ -531,7 +531,9 @@ class EkfSLAM(SLAM):
                 for i in RANGE_0_3:
                     for j in range_3_dim:
                         P_ri[i, j - 3] = self.P[i, j]       # fill P_ri with current values in P
-            
+        
+        self.measurement_data = []
+        self.motion_data = []    
         return self.X 
 
 def insertLandmark(x, y, X, reobserved_landmarks, newly_observed_landmarks, r, bearing):
