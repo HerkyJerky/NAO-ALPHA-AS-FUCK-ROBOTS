@@ -47,4 +47,8 @@ class GraphSLAMInherited(SLAM):
     def set_parameter(self,parameter_name,value):
         print "Setting some parameter for graph slam!"
         # TODO : Not sure about this part.
+        
+    def set_noise_parameters(self,measurement_noise_range,measurement_noise_bearing,motion_noise):
+        self.motion_noise = motion_noise
+        self.measurement_noise = measurement_noise_bearing
     
