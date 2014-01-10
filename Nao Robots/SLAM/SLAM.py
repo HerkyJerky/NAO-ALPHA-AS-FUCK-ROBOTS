@@ -69,6 +69,9 @@ class SLAM:
     def send_data(self, measurement_data, motion_data):
         raise NotImplementedError("The send_data method of this SLAM algorithm has not yet been implemented!")
     
+    def set_noise_parameters(self, measurement_noise_range, measurement_noise_bearing, motion_noise):
+        raise NotImplementedError("The set_noise_parameters method of this SLAM algorithm has not yet been implemented!")
+    
     '''
     This method should set a parameter of a given String parameter_name to a given value.
     

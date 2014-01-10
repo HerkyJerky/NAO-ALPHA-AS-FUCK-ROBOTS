@@ -16,17 +16,6 @@ ASSOCIATE_LANDMARK_THRESHOLD = 0.0001
 '''
 TODO:
 
-Somehow initialize and allow for configuration of following values:
-
-    self.motion_noise
-    self.measurement_noise_range
-    self.measurement_noise_bearing
-    
-I assume these values are all also used by GraphSLAM, so perhaps we should plug these in the common
-interface's constructor? And make setters for them to allow configuration through GUI
-
-TODO:
-
 Ensure that in every place where self.P is updated, we also update self.P_top_left
 
 TODO:
@@ -127,6 +116,11 @@ class EkfSLAM(SLAM):
         self.measurement_data = []
         self.motion_data = []
         
+        # Initialize noise to very small value. Can't use 0.0 because that results in singular matrices
+        self.measurement_noise_bearing = 0.000001
+        self.measurement_noise_range = 0.000001
+        self.motion_noise = 0.000001
+        
         '''
         Above is stuff which definitely needs to stay in memory.
         
@@ -167,6 +161,11 @@ class EkfSLAM(SLAM):
     def send_data(self, measurement_data, motion_data):
         self.measurement_data.append(measurement_data)
         self.motion_data.append(motion_data)
+        
+    def set_noise_parameters(self, measurement_noise_range, measurement_noise_bearing, motion_noise):
+        self.measurement_noise_range = measurement_noise_range
+        self.measurement_noise_bearing = measurement_noise_bearing
+        self.motion_noise = motion_noise
     
     def set_parameter(self, parameter_name, value):
         raise NotImplementedError("The set_paramter method of this SLAM algorithm has not yet been implemented!")
