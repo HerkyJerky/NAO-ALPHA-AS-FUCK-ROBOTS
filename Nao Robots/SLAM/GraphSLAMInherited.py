@@ -38,15 +38,11 @@ class GraphSLAMInherited(SLAM):
         for i in range(len(engine.landmarks)):
             landmarks_approximations.append([result[2*(len(self.motions)+i)],result[2*(len(self.motions)+i) + 1]])
             
-        return [motion_approximations,landmarks_approximations]    
+        return [motion_approximations,landmarks_approximations]   
     
-    def send_measurement_data(self,measurement_data,time_step):
-        print "Receiving measurement data for graph slam!"
+    def send_data(self,measurement_data,motion_data):
         self.measurements.append(measurement_data)
-        
-    def send_motion_data(self,motion_data,time_step):
-        print "Receiving motion data for graph slam!"
-        self.motions.append(motion_data)
+        self.motions.append(motion_data) 
         
     def set_parameter(self,parameter_name,value):
         print "Setting some parameter for graph slam!"
