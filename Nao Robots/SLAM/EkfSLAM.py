@@ -33,7 +33,6 @@ TODO:
 
 Ensure that for every member variable (every var with self.<name> in constructor), there is no variable
 with same name without the <self.> stuff in front of it in algorithm
-
 '''
 
 '''
@@ -164,11 +163,9 @@ class EkfSLAM(SLAM):
         
         # still do need to reset self.P_top_left
         self.P_top_left = numpy.zeros((3, 3))
-        
-    def send_measurement_data(self, measurement_data, time_step):
-        self.measurement_data.append(measurement_data)
     
-    def send_motion_data(self, motion_data, time_step):
+    def send_data(self, measurement_data, motion_data):
+        self.measurement_data.append(measurement_data)
         self.motion_data.append(motion_data)
     
     def set_parameter(self, parameter_name, value):

@@ -53,6 +53,8 @@ class SLAM:
     The implementation of the SLAM algorithm will most likely want to append the new data to an internal 
     storage of all data
     
+    It also sends a 1D array of motion-data
+    
     Expected format of measurement_data:    
     
         A two-dimensional array specific to a single time-step where measurement_data[i] = 
@@ -62,19 +64,10 @@ class SLAM:
     This means that if at a certain time-step, 3 different landmarks were observed, measurement_data will be a
     3x2 array (3 arrays each having the 2 elements specified above)
             
-    '''
-    def send_measurement_data(self, measurement_data, time_step):
-        raise NotImplementedError("The send_measurement_data method of this SLAM algorithm has not yet been implemented!")
-    
-    '''
-    This method sends an array of motion-data of a specified time_step to the SLAM algorithm.
-    The implementation of the SLAM algorithm will most likely want to append the new
-    data to an internal storage of all data
-    
     Expected format of motion_data:    [time,action,dForwards,dSideways,dtheta,speed]
     '''
-    def send_motion_data(self, motion_data, time_step):
-        raise NotImplementedError("The send_motion_data method of this SLAM algorithm has not yet been implemented!")
+    def send_data(self, measurement_data, motion_data):
+        raise NotImplementedError("The send_data method of this SLAM algorithm has not yet been implemented!")
     
     '''
     This method should set a parameter of a given String parameter_name to a given value.
