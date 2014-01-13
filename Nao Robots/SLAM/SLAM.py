@@ -40,10 +40,15 @@ class SLAM:
     and memorizing all data forever, and re-run the algorithm from scratch on all data so far, whereas EKF SLAM can discard all
     old data once this method runs and on the next call to this method use the previous results as starting point.
     
-    TODO WARNING NOTE IMPORTANT END OF THE WORLD IS IMMINENT IF WE DONT DEAL WITH THIS TAGHI!!!!!
-        We should probably precisely describe a single format in which we both return SLAM results. Or did we already do this?
-        Either way, we need this so we know exactly what we're returning, in case we want to visualize something or implement
-        proper testing functions to analyze results, etc.
+    run_slam returns a single object OUTPUT, in the following format:
+    
+    OUTPUT = [rob_pos, landmark_pos]
+
+        rob_pos is 2d array where
+            rob_pos[t] = [x_robot, y_robot, theta_robot] at timestep t
+        
+        landmark_pos is 3d array where
+            landmark_pos[t, n] = [x_landmark, y_landmark] for the nth landmark observed at timestep t
     '''
     def run_slam(self):
         raise NotImplementedError("The run_slam method of this SLAM algorithm has not yet been implemented!")
