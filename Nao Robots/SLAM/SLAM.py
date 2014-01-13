@@ -73,6 +73,14 @@ class SLAM:
         raise NotImplementedError("The set_noise_parameters method of this SLAM algorithm has not yet been implemented!")
     
     '''
+    This method should set a flag indicating that the SLAM algorithm is supposed to run off-line SLAM.
+    
+    Default flag should be online.
+    '''
+    def set_offline(self):
+        raise NotImplementedError("The set_offline method of this SLAM algorithm has not yet been implemented!")
+    
+    '''
     This method should set a parameter of a given String parameter_name to a given value.
     
     Currently this seems like easiest way to tweak paremeters without recompiling all the time. We could add
