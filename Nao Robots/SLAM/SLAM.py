@@ -40,10 +40,15 @@ class SLAM:
     and memorizing all data forever, and re-run the algorithm from scratch on all data so far, whereas EKF SLAM can discard all
     old data once this method runs and on the next call to this method use the previous results as starting point.
     
-    TODO WARNING NOTE IMPORTANT END OF THE WORLD IS IMMINENT IF WE DONT DEAL WITH THIS TAGHI!!!!!
-        We should probably precisely describe a single format in which we both return SLAM results. Or did we already do this?
-        Either way, we need this so we know exactly what we're returning, in case we want to visualize something or implement
-        proper testing functions to analyze results, etc.
+    run_slam returns a single object OUTPUT, in the following format:
+    
+    OUTPUT = [rob_pos, landmark_pos]
+
+        rob_pos is 2d array where
+            rob_pos[t] = [x_robot, y_robot, theta_robot] at timestep t
+        
+        landmark_pos is 3d array where
+            landmark_pos[t, n] = [x_landmark, y_landmark] for the nth landmark observed at timestep t
     '''
     def run_slam(self):
         raise NotImplementedError("The run_slam method of this SLAM algorithm has not yet been implemented!")
@@ -52,6 +57,8 @@ class SLAM:
     This method sends an 2D array of measurement-data of a specified time_step to the SLAM algorithm.
     The implementation of the SLAM algorithm will most likely want to append the new data to an internal 
     storage of all data
+    
+    It also sends a 1D array of motion-data
     
     Expected format of measurement_data:    
     
@@ -62,19 +69,21 @@ class SLAM:
     This means that if at a certain time-step, 3 different landmarks were observed, measurement_data will be a
     3x2 array (3 arrays each having the 2 elements specified above)
             
-    '''
-    def send_measurement_data(self, measurement_data, time_step):
-        raise NotImplementedError("The send_measurement_data method of this SLAM algorithm has not yet been implemented!")
-    
-    '''
-    This method sends an array of motion-data of a specified time_step to the SLAM algorithm.
-    The implementation of the SLAM algorithm will most likely want to append the new
-    data to an internal storage of all data
-    
     Expected format of motion_data:    [time,action,dForwards,dSideways,dtheta,speed]
     '''
-    def send_motion_data(self, motion_data, time_step):
-        raise NotImplementedError("The send_motion_data method of this SLAM algorithm has not yet been implemented!")
+    def send_data(self, measurement_data, motion_data):
+        raise NotImplementedError("The send_data method of this SLAM algorithm has not yet been implemented!")
+    
+    def set_noise_parameters(self, measurement_noise_range, measurement_noise_bearing, motion_noise):
+        raise NotImplementedError("The set_noise_parameters method of this SLAM algorithm has not yet been implemented!")
+    
+    '''
+    This method should set a flag indicating that the SLAM algorithm is supposed to run off-line SLAM.
+    
+    Default flag should be online.
+    '''
+    def set_offline(self):
+        raise NotImplementedError("The set_offline method of this SLAM algorithm has not yet been implemented!")
     
     '''
     This method should set a parameter of a given String parameter_name to a given value.
