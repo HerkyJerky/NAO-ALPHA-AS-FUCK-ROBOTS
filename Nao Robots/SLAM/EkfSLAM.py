@@ -105,7 +105,7 @@ q = movement error term (on command to move 1 unit, robot will move q extra or l
     
 '''
 
-class EkfSLAM(SLAM):
+class EkfSLAM(SLAM.SLAM):
     
     def __init__(self):
         self.num_landmarks_observed = 0
@@ -315,8 +315,8 @@ class EkfSLAM(SLAM):
                 landmark = reobserved_landmarks[i]
                 landmarkIndex = landmark[2]
                 
-                dx = self.X[0] - X[landmarkIndex]
-                dy = self.X[1] - X[landmarkIndex + 1]
+                dx = self.X[0] - self.X[landmarkIndex]
+                dy = self.X[1] - self.X[landmarkIndex + 1]
                 rSquared = dx*dx + dy*dy
                 r = math.sqrt(rSquared)
                 
@@ -617,7 +617,14 @@ if __name__ == "__main__":
     problem = AbstractSLAMProblem(world_size, measurement_range, 0.01, 0.01, num_landmarks)
     data = problem.run_simulation_dennis(num_steps, num_landmarks, world_size, measurement_range, 0.01, 0.01, distance)
     
-    results = ekfSlam(data[2], data[3], num_steps, motion_noise, measurement_noise, measurement_noise, 0, 0)
+    slam = EkfSLAM()
+    slam.set_noise_parameters(measurement_noise, measurement_noise, motion_noise)
+    
+    results = []
+    
+    for step in xrange(num_steps):
+        slam.send_data(data[step][3], data[step][2])
+        results.append(slam.run_slam())
     
     true_robot_positions = data[0]
     
