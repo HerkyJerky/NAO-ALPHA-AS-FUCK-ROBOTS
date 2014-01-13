@@ -11,7 +11,7 @@ import SLAM;
 
 # The square root of the constant below is the minimum distance that needs to separate
 # 2 landmarks for the algorithm to treat them as being different landmarks
-ASSOCIATE_LANDMARK_THRESHOLD = 0.0001
+ASSOCIATE_LANDMARK_THRESHOLD = 0.5
 
 '''
 TODO:
@@ -607,7 +607,7 @@ if __name__ == "__main__":
     PRINT_LANDMARK_LOCATIONS = True
     
     num_steps = 50
-    num_landmarks = 3
+    num_landmarks = 1
     world_size = 75
     measurement_range = 25
     motion_noise = 0.01
@@ -623,7 +623,7 @@ if __name__ == "__main__":
     results = []
     
     for step in xrange(num_steps):
-        slam.send_data(data[step][3], data[step][2])
+        slam.send_data(data[3][step], data[2][step])
         results.append(slam.run_slam())
     
     true_robot_positions = data[0]
