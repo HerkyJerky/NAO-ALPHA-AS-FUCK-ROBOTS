@@ -11,7 +11,7 @@ import SLAM;
 
 # The square root of the constant below is the minimum distance that needs to separate
 # 2 landmarks for the algorithm to treat them as being different landmarks
-ASSOCIATE_LANDMARK_THRESHOLD = 0.5
+ASSOCIATE_LANDMARK_THRESHOLD = 0.05
 
 '''
 TODO:
@@ -368,8 +368,18 @@ class EkfSLAM(SLAM.SLAM):
                 #        0    bd
                 #
                 # where c = measurement noise constant for range, bd = measurement noise for bearing
-                R = [[r*self.measurement_noise_range,                              0],
-                     [                             0, self.measurement_noise_bearing]]
+                R = [[r*self.measurement_noise_range*10000,                              0],
+                     [                             0, self.measurement_noise_bearing*10000]]
+                
+                '''
+                http://home.hit.no/~hansha/documents/control/theory/stateestimation_with_kalmanfilter.pdf
+                
+                page 8. Maybe I used that, maybe I didn't. I dunno. Multiplying the noise values by
+                10,000 above seems to get rid of the incorrect data association problem where measurements
+                would cause things to go wildly wrong. Reading through the above link somehow inspired me to try
+                this, but I don't quite understand why. I feel like a wizard today. Maybe I can find explanations
+                for why stuff works in the above link later on, when I'm less wizardy
+                '''
                 
                 # Kalman gain K (see description above function definition) = P * H^T * (H * P * H^T + V * R * V^T)^-1
                 # V = 2x2 identity matrix
@@ -400,8 +410,10 @@ class EkfSLAM(SLAM.SLAM):
                 
                 # X = X + K * (z - h)
                 zMinh = numpy.subtract(z, h)
-                print "z - h = [" + str(zMinh[0]) + ", " + str(zMinh[1]) + "]"
+                zMinh[1] = normalizeAngle(zMinh[1])
+                print "z - h = [" + str(zMinh[0]) + ", " + str(zMinh[1]) + "] at step " + str(step)
                 K_zMinh = numpy.dot(K, zMinh)
+                printArray(K_zMinh, "Gain at step " + str(step))
                 self.X = numpy.add(self.X, K_zMinh)
                 self.X[2] = normalizeAngle(self.X[2])
                 
@@ -653,9 +665,9 @@ if __name__ == "__main__":
     PRINT_LANDMARK_LOCATIONS = True
     
     num_steps = 50
-    num_landmarks = 1
+    num_landmarks = 2
     world_size = 75
-    measurement_range = 25
+    measurement_range = 15
     motion_noise = 0.01
     measurement_noise = 0.01
     distance = 2
