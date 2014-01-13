@@ -116,6 +116,10 @@ class EkfSLAM(SLAM.SLAM):
         self.measurement_data = []
         self.motion_data = []
         
+        self.output = []
+        
+        self.offline = False
+        
         # Initialize noise to very small value. Can't use 0.0 because that results in singular matrices
         self.measurement_noise_bearing = 0.000001
         self.measurement_noise_range = 0.000001
@@ -153,6 +157,10 @@ class EkfSLAM(SLAM.SLAM):
         self.measurement_data = []
         self.motion_data = []
         
+        self.output = []
+        
+        self.offline = False
+        
         # no need to reset self.A, since the entries which might have changed since initialization will change every step again anyway.
         
         # still do need to reset self.P_top_left
@@ -166,6 +174,9 @@ class EkfSLAM(SLAM.SLAM):
         self.measurement_noise_range = measurement_noise_range
         self.measurement_noise_bearing = measurement_noise_bearing
         self.motion_noise = motion_noise
+    
+    def set_offline(self):
+        self.offline = True
     
     def set_parameter(self, parameter_name, value):
         raise NotImplementedError("The set_paramter method of this SLAM algorithm has not yet been implemented!")
@@ -529,8 +540,21 @@ class EkfSLAM(SLAM.SLAM):
                         P_ri[i, j - 3] = self.P[i, j]       # fill P_ri with current values in P
         
         self.measurement_data = []
-        self.motion_data = []    
-        return self.X 
+        self.motion_data = []
+        
+        rob_pos = [self.X[0], self.X[1], self.X[2]]
+        landmark_pos = []
+        
+        for i in xrange(3, len(self.X), 2):
+            landmark_pos.append([self.X[i], self.X[i+1]])
+        
+        if(self.offline):
+            self.output[0].append(rob_pos)
+            self.output[1].append(landmark_pos)
+        else:
+            self.output = [[rob_pos, landmark_pos]]
+        
+        return self.output
 
 def insertLandmark(x, y, X, reobserved_landmarks, newly_observed_landmarks, r, bearing):
     '''
