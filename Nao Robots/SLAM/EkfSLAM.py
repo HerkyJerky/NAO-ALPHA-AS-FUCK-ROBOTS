@@ -385,6 +385,8 @@ class EkfSLAM(SLAM.SLAM):
                 # V = 2x2 identity matrix
                 
                 # TODO: check if this can't be made more memory efficient by re-using same variable in intermediate steps
+                
+                # TODO: doesn't V*R*V simply always result in R? should check using matlab
                 PH_transpose = numpy.dot(self.P, H_transpose)
                 HPH_transpose = numpy.dot(H, PH_transpose)
                 VR = numpy.dot(EYE_2, R)
