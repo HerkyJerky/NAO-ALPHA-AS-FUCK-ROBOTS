@@ -117,7 +117,7 @@ class Distance():
         #print("yAngle", yAngle* RAD2DEG)
         distance = (HB * np.tan(yAngle)) / np.cos(xAngle)
 
-        return distance, xAngle
+        return False, (distance/100), xAngle
     
     def getData(self):
         return self.data

@@ -14,5 +14,6 @@ class AnalyseImage:
     
     
 an = AnalyseImage()
+#dat = [(boolean goalpost, double distance (in meter), double theta (in rad)), ......]
 dat = an.analyse('9jan03-7.png')
-#print(dat)
+print(dat)
