@@ -67,29 +67,31 @@ class Distance():
                             coordinates.append([close[1], close[2]])
                             #self.getIP().getImage()[close[2], close[1]] = (0, 255, 0)
                             
-                            
-        if len(coordinates) is not 0:    
-            self.fineTune(coordinates)
+        self.fineTune(coordinates)
+        
         
     def fineTune(self, coords):
         #print(coords)
+        self.data = []
         
-        #removing the coordinates in lower 10% of image because of a lot of noise in that area
-        tr = []
-        for i in xrange(0, len(coords)):
-            if(coords[i][1] > 0.9*self.IP.getWidthImage()):
-                tr.append(i)
-        for i in xrange(0, len(tr)):
-            coords.remove([coords[tr[len(tr)-1-i]][0], coords[tr[len(tr)-1-i]][1]])        
+        if(len(coords) is not 0):
+            #removing the coordinates in lower 10% of image because of a lot of noise in that area
+            tr = []
+            for i in xrange(0, len(coords)):
+                if(coords[i][1] > 0.9*self.IP.getWidthImage()):
+                    tr.append(i)
+                    
+            for i in xrange(0, len(tr)):
+                coords.remove([coords[tr[len(tr)-1-i]][0], coords[tr[len(tr)-1-i]][1]])        
         
-        for i in xrange(0, len(coords)):
-            self.getIP().getImage()[coords[i][1], coords[i][0]] = (0, 255, 0)
+            for i in xrange(0, len(coords)):
+                self.getIP().getImage()[coords[i][1], coords[i][0]] = (0, 255, 0)
         
-        #final part, getting actual distance:
-        for i in xrange(0, len(coords)):
-            da = self.calculateStuff(coords[i][0], coords[i][1])
-            print("coordinate white mark + distance(cm) + x-angle(rad):", coords[i], da)
-        
+            #final part, getting actual distance:
+            for i in xrange(0, len(coords)):
+                da = self.calculateStuff(coords[i][0], coords[i][1])
+                self.data.append(da)
+                #print("coordinate white mark + distance(cm) + x-angle(rad):", coords[i], da)
     
     def getIP(self):
         return self.IP
@@ -117,6 +119,8 @@ class Distance():
 
         return distance, xAngle
     
+    def getData(self):
+        return self.data
     
     def closeEnough(self, xA1, xA2, yA1, yA2, xB1, xB2, yB1, yB2):
         
@@ -153,8 +157,8 @@ class Distance():
 
 
 #Test stuff
-d = Distance('9jan03-7.png')   
-img = d.getNewImage()
+#d = Distance('9jan03-7.png')   
+#img = d.getNewImage()
 #plt.title("Threshold = ")
-plt.imshow(img)
-plt.show()
+#plt.imshow(img)
+#plt.show()
