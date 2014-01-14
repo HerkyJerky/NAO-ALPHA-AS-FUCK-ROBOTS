@@ -1,5 +1,10 @@
 __author__ = 'redsphinx'
 
+'''
+
+'''
+
+
 import time
 from naoqi import ALProxy
 import Image
@@ -30,7 +35,8 @@ class Vision:
         self.visionProxy = ALProxy("ALVideoDevice", robotIp, port)
         pass
 
-    def takePic(self, name):
+    def takePic(self):
+        action = 3
         videoClient = self.visionProxy.subscribe("python_client", resolution, colorSpace, 5)
         picture = self.visionProxy.getImageRemote(videoClient)
         self.visionProxy.unsubscribe(videoClient)
@@ -38,17 +44,17 @@ class Vision:
         picHeight = picture[1]
         array = picture[6]
         realPicture = Image.fromstring("RGB", (picWidth, picHeight), array)
-        realPicture.save(name, "PNG")
+        realPicture.save("analyzeThis.png", "PNG")
         realPicture.show()
-        logObj.logWrite(time.time().__str__() + "_5_{0}_0_0_0".format(name))
+        logObj.logWrite(time.time().__str__() + "_{0}_{1}".format(action, name))
+        #logObj.logWrite(time.time().__str__() + "_5_{0}_0_0_0".format(name))
         pass
 
-    def analyze(self):
-        # TODO: Roel fill in your beautiful code.
-        logObj.logWrite(time.time().__str__() + "_6_0_0_0_0")
-        pass
+    #def analyze(self):
+    #    logObj.logWrite(time.time().__str__() + "_6_0_0_0_0")
+    #    pass
 
-    # 6jan0.3-4 = 166 cm
+    # not sure if usable
     def getDistanceFromLandMark(self, x, y): # returns x Angle and the distance from the landmark in cm
         angle  = 81.15 * DEG2RAD #the angle was in degrees
         B = angle - 0.5 * FOVVER # angle between ground to bottom of image

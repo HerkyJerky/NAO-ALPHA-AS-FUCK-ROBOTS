@@ -1,4 +1,7 @@
 __author__ = 'redsphinx'
+# TODO Log only important actions
+# TODO be able to turn logging on/off
+
 
 # format saved data:
 # timestamp_action_parameter1_parameter2_..._parameterN
@@ -26,27 +29,21 @@ class Logger:
         prevCont = log.read()
         print(prevCont)
         log.close()
-        pass
 
     def logDelAll(self):
         open(path, 'w').close()
-        pass
 
     def getData(self):
         log = open(path, "r")
         prevCont = log.read()
         log.close()
         return prevCont
-        pass
 
     def getLastEntry(self):
         log = open(path, "r")
         lines = log.readlines()
         lastEntry = lines[-1]
         return lastEntry
-        pass
 
 #logger = Logger()
 #logger.logDelAll()
-
-#logger.logWrite(time.time().__str__() + "_3_{0}_{1}_{2}_{3}".format("je mma","whoho","yay","bro"))
