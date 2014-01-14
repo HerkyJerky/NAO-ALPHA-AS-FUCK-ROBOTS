@@ -11,9 +11,13 @@ class ImageProcessing():
         imgTemp = Image.open(imgString)
         self.height, self.width = imgTemp.size
         self.img = cv2.imread(imgString)
-        self.maxSpacing = 10;
+        self.maxSpacing = 10
+        self.minYellow = 100
+        self.goalpostSpacingSquared = 50*50
         self.LOWER_BOUND_GREEN = 0.0
         self.UPPER_BOUND_GREEN = 0.85
+        self.LOWER_BOUND_YELLOW = 0.08333
+        self.UPPER_BOUND_YELLOW = 0.25
                
                 
     # width of image, height of image, image, fraction of the image to be randomly taken pixels from            
@@ -47,7 +51,6 @@ class ImageProcessing():
     def startLumi(self):    
         self.new_img = Image.new('RGB', (self.height, self.width), "black")
         #pixels = self.img.load()
-      
         
         for x in xrange(0, self.width):
             for y in xrange(0, self.height):
@@ -60,17 +63,73 @@ class ImageProcessing():
                 H = csc.rgb_to_hue(R, G, B)
                 Y = csc.rgb_to_luminance(R, G, B)
                 
-               
+                
                 #accepted white
                 if(self.acceptedLumi(Y*255)):
                     self.img[x, y] = (255,255,255)
+                elif(self.acceptedYellow(H)):
+                    self.img[x, y] = (255,0,0)
                 elif(self.acceptedGreen(H)):
                     self.img[x, y] = (0,255,0)
                 else:
                     self.img[x, y] = (0, 0, 0)
                     
+        self.calculateGoalposts()
         self.removeBackGround()
 
+
+    def calculateGoalposts(self):
+        
+        self.goalposts = []
+        self.goalpostsTemp = []
+        
+        for x in xrange(20, self.height-20):
+            count = 0
+            for y in xrange(0, self.width):
+                #reverse y
+                yy = self.width-y-1
+                B, G, R = self.img[yy][x]
+                #if goalpost pixel
+                if(R == 0 and B == 255):
+                    if (count == 0):
+                        if (yy+3 < self.width):
+                            B1, G1, R1 = self.img[yy+1][x]
+                            B2, G2, R2 = self.img[yy+2][x]
+                            B3, G3, R3 = self.img[yy+3][x]
+                            #if either one of the previous ones are green
+                            if((B1 == 0 and G1 == 255) and (B2 == 0 and G2 == 255) and (B3 == 0 and G3 == 255)):
+                                count = count + 1
+                    else:
+                        count = count + 1
+                        if(count > self.minYellow):
+                            self.goalpostsTemp.append([x, yy+count])
+                            break
+                else:
+                    count = 0
+        
+        #removing points close to each other
+        if (len(self.goalpostsTemp) > 0):
+            
+            self.goalposts.append(self.goalpostsTemp[0])
+            
+            for i in xrange(1, len(self.goalpostsTemp)):
+                xt, yt = self.goalpostsTemp[i]
+                double = False
+                for j in xrange(0, len(self.goalposts)):
+                    x, y = self.goalposts[j]
+                    if((x-xt)*(x-xt) + (y-yt)*(y-yt) < self.goalpostSpacingSquared):
+                        double = True
+                        break
+                if(double is False):
+                    self.goalposts.append(self.goalpostsTemp[i])
+        
+        
+        if (len(self.goalposts) > 2):
+            self.goalposts = []
+    
+                
+    def getGoalposts(self):
+        return self.goalposts
 
     def removeBackGround(self):
         #self.white_list = []
@@ -238,7 +297,7 @@ class ImageProcessing():
         for x in xrange(0, self.getWidthImage()):
             for y in xrange(0, self.getHeightImage()):
                 B, G, R = self.img[x][y]
-                if (B == 0 and G == 255 and R == 0):
+                if not(B == 255 and G == 255):
                     self.img[x, y] = (0, 0, 0)
     
     
@@ -253,6 +312,13 @@ class ImageProcessing():
         #H in [0, 255]
         #if (H >= 0.222222 and H <= 0.466667):
         if (H >= self.LOWER_BOUND_GREEN and H <= self.UPPER_BOUND_GREEN):
+            return True
+        return False
+    
+    def acceptedYellow(self, H):
+        #H in [0, 255]
+        #if (H >= 0.222222 and H <= 0.466667):
+        if (H >= self.LOWER_BOUND_YELLOW and H <= self.UPPER_BOUND_YELLOW):
             return True
         return False
     

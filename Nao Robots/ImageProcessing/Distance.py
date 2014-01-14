@@ -74,6 +74,14 @@ class Distance():
         #print(coords)
         self.data = []
         
+        #adding goalpost coordinates to the list
+        gp = self.getIP().getGoalposts()
+        if(len(gp) is not 0):
+            for i in xrange(0, len(gp)):
+                xgp, ygp = gp[i]
+                da = self.calculateStuff(xgp, ygp, True)
+                self.data.append(da)   
+        
         if(len(coords) is not 0):
             #removing the coordinates in lower 10% of image because of a lot of noise in that area
             tr = []
@@ -84,12 +92,12 @@ class Distance():
             for i in xrange(0, len(tr)):
                 coords.remove([coords[tr[len(tr)-1-i]][0], coords[tr[len(tr)-1-i]][1]])        
         
-            for i in xrange(0, len(coords)):
-                self.getIP().getImage()[coords[i][1], coords[i][0]] = (0, 255, 0)
-        
+            #for i in xrange(0, len(coords)):
+                #self.getIP().getImage()[coords[i][1], coords[i][0]] = (0, 255, 0)
+                
             #final part, getting actual distance:
             for i in xrange(0, len(coords)):
-                da = self.calculateStuff(coords[i][0], coords[i][1])
+                da = self.calculateStuff(coords[i][0], coords[i][1], False)
                 self.data.append(da)
                 #print("coordinate white mark + distance(cm) + x-angle(rad):", coords[i], da)
     
@@ -97,7 +105,7 @@ class Distance():
         return self.IP
     
 
-    def calculateStuff(self, x, y):
+    def calculateStuff(self, x, y, post):
         
         DEG2RAD = np.pi/180.0 # Convert Deg to Rad
         RAD2DEG = 180.0/np.pi # Convert Rad to Deg
@@ -117,7 +125,7 @@ class Distance():
         #print("yAngle", yAngle* RAD2DEG)
         distance = (HB * np.tan(yAngle)) / np.cos(xAngle)
 
-        return False, (distance/100), xAngle
+        return post, (distance/100), xAngle
     
     def getData(self):
         return self.data
@@ -152,13 +160,14 @@ class Distance():
 
 
     def getNewImage(self):
-        return self.edges
-        #return self.getIP().getImage()
+        #return self.edges
+        return self.getIP().getImage()
 
 
 #Test stuff
 #d = Distance('9jan03-7.png')   
 #img = d.getNewImage()
+#print(d.getData())
 #plt.title("Threshold = ")
 #plt.imshow(img)
 #plt.show()
