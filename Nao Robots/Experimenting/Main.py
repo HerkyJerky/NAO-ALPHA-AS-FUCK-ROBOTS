@@ -9,6 +9,11 @@ __author__ = 'redsphinx'
 # they all come together in the class GUI which functions like a controller for the NAO
 
 
-from GUI import GUI
+#from SuperGUI import SuperGUI
+#from MapControl import  MapGUI
+from NAOControl import NAOControl
 
-gui = GUI()
+
+#gui = GUI()
+naoControl = NAOControl()
+

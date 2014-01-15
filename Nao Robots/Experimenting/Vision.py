@@ -12,6 +12,7 @@ from Logger import Logger
 import math
 import vision_definitions
 import numpy as np
+from Motion import Motion
 
 robotIp = "192.168.200.17"
 port = 9559
@@ -21,6 +22,7 @@ resolution = vision_definitions.kQVGA#kVGA #kQVGA  # QQVGA (160 * 120)
 colorSpace = 11   # RGB
 #colorSpace = vision_definitions. nt sure whats happening here
 logObj = Logger()
+motionObj = Motion()
 DEG2RAD = math.pi/180.0 # Convert Deg to Rad
 RAD2DEG = 180.0/math.pi # Convert Rad to Deg
 CAMERA_H_FOV = 46.4 * DEG2RAD # Horizontal field of view
@@ -37,6 +39,8 @@ class Vision:
 
     def takePic(self):
         action = 3
+        motionObj.moveHeadPitch(0.3, 0.4)
+        angle = motionObj.measureAngle()
         videoClient = self.visionProxy.subscribe("python_client", resolution, colorSpace, 5)
         picture = self.visionProxy.getImageRemote(videoClient)
         self.visionProxy.unsubscribe(videoClient)
@@ -46,8 +50,10 @@ class Vision:
         realPicture = Image.fromstring("RGB", (picWidth, picHeight), array)
         realPicture.save("analyzeThis.png", "PNG")
         realPicture.show()
-        logObj.logWrite(time.time().__str__() + "_{0}_{1}".format(action, name))
+        logObj.logWrite(time.time().__str__() + "_{0}_{1}".format(action))
         #logObj.logWrite(time.time().__str__() + "_5_{0}_0_0_0".format(name))
+
+        return angle
         pass
 
     #def analyze(self):

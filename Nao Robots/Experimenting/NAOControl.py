@@ -41,7 +41,8 @@ class NAOControl:
         standButton.pack()
 
         moveXYButton = Button(frame, text="Walk X/Y m", background="orange",
-                              foreground="black", command= lambda : self.wrapper(motionObj.moveXYCm(self.moveX.get(), self.moveY.get())))
+                              foreground="black", command= lambda : self.wrapper(motionObj.moveXYCm(self.moveX.get(),
+                                                                                                    self.moveY.get())))
         moveXYButton.pack()
 
         self.makeXEntry()
@@ -85,24 +86,24 @@ class NAOControl:
         #analButton.pack()
 
     def makeXEntry(self):
-        self.moveX = Entry(frame, text="X [-1.0:1.0]")
+        self.moveX = Entry(frame)
         self.moveX.pack()
         self.moveX.delete(0, END)
-        self.moveX.insert(0, "0.1")
+        self.moveX.insert(0, "enter in cm")
         pass
 
     def makeYEntry(self):
-        self.moveY = Entry(frame, text="Y [-1.0:1.0]")
+        self.moveY = Entry(frame)
         self.moveY.pack()
         self.moveY.delete(0, END)
-        self.moveY.insert(0, "0")
+        self.moveY.insert(0, "enter in cm")
         pass
 
     def makeThEntry(self):
-        self.moveTh = Entry(frame, text="theta [-1.0:1.0]")
+        self.moveTh = Entry(frame)
         self.moveTh.pack()
         self.moveTh.delete(0, END)
-        self.moveTh.insert(0, "0")
+        self.moveTh.insert(0, "enter in degrees")
         pass
 
     def makeFrEntry(self):
@@ -123,7 +124,7 @@ class NAOControl:
         self.chirp = Entry(frame)
         self.chirp.pack()
         self.chirp.delete(0, END)
-        self.chirp.insert(0, "Gabby is awesome")
+        self.chirp.insert(0, "I am sorry")
         pass
 
     def makeLogPanel(self):
