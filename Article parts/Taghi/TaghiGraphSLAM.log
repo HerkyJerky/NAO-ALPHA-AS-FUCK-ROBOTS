@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.1.9)  15 JAN 2014 18:25
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.1.9)  15 JAN 2014 18:42
 entering extended mode
 **TaghiGraphSLAM.tex
 ("C:\Users\Taghi\Desktop\Year 3\Project\TaghiGraphSLAM.tex"
@@ -243,42 +243,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--29
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 33--38
+Underfull \hbox (badness 10000) in paragraph at lines 16--29
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 33--38
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 33--38
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 33--38
-
- []
-
-
-Underfull \hbox (badness 2469) in paragraph at lines 33--38
-\OT1/cmr/m/n/10 Equation (2) is the main cal-cu-la-tion that re-
- []
-
-
-Underfull \hbox (badness 2173) in paragraph at lines 33--38
-\OT1/cmr/m/n/10 po-si-tions and it shows the ease of us-ing and
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 33--38
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 33--38
+Underfull \hbox (badness 10000) in paragraph at lines 16--29
 
  []
 
@@ -289,26 +259,66 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-Underfull \vbox (badness 5105) has occurred while \output is active []
+Underfull \hbox (badness 10000) in paragraph at lines 38--43
+
+ []
 
 
-Underfull \hbox (badness 1852) in paragraph at lines 49--50
+Underfull \hbox (badness 10000) in paragraph at lines 38--43
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 38--43
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 38--43
+
+ []
+
+
+Underfull \hbox (badness 2469) in paragraph at lines 38--43
+\OT1/cmr/m/n/10 Equation (2) is the main cal-cu-la-tion that re-
+ []
+
+
+Underfull \hbox (badness 2173) in paragraph at lines 38--43
+\OT1/cmr/m/n/10 po-si-tions and it shows the ease of us-ing and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 38--43
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 38--43
+
+ []
+
+
+Underfull \vbox (badness 4217) has occurred while \output is active []
+
+
+Underfull \hbox (badness 1852) in paragraph at lines 54--55
 []\OT1/cmr/m/n/10 Giorgio Grisetti, Rainer Kum-merle, Cyrill
  []
 
 
-Underfull \hbox (badness 4072) in paragraph at lines 49--50
+Underfull \hbox (badness 4072) in paragraph at lines 54--55
 \OT1/cmr/m/n/10 Stach-niss, Wol-fram Bur-gard, ``A tu-to-rial
  []
 
 
-Overfull \hbox (32.15405pt too wide) in paragraph at lines 49--50
+Overfull \hbox (32.15405pt too wide) in paragraph at lines 54--55
 \OT1/cmr/m/it/10 freiburg.de/teaching/ws10/praktikum/slamtutorial.pdf\OT1/cmr/m
 /n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 51--52
+Underfull \hbox (badness 10000) in paragraph at lines 56--57
 \OT1/cmr/m/it/10 http://robotfrontier.com/frontier/index.html\OT1/cmr/m/n/10 ,
  []
 
@@ -316,7 +326,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 51--52
 Here is how much of TeX's memory you used:
  2336 strings out of 493921
  31844 string characters out of 3147283
- 96535 words of memory out of 3000000
+ 94535 words of memory out of 3000000
  5639 multiletter control sequences out of 15000+200000
  9061 words of font info for 33 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
@@ -333,7 +343,7 @@ ts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
 Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/
 fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on TaghiGraphSLAM.pdf (2 pages, 136690 bytes).
+Output written on TaghiGraphSLAM.pdf (2 pages, 136933 bytes).
 PDF statistics:
  57 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
