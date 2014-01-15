@@ -1,0 +1,57 @@
+\documentclass[twocolumn]{article}
+\usepackage{graphicx,float,mathtools}
+\author{T-Dog In Da Houseeee}
+\title{PARTY UP IN HEREEEE PUSSAAAY CONTROOOL}
+
+\newcommand{\tab}[1]{\hspace{.2\textwidth}\rlap{#1}}
+\newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
+
+
+\begin{document}
+\maketitle
+\section{GraphSLAM}
+\subsection{Introduction}
+	GraphSLAM is a novel algorithm for mapping using sparse constraint graphs. The basic intuition behind GraphSLAM is simple: GraphSLAM extracts from the data a set of soft constraints, represented by a sparse graph. It obtains the map and the robot path by resolving these constraints into a globally consistent estimate. The constraints are generally nonlinear, but in the process of resolving them they are linearized and the resulting least squares problem is solved using standard optimization techniques\cite{sik}. For this project, GraphSLAM is used as a technique populating sparse "information" matrix of linear constraints.
+\subsection{Building up matrices}
+	As it is the case with many other SLAM techniques, first process that is performed by GraphSLAM is the creation of information matrices. For future reference, they will be called $\Omega$ and $\xi$ for ease. Here, $\Omega$ corresponds to the so-called "information" matrix and $\xi$ represents motions. Easier way to see it is to look any type of constraint. $\Omega$ keeps information about which poses and landmarks are represented in given constraint and $\xi$ keeps information about right hand side of these constraints.\\ \\
+	In order to create $\Omega$ and $\xi$ matrices, first of all data from environment is collected. Data in this case is the collection of three type of constraints: Initial position, relative motion and relative measurement constraints. One example for this type of constraint and addition of that constraint information into $\Omega$ and $\xi$ matrices is given below:\\ \\
+	Constraint : robot moved 10 steps forward:\\ \\ $x_{i}$ = $x_{i-1}$ + 10 \\ \\
+	There are two equations that we can get from this constraint : \\ \\
+	1. $x_{i}$ - $x_{i-1}$ = 10 \\ \\
+	2. $-x_{i}$ + $x_{i-1}$ = -10\\ \\
+	Afterwards, we add both constraint informations into the matrices in following fashion :\\ \\
+	For row and column corresponding to $x_{i}$ and $x_{i-1}$ we add 1 and we subtract 1 from row and column corresponding to relation between $x_{i}$ and $x_{i-1}$. To explain better, let`s take a look at following image which shows where what should be added :\\ \\
+	$\Omega$ = $\bordermatrix{~ & \dots & x_{i-1} & x_{i} & \dots \cr
+							\vdots & \vdots & \vdots & \vdots & \vdots \cr
+                  			x_{i-1} & \vdots & +1 & -1 & \vdots \cr
+                  			x_{i} & \vdots & -1 & +1 & \vdots \cr
+                  			\vdots & \dots & \dots & \dots & \dots \cr}$
+                  
+	$\Omega$ and $\xi$ are populated in this fashion with all the collected constraints.
+	
+\subsection{Getting results from $\Omega$ and $\xi$}
+	After matrices are created, last part of GraphSLAM can be executed. Referring to \cite{sik2}, it is known that if \textit{x} represents best estimates of robot poses and landmark positions, following equation holds : \\ \\
+	\itab{}\tab{$\Omega$ $\times$ \textit{x} = $\xi$} \tab{(1)} \\ \\
+	Using equation (1), it is possible to find \textit{x} using $\Omega$ and $\xi$ matrices. To do so, following computation is being used :\\ \\
+	\itab{}\tab{\textit{x} = $\Omega$ $^{-1}$ $\times$ $\xi$} \tab{(2)}\\ \\
+	Equation (2) is the main calculation that returns best estimates for robot poses and landmark positions and it shows the ease of using and implementing GraphSLAM. Additionally, its computational power is proven to be quite high through experimentations\cite{sik,sik2} and it will be the one of the main focus points of experiments section of this paper as well.\\ \\
+
+
+\section{Future Work}
+	One of the possible future enhancements for SLAM is improvement of robot`s exploration skills. One possible solution for this problem is to use Fourier detection/exploration algorithm which will be explained very briefly in next sub-section.
+\subsection{Frontier detection/exploration}
+	Overall, the exploration problem deals with the use of a robot to maximize the knowledge over a particular area. Frontier detection algorithm/approach tries to make use of \textit{frontiers} which are the regions on the border between open space and unexplored space \cite{frontier}
+
+\begin{thebibliography}{100} % Random guess.
+ 
+\bibitem{sik} Thrun, S. and Montemerlo, M., ``The GraphSLAM Algorithm With Applications to Large-Scale Mapping of Urban Structures," \emph{International Journal on Robotics Research}, pp. 403--430 Volume 25 Number 5/6, 2005.
+
+\bibitem{sik2} Giorgio Grisetti, Rainer Kummerle, Cyrill Stachniss, Wolfram Burgard, ``A tutorial on Graph SLAM," \emph{http://ais.informatik.uni-freiburg.de/teaching/ws10/praktikum/slamtutorial.pdf}, last accessed on 15/01/2014.
+ 
+\bibitem{frontier} Brian Yamauchi, ``Frontier based exploration," \emph{http://robotfrontier.com/frontier/index.html}, accessed on 08/01/2014. 
+ 
+\end{thebibliography} 
+
+
+\end{document}
+
