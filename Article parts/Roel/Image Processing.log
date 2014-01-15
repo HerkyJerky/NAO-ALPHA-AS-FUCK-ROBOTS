@@ -1,0 +1,244 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.10.8)  15 JAN 2014 18:40
+entering extended mode
+**Image*Processing.tex
+("D:\NewWorkspace\NAO-ALPHA-AS-FUCK-ROBOTS\Nao Robots\Image Processing.tex"
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
+abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
+croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
+lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
+ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
+vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
+an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
+romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
+sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
+senglishmax, welsh, loaded.
+("D:\MiKTeX 2.9.2\tex\latex\base\article.cls"
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+("D:\MiKTeX 2.9.2\tex\latex\base\size10.clo"
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+("D:\MiKTeX 2.9.2\tex\latex\graphics\graphicx.sty"
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+("D:\MiKTeX 2.9.2\tex\latex\graphics\keyval.sty"
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+("D:\MiKTeX 2.9.2\tex\latex\graphics\graphics.sty"
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+("D:\MiKTeX 2.9.2\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("D:\MiKTeX 2.9.2\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+("D:\MiKTeX 2.9.2\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+("D:\MiKTeX 2.9.2\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+("D:\MiKTeX 2.9.2\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count87
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+("D:\MiKTeX 2.9.2\tex\latex\float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count88
+\float@exts=\toks15
+\float@box=\box26
+\@float@everytoks=\toks16
+\@floatcapt=\box27
+)
+("D:\NewWorkspace\NAO-ALPHA-AS-FUCK-ROBOTS\Nao Robots\Image Processing.aux")
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 19.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 19.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 19.
+
+Underfull \hbox (badness 10000) in paragraph at lines 26--32
+
+ []
+
+
+Underfull \hbox (badness 1430) in paragraph at lines 26--32
+\OT1/cmr/m/n/10 First the im-age is pre-pro-cessed. In this step
+ []
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 36.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 36.
+<figure_IP1.png, id=1, 321.2pt x 240.9pt>
+File: figure_IP1.png Graphic file (type png)
+ <use figure_IP1.png>
+Package pdftex.def Info: figure_IP1.png used on input line 48.
+(pdftex.def)             Requested size: 234.5pt x 175.88126pt.
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 48--48
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 34--48
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 34--48
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 34--48
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 34--48
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 34--48
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 34--48
+
+ []
+
+<figure_IP2.png, id=2, 380.92313pt x 285.31593pt>
+File: figure_IP2.png Graphic file (type png)
+ <use figure_IP2.png>
+Package pdftex.def Info: figure_IP2.png used on input line 49.
+(pdftex.def)             Requested size: 234.5pt x 175.64021pt.
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 49--49
+[][] 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1{C:/Users/Shutt/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
+
+
+]
+Underfull \hbox (badness 1337) in paragraph at lines 50--51
+[]\OT1/cmr/m/n/10 Before con-tin-u-ing pre-pro-cess-ing, the goal-posts
+ []
+
+<figure_IP3.png, id=15, 381.67593pt x 283.81032pt>
+File: figure_IP3.png Graphic file (type png)
+ <use figure_IP3.png>
+Package pdftex.def Info: figure_IP3.png used on input line 58.
+(pdftex.def)             Requested size: 234.5pt x 174.37125pt.
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 58--58
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
+
+ []
+
+<figure_IP4.png, id=16, 380.92313pt x 278.54062pt>
+File: figure_IP4.png Graphic file (type png)
+ <use figure_IP4.png>
+Package pdftex.def Info: figure_IP4.png used on input line 60.
+(pdftex.def)             Requested size: 234.5pt x 171.46935pt.
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 60--60
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 59--60
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [2 <D:/NewWorkspace/NAO-ALPHA-AS-FUCK-ROBOTS/Nao Robots/figure_IP1.png (PNG co
+py)> <D:/NewWorkspace/NAO-ALPHA-AS-FUCK-ROBOTS/Nao Robots/figure_IP2.png> <D:/N
+ewWorkspace/NAO-ALPHA-AS-FUCK-ROBOTS/Nao Robots/figure_IP3.png>]
+<figure_IP5.png, id=20, 381.67593pt x 278.54062pt>
+File: figure_IP5.png Graphic file (type png)
+ <use figure_IP5.png>
+Package pdftex.def Info: figure_IP5.png used on input line 62.
+(pdftex.def)             Requested size: 234.5pt x 171.13358pt.
+
+Overfull \hbox (5.0pt too wide) in paragraph at lines 62--62
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 61--62
+
+ []
+
+[3 <D:/NewWorkspace/NAO-ALPHA-AS-FUCK-ROBOTS/Nao Robots/figure_IP4.png> <D:/New
+Workspace/NAO-ALPHA-AS-FUCK-ROBOTS/Nao Robots/figure_IP5.png>]
+("D:\NewWorkspace\NAO-ALPHA-AS-FUCK-ROBOTS\Nao Robots\Image Processing.aux")
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 927 strings out of 494045
+ 12103 string characters out of 3154029
+ 67962 words of memory out of 3000000
+ 4254 multiletter control sequences out of 15000+200000
+ 7587 words of font info for 27 fonts, out of 3000000 for 9000
+ 715 hyphenation exceptions out of 8191
+ 27i,7n,19p,563b,209s stack positions out of 5000i,500n,10000p,200000b,50000s
+<D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/MiKTeX 2.9.2/f
+onts/type1/public/amsfonts/cm/cmmi10.pfb><D:/MiKTeX 2.9.2/fonts/type1/public/am
+sfonts/cm/cmmi5.pfb><D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts/cm/cmmi7.pfb><
+D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/MiKTeX 2.9.2/fonts
+/type1/public/amsfonts/cm/cmr12.pfb><D:/MiKTeX 2.9.2/fonts/type1/public/amsfont
+s/cm/cmr17.pfb><D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on "Image Processing.pdf" (3 pages, 288167 bytes).
+PDF statistics:
+ 49 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+
