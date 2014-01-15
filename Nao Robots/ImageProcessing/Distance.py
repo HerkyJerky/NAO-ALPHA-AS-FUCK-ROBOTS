@@ -160,8 +160,8 @@ class Distance():
 
 
     def getNewImage(self):
-        #return self.edges
-        return self.getIP().getImage()
+        return self.edges
+        #return self.getIP().getImage()
 
 
 #Test stuff
