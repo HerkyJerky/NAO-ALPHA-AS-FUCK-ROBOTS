@@ -2,10 +2,11 @@ __author__ = 'redsphinx'
 
 from cv2.cv import *
 
+
 img = LoadImage("/home/USER/Pictures/python.jpg")
 NamedWindow("opencv")
 ShowImage("opencv",img)
-WaitKey(0)./opencv_test_core
+WaitKey(0)./opencv_test_corey
 
 
 
