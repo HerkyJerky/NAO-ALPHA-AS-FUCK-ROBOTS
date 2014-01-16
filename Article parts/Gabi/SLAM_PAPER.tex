@@ -9,6 +9,14 @@
 \runningtitle{SLAM using the NAO camera}
 \author{Maastricht University \\ Group 2 \\ Taghi Aliyev, Gabri\"elle Ras, Dennis Soemers, Roel Strolenberg}
 
+\newcommand{\dkepic}[2]{ %2 referes to the amount of "parameters" in this new "method"
+	\begin{figure}[H] %the H signifies that the image will be put 'Here', and can only be used by using package 'float'
+	\includegraphics[width=0.5\textwidth]{#1}
+	\caption{#2}
+	\label{#1}
+	\end{figure}
+}
+
 \begin{document}
 \maketitle
 
@@ -46,7 +54,7 @@ This paper researches the use of two Simultaneous Localization And Mapping (SLAM
 
 \subsection{EKF SLAM}
 
-\subsection{Gaph SLAM}
+\subsection{Graph SLAM}
 
 \subsection{Introduction}
 	GraphSLAM is a novel algorithm for mapping using sparse constraint graphs. The basic intuition behind GraphSLAM is simple: GraphSLAM extracts from the data a set of soft constraints, represented by a sparse graph. It obtains the map and the robot path by resolving these constraints into a globally consistent estimate. The constraints are generally nonlinear, but in the process of resolving them they are linearized and the resulting least squares problem is solved using standard optimization techniques\cite{sik}. For this project, GraphSLAM is used as a technique populating sparse "information" matrix of linear constraints.
@@ -73,10 +81,14 @@ This paper researches the use of two Simultaneous Localization And Mapping (SLAM
 	$\Omega$ and $\xi$ are populated in this fashion with all the collected constraints.
 	
 \subsection{Getting results from $\Omega$ and $\xi$}
-	After matrices are created, last part of GraphSLAM can be executed. Referring to \cite{sik2}, it is known that if \textit{x} represents best estimates of robot poses and landmark positions, following equation holds : \\ \\
-	\itab{}\tab{$\Omega$ $\times$ \textit{x} = $\xi$} \tab{(1)} \\ \\
-	Using equation (1), it is possible to find \textit{x} using $\Omega$ and $\xi$ matrices. To do so, following computation is being used :\\ \\
-	\itab{}\tab{\textit{x} = $\Omega$ $^{-1}$ $\times$ $\xi$} \tab{(2)}\\ \\
+	After matrices are created, last part of GraphSLAM can be executed. Referring to \cite{sik2}, it is known that if \textit{x} represents best estimates of robot poses and landmark positions, the following equation holds : \\
+	\begin{equation}
+	\Omega \times x = \xi
+	\end{equation}
+	Using equation (1), it is possible to find \textit{x} using the $\Omega$ and $\xi$ matrices. To do so, the following computation is used :\\
+	\begin{equation}
+	\Omega^{-1} \times \xi
+	\end{equation}
 	Equation (2) is the main calculation that returns best estimates for robot poses and landmark positions and it shows the ease of using and implementing GraphSLAM. Additionally, its computational power is proven to be quite high through experimentations\cite{sik,sik2} and it will be the one of the main focus points of experiments section of this paper as well.\\ \\
 
 %---------------------------------------------------------------------------
