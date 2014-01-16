@@ -1,24 +1,17 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.1.16)  16 JAN 2014 13:07
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.1.9)  16 JAN 2014 13:46
 entering extended mode
+ %&-line parsing enabled.
 **SLAM_PAPER.tex
-("D:\NAO-ALPHA-AS-FUCK-ROBOTS\Article parts\Gabi\SLAM_PAPER.tex"
-LaTeX2e <2011/06/27>
-Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
-abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
-croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
-lician, german, german-x-2013-05-26, greek, gujarati, hindi, hungarian, iceland
-ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
- lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
-german-x-2013-05-26, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
-ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
-an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
-ishmax, welsh, loaded.
-("D:\NAO-ALPHA-AS-FUCK-ROBOTS\Article parts\Gabi\ba-kecs.cls"
+(./SLAM_PAPER.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, loaded.
+(./ba-kecs.cls
 Document Class: ba-kecs 2005/01/04
 Conference Style, KECS Bachelor
-("D:\Apps\MiKTeX 2.9\tex\latex\base\article.cls"
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-("D:\Apps\MiKTeX 2.9\tex\latex\base\size10.clo"
+(/usr/share/texmf-texlive/tex/latex/base/size10.clo
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -33,7 +26,7 @@ File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-("D:\Apps\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.sty"
+(/usr/share/texmf-texlive/tex/latex/fancyhdr/fancyhdr.sty
 \fancy@headwidth=\skip43
 \f@ncyO@elh=\skip44
 \f@ncyO@erh=\skip45
@@ -44,66 +37,60 @@ File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \f@ncyO@olf=\skip50
 \f@ncyO@orf=\skip51
 )
-("D:\Apps\MiKTeX 2.9\tex\generic\babel\babel.sty"
-Package: babel 2008/07/08 v3.8m The Babel package
+(/usr/share/texmf-texlive/tex/generic/babel/babel.sty
+Package: babel 2008/07/06 v3.8l The Babel package
 
-*************************************
-* Local config file bblopts.cfg used
-*
-("D:\Apps\MiKTeX 2.9\tex\latex\00miktex\bblopts.cfg"
-File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
-)
-("D:\Apps\MiKTeX 2.9\tex\generic\babel\dutch.ldf"
+(/usr/share/texmf-texlive/tex/generic/babel/dutch.ldf
 Language: dutch 2005/03/30 v3.8i Dutch support from the babel system
 
-("D:\Apps\MiKTeX 2.9\tex\generic\babel\babel.def"
-File: babel.def 2008/07/08 v3.8m Babel common definitions
+(/usr/share/texmf-texlive/tex/generic/babel/babel.def
+File: babel.def 2008/07/06 v3.8l Babel common definitions
 \babel@savecnt=\count87
 \U@D=\dimen103
 )
+
+Package babel Warning: No hyphenation patterns were loaded for
+(babel)                the language `Dutch'
+(babel)                I will use the patterns loaded for \language=0 instead.
+
+\l@dutch = a dialect from \language0
 Package babel Info: Making " an active character on input line 132.
-)
-("D:\Apps\MiKTeX 2.9\tex\generic\babel\english.ldf"
+) (/usr/share/texmf-texlive/tex/generic/babel/english.ldf
 Language: english 2005/03/30 v3.3o English support from the babel system
+\l@british = a dialect from \language\l@english 
+\l@UKenglish = a dialect from \language\l@english 
 \l@canadian = a dialect from \language\l@american 
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
 ))
 \titlebox=\skip52
 )
-("D:\Apps\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-("D:\Apps\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-("D:\Apps\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-("D:\Apps\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-("D:\Apps\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
-File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 
-("D:\Apps\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-
-("D:\Apps\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
-)
-("D:\Apps\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
-Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
-)
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
 \Gread@gobject=\count88
 ))
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
 )
-("D:\Apps\MiKTeX 2.9\tex\latex\float\float.sty"
+(/usr/share/texmf-texlive/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count89
 \float@exts=\toks15
@@ -111,41 +98,41 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks16
 \@floatcapt=\box27
 )
-("D:\Apps\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
-Package: amsmath 2013/01/14 v2.14 AMS math features
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip53
 
 For additional information on amsmath, use the `?' option.
-("D:\Apps\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-("D:\Apps\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks17
 \ex@=\dimen106
 ))
-("D:\Apps\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen107
 )
-("D:\Apps\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count90
-LaTeX Info: Redefining \frac on input line 210.
+LaTeX Info: Redefining \frac on input line 211.
 \uproot@=\count91
 \leftroot@=\count92
-LaTeX Info: Redefining \overline on input line 306.
+LaTeX Info: Redefining \overline on input line 307.
 \classnum@=\count93
 \DOTSCASE@=\count94
-LaTeX Info: Redefining \ldots on input line 378.
-LaTeX Info: Redefining \dots on input line 381.
-LaTeX Info: Redefining \cdots on input line 466.
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
 \Mathstrutbox@=\box28
 \strutbox@=\box29
 \big@size=\dimen108
-LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 \macc@depth=\count95
 \c@MaxMatrixCols=\count96
 \dotsspace@=\muskip10
@@ -166,10 +153,11 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \multlinegap=\skip54
 \multlinetaggap=\skip55
 \mathdisplay@stack=\toks21
-LaTeX Info: Redefining \[ on input line 2665.
-LaTeX Info: Redefining \] on input line 2666.
-)
-("D:\NAO-ALPHA-AS-FUCK-ROBOTS\Article parts\Gabi\SLAM_PAPER.aux")
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+) (./SLAM_PAPER.aux)
+\openout1 = `SLAM_PAPER.aux'.
+
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
 LaTeX Font Info:    ... okay on input line 21.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
@@ -183,7 +171,7 @@ LaTeX Font Info:    ... okay on input line 21.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
 LaTeX Font Info:    ... okay on input line 21.
 
-("D:\Apps\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count102
 \scratchdimen=\dimen115
@@ -194,92 +182,102 @@ LaTeX Font Info:    ... okay on input line 21.
 \MPscratchCnt=\count105
 \MPscratchDim=\dimen116
 \MPnumerator=\count106
-\makeMPintoPDFobject=\count107
 \everyMPtoPDFconversion=\toks23
 )
 english
-
-Underfull \hbox (badness 10000) in paragraph at lines 66--68
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 71--79
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 71--79
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 71--79
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 71--79
-
- []
-
-[1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
-
-
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 116--118
-
- []
-
-<figure_IP1.png, id=16, 321.2pt x 240.9pt>
-File: figure_IP1.png Graphic file (type png)
- <use figure_IP1.png>
-Package pdftex.def Info: figure_IP1.png used on input line 130.
-(pdftex.def)             Requested size: 252.94499pt x 189.71341pt.
-
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 130--130
+<bigMatrix.jpg, id=1, 934.49126pt x 326.21875pt>
+File: bigMatrix.jpg Graphic file (type jpg)
+ <use bigMatrix.jpg>
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 59--59
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 118--130
+Underfull \hbox (badness 10000) in paragraph at lines 57--59
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 118--130
+Underfull \hbox (badness 1033) in paragraph at lines 57--59
+\OT1/cmr/m/n/10 During the run-time of the al-go-rithm, the state is
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 57--59
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 118--130
+Underfull \hbox (badness 10000) in paragraph at lines 69--71
+
+ []
+
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+
+
+
+ <./bigMatrix.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 74--82
 
  []
 
 
-Underfull \hbox (badness 1102) in paragraph at lines 118--130
+Underfull \hbox (badness 10000) in paragraph at lines 74--82
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--82
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 74--82
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 119--121
+
+ []
+
+<figure_IP1.png, id=12, 321.2pt x 240.9pt>
+File: figure_IP1.png Graphic file (type png)
+ <use figure_IP1.png>
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 133--133
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 121--133
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 121--133
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 121--133
+
+ []
+
+
+Underfull \hbox (badness 1102) in paragraph at lines 121--133
 \OT1/cmr/m/n/10 The value of '120' has ex-per-i-men-tally been shown
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 118--130
-
- []
-
-<figure_IP2.png, id=17, 380.92313pt x 285.31593pt>
-File: figure_IP2.png Graphic file (type png)
- <use figure_IP2.png>
-Package pdftex.def Info: figure_IP2.png used on input line 131.
-(pdftex.def)             Requested size: 252.94499pt x 189.45844pt.
-
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 131--131
-[][] 
+Underfull \hbox (badness 1231) in paragraph at lines 121--133
+\OT1/cmr/m/n/10 adding/subtracting $\OML/cmm/m/it/10 ^^O$\OT1/cmr/m/n/10 , be-c
+ause (in the case of this
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \hbox (badness 10000) in paragraph at lines 121--133
 
+ []
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -287,87 +285,78 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[2]
-Underfull \hbox (badness 10000) in paragraph at lines 136--139
+[2] <figure_IP2.png, id=23, 380.92313pt x 285.31593pt>
+File: figure_IP2.png Graphic file (type png)
+ <use figure_IP2.png>
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 134--134
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 139--142
 
  []
 
-<figure_IP3.png, id=23, 381.67593pt x 283.81032pt>
+<figure_IP3.png, id=24, 381.67593pt x 283.81032pt>
 File: figure_IP3.png Graphic file (type png)
  <use figure_IP3.png>
-Package pdftex.def Info: figure_IP3.png used on input line 142.
-(pdftex.def)             Requested size: 252.94499pt x 188.08623pt.
-
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 142--142
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 145--145
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 141--142
+Underfull \hbox (badness 10000) in paragraph at lines 144--145
 
  []
 
-<figure_IP4.png, id=24, 380.92313pt x 278.54062pt>
+<figure_IP4.png, id=25, 380.92313pt x 278.54062pt>
 File: figure_IP4.png Graphic file (type png)
  <use figure_IP4.png>
-Package pdftex.def Info: figure_IP4.png used on input line 144.
-(pdftex.def)             Requested size: 252.94499pt x 184.95941pt.
-
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 144--144
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 147--147
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 143--144
+Underfull \hbox (badness 10000) in paragraph at lines 146--147
 
  []
 
-
-Underfull \vbox (badness 2103) has occurred while \output is active []
-
- [3 <D:/NAO-ALPHA-AS-FUCK-ROBOTS/Article parts/Gabi/figure_IP1.png (PNG copy)> 
-<D:/NAO-ALPHA-AS-FUCK-ROBOTS/Article parts/Gabi/figure_IP2.png> <D:/NAO-ALPHA-A
-S-FUCK-ROBOTS/Article parts/Gabi/figure_IP3.png>]
-<figure_IP5.png, id=28, 381.67593pt x 278.54062pt>
+[3 <./figure_IP1.png (PNG copy)> <./figure_IP2.png (PNG copy)> <./figure_IP3.pn
+g (PNG copy)>] <figure_IP5.png, id=29, 381.67593pt x 278.54062pt>
 File: figure_IP5.png Graphic file (type png)
- <use figure_IP5.png>
-Package pdftex.def Info: figure_IP5.png used on input line 146.
-(pdftex.def)             Requested size: 252.94499pt x 184.5939pt.
 
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 146--146
+<use figure_IP5.png>
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 149--149
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 145--146
+Underfull \hbox (badness 10000) in paragraph at lines 148--149
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 147--149
+Underfull \hbox (badness 10000) in paragraph at lines 150--152
 
  []
 
 
-Underfull \hbox (badness 2088) in paragraph at lines 147--149
+Underfull \hbox (badness 2088) in paragraph at lines 150--152
 \OT1/cmr/m/n/10 Now that all the land-marks have been ex-tracted
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 184--185
+Underfull \hbox (badness 10000) in paragraph at lines 187--188
 []\OT1/cmr/m/n/10 RoboCup Tech-ni-cal Com-mit-tee, \OT1/cmr/m/it/10 Stan-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 184--185
+Underfull \hbox (badness 10000) in paragraph at lines 187--188
 \OT1/cmr/m/it/10 dard Plat-form League (Nao) Rule Book\OT1/cmr/m/n/10 ,
  []
 
 
-Overfull \hbox (24.92265pt too wide) in paragraph at lines 184--185
+Overfull \hbox (24.92265pt too wide) in paragraph at lines 187--188
 \OT1/cmr/m/n/10 www.tzi.de/spl/pub/Website/Downloads/Rules2012.pdf,
  []
 
@@ -382,64 +371,64 @@ Missing character: There is no ´ in font cmr10!
 Missing character: There is no Â in font cmr10!
 Missing character: There is no ´ in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 193--194
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
 []\OT1/cmr/m/n/10 Giorgio Grisetti, Rainer Kum-merle, Cyrill
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 193--194
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
 \OT1/cmr/m/n/10 Stach-niss, Wol-fram Bur-gard, ``A tu-to-rial
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 193--194
+Underfull \hbox (badness 10000) in paragraph at lines 196--197
 \OT1/cmr/m/n/10 on Graph SLAM," \OT1/cmr/m/it/10 http://ais.informatik.uni-
  []
 
 
-Overfull \hbox (12.74278pt too wide) in paragraph at lines 193--194
+Overfull \hbox (12.74278pt too wide) in paragraph at lines 196--197
 \OT1/cmr/m/it/10 freiburg.de/teaching/ws10/praktikum/slamtutorial.pdf\OT1/cmr/m
 /n/10 ,
  []
 
 
-Underfull \hbox (badness 1769) in paragraph at lines 195--196
+Underfull \hbox (badness 1769) in paragraph at lines 198--199
 []\OT1/cmr/m/n/10 Brian Ya-mauchi, ``Fron-tier based ex-plo-ration,"
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 195--196
+Underfull \hbox (badness 10000) in paragraph at lines 198--199
 \OT1/cmr/m/it/10 http://robotfrontier.com/frontier/index.html\OT1/cmr/m/n/10 , 
 ac-
  []
 
-[4 <D:/NAO-ALPHA-AS-FUCK-ROBOTS/Article parts/Gabi/figure_IP4.png> <D:/NAO-ALPH
-A-AS-FUCK-ROBOTS/Article parts/Gabi/figure_IP5.png>] [5
+[4 <./figure_IP4.png (PNG copy)> <./figure_IP5.png (PNG copy)>] [5
 
 ]
-("D:\NAO-ALPHA-AS-FUCK-ROBOTS\Article parts\Gabi\SLAM_PAPER.aux") ) 
+(./SLAM_PAPER.aux) ) 
 Here is how much of TeX's memory you used:
- 2325 strings out of 493921
- 28499 string characters out of 3150888
- 95049 words of memory out of 3000000
- 5610 multiletter control sequences out of 15000+200000
+ 2106 strings out of 495061
+ 25134 string characters out of 1182622
+ 92365 words of memory out of 3000000
+ 5281 multiletter control sequences out of 15000+50000
  9369 words of font info for 34 fonts, out of 3000000 for 9000
- 841 hyphenation exceptions out of 8191
- 31i,11n,45p,653b,342s stack positions out of 5000i,500n,10000p,200000b,50000s
-<D:/Apps/MiK
-TeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/Apps/MiKTeX 2.9/fonts/typ
-e1/public/amsfonts/cm/cmbx12.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfont
-s/cm/cmex10.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
-D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Apps/MiKTeX 2.9
-/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/publi
-c/amsfonts/cm/cmr12.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr1
-7.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Apps/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/
-public/amsfonts/cm/cmsy10.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/c
-m/cmsy7.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on SLAM_PAPER.pdf (5 pages, 374167 bytes).
+ 28 hyphenation exceptions out of 8191
+ 31i,10n,45p,653b,342s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cm
+bx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></
+usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/t
+exmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texliv
+e/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-texlive/fonts/type
+1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
+fonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr
+17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/
+share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-t
+exlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/font
+s/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-texlive/fonts/type1/publ
+ic/amsfonts/cm/cmti10.pfb>
+Output written on SLAM_PAPER.pdf (5 pages, 431628 bytes).
 PDF statistics:
- 75 PDF objects out of 1000 (max. 8388607)
+ 76 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

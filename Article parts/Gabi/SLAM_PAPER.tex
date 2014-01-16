@@ -54,6 +54,9 @@ This paper researches the use of two Simultaneous Localization And Mapping (SLAM
 \section{Localization and Mapping algorithms}
 
 \subsection{EKF SLAM}
+Extended Kalman Filter SLAM is an algorithm which uses an Extended Kalman Filter (EKF) to solve the SLAM problem. EKF is an enhanced version of the Kalman Filter, which is an algorithm that estimates the current state of a linear system based on (an estimate of) the previous state and a set of transition models. Those transition models contain the physical properties of a system and describe the transitions between states. The normal Kalman Filter requires these transition models to be linear, but EKF no longer has this restriction.\\ \\
+	During the runtime of the algorithm, the state is represented by a vector $\mu$ and a matrix $\Sigma$ (see figure <GABI NOTE: figure number noemen???>).\\
+\dkepic{bigMatrix}{Background noise removed}
 
 \subsection{Graph SLAM}
 
@@ -91,7 +94,7 @@ In order to create $\Omega$ and $\xi$ matrices, first of all data from environme
 	\end{equation}
 	Using equation \eqref{OMEGA_TIMES_X_IS_XI}, it is possible to find \textit{x} using the $\Omega$ and $\xi$ matrices. To do so, the following computation is used :
 	\begin{equation}
-	\Omega^{-1} \times \xi \label{OMEGA_INV_TIMES_XI}
+	x = \Omega^{-1} \times \xi \label{OMEGA_INV_TIMES_XI}
 	\end{equation}
 	Equation \eqref{OMEGA_INV_TIMES_XI} is the main calculation that returns best estimates for robot poses and landmark positions and it shows the ease of using and implementing GraphSLAM. Additionally, its computational power is proven to be quite high through experimentations\cite{sik,sik2} and it will be the one of the main focus points of experiments section of this paper as well.
 
@@ -124,8 +127,8 @@ $L_{p}$ = luminence of pixel, \\
 $L_{avg}$ = previously approximated average luminence, \\
 H = hue of pixel, and \\
 $G_{min}$, $G_{max}$, $Y_{min}$, $Y_{max}$ = lower and upper bounds for the hue of green and yellow.\\ \\
-The value of '120' has experimentally been shown to deliver the best results. The $G_{min}$ and $G_{max}$ are determined at the start of each run by taking a picture of the 'grass'. This image is then scanned for the minimum and maximum hue. $G_{min}$ will be set equal to this minimum hue minus some small number $\epsilon$ in order to deal with the occasional over- and underlighted areas on the field. The same is done for $G_{max}$.\\
-$Y_{min}$ and $Y_{max}$ are determined similarly but without adding/substracting $\epsilon$, because (in the case of this project) there is only one goal and thus the difference in lighting is negligible.\\
+The value of '120' has experimentally been shown to deliver the best results. The $G_{min}$ and $G_{max}$ are determined at the start of each run by taking a picture of the 'grass'. This image is then scanned for the minimum and maximum hue. $G_{min}$ will be set equal to this minimum hue minus some small number $\epsilon$ in order to deal with the occasional over- and under lighted areas on the field. The same is done for $G_{max}$.\\
+$Y_{min}$ and $Y_{max}$ are determined similarly but without adding/subtracting $\epsilon$, because (in the case of this project) there is only one goal and thus the difference in lighting is negligible.\\
 At this point the original image(figure 4.1) now looks something like figure 4.2.\\
 \dkepic{figure_IP1}{Raw image taken by Nao}
 \dkepic{figure_IP2}{Image after color filter}

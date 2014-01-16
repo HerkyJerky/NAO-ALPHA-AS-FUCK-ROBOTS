@@ -1,23 +1,14 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.10.8)  15 JAN 2014 23:31
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.1.9)  16 JAN 2014 11:20
 entering extended mode
-**Image*Processing.tex
-
-("D:\NewWorkspace\NAO-ALPHA-AS-FUCK-ROBOTS\Article parts\Roel\Image Processing.
-tex"
-LaTeX2e <2011/06/27>
-Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
-abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
-croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
-lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
-ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
-vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
-an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
-romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
-sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
-senglishmax, welsh, loaded.
-("D:\MiKTeX 2.9.2\tex\latex\base\article.cls"
+ %&-line parsing enabled.
+**"Image Processing.tex"
+(./Image Processing.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, loaded.
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-("D:\MiKTeX 2.9.2\tex\latex\base\size10.clo"
+(/usr/share/texmf-texlive/tex/latex/base/size10.clo
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -32,39 +23,32 @@ File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-("D:\MiKTeX 2.9.2\tex\latex\graphics\graphicx.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-("D:\MiKTeX 2.9.2\tex\latex\graphics\keyval.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-("D:\MiKTeX 2.9.2\tex\latex\graphics\graphics.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-("D:\MiKTeX 2.9.2\tex\latex\graphics\trig.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-("D:\MiKTeX 2.9.2\tex\latex\00miktex\graphics.cfg"
-File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 
-("D:\MiKTeX 2.9.2\tex\latex\pdftex-def\pdftex.def"
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-
-("D:\MiKTeX 2.9.2\tex\generic\oberdiek\infwarerr.sty"
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
-)
-("D:\MiKTeX 2.9.2\tex\generic\oberdiek\ltxcmds.sty"
-Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
-)
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
 \Gread@gobject=\count87
 ))
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
 )
-("D:\MiKTeX 2.9.2\tex\latex\float\float.sty"
+(/usr/share/texmf-texlive/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count88
 \float@exts=\toks15
@@ -72,24 +56,24 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks16
 \@floatcapt=\box27
 )
-("D:\MiKTeX 2.9.2\tex\latex\ams\math\amsmath.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip43
 
 For additional information on amsmath, use the `?' option.
-("D:\MiKTeX 2.9.2\tex\latex\ams\math\amstext.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-("D:\MiKTeX 2.9.2\tex\latex\ams\math\amsgen.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks17
 \ex@=\dimen105
 ))
-("D:\MiKTeX 2.9.2\tex\latex\ams\math\amsbsy.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen106
 )
-("D:\MiKTeX 2.9.2\tex\latex\ams\math\amsopn.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count89
@@ -133,8 +117,9 @@ LaTeX Info: Redefining \] on input line 2667.
 \@float@every@floatbox=\toks22
 \c@floatbox=\count101
 
-("D:\NewWorkspace\NAO-ALPHA-AS-FUCK-ROBOTS\Article parts\Roel\Image Processing.
-aux")
+(./Image Processing.aux)
+\openout1 = `"Image Processing.aux"'.
+
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
 LaTeX Font Info:    ... okay on input line 19.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
@@ -148,6 +133,19 @@ LaTeX Font Info:    ... okay on input line 19.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
 LaTeX Font Info:    ... okay on input line 19.
 
+(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count102
+\scratchdimen=\dimen114
+\scratchbox=\box30
+\nofMPsegments=\count103
+\nofMParguments=\count104
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count105
+\MPscratchDim=\dimen115
+\MPnumerator=\count106
+\everyMPtoPDFconversion=\toks24
+)
 Underfull \hbox (badness 10000) in paragraph at lines 27--33
 
  []
@@ -160,9 +158,6 @@ Underfull \hbox (badness 1430) in paragraph at lines 27--33
 <figure_IP1.png, id=1, 321.2pt x 240.9pt>
 File: figure_IP1.png Graphic file (type png)
  <use figure_IP1.png>
-Package pdftex.def Info: figure_IP1.png used on input line 49.
-(pdftex.def)             Requested size: 234.5pt x 175.88126pt.
-
 Overfull \hbox (5.0pt too wide) in paragraph at lines 49--49
 [][] 
  []
@@ -200,9 +195,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 35--49
 <figure_IP2.png, id=2, 380.92313pt x 285.31593pt>
 File: figure_IP2.png Graphic file (type png)
  <use figure_IP2.png>
-Package pdftex.def Info: figure_IP2.png used on input line 50.
-(pdftex.def)             Requested size: 234.5pt x 175.64021pt.
-
 Overfull \hbox (5.0pt too wide) in paragraph at lines 50--50
 [][] 
  []
@@ -210,7 +202,7 @@ Overfull \hbox (5.0pt too wide) in paragraph at lines 50--50
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [1{C:/Users/Shutt/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
@@ -226,9 +218,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 55--58
 <figure_IP3.png, id=15, 381.67593pt x 283.81032pt>
 File: figure_IP3.png Graphic file (type png)
  <use figure_IP3.png>
-Package pdftex.def Info: figure_IP3.png used on input line 61.
-(pdftex.def)             Requested size: 234.5pt x 174.37125pt.
-
 Overfull \hbox (5.0pt too wide) in paragraph at lines 61--61
 [][] 
  []
@@ -241,14 +230,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 60--61
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [2 <D:/NewWorkspace/NAO-ALPHA-AS-FUCK-ROBOTS/Article parts/Roel/figure_IP1.png
- (PNG copy)> <D:/NewWorkspace/NAO-ALPHA-AS-FUCK-ROBOTS/Article parts/Roel/figur
-e_IP2.png>] <figure_IP4.png, id=19, 380.92313pt x 278.54062pt>
+ [2 <./figure_IP1.png (PNG copy)> <./figure_IP2.png (PNG copy)>]
+<figure_IP4.png, id=19, 380.92313pt x 278.54062pt>
 File: figure_IP4.png Graphic file (type png)
  <use figure_IP4.png>
-Package pdftex.def Info: figure_IP4.png used on input line 63.
-(pdftex.def)             Requested size: 234.5pt x 171.46935pt.
-
 Overfull \hbox (5.0pt too wide) in paragraph at lines 63--63
 [][] 
  []
@@ -261,9 +246,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 62--63
 <figure_IP5.png, id=20, 381.67593pt x 278.54062pt>
 File: figure_IP5.png Graphic file (type png)
  <use figure_IP5.png>
-Package pdftex.def Info: figure_IP5.png used on input line 65.
-(pdftex.def)             Requested size: 234.5pt x 171.13358pt.
-
 Overfull \hbox (5.0pt too wide) in paragraph at lines 65--65
 [][] 
  []
@@ -308,27 +290,26 @@ Underfull \hbox (badness 2591) in paragraph at lines 77--79
 []\OT1/cmr/m/n/10 Jose M. Canas, Domenec Puig, Ed-uardo
  []
 
-[3 <D:/NewWorkspace/NAO-ALPHA-AS-FUCK-ROBOTS/Article parts/Roel/figure_IP3.png>
- <D:/NewWorkspace/NAO-ALPHA-AS-FUCK-ROBOTS/Article parts/Roel/figure_IP4.png> <
-D:/NewWorkspace/NAO-ALPHA-AS-FUCK-ROBOTS/Article parts/Roel/figure_IP5.png>]
-("D:\NewWorkspace\NAO-ALPHA-AS-FUCK-ROBOTS\Article parts\Roel\Image Processing.
-aux") ) 
+[3 <./figure_IP3.png (PNG copy)> <./figure_IP4.png (PNG copy)> <./figure_IP5.pn
+g (PNG copy)>] (./Image Processing.aux) ) 
 Here is how much of TeX's memory you used:
- 1545 strings out of 494045
- 18960 string characters out of 3154029
- 78539 words of memory out of 3000000
- 4853 multiletter control sequences out of 15000+200000
+ 1619 strings out of 495061
+ 19516 string characters out of 1182622
+ 77393 words of memory out of 3000000
+ 4817 multiletter control sequences out of 15000+50000
  9061 words of font info for 33 fonts, out of 3000000 for 9000
- 715 hyphenation exceptions out of 8191
- 27i,7n,20p,645b,215s stack positions out of 5000i,500n,10000p,200000b,50000s
-<D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/MiKTeX 2.
-9.2/fonts/type1/public/amsfonts/cm/cmmi10.pfb><D:/MiKTeX 2.9.2/fonts/type1/publ
-ic/amsfonts/cm/cmmi5.pfb><D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts/cm/cmmi7.
-pfb><D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts/cm/cmr10.pfb><D:/MiKTeX 2.9.2/
-fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/MiKTeX 2.9.2/fonts/type1/public/am
-sfonts/cm/cmr17.pfb><D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-<D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on "Image Processing.pdf" (3 pages, 310170 bytes).
+ 28 hyphenation exceptions out of 8191
+ 27i,7n,20p,646b,213s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/
+public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
+onts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmm
+i5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr
+/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf
+-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fon
+ts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/pub
+lic/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfont
+s/cm/cmti10.pfb>
+Output written on "Image Processing.pdf" (3 pages, 330985 bytes).
 PDF statistics:
  53 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
