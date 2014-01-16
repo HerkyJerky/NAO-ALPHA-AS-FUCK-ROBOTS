@@ -1,0 +1,178 @@
+%\documentclass[twocolumn]{article}
+
+\documentclass{ba-kecs}
+\usepackage[pdftex]{graphicx}
+\usepackage{graphicx, float, amsmath}
+\numberwithin{figure}{section}
+
+\title{SLAM using the NAO camera}
+\runningtitle{SLAM using the NAO camera}
+\author{Maastricht University \\ Group 2 \\ Taghi Aliyev, Gabri\"elle Ras, Dennis Soemers, Roel Strolenberg}
+
+\begin{document}
+\maketitle
+
+%---------------------------------------------------------------------------
+
+\begin{abstract}
+
+This paper researches the use of two Simultaneous Localization And Mapping (SLAM) algorithms, namely the Graph SLAM \cite{Cd1} and the EKF SLAM \cite{Cd2}. The SLAM algorithms are used for the localization and mapping of a NAO robot on a Standard Platform League soccer field \cite{Cd3}. The camera of the robot is used as the main source of input for gaining information about the environment.
+...
+
+\end{abstract}
+
+%---------------------------------------------------------------------------
+
+\section{Introduction}
+
+
+\subsection{Setting}
+
+
+
+\subsection{Problem Definition}
+
+
+\subsection{Outline}
+
+
+%---------------------------------------------------------------------------
+
+\section{Features of the Environment}
+
+%---------------------------------------------------------------------------
+
+\section{Localization and Mapping algorithms}
+
+\subsection{EKF SLAM}
+
+\subsection{Gaph SLAM}
+
+\subsection{Introduction}
+	GraphSLAM is a novel algorithm for mapping using sparse constraint graphs. The basic intuition behind GraphSLAM is simple: GraphSLAM extracts from the data a set of soft constraints, represented by a sparse graph. It obtains the map and the robot path by resolving these constraints into a globally consistent estimate. The constraints are generally nonlinear, but in the process of resolving them they are linearized and the resulting least squares problem is solved using standard optimization techniques\cite{sik}. For this project, GraphSLAM is used as a technique populating sparse "information" matrix of linear constraints.
+\subsection{Building up matrices}
+	As it is the case with many other SLAM techniques, first process that is performed by GraphSLAM is the creation of information matrices. For future reference, they will be called $\Omega$ and $\xi$ for ease. Here, $\Omega$ corresponds to the so-called "information" matrix and $\xi$ represents motions. Easier way to see it is to look any type of constraint. $\Omega$ keeps information about which poses and landmarks are represented in given constraint and $\xi$ keeps information about right hand side of these constraints.\\ \\
+	In order to create $\Omega$ and $\xi$ matrices, first of all data from environment is collected. Data in this case is the collection of three type of constraints: Initial position, relative motion and relative measurement constraints. One example for this type of constraint and addition of that constraint information into $\Omega$ and $\xi$ matrices is given below:\\ \\
+	Constraint : robot moved 10 steps forward:\\ \\ $x_{i}$ = $x_{i-1}$ + 10 \\ \\
+	There are two equations that we can get from this constraint : \\ \\
+	1. $x_{i}$ - $x_{i-1}$ = 10 \\ \\
+	2. $-x_{i}$ + $x_{i-1}$ = -10\\ \\
+	Afterwards, we add both constraint informations into the matrices in following fashion :\\ \\
+	For row and column corresponding to $x_{i}$ and $x_{i-1}$ we add 1 and we subtract 1 from row and column corresponding to relation between $x_{i}$ and $x_{i-1}$. To explain better, let`s take a look at following image which shows where what should be added :\\ \\
+	$\Omega$ = $\bordermatrix{~ & \dots & x_{i-1} & x_{i} & \dots \cr
+							\vdots & \vdots & \vdots & \vdots & \vdots \cr
+                  			x_{i-1} & \vdots & +1 & -1 & \vdots \cr
+                  			x_{i} & \vdots & -1 & +1 & \vdots \cr
+                  			\vdots & \dots & \dots & \dots & \dots \cr}$ \\ \\
+                  			
+    $\xi$ = $\bordermatrix{~ \vdots & \dots \cr
+                  			x_{i-1} & -10 \cr
+                  			x_{i}  & +10 \cr
+                  			\vdots & \dots \cr}$
+                  
+	$\Omega$ and $\xi$ are populated in this fashion with all the collected constraints.
+	
+\subsection{Getting results from $\Omega$ and $\xi$}
+	After matrices are created, last part of GraphSLAM can be executed. Referring to \cite{sik2}, it is known that if \textit{x} represents best estimates of robot poses and landmark positions, following equation holds : \\ \\
+	\itab{}\tab{$\Omega$ $\times$ \textit{x} = $\xi$} \tab{(1)} \\ \\
+	Using equation (1), it is possible to find \textit{x} using $\Omega$ and $\xi$ matrices. To do so, following computation is being used :\\ \\
+	\itab{}\tab{\textit{x} = $\Omega$ $^{-1}$ $\times$ $\xi$} \tab{(2)}\\ \\
+	Equation (2) is the main calculation that returns best estimates for robot poses and landmark positions and it shows the ease of using and implementing GraphSLAM. Additionally, its computational power is proven to be quite high through experimentations\cite{sik,sik2} and it will be the one of the main focus points of experiments section of this paper as well.\\ \\
+
+%---------------------------------------------------------------------------
+
+\section{Image Processing}
+
+This section's purpose is to explain the mechanisms, algorithms and mathematics behind the processing of images made by the NAO.
+A brief introduction to the subsections follows before heading into the details.\\ \\
+First the image is preprocessed. In this step the image is converted into a new image consisting only of green, yellow and white pixels. Any background noise is removed.\\
+Second the goalposts get isolated and the location of the foot of each post - if visible - gets determined.\\
+Third the field lines get isolated and using Hough Transforms the corner points are extracted.\\
+Lastly the distance gets calculated using the camera angle and height, the resolution of the image and the coordinates of the previously extracted landmarks.
+
+\subsection{Image Preprocessing}
+Before any kind of extraction can be made, the image first needs to be preprocessed. First a random sampling of pixels is made from which the average light intensity is calculated using the luminence from the HSL color-space.\\
+Next the white, green and yellow (goal) pixels are extracted by converting them to the HSL color-space and by using the following thresholds and bounds:\\ \\
+White:\\ $L_{p}$ $>$ 120 + ($L_{max}$-120) $\times$ $\frac{L_{avg}}{L_{max}}$ \\ \\
+Green:\\ $G_{min}$ $\leq$ H $\leq$ $G_{max}$\\ \\
+Yellow:\\ $Y_{min}$ $\leq$ H $\leq$ $Y_{max}$\\ \\
+Where \\
+$L_{max}$ = maximum luminence (usually 255),\\
+$L_{p}$ = luminence of pixel, \\
+$L_{avg}$ = previously approximated average luminence, \\
+H = hue of pixel, and \\
+$G_{min}$, $G_{max}$, $Y_{min}$, $Y_{max}$ = lower and upper bounds for the hue of green and yellow.\\ \\
+The value of '120' has experimentally been shown to deliver the best results. The $G_{min}$ and $G_{max}$ are determined at the start of each run by taking a picture of the 'grass'. This image is then scanned for the minimum and maximum hue. $G_{min}$ will be set equal to this minimum hue minus some small number $\epsilon$ in order to deal with the occasional over- and underlighted areas on the field. The same is done for $G_{max}$.\\
+$Y_{min}$ and $Y_{max}$ are determined similarly but without adding/substracting $\epsilon$, because (in the case of this project) there is only one goal and thus the difference in lighting is negligible.\\
+At this point the original image(figure 4.1) now looks something like figure 4.2.\\
+\dkepic{figure_IP1}{Raw image taken by Nao}
+\dkepic{figure_IP2}{Image after color filter}
+Before continuing preprocessing, the goalposts need to be extracted first.
+
+
+\subsection{Goalpost Extraction}
+The only parts of the goal that are of interest for this project are the locations of each foot of the posts, because the localisation algorithms use a 2D map. To find these the image is scanned from bottom to top. If a yellow (in this case red because of optimisation) pixel is spotted the algorithm looks a few pixels down to see if there are some green pixels. If there are sufficient green pixels the algorithm continues, if there aren't the algorithm stops scanning this column and proceeds to the next one. This heuristic was added to avoid getting parts of the goal's mast or some random noise in the background.\\
+When the algorithm has decided there are enough green pixels under a yellow one it continues to climb the vertical axis and count the amount of adjacent yellow pixels. If this counter surpasses a certain predefined threshold (somewhere between 10 and 20 percent of the height of the image) the first-encountered yellow pixel is now saved in a list of goalpost-coordinates and the algorithm continues to the next column.\\
+After the entire image is scanned the list of goalpost-coordinates is clustered and averaged to prevent multiple landmarks at one goalpost.\\
+
+\subsection{Fieldline Cornerpoint Extraction}
+Before any fieldlines can be extracted the background noise needs to be removed. The details of this operation will not be explained here, but the general idea is to scan the color-filtered image from top to bottom for the color green. Once a safe amount of green pixels in a row has been encountered, 'erase' all the pixels above this point and continue to the next column \cite{ref1}. To finish up we will remove any remaining green and yellow pixels because they aren't needed anymore. At this point the image will look something like figure 4.3.\\
+\dkepic{figure_IP3}{Background noise removed}
+There are quite some ways of obtaining the - in this example - three landmarks, but one in particular seems to be favored in the world of robotics \cite{ref2}\cite{ref3}: OpenCV's build-in Canny and Hough Transform methods. To illustrate Canny's use see figure 4.4.\\
+\dkepic{figure_IP4}{Image after applying Canny}
+After using the Canny method the Hough Transform is applied to the newly obtained image resulting in figure 4.5.\\
+\dkepic{figure_IP5}{Image after applying Hough Transform}
+The thicker lines are the lines generated by the Hough Transform method. The only thing left to do is finding the intersections of these lines and deleting intersections which are relatively close to each other in order to avoid double landmarks.\\ \\
+Now that all the landmarks have been extracted the distance to these can be calculated.
+
+
+\subsection{Distance Calculation}
+
+%---------------------------------------------------------------------------
+
+\section{Experiments}
+
+%---------------------------------------------------------------------------
+
+\section{Results}
+
+%---------------------------------------------------------------------------
+
+\section{Future Work}
+
+	One of the possible future enhancements for SLAM is improvement of robot`s exploration skills. One possible solution for this problem is to use Fourier detection/exploration algorithm which will be explained very briefly in next sub-section.
+\subsection{Frontier detection/exploration}
+	Overall, the exploration problem deals with the use of a robot to maximize the knowledge over a particular area. Frontier detection algorithm/approach tries to make use of \textit{frontiers} which are the regions on the border between open space and unexplored space \cite{frontier}
+
+\subsection{Frontier detection}
+
+%---------------------------------------------------------------------------
+
+\section{Conclusion}
+
+%---------------------------------------------------------------------------
+
+
+% Bibliography
+
+\begin{thebibliography}{99}
+
+\bibitem{Cd1} 
+\bibitem{Cd2}
+\bibitem{Cd3} RoboCup Technical Committee, \textit{Standard Platform League (Nao) Rule Book}, www.tzi.de/spl/pub/Website/Downloads/Rules2012.pdf, (May 2012)
+\bibitem{ref1} Amogh Gudi, Patrick de Kok, GeorgiosK. Methenitis, Nikolaas Steenbergen, "Visual Goal Detection for the RoboCup Standard Platform League" \emph{X WORKSHOP DE AGENTES FI´SICOS}, sept 2009.
+
+\bibitem{ref2} Jos´e M. Ca˜nas, Domenec Puig, Eduardo Perdices and Tom´as Gonz´alez, "Feature Detection and Localization for the
+RoboCup Soccer SPL" \emph{University of Amsterdan}, feb 5, 2013.
+
+\bibitem{ref3} Lukasz Przytula, "On Simulation of NAO Soccer Robots in Webots: A Preliminary Report" \emph{Department of Mathematics and Computer Science University of Warmia and Mazury}, sept 2011
+\bibitem{sik} Thrun, S. and Montemerlo, M., ``The GraphSLAM Algorithm With Applications to Large-Scale Mapping of Urban Structures," \emph{International Journal on Robotics Research}, pp. 403--430 Volume 25 Number 5/6, 2005.
+
+\bibitem{sik2} Giorgio Grisetti, Rainer Kummerle, Cyrill Stachniss, Wolfram Burgard, ``A tutorial on Graph SLAM," \emph{http://ais.informatik.uni-freiburg.de/teaching/ws10/praktikum/slamtutorial.pdf}, last accessed on 15/01/2014.
+ 
+\bibitem{frontier} Brian Yamauchi, ``Frontier based exploration," \emph{http://robotfrontier.com/frontier/index.html}, accessed on 08/01/2014. 
+
+
+
+\end{thebibliography}
+\end{document}

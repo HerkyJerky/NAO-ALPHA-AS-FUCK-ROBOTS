@@ -1,0 +1,672 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.1.9)  16 JAN 2014 11:25
+entering extended mode
+ %&-line parsing enabled.
+**SLAM_PAPER.tex
+(./SLAM_PAPER.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, loaded.
+(./ba-kecs.cls
+Document Class: ba-kecs 2005/01/04
+Conference Style, KECS Bachelor
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texmf-texlive/tex/latex/base/size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf-texlive/tex/latex/fancyhdr/fancyhdr.sty
+\fancy@headwidth=\skip43
+\f@ncyO@elh=\skip44
+\f@ncyO@erh=\skip45
+\f@ncyO@olh=\skip46
+\f@ncyO@orh=\skip47
+\f@ncyO@elf=\skip48
+\f@ncyO@erf=\skip49
+\f@ncyO@olf=\skip50
+\f@ncyO@orf=\skip51
+)
+(/usr/share/texmf-texlive/tex/generic/babel/babel.sty
+Package: babel 2008/07/06 v3.8l The Babel package
+
+(/usr/share/texmf-texlive/tex/generic/babel/dutch.ldf
+Language: dutch 2005/03/30 v3.8i Dutch support from the babel system
+
+(/usr/share/texmf-texlive/tex/generic/babel/babel.def
+File: babel.def 2008/07/06 v3.8l Babel common definitions
+\babel@savecnt=\count87
+\U@D=\dimen103
+)
+
+Package babel Warning: No hyphenation patterns were loaded for
+(babel)                the language `Dutch'
+(babel)                I will use the patterns loaded for \language=0 instead.
+
+\l@dutch = a dialect from \language0
+Package babel Info: Making " an active character on input line 132.
+) (/usr/share/texmf-texlive/tex/generic/babel/english.ldf
+Language: english 2005/03/30 v3.3o English support from the babel system
+\l@british = a dialect from \language\l@english 
+\l@UKenglish = a dialect from \language\l@english 
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+))
+\titlebox=\skip52
+)
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
+\Gread@gobject=\count88
+))
+\Gin@req@height=\dimen104
+\Gin@req@width=\dimen105
+)
+(/usr/share/texmf-texlive/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count89
+\float@exts=\toks15
+\float@box=\box26
+\@float@everytoks=\toks16
+\@floatcapt=\box27
+)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip53
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks17
+\ex@=\dimen106
+))
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen107
+)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count90
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count91
+\leftroot@=\count92
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count93
+\DOTSCASE@=\count94
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box28
+\strutbox@=\box29
+\big@size=\dimen108
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count95
+\c@MaxMatrixCols=\count96
+\dotsspace@=\muskip10
+\c@parentequation=\count97
+\dspbrk@lvl=\count98
+\tag@help=\toks18
+\row@=\count99
+\column@=\count100
+\maxfields@=\count101
+\andhelp@=\toks19
+\eqnshift@=\dimen109
+\alignsep@=\dimen110
+\tagshift@=\dimen111
+\tagwidth@=\dimen112
+\totwidth@=\dimen113
+\lineht@=\dimen114
+\@envbody=\toks20
+\multlinegap=\skip54
+\multlinetaggap=\skip55
+\mathdisplay@stack=\toks21
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+) (./SLAM_PAPER.aux)
+\openout1 = `SLAM_PAPER.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+
+(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count102
+\scratchdimen=\dimen115
+\scratchbox=\box30
+\nofMPsegments=\count103
+\nofMParguments=\count104
+\everyMPshowfont=\toks22
+\MPscratchCnt=\count105
+\MPscratchDim=\dimen116
+\MPnumerator=\count106
+\everyMPtoPDFconversion=\toks23
+)
+english
+
+LaTeX Warning: Citation `sik' on page 1 undefined on input line 52.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--67
+
+ []
+
+
+Underfull \hbox (badness 1275) in paragraph at lines 54--67
+\OT1/cmr/m/n/10 In or-der to cre-ate $
+$ and $\OML/cmm/m/it/10 ^^X$ \OT1/cmr/m/n/10 ma-tri-ces, first of all
+ []
+
+
+Underfull \hbox (badness 1365) in paragraph at lines 54--67
+\OT1/cmr/m/n/10 po-si-tion, rel-a-tive mo-tion and rel-a-tive mea-sure-ment
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--67
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--67
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--67
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--67
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--67
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--67
+
+ []
+
+
+Underfull \hbox (badness 4036) in paragraph at lines 54--67
+\OT1/cmr/m/n/10 Afterwards, we add both con-straint in-for-ma-tions
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--67
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--67
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--67
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--67
+
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+
+
+
+]
+
+LaTeX Warning: Citation `sik2' on page 2 undefined on input line 76.
+
+! Undefined control sequence.
+<recently read> \itab 
+                      
+l.77 	\itab
+           {}\tab{$\Omega$ $\times$ \textit{x} = $\xi$} \tab{(1)} \\ \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.77 	\itab{}\tab
+                 {$\Omega$ $\times$ \textit{x} = $\xi$} \tab{(1)} \\ \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.77 ...$\Omega$ $\times$ \textit{x} = $\xi$} \tab
+                                                  {(1)} \\ \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \itab 
+                      
+l.79 	\itab
+           {}\tab{\textit{x} = $\Omega$ $^{-1}$ $\times$ $\xi$} \tab{(2)}\\ \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.79 	\itab{}\tab
+                 {\textit{x} = $\Omega$ $^{-1}$ $\times$ $\xi$} \tab{(2)}\\ \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.79 ...x} = $\Omega$ $^{-1}$ $\times$ $\xi$} \tab
+                                                  {(2)}\\ \\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Citation `sik' on page 2 undefined on input line 80.
+
+
+LaTeX Warning: Citation `sik2' on page 2 undefined on input line 80.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--81
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--81
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--81
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--81
+
+ []
+
+
+Underfull \hbox (badness 1515) in paragraph at lines 76--81
+\OT1/cmr/m/n/10 Equation (2) is the main cal-cu-la-tion that re-turns
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--81
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 76--81
+
+ []
+
+
+Underfull \hbox (badness 5064) in paragraph at lines 86--92
+\OT1/cmr/m/n/10 al-go-rithms and math-e-mat-ics be-hind the pro-cess-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 86--92
+
+ []
+
+! Undefined control sequence.
+<recently read> \dkepic 
+                        
+l.108 \dkepic
+             {figure_IP1}{Raw image taken by Nao}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.108 \dkepic{figure_
+                     IP1}{Raw image taken by Nao}
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Extra }, or forgotten $.
+l.108 \dkepic{figure_IP1}
+                         {Raw image taken by Nao}
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Undefined control sequence.
+l.109 \dkepic
+             {figure_IP2}{Image after color filter}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.111 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--111
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--111
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--111
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--111
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 94--111
+
+ []
+
+
+Underfull \hbox (badness 1102) in paragraph at lines 94--111
+\OT1/cmr/m/n/10 The value of '120' has ex-per-i-men-tally been shown
+ []
+
+
+Overfull \hbox (354.43672pt too wide) in paragraph at lines 94--111
+\OT1/cmr/m/n/10 figure$[]\OML/cmm/m/it/10 P\OT1/cmr/m/n/10 1[][][]\OML/cmm/m/it
+/10 Beforecontinuingpreprocessing; thegoalpostsneedtobeextractedfirst:$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 114--117
+
+ []
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 27.40558pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[2]
+! Undefined control sequence.
+<recently read> \dkepic 
+                        
+l.120 \dkepic
+             {figure_IP3}{Background noise removed}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.120 \dkepic{figure_
+                     IP3}{Background noise removed}
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Extra }, or forgotten $.
+l.120 \dkepic{figure_IP3}
+                         {Background noise removed}
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Undefined control sequence.
+<recently read> \dkepic 
+                        
+l.122 \dkepic
+             {figure_IP4}{Image after applying Canny}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+<recently read> \dkepic 
+                        
+l.124 \dkepic
+             {figure_IP5}{Image after applying Hough Transform}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.127 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (99.06242pt too wide) in paragraph at lines 119--127
+\OT1/cmr/m/n/10 figure$[]\OML/cmm/m/it/10 P\OT1/cmr/m/n/10 3[]\OML/cmm/m/it/10 
+Therearequitesomewaysofobtainingthe \OMS/cmsy/m/n/10 ^^@
+ []
+
+
+Overfull \hbox (190.9283pt too wide) in paragraph at lines 119--127
+\OML/cmm/m/it/10 inthisexample \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 threelandm
+arks; butoneinparticularseemstobefavoredintheworldofrobotics\OT1/cmr/m/n/10 [[]
+][[]] :
+ []
+
+
+Overfull \hbox (178.87492pt too wide) in paragraph at lines 119--127
+\OML/cmm/m/it/10 OpenCV[]sbuild \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 inCannyan
+dHoughTransformmethods:ToillustrateCanny[]suseseefigure\OT1/cmr/m/n/10 4\OML/cm
+m/m/it/10 :\OT1/cmr/m/n/10 4\OML/cmm/m/it/10 :[] 
+ []
+
+
+Overfull \hbox (400.7229pt too wide) in paragraph at lines 119--127
+[][]\OML/cmm/m/it/10 AfterusingtheCannymethodtheHoughTransformisappliedtothenew
+lyobtainedimageresultinginfigure\OT1/cmr/m/n/10 4\OML/cmm/m/it/10 :\OT1/cmr/m/n
+/10 5\OML/cmm/m/it/10 :[] 
+ []
+
+
+Overfull \hbox (970.98914pt too wide) in paragraph at lines 119--127
+[][]\OML/cmm/m/it/10 ThethickerlinesarethelinesgeneratedbytheHoughTransformmeth
+od:Theonlythinglefttodoisfindingtheintersectionsoftheselinesanddeletingintersec
+tionswhicharerelativelyclosetoeachotherinordertoavoiddoublelandmarks:[] 
+ []
+
+
+Overfull \hbox (107.75337pt too wide) in paragraph at lines 119--127
+\OML/cmm/m/it/10 Nowthatallthelandmarkshavebeenextractedthedistancetothesecanbe
+calculated:$ 
+ []
+
+
+LaTeX Warning: Citation `frontier' on page 3 undefined on input line 145.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
+[]\OT1/cmr/m/n/10 RoboCup Tech-ni-cal Com-mit-tee, \OT1/cmr/m/it/10 Stan-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
+\OT1/cmr/m/it/10 dard Plat-form League (Nao) Rule Book\OT1/cmr/m/n/10 ,
+ []
+
+
+Overfull \hbox (24.92265pt too wide) in paragraph at lines 162--163
+\OT1/cmr/m/n/10 www.tzi.de/spl/pub/Website/Downloads/Rules2012.pdf,
+ []
+
+Missing character: There is no Â in font cmti10!
+Missing character: There is no ´ in font cmti10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no ´ in font cmr10!
+Missing character: There is no Ë in font cmr10!
+Missing character: There is no œ in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no ´ in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no ´ in font cmr10!
+
+Underfull \hbox (badness 10000) in paragraph at lines 171--172
+[]\OT1/cmr/m/n/10 Giorgio Grisetti, Rainer Kum-merle, Cyrill
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 171--172
+\OT1/cmr/m/n/10 Stach-niss, Wol-fram Bur-gard, ``A tu-to-rial
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 171--172
+\OT1/cmr/m/n/10 on Graph SLAM," \OT1/cmr/m/it/10 http://ais.informatik.uni-
+ []
+
+
+Overfull \hbox (12.74278pt too wide) in paragraph at lines 171--172
+\OT1/cmr/m/it/10 freiburg.de/teaching/ws10/praktikum/slamtutorial.pdf\OT1/cmr/m
+/n/10 ,
+ []
+
+
+Underfull \hbox (badness 1769) in paragraph at lines 173--174
+[]\OT1/cmr/m/n/10 Brian Ya-mauchi, ``Fron-tier based ex-plo-ration,"
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
+\OT1/cmr/m/it/10 http://robotfrontier.com/frontier/index.html\OT1/cmr/m/n/10 , 
+ac-
+ []
+
+[3] (./SLAM_PAPER.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ )
+(\end occurred inside a group at level 2)
+
+### simple group (level 2) entered at line 120 ({)
+### simple group (level 1) entered at line 108 ({)
+### bottom level 
+Here is how much of TeX's memory you used:
+ 2065 strings out of 495061
+ 24464 string characters out of 1182622
+ 93196 words of memory out of 3000000
+ 5248 multiletter control sequences out of 15000+50000
+ 9369 words of font info for 34 fonts, out of 3000000 for 9000
+ 28 hyphenation exceptions out of 8191
+ 31i,10n,45p,664b,320s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10
+.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/
+share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf
+-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fo
+nts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-texlive/fonts/type1/p
+ublic/amsfonts/cm/cmmi5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
+ts/cm/cmmi7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.
+pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/sh
+are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-te
+xlive/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-texlive/fonts/t
+ype1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/a
+msfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/
+cmsy7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on SLAM_PAPER.pdf (3 pages, 202665 bytes).
+PDF statistics:
+ 72 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
