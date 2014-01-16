@@ -25,7 +25,7 @@
 
 \begin{abstract}
 
-This paper researches the use of two Simultaneous Localization And Mapping (SLAM) algorithms, namely the Graph SLAM \cite{Cd1} and the EKF SLAM \cite{Cd2}. The SLAM algorithms are used for the localization and mapping of a NAO robot on a Standard Platform League soccer field \cite{Cd3}. The camera of the robot is used as the main source of input for gaining information about the environment.
+This paper researches the use of two Simultaneous Localization And Mapping (SLAM) algorithms, namely the Graph SLAM and the EKF SLAM. The SLAM algorithms are used for the localization and mapping of a NAO robot on a Standard Platform League soccer field \cite{cd1}. The camera of the robot is used as the main source of input for gaining information about the environment.
 ...
 
 \end{abstract}
@@ -174,10 +174,9 @@ Now that all the landmarks have been extracted the distance to these can be calc
 \section{Future Work}
 
 	One of the possible future enhancements for SLAM is improvement of robot`s exploration skills. One possible solution for this problem is to use Fourier detection/exploration algorithm which will be explained very briefly in next sub-section.
+	
 \subsection{Frontier detection/exploration}
 	Overall, the exploration problem deals with the use of a robot to maximize the knowledge over a particular area. Frontier detection algorithm/approach tries to make use of \textit{frontiers} which are the regions on the border between open space and unexplored space \cite{frontier}
-
-\subsection{Frontier detection}
 
 %---------------------------------------------------------------------------
 
@@ -190,10 +189,7 @@ Now that all the landmarks have been extracted the distance to these can be calc
 
 \begin{thebibliography}{99}
 
-\bibitem{Cd1} 
-\bibitem{Cd2} 
-\bibitem{Cd3} RoboCup Technical Committee, \textit{Standard Platform League (Nao) Rule Book}, www.tzi.de/spl/pub/Website/Downloads/Rules2012.pdf, (May 2012)
-
+\bibitem{cd1} RoboCup Technical Committee, Standard Platform League (Nao) Rule Book, \emph{www.tzi.de/spl/pub/Website/Downloads/Rules2012.pdf}, (May 2012)
 \bibitem{ref1} Amogh Gudi, Patrick de Kok, GeorgiosK. Methenitis, Nikolaas Steenbergen, "Visual Goal Detection for the RoboCup Standard Platform League" \emph{X WORKSHOP DE AGENTES FI´SICOS}, sept 2009.
 
 \bibitem{ref2} Jos´e M. Ca˜nas, Domenec Puig, Eduardo Perdices and Tom´as Gonz´alez, "Feature Detection and Localization for the
