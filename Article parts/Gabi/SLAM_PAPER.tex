@@ -55,8 +55,16 @@ This paper researches the use of two Simultaneous Localization And Mapping (SLAM
 
 \subsection{EKF SLAM}
 Extended Kalman Filter SLAM is an algorithm which uses an Extended Kalman Filter (EKF) to solve the SLAM problem. EKF is an enhanced version of the Kalman Filter, which is an algorithm that estimates the current state of a linear system based on (an estimate of) the previous state and a set of transition models. Those transition models contain the physical properties of a system and describe the transitions between states. The normal Kalman Filter requires these transition models to be linear, but EKF no longer has this restriction.\\ \\
-	During the runtime of the algorithm, the state is represented by a vector $\mu$ and a matrix $\Sigma$ (see figure <GABI NOTE: figure number noemen???>).\\
-\dkepic{bigMatrix}{Background noise removed}
+	During the runtime of the algorithm, the state is represented by a vector $\mu$ and a matrix $\Sigma$ (see figure 3.1).\\
+\dkepic{bigMatrix}{The vector of the state \cite{vec}}. 
+The first three elements of $\mu$ are the estimated x and y coordinates of the robot and the robot’s estimated rotation $\theta$. The following elements, mi,x and mi,y are the x and y coordinates of the ith landmark. If n equals the number of different landmarks observed so far, this means that $\mu$ has a size equal to 3 + 2n.\\\\
+The matrix $\Sigma$ contains covariances between the 3 + 2n elements of $\mu$. This means that it is a square matrix with dimension 3 + 2n.\\\\
+The algorithm is initialized with both $\mu$ and $\Sigma$ being filled with all zeros. This implies that all coordinates of landmarks and future robot position are relative to the robot’s starting position. \\\\
+EKF is an iterative algorithm. Whenever new data on the robot’s motions or observed landmarks is available, the algorithm can compute an estimate of the new state using only the previous state estimate and the data obtained since the last state was estimated.\\\\
+The first step in such an iteration of the algorithm consists of using the known physical motion model to estimate the new location of the robot. This is computed using simple geometrical calculations and information of the movement commands given to the robot.\\\\
+Next, the new values for the covariance of the robot position are predicted. These values are computed using the changes in robot position and an estimate of the motion noise. That estimate of the motion noise should be determined experimentally.\\\\
+Then, the algorithm deals with observed landmarks. If a landmark has not been observed previously, it’s coordinates and covariances are computed in a similar way to the values of the robot position in the previous steps. This time, models and noise parameters specific to measurements are used.\\\\
+Finally, landmarks which have already been observed in previous iterations and have now been re-observed are dealt with. The same computations as in the step above are used to compute the coordinates where the landmark is now measured to be. These are compared to the coordinates where the algorithm would expect to see that landmark given the estimate of it’s current position, and the estimate of the location where that landmark was previously observed. This difference between expectation and reality, combined with parameters indicating how much noise we expect there to be in motion and measurement data respectively, allow the algorithm to compute how much each value of $\mu$ should be adjusted, based on how much we trust each piece of data.\\
 
 \subsection{Graph SLAM}
 
@@ -183,8 +191,9 @@ Now that all the landmarks have been extracted the distance to these can be calc
 \begin{thebibliography}{99}
 
 \bibitem{Cd1} 
-\bibitem{Cd2}
+\bibitem{Cd2} 
 \bibitem{Cd3} RoboCup Technical Committee, \textit{Standard Platform League (Nao) Rule Book}, www.tzi.de/spl/pub/Website/Downloads/Rules2012.pdf, (May 2012)
+
 \bibitem{ref1} Amogh Gudi, Patrick de Kok, GeorgiosK. Methenitis, Nikolaas Steenbergen, "Visual Goal Detection for the RoboCup Standard Platform League" \emph{X WORKSHOP DE AGENTES FI´SICOS}, sept 2009.
 
 \bibitem{ref2} Jos´e M. Ca˜nas, Domenec Puig, Eduardo Perdices and Tom´as Gonz´alez, "Feature Detection and Localization for the
@@ -197,6 +206,7 @@ RoboCup Soccer SPL" \emph{University of Amsterdan}, feb 5, 2013.
  
 \bibitem{frontier} Brian Yamauchi, ``Frontier based exploration," \emph{http://robotfrontier.com/frontier/index.html}, accessed on 08/01/2014. 
 
+\bibitem{vec} Cyrill Stachniss, "Robot Mapping EKF SLAM", \emph{http://ais.informatik.uni-freiburg.de/teaching/ws12/mapping/pdf/slam04-ekf-slam.pdf }
 
 
 \end{thebibliography}
