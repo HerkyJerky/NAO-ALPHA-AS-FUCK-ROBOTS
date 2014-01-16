@@ -100,16 +100,22 @@ In order to create $\Omega$ and $\xi$ matrices, first of all data from environme
 \section{Image Processing}
 
 This section's purpose is to explain the mechanisms, algorithms and mathematics behind the processing of images made by the NAO.
-A brief introduction to the subsections follows before heading into the details.\\ \\
-First the image is preprocessed. In this step the image is converted into a new image consisting only of green, yellow and white pixels. Any background noise is removed.\\
-Second the goalposts get isolated and the location of the foot of each post - if visible - gets determined.\\
-Third the field lines get isolated and using Hough Transforms the corner points are extracted.\\
+A brief introduction to the subsections follows before heading into the details.
+
+First the image is preprocessed. In this step the image is converted into a new image consisting only of green, yellow and white pixels. Any background noise is removed.
+
+Second the goalposts get isolated and the location of the foot of each post - if visible - gets determined.
+
+Third the field lines get isolated and using Hough Transforms the corner points are extracted.
+
 Lastly the distance gets calculated using the camera angle and height, the resolution of the image and the coordinates of the previously extracted landmarks.
 
 \subsection{Image Preprocessing}
-Before any kind of extraction can be made, the image first needs to be preprocessed. First a random sampling of pixels is made from which the average light intensity is calculated using the luminence from the HSL color-space.\\
+Before any kind of extraction can be made, the image first needs to be preprocessed. First a random sampling of pixels is made from which the average light intensity is calculated using the luminence from the HSL color-space.
+
 Next the white, green and yellow (goal) pixels are extracted by converting them to the HSL color-space and by using the following thresholds and bounds:\\ \\
-White:\\ $L_{p}$ $>$ 120 + ($L_{max}$-120) $\times$ $\frac{L_{avg}}{L_{max}}$ \\ \\
+White:
+\[ L_{p} > 120 + (L_{max}-120) \times \frac{L_{avg}}{L_{max}} \]
 Green:\\ $G_{min}$ $\leq$ H $\leq$ $G_{max}$\\ \\
 Yellow:\\ $Y_{min}$ $\leq$ H $\leq$ $Y_{max}$\\ \\
 Where \\
