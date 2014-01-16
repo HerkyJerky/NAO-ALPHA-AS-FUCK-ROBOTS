@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.1.9)  16 JAN 2014 13:58
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.1.9)  16 JAN 2014 14:27
 entering extended mode
  %&-line parsing enabled.
 **SLAM_PAPER.tex
@@ -317,70 +317,60 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  This may cause the page layout to be inconsistent, however.
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 127--129
+Underfull \hbox (badness 10000) in paragraph at lines 127--130
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 140--142
 
  []
 
 <figure_IP1.png, id=22, 321.2pt x 240.9pt>
 File: figure_IP1.png Graphic file (type png)
  <use figure_IP1.png>
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 141--141
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 158--158
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--141
+Underfull \hbox (badness 10000) in paragraph at lines 153--158
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--141
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 129--141
-
- []
-
-
-Underfull \hbox (badness 1102) in paragraph at lines 129--141
+Underfull \hbox (badness 1102) in paragraph at lines 153--158
 \OT1/cmr/m/n/10 The value of '120' has ex-per-i-men-tally been shown
  []
 
 
-Underfull \hbox (badness 1231) in paragraph at lines 129--141
+Underfull \hbox (badness 1231) in paragraph at lines 153--158
 \OT1/cmr/m/n/10 adding/subtracting $\OML/cmm/m/it/10 ^^O$\OT1/cmr/m/n/10 , be-c
 ause (in the case of this
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--141
+Underfull \hbox (badness 10000) in paragraph at lines 153--158
 
  []
 
 <figure_IP2.png, id=23, 380.92313pt x 285.31593pt>
 File: figure_IP2.png Graphic file (type png)
  <use figure_IP2.png>
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 142--142
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 159--159
 [][] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 147--150
-
  []
 
 [3 <./figure_IP1.png (PNG copy)> <./figure_IP2.png (PNG copy)>]
 <figure_IP3.png, id=27, 381.67593pt x 283.81032pt>
 File: figure_IP3.png Graphic file (type png)
  <use figure_IP3.png>
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 153--153
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 170--170
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 152--153
+Underfull \hbox (badness 10000) in paragraph at lines 169--170
 
  []
 
@@ -391,24 +381,24 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 <figure_IP4.png, id=28, 380.92313pt x 278.54062pt>
 File: figure_IP4.png Graphic file (type png)
  <use figure_IP4.png>
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 155--155
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 172--172
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 154--155
+Underfull \hbox (badness 10000) in paragraph at lines 171--172
 
  []
 
 <figure_IP5.png, id=29, 381.67593pt x 278.54062pt>
 File: figure_IP5.png Graphic file (type png)
  <use figure_IP5.png>
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 157--157
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 174--174
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 156--157
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
 
  []
 
@@ -416,27 +406,27 @@ Underfull \hbox (badness 10000) in paragraph at lines 156--157
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [4 <./figure_IP3.png (PNG copy)> <./figure_IP4.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 158--160
+Underfull \hbox (badness 10000) in paragraph at lines 175--177
 
  []
 
 
-Underfull \hbox (badness 2088) in paragraph at lines 158--160
+Underfull \hbox (badness 2088) in paragraph at lines 175--177
 \OT1/cmr/m/n/10 Now that all the land-marks have been ex-tracted
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 195--196
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
 []\OT1/cmr/m/n/10 RoboCup Tech-ni-cal Com-mit-tee, \OT1/cmr/m/it/10 Stan-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 195--196
+Underfull \hbox (badness 10000) in paragraph at lines 212--213
 \OT1/cmr/m/it/10 dard Plat-form League (Nao) Rule Book\OT1/cmr/m/n/10 ,
  []
 
 
-Overfull \hbox (24.92265pt too wide) in paragraph at lines 195--196
+Overfull \hbox (24.92265pt too wide) in paragraph at lines 212--213
 \OT1/cmr/m/n/10 www.tzi.de/spl/pub/Website/Downloads/Rules2012.pdf,
  []
 
@@ -451,61 +441,61 @@ Missing character: There is no ´ in font cmr10!
 Missing character: There is no Â in font cmr10!
 Missing character: There is no ´ in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 205--206
+Underfull \hbox (badness 10000) in paragraph at lines 222--223
 []\OT1/cmr/m/n/10 Giorgio Grisetti, Rainer Kum-merle, Cyrill
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 205--206
+Underfull \hbox (badness 10000) in paragraph at lines 222--223
 \OT1/cmr/m/n/10 Stach-niss, Wol-fram Bur-gard, ``A tu-to-rial
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 205--206
+Underfull \hbox (badness 10000) in paragraph at lines 222--223
 \OT1/cmr/m/n/10 on Graph SLAM," \OT1/cmr/m/it/10 http://ais.informatik.uni-
  []
 
 
-Overfull \hbox (12.74278pt too wide) in paragraph at lines 205--206
+Overfull \hbox (12.74278pt too wide) in paragraph at lines 222--223
 \OT1/cmr/m/it/10 freiburg.de/teaching/ws10/praktikum/slamtutorial.pdf\OT1/cmr/m
 /n/10 ,
  []
 
 
-Underfull \hbox (badness 1769) in paragraph at lines 207--208
+Underfull \hbox (badness 1769) in paragraph at lines 224--225
 []\OT1/cmr/m/n/10 Brian Ya-mauchi, ``Fron-tier based ex-plo-ration,"
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 207--208
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
 \OT1/cmr/m/it/10 http://robotfrontier.com/frontier/index.html\OT1/cmr/m/n/10 , 
 ac-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 209--210
+Underfull \hbox (badness 10000) in paragraph at lines 226--227
 []\OT1/cmr/m/n/10 Cyrill Stach-niss, "Robot Map-ping
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 209--210
+Underfull \hbox (badness 10000) in paragraph at lines 226--227
 \OT1/cmr/m/n/10 EKF SLAM", \OT1/cmr/m/it/10 http://ais.informatik.uni-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 209--210
+Underfull \hbox (badness 10000) in paragraph at lines 226--227
 \OT1/cmr/m/it/10 freiburg.de/teaching/ws12/mapping/pdf/slam04-
  []
 
 [5 <./figure_IP5.png (PNG copy)>] (./SLAM_PAPER.aux) ) 
 Here is how much of TeX's memory you used:
- 2107 strings out of 495061
- 25139 string characters out of 1182622
- 92370 words of memory out of 3000000
- 5282 multiletter control sequences out of 15000+50000
+ 2114 strings out of 495061
+ 25204 string characters out of 1182622
+ 92440 words of memory out of 3000000
+ 5289 multiletter control sequences out of 15000+50000
  9369 words of font info for 34 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 31i,11n,45p,771b,240s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 31i,11n,45p,771b,238s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive
 /fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts/type
 1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/am
@@ -518,7 +508,7 @@ public/amsfonts/cm/cmr7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
 ts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.
 pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/sh
 are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on SLAM_PAPER.pdf (5 pages, 434046 bytes).
+Output written on SLAM_PAPER.pdf (5 pages, 438987 bytes).
 PDF statistics:
  76 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
