@@ -10,7 +10,6 @@ import CommonFunctionality
 class GraphSLAMInherited(SLAM):
     
     def __init__(self):
-        print "Graph Slam is initialized!"
         '''
         This is an graph slam object that will be the main engine for this class.
         '''
@@ -21,6 +20,7 @@ class GraphSLAMInherited(SLAM):
         self.measurement_noise = 1
         self.associationError = 0.25
         self.method = True
+        print "Graph Slam is initialized!"
     
     def reset(self):
         print "Reseting GraphSLAM!"
@@ -32,6 +32,7 @@ class GraphSLAMInherited(SLAM):
         self.measurement_noise = 1
         self.associationError = 0.25
         self.method = True
+        print "Reseting done!"
         
     def run_slam(self):
         # TODO : Needs to be tested somehow.
@@ -59,7 +60,8 @@ class GraphSLAMInherited(SLAM):
             for i in range(len(engine.landmarks)):
                 landmarks_approximations.append([result[2*(len(self.motions)+i)],result[2*(len(self.motions)+i) + 1]])
         
-        # Returning results depending on what method is used. Return statement does not change only the way matrices are generated   
+        # Returning results depending on what method is used. Return statement does not change only the way matrices are generated 
+        print "Graph SLAM is done!"  
         return [motion_approximations,landmarks_approximations]   
     
     def send_data(self,measurement_data,motion_data):
