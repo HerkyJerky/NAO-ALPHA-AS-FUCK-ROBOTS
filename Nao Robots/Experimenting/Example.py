@@ -8,8 +8,6 @@ NamedWindow("opencv")
 ShowImage("opencv",img)
 WaitKey(0)./opencv_test_corey
 
-
-
 #class Thing:
 #    def __init__(self):
 #        pass

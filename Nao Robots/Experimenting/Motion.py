@@ -335,6 +335,7 @@ class Motion:
     def measureAngle(self):
         name = "HeadPitch"
         c = self.motionProxy.getAngles(name, False)
+        print 90.0 - (180.0/math.pi)*c[0]
         return 90.0 - (180.0/math.pi)*c[0]
 
 #mot = Motion()
