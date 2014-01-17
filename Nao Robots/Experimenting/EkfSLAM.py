@@ -11,7 +11,7 @@ import SLAM;
 
 # The square root of the constant below is the minimum distance that needs to separate
 # 2 landmarks for the algorithm to treat them as being different landmarks
-ASSOCIATE_LANDMARK_THRESHOLD = 0.5
+ASSOCIATE_LANDMARK_THRESHOLD = 0.05
 
 '''
 TODO:
@@ -181,6 +181,8 @@ class EkfSLAM(SLAM.SLAM):
     
     def set_offline(self):
         self.offline = True
+        
+        self.output = [[], []]
     
     def set_parameter(self, parameter_name, value):
         raise NotImplementedError("The set_paramter method of this SLAM algorithm has not yet been implemented!")
@@ -278,6 +280,18 @@ class EkfSLAM(SLAM.SLAM):
             # Next, we're gonna look at landmarks. If no landmarks have been observed at all, we can already continue
             # to the next time-step
             if(len(measurement_data_step) == 0):
+                # If we're doing offline SLAM, we'll want to save some output here            
+
+                if(self.offline):
+                    rob_pos = [self.X[0], self.X[1], self.X[2]]
+                    landmark_pos = []              
+
+                    for i in xrange(3, len(self.X), 2):
+                        landmark_pos.append([self.X[i], self.X[i+1]])
+
+                    self.output[0].append(rob_pos)
+                    self.output[1].append(landmark_pos)
+                
                 continue
                     
             # figure out which landmarks were seen before and which landmarks are new
@@ -359,13 +373,17 @@ class EkfSLAM(SLAM.SLAM):
                 #        0    bd
                 #
                 # where c = measurement noise constant for range, bd = measurement noise for bearing
-                R = [[r*self.measurement_noise_range,                              0],
-                     [                             0, self.measurement_noise_bearing]]
+                R = [[r*self.measurement_noise_range*10000,                                    0],
+                     [                                   0, self.measurement_noise_bearing*10000]]
+                
+                # http://home.hit.no/~hansha/documents/control/theory/stateestimation_with_kalmanfilter.pdf
                 
                 # Kalman gain K (see description above function definition) = P * H^T * (H * P * H^T + V * R * V^T)^-1
                 # V = 2x2 identity matrix
                 
                 # TODO: check if this can't be made more memory efficient by re-using same variable in intermediate steps
+                
+                # TODO: doesn't V*R*V simply always result in R? should check using matlab
                 PH_transpose = numpy.dot(self.P, H_transpose)
                 HPH_transpose = numpy.dot(H, PH_transpose)
                 VR = numpy.dot(EYE_2, R)
@@ -544,20 +562,29 @@ class EkfSLAM(SLAM.SLAM):
                 for i in RANGE_0_3:
                     for j in range_3_dim:
                         P_ri[i, j - 3] = self.P[i, j]       # fill P_ri with current values in P
+                        
+            # If we're doing offline SLAM, we'll want to save some output here            
+            if(self.offline):
+                rob_pos = [self.X[0], self.X[1], self.X[2]]
+                landmark_pos = []              
+
+                for i in xrange(3, len(self.X), 2):
+                    landmark_pos.append([self.X[i], self.X[i+1]])
+
+                self.output[0].append(rob_pos)
+                self.output[1].append(landmark_pos)
         
+        # reset measurement and motion data, only remembering X is enough for EKF slam
         self.measurement_data = []
         self.motion_data = []
         
-        rob_pos = [self.X[0], self.X[1], self.X[2]]
-        landmark_pos = []
-        
-        for i in xrange(3, len(self.X), 2):
-            landmark_pos.append([self.X[i], self.X[i+1], self.goal_posts[(i - 3) % 2]])
-        
-        if(self.offline):
-            self.output[0].append(rob_pos)
-            self.output[1].append(landmark_pos)
-        else:
+        if(not self.offline):
+            rob_pos = [self.X[0], self.X[1], self.X[2]]
+            landmark_pos = []
+
+            for i in xrange(3, len(self.X), 2):
+                landmark_pos.append([self.X[i], self.X[i+1]])
+
             self.output = [[rob_pos, landmark_pos]]
         
         return self.output
@@ -634,17 +661,17 @@ def printSystemState(time_step, X):
 
 '''
 This is the test case. I will just assume some numbers to check if it actually works
-''' 
+'''
 if __name__ == "__main__":
+    OFFLINE_SLAM = True
+    
     PRINT_ROBOT_LOCATIONS = True
-    PRINT_ROBOT_LOCATION_ERRORS = False
-    ERROR_THRESHOLD = 0.5
     PRINT_LANDMARK_LOCATIONS = True
     
     num_steps = 50
-    num_landmarks = 1
+    num_landmarks = 2
     world_size = 75
-    measurement_range = 25
+    measurement_range = 15
     motion_noise = 0.01
     measurement_noise = 0.01
     distance = 2
@@ -655,26 +682,39 @@ if __name__ == "__main__":
     slam = EkfSLAM()
     slam.set_noise_parameters(measurement_noise, measurement_noise, motion_noise)
     
-    results = []
+    if(OFFLINE_SLAM):
+        slam.set_offline()
+        
+    output = []
     
     for step in xrange(num_steps):
         slam.send_data(data[3][step], data[2][step])
-        results.append(slam.run_slam())
+        
+        if(not OFFLINE_SLAM):
+            output.append(slam.run_slam())
+            
+    if(OFFLINE_SLAM):
+        output = slam.run_slam()
     
     true_robot_positions = data[0]
     
     if PRINT_ROBOT_LOCATIONS:
         for step in xrange(num_steps):
-            X = results[step]
+            if(not OFFLINE_SLAM):
+                results = output[step]
+            else:
+                results = output
+            
             robot = true_robot_positions[step]
             
             true_x = robot[0]
             true_y = robot[1]
             true_theta = normalizeAngle(robot[2])
             
-            estimate_x = X[0]
-            estimate_y = X[1]
-            estimate_theta = X[2]
+            print results
+            estimate_x = results[0][step][0]
+            estimate_y = results[0][step][1]
+            estimate_theta = results[0][step][2]
             
             print ""
             print "STEP " + str(step)
@@ -682,36 +722,9 @@ if __name__ == "__main__":
             print "True robot y = " + str(true_y) + ", estimated robot y = " + str(estimate_y)
             print "True robot theta = " + str(true_theta) + ", estimated robot theta = " + str(estimate_theta)
             
-            for i in xrange(3, len(X), 2):
-                print "Landmark " + str(i - 3) + ": ( " + str(X[i]) + ", " + str(X[i+1]) + ")"
+            for i in xrange(len(results[1][step])):
+                print "Landmark " + str(i) + ": ( " + str(results[1][step][i][0]) + ", " + str(results[1][step][i][1]) + ")"
             
-            print ""
-            
-    if PRINT_ROBOT_LOCATION_ERRORS:
-        for step in xrange(num_steps):
-            X = results[step]
-            robot = true_robot_positions[step]
-            
-            true_x = robot[0]
-            true_y = robot[1]
-            true_theta = normalizeAngle(robot[2])
-            
-            estimate_x = X[0]
-            estimate_y = X[1]
-            estimate_theta = X[2]
-            
-            error_x = true_x - estimate_x
-            error_y = true_y - estimate_y
-            error_theta = true_theta - estimate_theta
-            
-            print ""
-            print "STEP " + str(step)
-            if(abs(error_x) >= ERROR_THRESHOLD):
-                print "ERROR ABOVE THRESHOLD! True robot x = " + str(true_x) + ", estimated robot x = " + str(estimate_x)
-            if(abs(error_y) >= ERROR_THRESHOLD):
-                print "ERROR ABOVE THRESHOLD! True robot y = " + str(true_y) + ", estimated robot y = " + str(estimate_y)
-            if(abs(error_theta) >= ERROR_THRESHOLD):
-                print "ERROR ABOVE THRESHOLD! True robot theta = " + str(true_theta) + ", estimated robot theta = " + str(estimate_theta)
             print ""
             
     if PRINT_LANDMARK_LOCATIONS:
@@ -720,7 +733,3 @@ if __name__ == "__main__":
             landmark = landmarks[i]
             print "LANDMARK " + str(i) + " at: (" + str(landmark[0]) + ", " + str(landmark[1]) + ")"
             print ""
-        
-        X = results[len(results) - 1]
-        for i in xrange(3, len(X), 2):
-            print "Landmark detected at (" + str(X[i]) + ", " + str(X[i+1]) + ")"
