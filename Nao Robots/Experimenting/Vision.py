@@ -15,6 +15,7 @@ import numpy as np
 from Motion import Motion
 
 robotIp = "192.168.200.17"
+#robotIp = "192.168.200.16"
 port = 9559
 #global visionProxy
 #resolution = 2    # VGA
@@ -40,9 +41,9 @@ class Vision:
     def takePic(self):
         action = 3
         motionObj.moveHeadPitch(0.3, 0.4)
-        angle = motionObj.measureAngle()
         videoClient = self.visionProxy.subscribe("python_client", resolution, colorSpace, 5)
         picture = self.visionProxy.getImageRemote(videoClient)
+        #picture2 = self.visionProxy.getImageLocal(videoClient)
         self.visionProxy.unsubscribe(videoClient)
         picWidth = picture[0]
         picHeight = picture[1]
@@ -50,7 +51,8 @@ class Vision:
         realPicture = Image.fromstring("RGB", (picWidth, picHeight), array)
         realPicture.save("analyzeThis.png", "PNG")
         realPicture.show()
-        logObj.logWrite(time.time().__str__() + "_{0}_{1}".format(action))
+        logObj.logWrite(time.time().__str__() + "_{0}".format(action))
+        angle = motionObj.measureAngle()
         #logObj.logWrite(time.time().__str__() + "_5_{0}_0_0_0".format(name))
 
         return angle

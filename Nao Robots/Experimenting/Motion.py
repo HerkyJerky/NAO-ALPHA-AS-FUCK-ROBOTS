@@ -14,6 +14,7 @@ however, in the native NAOqi functions meters, are expected.
 '''
 
 robotIp = "192.168.200.17"
+#robotIp = "192.168.200.16"
 port = 9559
 logObj = Logger()
 MAXSTEPSIZE = 8  # cm
@@ -34,9 +35,9 @@ class Motion:
         self.motionProxy = ALProxy("ALMotion", robotIp, port)
         self.postureProxy = ALProxy("ALRobotPosture", robotIp, port)
         self.talkProxy = ALProxy("ALTextToSpeech", robotIp, port)
-        robotConfig = self.motionProxy.getRobotConfig()
-        for i in range(len(robotConfig[0])):
-            print robotConfig[0][i], ": ", robotConfig[1][i]
+        #robotConfig = self.motionProxy.getRobotConfig()
+        #for i in range(len(robotConfig[0])):
+        #    print robotConfig[0][i], ": ", robotConfig[1][i]
 
     # turn on stiffness of body
     # harden
@@ -65,7 +66,7 @@ class Motion:
     # make robot stand up
     def stand(self):  # def stand(self, name, speed):
         self.stiffnessOn(motionProxy=self.motionProxy)
-        self.postureProxy.goToPosture("Stand", 1.0)
+        self.postureProxy.goToPosture("Stand", 0.4)
         #motionProxy.setWalkArmsEnabled(True, True)
         #motionProxy.setMotionConfig([["ENABLE_FOOT_CONTACT_PROTECTION", True]])
         #logObj.logWrite(time.time().__str__() + "_1_0_0_0_0")
@@ -103,6 +104,7 @@ class Motion:
     # TODO figure out how many m one footstep is, for all cases so L R Bw Fw
     def moveXYCm(self, x, y):
         print("moveXYCm")
+        self.stand()
         # convert from input string to integer
         x = int(x)
         y = int(y)
@@ -215,7 +217,7 @@ class Motion:
     # set a step with a speed
     # ! distance already converted to m in moveXYCm method
     def setStep(self, legName, X, Y, Theta):
-        print("setStep")
+        #print("setStep")
         legName = [legName]
         footSteps = [[X, Y, Theta]]
         fractionMaxSpeed = [SPEED]
@@ -241,6 +243,7 @@ class Motion:
             x = 0.6 # TODO something with stepSize? see TODO above
             y = 0
         self.setStep(legToMove, x, y, theta)
+        self.stand()
         #self.standStraight()
 
     # get the amount of steps needed to rotate amount of theta in. steps is how many steps the NAO needs to take to make the turn,
@@ -267,6 +270,7 @@ class Motion:
     # theta: positive for counterclockwise, negative for clockwise [-1.0 to 1.0]
     # action code = 2
     def rotateTheta(self, theta):
+        self.stand()
         print("rotateTheta")
         print(theta)
         theta = int(theta)
@@ -303,7 +307,7 @@ class Motion:
                 self.motionProxy.setFootStepsWithSpeed(otherLeg, footSteps, fractionMaxSpeed, clearExisting)
 
         # TODO take last step?
-        #self.standStraight()
+        self.stand()
         logObj.logWrite(time.time().__str__() + "_{0}_{1}_{2}_{3}_{4}".format(action, x, y, theta, SPEED))
         theta = theta*DEG2RAD
         return [time.time().__str__(), action, x, y, theta, SPEED]
@@ -313,6 +317,7 @@ class Motion:
     def stop(self):
         #self.motionProxy.stopMove()
         self.motionProxy.setWalkTargetVelocity(0.0, 0.0, 0.0, 0.0)
+        self.stand()
         #logObj.logWrite(time.time().__str__() + "_4_0_0_0_0")
 
     def talk(self, word):
@@ -323,7 +328,7 @@ class Motion:
     def moveHeadPitch(self, theta, speed):
         theta = float(theta)
         speed = float(speed)
-        self.motionProxy.setAngles("HeadPitch", theta, speed)
+        self.motionProxy.setAngles("HeadPitch", theta, 0.1)
         #logObj.logWrite(time.time().__str__() + "_9_{0}_{1}_0_0".format(theta, speed))
 
     def lieDownRelax(self):
@@ -333,10 +338,19 @@ class Motion:
         #logObj.logWrite(time.time().__str__() + "_10_0_0_0_0")
 
     def measureAngle(self):
+        self.stand()
         name = "HeadPitch"
         c = self.motionProxy.getAngles(name, False)
         print 90.0 - (180.0/math.pi)*c[0]
         return 90.0 - (180.0/math.pi)*c[0]
+
+    def correctHipPitch(self):
+        print "setting hip pitch"
+        names = ['LHipPitch', 'RHipPitch']
+        angles = [0, 0]
+        fractionMaxSpeed = 0.1
+        self.motionProxy.setAngles(names, angles, fractionMaxSpeed)
+
 
 #mot = Motion()
 #a = mot.measureAngle()

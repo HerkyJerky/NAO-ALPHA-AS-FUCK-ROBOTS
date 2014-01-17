@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image
 import colorsys as cs
 import ImageProcessing as ip
-from cv2 import cv
+import cv2.cv as cv
 
 class Distance():
     
@@ -27,7 +27,10 @@ class Distance():
         
         
     def findLandmarks(self):
-        self.edges = cv2.Canny(self.getIP().getImage(), 0, 100, apertureSize = 5)
+
+        gray = cv2.cvtColor(self.getIP().getImage(), cv2.COLOR_BGR2GRAY)
+        self.edges = cv2.Canny(gray, 0, 100,  apertureSize=5)
+        #self.edges = cv.Canny()
         #gray = cv2.cvtColor(self.getIP().getNewImage(),cv2.COLOR_BGR2GRAY)
         #gray = np.float32(gray)
         coordinates = []
@@ -107,7 +110,9 @@ class Distance():
     
 
     def calculateStuff(self, x, y, post):
-        
+
+        x2 = x
+        y2 = y
         DEG2RAD = np.pi/180.0 # Convert Deg to Rad
         RAD2DEG = 180.0/np.pi # Convert Rad to Deg
         RESW = 320.0 #320.0 #Capture width
@@ -117,7 +122,7 @@ class Distance():
         
         angle = self.ang * DEG2RAD
         B = angle - 0.5 * FOVVER # angle between ground to bottom of image
-        HB = 47.5 # height of camera
+        HB = 50.6 #47.5 # height of camera
         x = RESW - x # rotation counter clockwise
         x = x - RESW/2 # relative to center of image
         xAngle = (x/(RESW/2)) * (FOVHOR/2) # in degrees
@@ -126,6 +131,7 @@ class Distance():
         #print("yAngle", yAngle* RAD2DEG)
         distance = (HB * np.tan(yAngle)) / np.cos(xAngle)
 
+        print (x2, y2)
         return (distance/100), xAngle, post
     
     def getData(self):
