@@ -116,6 +116,8 @@ class EkfSLAM(SLAM.SLAM):
         self.measurement_data = []
         self.motion_data = []
         
+        self.goal_posts = []        # saves whether or not the i'th landmark is a goal post
+        
         self.output = []
         
         self.offline = False
@@ -156,6 +158,8 @@ class EkfSLAM(SLAM.SLAM):
         
         self.measurement_data = []
         self.motion_data = []
+        
+        self.goal_posts = []
         
         self.output = []
         
@@ -291,7 +295,7 @@ class EkfSLAM(SLAM.SLAM):
             '''
             
             for i in xrange(len(measurement_data_step)):
-                data_landmark = measurement_data_step[i]        # = [distance(robot, landmark), relative angle] for the specific landmark
+                data_landmark = measurement_data_step[i]        # = [distance(robot, landmark), relative angle, bool goalPost] for the specific landmark
                 
                 distance = data_landmark[0]
                 relativeAngle = data_landmark[1]
@@ -302,7 +306,7 @@ class EkfSLAM(SLAM.SLAM):
                 landmark_x = self.X[0] + xDistance
                 landmark_y = self.X[1] + yDistance
                 
-                insertLandmark(landmark_x, landmark_y, self.X, reobserved_landmarks, newly_observed_landmarks, distance, relativeAngle)
+                insertLandmark(landmark_x, landmark_y, self.X, reobserved_landmarks, newly_observed_landmarks, distance, relativeAngle, data_landmark[2], self.goal_posts)
                     
             # =============== Step 2: Update state from re-observed landmarks ===============
             for i in xrange(len(reobserved_landmarks)):
@@ -415,6 +419,8 @@ class EkfSLAM(SLAM.SLAM):
                 
                 r = landmark[3]
                 bearing = landmark[4]
+                
+                self.goal_posts.append(landmark[5])
                 
                 '''
                 Compute covariance for the new landmark and insert it in lower right corner of P
@@ -546,7 +552,7 @@ class EkfSLAM(SLAM.SLAM):
         landmark_pos = []
         
         for i in xrange(3, len(self.X), 2):
-            landmark_pos.append([self.X[i], self.X[i+1]])
+            landmark_pos.append([self.X[i], self.X[i+1], self.goal_posts[(i - 3) % 2]])
         
         if(self.offline):
             self.output[0].append(rob_pos)
@@ -556,7 +562,7 @@ class EkfSLAM(SLAM.SLAM):
         
         return self.output
 
-def insertLandmark(x, y, X, reobserved_landmarks, newly_observed_landmarks, r, bearing):
+def insertLandmark(x, y, X, reobserved_landmarks, newly_observed_landmarks, r, bearing, goalPost, goal_posts):
     '''
     Inserts a landmark observed at position (x, y) in either the array reobsered_landmarks
     if it was observed before, or newly_observed_landmarks if it was not observed before.
@@ -572,6 +578,11 @@ def insertLandmark(x, y, X, reobserved_landmarks, newly_observed_landmarks, r, b
     of data in the X vector)
     '''
     for i in xrange(3, len(X), 2):
+        goalPost_other = goal_posts[(i - 3) % 2]
+        
+        if(not (goalPost_other == goalPost)):
+            continue
+        
         x_other = X[i]
         y_other = X[i + 1]
         
@@ -584,7 +595,7 @@ def insertLandmark(x, y, X, reobserved_landmarks, newly_observed_landmarks, r, b
             return
     
     new_index = len(X) + len(newly_observed_landmarks)
-    newly_observed_landmarks.append([x, y, new_index, r, bearing])
+    newly_observed_landmarks.append([x, y, new_index, r, bearing, goalPost])
     
 TWO_PI = math.pi*2
     
