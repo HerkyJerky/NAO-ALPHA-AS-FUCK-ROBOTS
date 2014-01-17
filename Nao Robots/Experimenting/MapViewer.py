@@ -74,6 +74,29 @@ class MapViewer(Frame):
 
         #self.canvas.pack(fill="both", expand=1)
         pass
+    
+    '''
+    output is [output[0],output[1]]
+    output[0] are poses and they are of this format : [x,y,theta]
+    output[1] are landmark positions of this format : [x,y]                                                                                                                                                                                                                                                                                                                                                                                                  `    `
+    '''
+    
+    def updateMapNew(self,output):
+        print output
+        self.canvas = Canvas(self)
+        self.canvas.create_rectangle(0, 0, FIELDWIDTH, FIELDHEIGHT, fill='#006400')
+        self.canvas.pack(fill="both", expand=1)
+        # create a pixel representing the robot
+        poses = output[0]
+        landmarks = output[1]
+        for i in range(len(poses)):
+            self.drawAt(poses[i][0],poses[i][1],'blue')
+            
+        for k in range(len(landmarks)):
+            self.drawAt(landmarks[k][0],landmarks[k][1],'white')
+        
+        pass
+        
 
     def drawAt(self, x, y, color):
         if (x - alpha > 0) and (x + alpha < FIELDWIDTH):
