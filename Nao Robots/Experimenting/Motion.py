@@ -326,9 +326,11 @@ class Motion:
 
     # head pitch: 81.15 degrees
     def moveHeadPitch(self, theta, speed):
+        #self.measureAngle()
         theta = float(theta)
         speed = float(speed)
         self.motionProxy.setAngles("HeadPitch", theta, 0.1)
+        #self.measureAngle()
         #logObj.logWrite(time.time().__str__() + "_9_{0}_{1}_0_0".format(theta, speed))
 
     def lieDownRelax(self):
@@ -338,10 +340,10 @@ class Motion:
         #logObj.logWrite(time.time().__str__() + "_10_0_0_0_0")
 
     def measureAngle(self):
-        self.stand()
+        #self.stand()
         name = "HeadPitch"
-        c = self.motionProxy.getAngles(name, False)
-        print 90.0 - (180.0/math.pi)*c[0]
+        c = self.motionProxy.getAngles(name, True)
+        print ('angle is ', 90.0 - (180.0/math.pi)*c[0])
         return 90.0 - (180.0/math.pi)*c[0]
 
     def correctHipPitch(self):

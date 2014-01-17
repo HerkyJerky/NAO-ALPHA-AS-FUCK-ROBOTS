@@ -1,12 +1,30 @@
 __author__ = 'redsphinx'
 
-from cv2.cv import *
+from naoqi import ALProxy
 
+robotIp = "192.168.200.17"
+port = 9559
 
-img = LoadImage("/home/USER/Pictures/python.jpg")
-NamedWindow("opencv")
-ShowImage("opencv",img)
-WaitKey(0)./opencv_test_corey
+motionProxy = ALProxy("ALMotion", robotIp, port)
+
+class Example:
+    def moveHeadPitch(self, theta, speed):
+        #self.measureAngle()
+        theta = float(theta)
+        speed = float(speed)
+        motionProxy.setAngles("HeadPitch", theta, 0.1)
+        #self.measureAngle()
+
+ex = Example()
+ex.moveHeadPitch(0.3, 0.1)
+
+#from cv2.cv import *
+#
+#
+#img = LoadImage("/home/USER/Pictures/python.jpg")
+#NamedWindow("opencv")
+#ShowImage("opencv",img)
+#WaitKey(0)./opencv_test_corey
 
 #class Thing:
 #    def __init__(self):
@@ -28,9 +46,9 @@ WaitKey(0)./opencv_test_corey
 #        print b
 #        #print c
 
-thing = Thing()
-thing.receive()
-thing.moreVars()
+#thing = Thing()
+#thing.receive()
+#thing.moreVars()
 #from Tkinter import Tk, Canvas, Frame, BOTH
 #
 #

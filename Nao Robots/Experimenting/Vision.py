@@ -36,12 +36,17 @@ FOVVER = 34.80 #"vertical" field of view
 class Vision:
     def __init__(self):
         self.visionProxy = ALProxy("ALVideoDevice", robotIp, port)
+
         pass
 
     def takePic(self):
         action = 3
         motionObj.moveHeadPitch(0.3, 0.4)
-        videoClient = self.visionProxy.subscribe("python_client", resolution, colorSpace, 5)
+        print "head moved"
+        time.sleep(2)
+        videoClient = self.visionProxy.subscribeCamera("python_client", 0, resolution, colorSpace, 5)
+        self.visionProxy.setCameraParameter(videoClient, 18, 0)
+        print( 'this camera is: ', self.visionProxy.getActiveCamera(videoClient))
         picture = self.visionProxy.getImageRemote(videoClient)
         #picture2 = self.visionProxy.getImageLocal(videoClient)
         self.visionProxy.unsubscribe(videoClient)
@@ -50,13 +55,14 @@ class Vision:
         array = picture[6]
         realPicture = Image.fromstring("RGB", (picWidth, picHeight), array)
         realPicture.save("analyzeThis.png", "PNG")
+        angle = motionObj.measureAngle()
+        print "angle measured"
         realPicture.show()
         logObj.logWrite(time.time().__str__() + "_{0}".format(action))
-        angle = motionObj.measureAngle()
         #logObj.logWrite(time.time().__str__() + "_5_{0}_0_0_0".format(name))
-
+        print "finished taking pic"
         return angle
-        pass
+
 
     #def analyze(self):
     #    logObj.logWrite(time.time().__str__() + "_6_0_0_0_0")

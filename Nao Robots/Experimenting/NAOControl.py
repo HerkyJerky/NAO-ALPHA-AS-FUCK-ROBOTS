@@ -21,7 +21,6 @@ visionObj = Vision()
 slamObj = SlamStuff()
 logObj = Logger()
 
-# TODO send distances to Dennis and Taghi
 
 class NAOControl:
     def __init__(self):
@@ -150,7 +149,7 @@ class NAOControl:
             self.headPitchTheta = Entry(frame)
             self.headPitchTheta.pack()
             self.headPitchTheta.delete(0, END)
-            self.headPitchTheta.insert(0, "0")
+            self.headPitchTheta.insert(0, "0.3")
             pass
 
     def makeHeadPitchSpeedEntry(self):
