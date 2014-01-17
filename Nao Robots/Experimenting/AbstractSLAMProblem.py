@@ -136,7 +136,7 @@ class AbstractSLAMProblem:
                 
                 if dist_to_lm < measurement_range:
                     rel_angle = math.atan2(dy, dx)-self.theta
-                    self.observed_measurements[i].append([dist_to_lm, rel_angle])
+                    self.observed_measurements[i].append([dist_to_lm, rel_angle,False])
                     
             if(PRINT_RESULTS):
                 print "STEP " + str(i) + ": "

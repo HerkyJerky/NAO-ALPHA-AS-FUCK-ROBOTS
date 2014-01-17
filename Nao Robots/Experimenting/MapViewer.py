@@ -93,7 +93,10 @@ class MapViewer(Frame):
             self.drawAt(poses[i][0],poses[i][1],'blue')
             
         for k in range(len(landmarks)):
-            self.drawAt(landmarks[k][0],landmarks[k][1],'white')
+            if (landmarks[k][2] is True):
+                self.drawAt(landmarks[k][0],landmarks[k][1],'yellow')
+            if (landmarks[k][2] is False):
+                self.drawAt(landmarks[k][0],landmarks[k][1],'white')
         
         pass
         

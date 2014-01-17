@@ -42,9 +42,12 @@ class GraphSLAMInherited(SLAM):
         motion_approximations = []
         landmarks_approximations = []
         # Getting all the results.
+        # One thing to clear up : data[k] goes into the k-th time step. data[k][1] goes into motion data. 
+        # [0] is strange thing but you have to do it. 
+        # [2] is index of orientation at that time step.
         if (self.method):
             for k in range(len(self.motions)):
-                motion_approximations.append([result[2*k],result[2*k+1]])
+                motion_approximations.append([result[2*k],result[2*k+1],data[k][1][0][2]])
                 
             for i in range(len(engine.landmarks)):
                 landmarks_approximations.append([result[2*(len(self.motions)+i)],result[2*(len(self.motions)+i) + 1]])
@@ -52,7 +55,7 @@ class GraphSLAMInherited(SLAM):
         # Getting only last elements
         if (self.method == False):
             lengthOfMotion = len(self.motions)
-            motion_approximations.append([result[2*lengthOfMotion],result[2*lengthOfMotion+1]])
+            motion_approximations.append([result[2*lengthOfMotion],result[2*lengthOfMotion+1],data[lengthOfMotion][1][0][2]])
             for i in range(len(engine.landmarks)):
                 landmarks_approximations.append([result[2*(len(self.motions)+i)],result[2*(len(self.motions)+i) + 1]])
         

@@ -35,10 +35,10 @@ class GraphSLAM:
         # This loop is just for motions. Measurements might be easily added to data array and it is good to go bitches
         for k in range(len(data)):
             n = k * 2
-            measurement = data[k][0]
+            measurements = data[k][0]
             motion = data[k][1][0]
-            for i in range(len(measurement)):
-                one_measurement = measurement[i]
+            for i in range(len(measurements)):
+                one_measurement = measurements[i]
                 # Check if we have actually seen something there and if there is something to read at all.
                 # This should fix issue we had before with graph slam.
                 if (len(one_measurement)!=0):
@@ -89,7 +89,7 @@ class GraphSLAM:
         # For now, I am asking for exactly the parameters that run_simulation_dennis method needs + world_size
         simulation = AbstractSLAMProblem(world_size, measurement_range, motion_noise, measurement_noise, num_landmarks)  
         # running the simulation
-        simulation.run_simulation_dennis(num_steps, num_landmarks, world_size, measurement_range, motion_noise, measurement_noise, distance) 
+        simulation.run_simulation_dennis(1, num_landmarks, world_size, measurement_range, motion_noise, measurement_noise, distance) 
         # Reading data after simulation
         gabi_array = simulation.observed_motions
         roel_array = simulation.observed_measurements
