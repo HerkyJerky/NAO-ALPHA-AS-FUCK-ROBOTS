@@ -55,7 +55,7 @@ class GraphSLAMInherited(SLAM):
         # Getting only last elements
         if (self.method == False):
             lengthOfMotion = len(self.motions)
-            motion_approximations.append([result[2*lengthOfMotion],result[2*lengthOfMotion+1],data[lengthOfMotion][1][0][2]])
+            motion_approximations.append([result[2*lengthOfMotion],result[2*lengthOfMotion+1],data[lengthOfMotion - 1][1][0][2]])
             for i in range(len(engine.landmarks)):
                 landmarks_approximations.append([result[2*(len(self.motions)+i)],result[2*(len(self.motions)+i) + 1]])
         
