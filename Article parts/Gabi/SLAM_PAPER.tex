@@ -40,7 +40,7 @@ The problem addressed in this paper is the real-time Simultaneous Localization a
 	In this paper, it is assumed that the NAO robot will use his camera to obtain measurements of the environment, and that it only needs to be able to operate on the soccer field. The robot will also be able to keep track of the movement commands issued to the robot.
 
 \subsection{Outline of Paper}
-Section 2 describes the important features of the environment in which the robot will act. Section 3 describes the implemented algorithms for dealing with the SLAM problem, namely EKF SLAM and Graph SLAM. Section 4 describes the Image Processing techniques used to obtain useful measurements from images produced by the NAO's camera. Section 5 describes the experiments performed with the implemented algorithms. Section 6 describes the results of these experiments. Section 7 provides some ideas on future work. Finally, section 8 concludes the paper.
+Section 2 describes the important features of the environment in which the robot will act. Section 3 describes the Image Processing techniques used to obtain useful measurements from images produced by the NAO's camera. Section 4 describes the implemented algorithms for dealing with the SLAM problem, namely EKF SLAM and Graph SLAM.  Section 5 describes the experiments performed with the implemented algorithms. Section 6 describes the results of these experiments. Section 7 provides some ideas on future work. Finally, section 8 concludes the paper.
 
 %---------------------------------------------------------------------------
 
@@ -169,6 +169,9 @@ In order to create $\Omega$ and $\xi$ matrices, first of all data from environme
                   			\vdots & \dots \cr}$
                   
 	$\Omega$ and $\xi$ are populated in this fashion with all the collected constraints.
+	
+\subsubsection{Introducing noise to environment}
+Above given description of matrices do not include any error values or noise which is the case in perfect world. However, in real-life environment there is going to be noise caused by either motion or measurement motors of robot. So, noise should be somehow handled by GraphSLAM algorithm. Noise is handled by adding approximated error to $\Omega$ and $\xi$ matrices.
 	
 \subsubsection{Getting results from $\Omega$ and $\xi$}
 	After matrices are created, last part of GraphSLAM can be executed. Referring to \cite{sik2}, it is known that if \textit{x} represents best estimates of robot poses and landmark positions, the following equation holds :
