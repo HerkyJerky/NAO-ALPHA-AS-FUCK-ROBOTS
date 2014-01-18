@@ -5,6 +5,18 @@ from PIL import Image
 import ColorSysCustom as csc
 from cv2 import cv
 
+ONE_OVER_255 = 1.0 / 255.0
+COLOR_WHITE = (255, 255, 255)
+COLOR_RED = (255, 0, 0)
+COLOR_GREEN = (0, 255, 0)
+COLOR_BLACK = (0, 0, 0)
+
+# TODO: remove unused imports
+
+# DENNIS OPT: save function pointers to functions which are often used inside loops
+CAST_DOUBLE = np.double
+RGB_TO_HUE = csc.rgb_to_hue
+
 class ImageProcessing():
     
     def __init__(self, imgString): 
@@ -22,7 +34,7 @@ class ImageProcessing():
                 
     # width of image, height of image, image, fraction of the image to be randomly taken pixels from            
     def getAverageLightIntensity(self, width, height, img, fractionOfImage):   
-        sum = 0;
+        light_sum = 0;      # DENNIS: renamed sum to light_sum, just to be safe
         self.n = np.int(fractionOfImage*width*height)
             
         randomsX = np.random.uniform(0, np.int(width), size = self.n)
@@ -31,48 +43,72 @@ class ImageProcessing():
         for i in xrange(0, self.n):   
             B, G, R = img[randomsX[i]][randomsY[i]]
                 
-             #fitting them for HSV transform
-            R = np.double(R)/255
-            G = np.double(G)/255
-            B = np.double(B)/255
-            L = csc.rgb_to_luminance(R, G, B)
-            sum = sum + L
-        self.Lic = (sum/self.n)
+            # fitting them for HSV transform
+            # DENNIS OPT: on most processors, multiplication is much cheaper than division. So multiply by 1/255 instead of dividing by 255
+            R = CAST_DOUBLE(R) * ONE_OVER_255
+            G = CAST_DOUBLE(G) * ONE_OVER_255
+            B = CAST_DOUBLE(B) * ONE_OVER_255
+            
+            light_sum  += ( (max(R, G, B) + min(R, G, B)) * 0.5 )     # DENNIS OPT: csc.rgb_to_luminance was such a short function that inlining is better
+            # L = csc.rgb_to_luminance(R, G, B)
+            # light_sum = light_sum + L
+            
+        self.Lic = (light_sum/self.n)
         
         
     def setThreshold(self, t):
         self.threshold = t
-        
+        self._255_MIN_THRESHOLD = 255 - self.threshold
         
     def getThreshold(self):
         return self.threshold
    
    
     def startLumi(self):    
-        self.new_img = Image.new('RGB', (self.height, self.width), "black")
+        self.new_img = Image.new('RGB', (self.height, self.width), "black")     # TODO: I dont believe this self.new_img is used anywhere. safe to remove?
         #pixels = self.img.load()
         
+        # DENNIS OPT: save fields of self which are used inside the inner loop (= very often) in local variables. 
+        #             Python accesses these much quicker
+        img = self.img
+        height = self.height
+        threshold = self.threshold
+        _255_MIN_THRESHOLD = self._255_MIN_THRESHOLD
+        Lic = self.Lic
+        LOWER_BOUND_YELLOW = self.LOWER_BOUND_YELLOW
+        UPPER_BOUND_YELLOW = self.UPPER_BOUND_YELLOW
+        LOWER_BOUND_GREEN = self.LOWER_BOUND_GREEN
+        UPPER_BOUND_GREEN = self.UPPER_BOUND_GREEN
+        
         for x in xrange(0, self.width):
-            for y in xrange(0, self.height):
-                B, G, R = self.img[x][y]
+            for y in xrange(0, height):
+                B, G, R = img[x][y]
                
                 #Getting the Hue and Lum
-                R = np.double(R)/255
-                G = np.double(G)/255
-                B = np.double(B)/255
-                H = csc.rgb_to_hue(R, G, B)
-                Y = csc.rgb_to_luminance(R, G, B)
+                R = CAST_DOUBLE(R) * ONE_OVER_255     # DENNIS OPT: mult by 1/255 instead of dividing by 255
+                G = CAST_DOUBLE(G) * ONE_OVER_255
+                B = CAST_DOUBLE(B) * ONE_OVER_255
+                H = RGB_TO_HUE(R, G, B)
+                Y = ( (max(R, G, B) + min(R, G, B)) * 0.5 )     # DENNIS OPT: inlined csc.rgb_to_luminance
                 
+                '''
+                TODO: Inside these loops, we're changing self.img forever to only consist of 4 possible colors
+                (white, red, green and black)
+                
+                We should instead create an enumeration of only those 4 colors (4 properly named ints for example, instead of 3-tuples)
+                That'll allow for MUCH faster comparison of colors (checking if a pixel has a certain color will be only a single
+                comparison instead of 3 comparisons)
+                '''
                 
                 #accepted white
-                if(self.acceptedLumi(Y*255)):
-                    self.img[x, y] = (255,255,255)
-                elif(self.acceptedYellow(H)):
-                    self.img[x, y] = (255,0,0)
-                elif(self.acceptedGreen(H)):
-                    self.img[x, y] = (0,255,0)
+                if((Y*255 > threshold + _255_MIN_THRESHOLD*Lic)):                  # DENNIS OPT: inlined acceptedLumi, precompute 255 - threshold
+                    img[x, y] = COLOR_WHITE                                        # DENNIS OPT: predefine COLOR_WHITE instead of reconstructing it every iteration
+                elif((H >= LOWER_BOUND_YELLOW and H <= UPPER_BOUND_YELLOW)):       # DENNIS OPT: inlined acceptedYellow
+                    img[x, y] = COLOR_RED                                          # DENNIS OPT: predefine COLOR_RED instead of reconstructing it every iteration
+                elif((H >= LOWER_BOUND_GREEN and H <= UPPER_BOUND_GREEN)):         # DENNIS OPT: inlined acceptedGreen
+                    img[x, y] = COLOR_GREEN                                        # DENNIS OPT: predefine COLOR_GREEN instead of reconstructing it every iteration
                 else:
-                    self.img[x, y] = (0, 0, 0)
+                    img[x, y] = COLOR_BLACK                                        # DENNIS OPT: predefine COLOR_BLACK instead of reconstructing it every iteration
                     
         self.calculateGoalposts()
         self.removeBackGround()
@@ -83,31 +119,48 @@ class ImageProcessing():
         self.goalposts = []
         self.goalpostsTemp = []
         
+        '''
+        TODO: can probably massively improve this by:
+        
+            Making inner loop reverse automatically instead of making it go up first and every iteration compute reverse
+            
+            Maybe (???) cache results of [yy+1], [yy+2] and [yy+3] and shift those values and only compute a single value every iteration?
+            This is complicated though and probably much less necessary if we've done the TODO above
+        '''
+        
+        # DENNIS OPT: save fields of self which are used inside the inner loop (= very often) in local variables. 
+        #             Python accesses these much quicker
+        width = self.width
+        img = self.img
+        minYellow = self.minYellow
+        append_goalpostsTemp = self.goalpostsTemp.append        # DENNIS OPT: I like function pointers
+        
         for x in xrange(20, self.height-20):
             count = 0
-            for y in xrange(0, self.width):
+            for y in xrange(0, width):
                 #reverse y
-                yy = self.width-y-1
-                B, G, R = self.img[yy][x]
+                yy = width-y-1
+                B, G, R = img[yy][x]
                 #if goalpost pixel
                 if(R == 0 and B == 255):
                     if (count == 0):
-                        if (yy+3 < self.width):
-                            B1, G1, R1 = self.img[yy+1][x]
-                            B2, G2, R2 = self.img[yy+2][x]
-                            B3, G3, R3 = self.img[yy+3][x]
+                        if (yy+3 < width):
+                            B1, G1, R1 = img[yy+1][x]
+                            B2, G2, R2 = img[yy+2][x]
+                            B3, G3, R3 = img[yy+3][x]
                             #if either one of the previous ones are green
                             if((B1 == 0 and G1 == 255) and (B2 == 0 and G2 == 255) and (B3 == 0 and G3 == 255)):
                                 count = count + 1
                     else:
                         count = count + 1
-                        if(count > self.minYellow):
-                            self.goalpostsTemp.append([x, yy+count])
+                        if(count > minYellow):
+                            append_goalpostsTemp([x, yy+count])
                             break
                 else:
                     count = 0
         
         #removing points close to each other
+        
         if (len(self.goalpostsTemp) > 0):
             
             self.goalposts.append(self.goalpostsTemp[0])
@@ -117,15 +170,20 @@ class ImageProcessing():
                 double = False
                 for j in xrange(0, len(self.goalposts)):
                     x, y = self.goalposts[j]
-                    if((x-xt)*(x-xt) + (y-yt)*(y-yt) < self.goalpostSpacingSquared):
+                    dx = x-xt
+                    dy = y-yt
+                    if((dx*dx + dy*dy) < self.goalpostSpacingSquared):        # DENNIS OPT: compute dx and dy, 2 subtractions less each iteration
                         double = True
                         break
-                if(double is False):
+                if(not double):
                     self.goalposts.append(self.goalpostsTemp[i])
         
         
         if (len(self.goalposts) > 2):
             self.goalposts = []
+            
+        # clean goalpostsTemp from memory
+        self.goalpostsTemp = None
     
                 
     def getGoalposts(self):
@@ -134,24 +192,28 @@ class ImageProcessing():
     def removeBackGround(self):
         #self.white_list = []
         
+        # DENNIS OPT: save fields of self which are used inside the inner loop (= very often) in local variables. 
+        #             Python accesses these much quicker
         w = self.getHeightImage()
         h = self.getWidthImage()
+        img = self.img
+        maxSpacing = self.maxSpacing
         for x in xrange(0, w):
             count = 0
             
             for y in xrange(0, h):
-                B, G, R = self.img[y][x]
+                B, G, R = img[y][x]
                 if(B == 0 and G == 255):
                     count = count + 1
                 else:
                     count = 0
-                if(count > self.maxSpacing):
+                if(count > maxSpacing):
                     for r in xrange(0, y-count+1):
-                        self.img[r, x] = (0, 0, 0)
+                        img[r, x] = COLOR_BLACK        # DENNIS OPT: use predefined COLOR_BLACK
                     break
-            if(count <= self.maxSpacing):
+            if(count <= maxSpacing):
                 for y in xrange(0, h):
-                    self.img[y, x] = (0, 0, 0)
+                    img[y, x] = COLOR_BLACK            # DENNIS OPT: use predefined COLOR_BLACK
                 
         #self.clusterImage()
         self.onlyWhite()
@@ -294,13 +356,18 @@ class ImageProcessing():
     '''    
         
     def onlyWhite(self):
+        # DENNIS OPT: save fields of self which are used inside the inner loop (= very often) in local variables. 
+        #             Python accesses these much quicker
+        height = self.getHeightImage()
+        img = self.img
         for x in xrange(0, self.getWidthImage()):
-            for y in xrange(0, self.getHeightImage()):
-                B, G, R = self.img[x][y]
+            for y in xrange(0, height):
+                B, G, R = img[x][y]
                 if not(B == 255 and G == 255):
-                    self.img[x, y] = (0, 0, 0)
+                    img[x, y] = COLOR_BLACK                # DENNIS OPT: use predefined COLOR_BLACK
     
-    
+    # DENNIS OPT: commented the 3 accepted_ methods, since they're simple enough to manually inline
+    '''
     def acceptedLumi(self, Y):
         #Y in [0, 255]
         if (Y > self.threshold + (255-self.threshold)*self.Lic):
@@ -321,6 +388,7 @@ class ImageProcessing():
         if (H >= self.LOWER_BOUND_YELLOW and H <= self.UPPER_BOUND_YELLOW):
             return True
         return False
+    '''
     
     def getClusterPoints(self):
         return self.clusterpoints
