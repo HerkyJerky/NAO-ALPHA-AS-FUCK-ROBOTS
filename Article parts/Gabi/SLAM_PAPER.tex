@@ -126,8 +126,20 @@ Now that all the landmarks have been extracted the distance to these can be calc
 
 \subsection{Distance Calculation}
 A landmark is represented by three parameters: the x and y coordinates of the landmark on the image and a boolean which is true if this landmark is a goalpost and false if it's a fieldline-cornerpoint. The last parameter has no value in calculating distance, but the first two do.\\
-To calculate this distance the height, vertical angle and the horizontal and vertical fields of view of the camera and the dimensions of the image are required. For the sake of readability these are abbreviated as $h_{\mathrm{c}}$, $\angle_{\mathrm{c}}$, $fov_{\mathrm{h}}$, $fov_{\mathrm{v}}$, $w_{\mathrm{img}}$ and $h_{\mathrm{img}}$ respectively.\\
-
+To calculate this distance the height, vertical angle and the horizontal and vertical fields of view of the camera and the dimensions of the image are required. For the sake of readability these are abbreviated as $h_{\mathrm{c}}$, $\angle_{\mathrm{c}}$, $fov_{\mathrm{h}}$, $fov_{\mathrm{v}}$, $w_{\mathrm{img}}$ and $h_{\mathrm{img}}$ respectively. \\
+To further ease the readability a few prior operations are executed.
+First the $\angle_{\mathrm{c}}$ is adjusted such that it equals the angle of the bottom of the image:\\
+$\angle_{\mathrm{c}}$ = $\angle_{\mathrm{c}}$ - $\frac{fov_{\mathrm{v}}}{2}$ \\
+Then the offset of the x-coordinate from the center of the image is calculated: \\
+$x_{\mathrm{off}}$ = x - $\frac{w_{\mathrm{img}}}{2}$ \\
+Next the horizontal angle of the x-coordinate with respect to the image is calculated: \\
+$\angle_{\mathrm{x}}$ = $\frac{x_{\mathrm{off}} \times fov_{\mathrm{h}}}{w_{\mathrm{img}}}$ \\
+Similarly the vertical angle of the y-coordinate is calculated: \\
+$\angle_{\mathrm{y}}$ = $\angle_{\mathrm{c}}$ + $\frac{y \times fov_{\mathrm{v}}}{h_{\mathrm{img}}}$ \\
+Finally to get the distance: \\
+$\textit{distance}$ = $\frac{h_{\mathrm{c}} \times \textit{tan} \angle_{\mathrm{y}}}{\textit{cos} \angle_{\mathrm{x}}}$
+These distances combined with the third landmark parameter (boolean goalpost or not) are then passed onto the SLAM algorithm. \\
+This concludes the section on Image Processing. The experiments on the earlier-mentioned variables and their results will be discussed in sections five and six. 
 
 %---------------------------------------------------------------------------
 
