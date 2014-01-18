@@ -12,7 +12,7 @@ from Logger import Logger
 import math
 import vision_definitions
 import numpy as np
-from Motion import Motion
+from Motions import Motion
 
 robotIp = "192.168.200.17"
 #robotIp = "192.168.200.16"

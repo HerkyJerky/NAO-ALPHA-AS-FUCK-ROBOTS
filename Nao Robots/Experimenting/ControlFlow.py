@@ -1,7 +1,7 @@
 __author__ = 'redsphinx'
 
 #from NAOControl import NAOControl
-from Motion import Motion
+from Motions import Motion
 from Vision import Vision
 #from EkfSLAM import EkfSLAM
 #from GraphSLAMInherited import GraphSLAMInherited

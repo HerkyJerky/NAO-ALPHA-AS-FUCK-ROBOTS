@@ -6,9 +6,8 @@ Take manual control of some NAO's functions
 
 
 from Tkinter import *
-from Motion import Motion
+from Motions import Motion
 from Vision import Vision
-from SlamStuff import SlamStuff
 from Logger import Logger
 import numpy as np
 

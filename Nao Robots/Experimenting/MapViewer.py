@@ -8,7 +8,6 @@ make panel with live map and where the robot thinks it is
 
 from Tkinter import *
 import numpy as np
-from MapControl import MapControl
 
 #controller = MapControl()
 FIELDWIDTH = 600  # measured in cm
