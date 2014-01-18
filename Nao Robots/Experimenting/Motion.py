@@ -322,16 +322,12 @@ class Motion:
 
     def talk(self, word):
         self.talkProxy.say(word)
-        #logObj.logWrite(time.time().__str__() + "_8_{0}_0_0_0".format(word))
 
     # head pitch: 81.15 degrees
     def moveHeadPitch(self, theta, speed):
-        #self.measureAngle()
         theta = float(theta)
         speed = float(speed)
         self.motionProxy.setAngles("HeadPitch", theta, 0.1)
-        #self.measureAngle()
-        #logObj.logWrite(time.time().__str__() + "_9_{0}_{1}_0_0".format(theta, speed))
 
     def lieDownRelax(self):
         self.stiffnessOn(motionProxy=self.motionProxy)
