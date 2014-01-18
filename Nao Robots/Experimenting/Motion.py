@@ -54,15 +54,6 @@ class Motion:
         pTimeLists = 1.0
         motionProxy.stiffnessInterpolation(allJoints, pStiffnessLists, pTimeLists)
 
-    # when standing, stand up straight by setting all angles in the body to default
-    #def standStraight(self):
-    #    names = 'Body'
-    #    angles = 0.1
-    #    fractionMaxSpeed = 0.1
-    #    self.motionProxy.setAngles(names, angles, fractionMaxSpeed)
-    #    # TODO if this doesn't work then do all relevant joints 1 by 1
-
-
     # make robot stand up
     def stand(self):  # def stand(self, name, speed):
         self.stiffnessOn(motionProxy=self.motionProxy)
