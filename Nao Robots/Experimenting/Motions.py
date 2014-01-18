@@ -99,14 +99,6 @@ class Motion:
         # convert from input string to integer
         x = int(x)
         y = int(y)
-
-        #x = float(re.match(r'\d+',x).group())
-        #y = float(re.match(r'\d+',y).group())
-        #print(x, y)
-        #print(x + 2 + y)
-        #print(x % UNIT)
-        #
-
         action = 1
         theta = 0
         #self.standStraight()
@@ -314,7 +306,6 @@ class Motion:
     def talk(self, word):
         self.talkProxy.say(word)
 
-    # head pitch: 81.15 degrees
     def moveHeadPitch(self, theta, speed):
         theta = float(theta)
         speed = float(speed)
@@ -342,24 +333,3 @@ class Motion:
 
 
 #mot = Motion()
-#a = mot.measureAngle()
-### move 20 cm Fw
-#mot.moveXYCm(44, 0)
-#mot.moveXYCm(20, 0)
-#mot.moveXYCm(20, 0)
-#mot.moveXYCm(20, 0)
-#mot.moveXYCm(20, 0)
-#mot.moveXYCm(20, 0)
-#mot.moveXYCm(60, 0)
-
-
-## move 20 cm Bw
-#mot.moveXYCm(-20, 0)
-## move 20 cm L
-#mot.moveXYCm(0, -20)
-## move 20 cm R
-#mot.moveXYCm(0, 20)
-## rotate 180 deg counterclockwise
-#mot.rotateTheta(180) # actually rotates 160 degrees
-## rotate 180 deg clockwise
-#mot.rotateTheta(-180)

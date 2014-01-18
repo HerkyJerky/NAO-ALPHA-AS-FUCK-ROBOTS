@@ -37,16 +37,20 @@ root = Tk()
 #root.configure(bg='black')
 #frame = Frame(root, bg='black', width=600, height=400)
 
+'''
+output is [output[0],output[1]]
+output[0] are poses and they are of this format : [x,y,theta]
+output[1] are landmark positions of this format : [x,y]                                                                                                                                                                                                                                                                                                                                                                                                  `    `
+'''
+
 class MapViewer(Frame):
     def __init__(self, parent):
         Frame.__init__(self, parent)
         self.parent = parent
-        self.parent.title("[ALPHA] - Simultaneous Localization And Mapping")
+        self.parent.title("[ALPHA] - SLAM")
         self.pack(fill=BOTH, expand=1)
-        self.updateMap([50, 50, 5, 100, 101, 100, 105, 100, 109, 100, 113, 200, 90, 50, 60, 40, 82, 94, 82])
+        self.updateMapNew([[30, 30, 30], [[20, 40], [50, 60], [300, 45], [60, 100]]])
         root.geometry("600x400")
-        self.parent.configure(bg='#006400')
-        root.configure(bg='#006400')
         root.mainloop()
         pass
 
@@ -55,6 +59,7 @@ class MapViewer(Frame):
     # [x_robot, y_robot, theta_robot, x_landmark_1, y_landmark_1, x_landmark_2, ..., x_landmark_n, y_landmark_n]
     # TODO what is the unit of the coordinates? In m
 
+    # old method for updating the map
     def updateMap(self, output):  # TODO get actual output
         print output
         self.canvas = Canvas(self)
@@ -79,8 +84,8 @@ class MapViewer(Frame):
     output[0] are poses and they are of this format : [x,y,theta]
     output[1] are landmark positions of this format : [x,y]                                                                                                                                                                                                                                                                                                                                                                                                  `    `
     '''
-    
-    def updateMapNew(self,output):
+
+    def updateMapNew(self, output):
         print output
         self.canvas = Canvas(self)
         self.canvas.create_rectangle(0, 0, FIELDWIDTH, FIELDHEIGHT, fill='#006400')
@@ -89,13 +94,13 @@ class MapViewer(Frame):
         poses = output[0]
         landmarks = output[1]
         for i in range(len(poses)):
-            self.drawAt(poses[i][0],poses[i][1],'blue')
+            self.drawAt(poses[i][0],poses[i][1], 'blue')
             
         for k in range(len(landmarks)):
             if (landmarks[k][2] is True):
-                self.drawAt(landmarks[k][0],landmarks[k][1],'yellow')
+                self.drawAt(landmarks[k][0], landmarks[k][1], 'yellow')
             if (landmarks[k][2] is False):
-                self.drawAt(landmarks[k][0],landmarks[k][1],'white')
+                self.drawAt(landmarks[k][0], landmarks[k][1], 'white')
         
         pass
         
@@ -112,5 +117,4 @@ class MapViewer(Frame):
 
         #test
 mappie = MapViewer(root)
-
 

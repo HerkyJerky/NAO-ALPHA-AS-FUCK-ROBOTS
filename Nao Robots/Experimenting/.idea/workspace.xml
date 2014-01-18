@@ -17,16 +17,35 @@
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file leaf-file-name="ControlFlow.py" pinned="false" current="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/ControlFlow.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state line="27" column="18" selection-start="695" selection-end="695" vertical-scroll-proportion="0.3802521" vertical-offset="54" max-vertical-offset="2416">
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="Experimenting" />
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Vision.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Vision.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Vision.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="18" selection-start="170" selection-end="170" vertical-scroll-proportion="0.25053534" vertical-offset="0" max-vertical-offset="1746">
+            <state line="5" column="0" selection-start="35" selection-end="35" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="1746">
               <folding />
             </state>
           </provider>
@@ -35,19 +54,11 @@
       <file leaf-file-name="Motions.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Motions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="82" selection-start="1741" selection-end="1741" vertical-scroll-proportion="0.0" vertical-offset="414" max-vertical-offset="6660">
+            <state line="274" column="41" selection-start="10439" selection-end="10439" vertical-scroll-proportion="0.0" vertical-offset="1130" max-vertical-offset="5376">
               <folding>
-                <element signature="e#26#37#0" expanded="true" />
+                <marker date="1390080796040" expanded="true" signature="872:12472" placeholder="..." />
+                <marker date="1390080796040" expanded="true" signature="11556:11589" placeholder="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="motion.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/motion.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="720">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -55,48 +66,28 @@
       <file leaf-file-name="NAOControl.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NAOControl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="11" selection-start="166" selection-end="166" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3006">
+            <state line="10" column="11" selection-start="166" selection-end="166" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="3006">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Logger.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Logger.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="990">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ControlFlow.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ControlFlow.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="0" selection-start="61" selection-end="61" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2736">
-              <folding>
-                <element signature="e#61#87#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MapViewer.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="MapViewer.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MapViewer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="0" selection-start="136" selection-end="136" vertical-scroll-proportion="0.0" vertical-offset="2" max-vertical-offset="2196">
+            <state line="95" column="35" selection-start="3887" selection-end="3887" vertical-scroll-proportion="0.53583616" vertical-offset="1206" max-vertical-offset="2016">
               <folding>
                 <element signature="e#95#116#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SLAM.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SLAM.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="41" column="4" selection-start="1831" selection-end="1831" vertical-scroll-proportion="0.0" vertical-offset="432" max-vertical-offset="1680">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -113,15 +104,16 @@
       <list>
         <option value="$PROJECT_DIR$/Motion.py" />
         <option value="$PROJECT_DIR$/NAOControl.py" />
+        <option value="$PROJECT_DIR$/Motions.py" />
         <option value="$PROJECT_DIR$/MapViewer.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1409" />
-    <option name="y" value="24" />
-    <option name="width" value="1871" />
-    <option name="height" value="1056" />
+    <option name="x" value="1416" />
+    <option name="y" value="52" />
+    <option name="width" value="935" />
+    <option name="height" value="1028" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -149,7 +141,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -170,23 +161,43 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <PyConsoleSettings />
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.MapViewer">
+    <configuration default="false" name="MapViewer" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="PYTHONPATH" value="$USER_HOME$/Downloads/Python-2.7.5/ " />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Experimenting" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MapViewer.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
     <configuration default="true" type="tests" factoryName="py.test">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -309,7 +320,14 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
-    <list size="0" />
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Python.MapViewer" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Python.MapViewer" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="TaskManager">
@@ -321,18 +339,18 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1409" y="24" width="1871" height="1056" extended-state="6" />
+    <frame x="1416" y="52" width="935" height="1028" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15530303" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.108766235" sideWeight="0.67082036" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32834226" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -355,6 +373,29 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MapViewer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="82" column="35" selection-start="3111" selection-end="3111" vertical-scroll-proportion="0.0" vertical-offset="1476" max-vertical-offset="2196">
+          <folding>
+            <element signature="e#95#116#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SLAM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1890">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Vision.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="10" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1620">
@@ -372,18 +413,45 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3348" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Motions.py">
+    <entry file="file://$PROJECT_DIR$/Vision.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="82" selection-start="1741" selection-end="1741" vertical-scroll-proportion="0.0" vertical-offset="414" max-vertical-offset="6660">
-          <folding>
-            <element signature="e#26#37#0" expanded="true" />
-          </folding>
+        <state line="5" column="0" selection-start="35" selection-end="35" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1746">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GraphSLAMInherited.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1512" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SLAM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="4" selection-start="1831" selection-end="1831" vertical-scroll-proportion="0.0" vertical-offset="432" max-vertical-offset="1680">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/motion.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="934">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Motions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="274" column="41" selection-start="10439" selection-end="10439" vertical-scroll-proportion="0.0" vertical-offset="1130" max-vertical-offset="5376">
+          <folding>
+            <marker date="1390080796040" expanded="true" signature="872:12472" placeholder="..." />
+            <marker date="1390080796040" expanded="true" signature="11556:11589" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Logger.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="990">
           <folding />
         </state>
       </provider>
@@ -395,22 +463,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Logger.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="990">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ControlFlow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="61" selection-end="61" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2736">
-          <folding>
-            <element signature="e#61#87#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="934">
@@ -418,19 +470,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MapViewer.py">
+    <entry file="file://$PROJECT_DIR$/ControlFlow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="136" selection-end="136" vertical-scroll-proportion="0.0" vertical-offset="2" max-vertical-offset="2196">
-          <folding>
-            <element signature="e#95#116#0" expanded="true" />
-          </folding>
+        <state line="27" column="18" selection-start="695" selection-end="695" vertical-scroll-proportion="0.3802521" vertical-offset="54" max-vertical-offset="2416">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Vision.py">
+    <entry file="file://$PROJECT_DIR$/MapViewer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="18" selection-start="170" selection-end="170" vertical-scroll-proportion="0.25053534" vertical-offset="0" max-vertical-offset="1746">
-          <folding />
+        <state line="95" column="35" selection-start="3887" selection-end="3887" vertical-scroll-proportion="0.53583616" vertical-offset="1206" max-vertical-offset="2016">
+          <folding>
+            <element signature="e#95#116#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
