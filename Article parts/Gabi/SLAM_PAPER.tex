@@ -171,7 +171,7 @@ In order to create $\Omega$ and $\xi$ matrices, first of all data from environme
 	$\Omega$ and $\xi$ are populated in this fashion with all the collected constraints.
 	
 \subsubsection{Introducing noise to environment}
-Above given description of matrices do not include any error values or noise which is the case in perfect world. However, in real-life environment there is going to be noise caused by either motion or measurement motors of robot. So, noise should be somehow handled by GraphSLAM algorithm. Noise is handled by adding approximated error to $\Omega$ and $\xi$ matrices.
+Above given description of matrices do not include any error values or noise which is the case in perfect world. However, in real-life environment there is going to be noise caused by either motion or measurement motors of robot. So, noise should be somehow handled by GraphSLAM algorithm. Noise is handled by adding approximated error to $\Omega$ and $\xi$ matrices. Those error/noise values represent how much measurements and motions are trusted. For GraphSLAM, there are two types of errors, namely motion noise and measurement noise. For future reference, motion noise will be represented as
 	
 \subsubsection{Getting results from $\Omega$ and $\xi$}
 	After matrices are created, last part of GraphSLAM can be executed. Referring to \cite{sik2}, it is known that if \textit{x} represents best estimates of robot poses and landmark positions, the following equation holds :
