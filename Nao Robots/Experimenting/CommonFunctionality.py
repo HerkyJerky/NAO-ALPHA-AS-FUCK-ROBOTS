@@ -60,7 +60,9 @@ class CommonFunctionality:
             forwardMove = motion_info[2]
             sideMove = motion_info[3]
             dtheta = motion_info[4]
+            # These are radians. And I am not taking modulo or anything.
             orientation += dtheta
+            orientation = self.normalize_angle(orientation)
             dx = forwardMove * math.cos(orientation) + sideMove * math.sin(orientation)
             dy = forwardMove * math.sin(orientation) + sideMove * math.cos(orientation)
             # If orientation is zero, then y might not change.
@@ -118,7 +120,20 @@ class CommonFunctionality:
             self.landmarks.append([roughNewLandmarkX,roughNewLandmarkY,post])
             indexFound = len(self.landmarks) - 1
                 
-        return indexFound     
+        return indexFound    
+     
+    def normalize_angle(self,angle):
+        angle = angle % (2*math.pi)
+        
+        if (angle >= 0):
+            if (angle < math.pi):
+                return angle
+            else:
+                angle - (2*math.pi)
+        elif (angle >= -math.pi):
+            return angle
+        else:
+            return angle + (2*math.pi)
     
     
 if __name__ == "__main__":

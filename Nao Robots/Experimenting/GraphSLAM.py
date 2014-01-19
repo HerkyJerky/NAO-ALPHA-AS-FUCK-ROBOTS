@@ -118,6 +118,7 @@ class GraphSLAM:
                 new_landmarks.append(landmark)
         
         return new_landmarks
+        
                    
     '''
     This is the test case. I will just assume some numbers to check if it actually works
