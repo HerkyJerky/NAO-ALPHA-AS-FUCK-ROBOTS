@@ -221,9 +221,9 @@ class Motion:
 
         if direction == DIRECTIONS[0] or DIRECTIONS[1]:
             x = 0
-            y = 0.1 # TODO something with stepSize? no idea, since this moves the foot a distance relative to the other foot
+            y = 0.1 # something with stepSize? no idea, since this moves the foot a distance relative to the other foot
         elif direction == DIRECTIONS[2] or DIRECTIONS[3]:
-            x = 0.6 # TODO something with stepSize? see TODO above
+            x = 0.6 # something with stepSize? see above
             y = 0
         self.setStep(legToMove, x, y, theta)
         self.stand()
@@ -289,7 +289,7 @@ class Motion:
             else:
                 self.motionProxy.setFootStepsWithSpeed(otherLeg, footSteps, fractionMaxSpeed, clearExisting)
 
-        # TODO take last step?
+        #  take last step?
         self.stand()
         logObj.logWrite(time.time().__str__() + "_{0}_{1}_{2}_{3}_{4}".format(action, x, y, theta, SPEED))
         theta = theta*DEG2RAD

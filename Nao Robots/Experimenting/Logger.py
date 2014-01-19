@@ -1,6 +1,4 @@
 __author__ = 'redsphinx'
-# TODO Log only important actions
-# TODO be able to turn logging on/off
 
 
 # format saved data:

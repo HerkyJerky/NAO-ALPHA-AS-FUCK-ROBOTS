@@ -17,31 +17,30 @@
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file leaf-file-name="ControlFlow.py" pinned="false" current="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/ControlFlow.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state line="27" column="18" selection-start="695" selection-end="695" vertical-scroll-proportion="0.3802521" vertical-offset="54" max-vertical-offset="2416">
-                    <folding />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="Experimenting" />
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="ControlFlow.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ControlFlow.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="137" column="42" selection-start="4145" selection-end="4145" vertical-scroll-proportion="0.0" vertical-offset="2084" max-vertical-offset="2682">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Logger.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Logger.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="24" selection-start="24" selection-end="24" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="954">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Vision.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Vision.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -54,11 +53,8 @@
       <file leaf-file-name="Motions.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Motions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="274" column="41" selection-start="10439" selection-end="10439" vertical-scroll-proportion="0.0" vertical-offset="1130" max-vertical-offset="5376">
-              <folding>
-                <marker date="1390080796040" expanded="true" signature="872:12472" placeholder="..." />
-                <marker date="1390080796040" expanded="true" signature="11556:11589" placeholder="..." />
-              </folding>
+            <state line="291" column="10" selection-start="11025" selection-end="11025" vertical-scroll-proportion="0.0" vertical-offset="4953" max-vertical-offset="6048">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -75,7 +71,7 @@
       <file leaf-file-name="MapViewer.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MapViewer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="95" column="35" selection-start="3887" selection-end="3887" vertical-scroll-proportion="0.53583616" vertical-offset="1206" max-vertical-offset="2016">
+            <state line="60" column="34" selection-start="1999" selection-end="1999" vertical-scroll-proportion="0.33333334" vertical-offset="765" max-vertical-offset="2064">
               <folding>
                 <element signature="e#95#116#0" expanded="true" />
               </folding>
@@ -86,7 +82,7 @@
       <file leaf-file-name="SLAM.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SLAM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="4" selection-start="1831" selection-end="1831" vertical-scroll-proportion="0.0" vertical-offset="432" max-vertical-offset="1680">
+            <state line="51" column="7" selection-start="2207" selection-end="2207" vertical-scroll-proportion="0.0" vertical-offset="174" max-vertical-offset="1680">
               <folding />
             </state>
           </provider>
@@ -104,15 +100,17 @@
       <list>
         <option value="$PROJECT_DIR$/Motion.py" />
         <option value="$PROJECT_DIR$/NAOControl.py" />
+        <option value="$PROJECT_DIR$/ControlFlow.py" />
+        <option value="$PROJECT_DIR$/Logger.py" />
         <option value="$PROJECT_DIR$/Motions.py" />
         <option value="$PROJECT_DIR$/MapViewer.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1416" />
+    <option name="x" value="1409" />
     <option name="y" value="52" />
-    <option name="width" value="935" />
+    <option name="width" value="932" />
     <option name="height" value="1028" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -166,12 +164,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
     <property name="recentsLimit" value="5" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -338,19 +336,39 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="1416" y="52" width="935" height="1028" extended-state="4" />
+    <frame x="1409" y="52" width="932" height="1028" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32941177" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.108766235" sideWeight="0.67082036" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32834226" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32834226" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -375,9 +393,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MapViewer.py">
@@ -425,35 +441,9 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1512" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SLAM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="4" selection-start="1831" selection-end="1831" vertical-scroll-proportion="0.0" vertical-offset="432" max-vertical-offset="1680">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/motion.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="934">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Motions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="274" column="41" selection-start="10439" selection-end="10439" vertical-scroll-proportion="0.0" vertical-offset="1130" max-vertical-offset="5376">
-          <folding>
-            <marker date="1390080796040" expanded="true" signature="872:12472" placeholder="..." />
-            <marker date="1390080796040" expanded="true" signature="11556:11589" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Logger.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="990">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="934" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/NAOControl.py">
@@ -465,21 +455,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="934">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="934" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SLAM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="7" selection-start="2207" selection-end="2207" vertical-scroll-proportion="0.0" vertical-offset="174" max-vertical-offset="1680">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ControlFlow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="18" selection-start="695" selection-end="695" vertical-scroll-proportion="0.3802521" vertical-offset="54" max-vertical-offset="2416">
+        <state line="137" column="42" selection-start="4145" selection-end="4145" vertical-scroll-proportion="0.0" vertical-offset="2084" max-vertical-offset="2682">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Logger.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="24" selection-start="24" selection-end="24" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="954">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Motions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="291" column="10" selection-start="11025" selection-end="11025" vertical-scroll-proportion="0.0" vertical-offset="4953" max-vertical-offset="6048">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MapViewer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="35" selection-start="3887" selection-end="3887" vertical-scroll-proportion="0.53583616" vertical-offset="1206" max-vertical-offset="2016">
+        <state line="60" column="34" selection-start="1999" selection-end="1999" vertical-scroll-proportion="0.33333334" vertical-offset="765" max-vertical-offset="2064">
           <folding>
             <element signature="e#95#116#0" expanded="true" />
           </folding>

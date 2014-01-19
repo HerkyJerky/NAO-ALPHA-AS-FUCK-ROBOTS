@@ -49,18 +49,16 @@ class MapViewer(Frame):
         self.parent = parent
         self.parent.title("[ALPHA] - SLAM")
         self.pack(fill=BOTH, expand=1)
-        self.updateMapNew([[30, 30, 30], [[20, 40], [50, 60], [300, 45], [60, 100]]])
+        self.updateMapNew([[[30, 30, 30]], [[20, 40, True], [50, 60, True], [300, 45, True], [60, 100, True]]])
         root.geometry("600x400")
         root.mainloop()
         pass
 
 
-    # get output from SLAM about what cells to update
-    # [x_robot, y_robot, theta_robot, x_landmark_1, y_landmark_1, x_landmark_2, ..., x_landmark_n, y_landmark_n]
-    # TODO what is the unit of the coordinates? In m
+
 
     # old method for updating the map
-    def updateMap(self, output):  # TODO get actual output
+    def updateMap(self, output):  
         print output
         self.canvas = Canvas(self)
         self.canvas.create_rectangle(0, 0, FIELDWIDTH, FIELDHEIGHT, fill='#006400')
@@ -68,9 +66,6 @@ class MapViewer(Frame):
         # create a pixel representing the robot
         self.drawAt(output[0], output[1], 'blue')
         #self.canvas.create_rectangle(output[0], output[1], output[0]+2, output[1]+2, fill='black')
-
-        # TODO robot theta
-
         # create all the landmarks pixels
         for i in xrange(3, len(output), 2):
             self.drawAt(output[i], output[i+1], 'white')
@@ -94,9 +89,10 @@ class MapViewer(Frame):
         poses = output[0]
         landmarks = output[1]
         for i in range(len(poses)):
-            self.drawAt(poses[i][0],poses[i][1], 'blue')
+            self.drawAt(poses[i][0], poses[i][1], poses[i][2], 'blue', 'robot')
             
         for k in range(len(landmarks)):
+            print len(landmarks)
             if (landmarks[k][2] is True):
                 self.drawAt(landmarks[k][0], landmarks[k][1], 'yellow')
             if (landmarks[k][2] is False):
@@ -105,15 +101,22 @@ class MapViewer(Frame):
         pass
         
 
-    def drawAt(self, x, y, color):
-        if (x - alpha > 0) and (x + alpha < FIELDWIDTH):
-            if (y - alpha > 0) and (y + alpha < FIELDHEIGHT):
-                self.canvas.create_rectangle(x-2, y-2, x+5, y+5, fill=color)
-                self.canvas.pack(fill="both", expand=1)
-            else:
-                print("please enter {0}>y>{1}".format(FIELDHEIGHT-2, 2))
+    def drawAt(self, x, y, theta, color, mode):
+        if mode is 'robot':
+             #TODO make triangle representing the robot and the direction it's facing using theta in radians and [-pi, pi]
+            pass
         else:
-            print("please enter {0}>x>{1}".format(FIELDWIDTH-2, 2))
+            if (x - alpha > 0) and (x + alpha < FIELDWIDTH):
+                if (y - alpha > 0) and (y + alpha < FIELDHEIGHT):
+                    self.canvas.create_oval(x-alpha, y-alpha, x+2*alpha, y+2*alpha, fill=color)
+                    #self.canvas.create_rectangle(x-2, y-2, x+5, y+5, fill=color)
+                    self.canvas.pack(fill="both", expand=1)
+                else:
+                    print("please enter {0}>y>{1}".format(FIELDHEIGHT-2, 2))
+            else:
+                print("please enter {0}>x>{1}".format(FIELDWIDTH-2, 2))
+
+
 
         #test
 mappie = MapViewer(root)

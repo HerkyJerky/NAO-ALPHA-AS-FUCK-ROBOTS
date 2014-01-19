@@ -35,7 +35,6 @@ elif offline
     5. DISPLAY map
 '''
 
-# TODO fix the output to interpret matrix form
 
 class ControlFlow:
     def __init__(self):
@@ -136,9 +135,8 @@ class ControlFlow:
         return dataForMap
 
     def part_5(self, dataForMap):
-        mapViewer.updateMap(dataForMap)
+        mapViewer.updateMapNew(dataForMap)
 
-        # TODO finish this
 
 controlThisShit = ControlFlow()
 print "control flow made"
