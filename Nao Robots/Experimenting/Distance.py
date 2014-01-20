@@ -113,7 +113,7 @@ class Distance():
 
         x2 = x
         y2 = y
-        DEG2RAD = np.pi/180.0 # Convert Deg to Rad
+        DEG2RAD = np.pi/180.0 # Convert Deg to Rad  
         RAD2DEG = 180.0/np.pi # Convert Rad to Deg
         RESW = 320.0 #320.0 #Capture width
         RESH = 240.0 #240.0 #Capture height
