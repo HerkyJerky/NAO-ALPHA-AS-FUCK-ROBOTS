@@ -133,9 +133,9 @@ Extended Kalman Filter SLAM is an algorithm which uses an Extended Kalman Filter
 
 During the runtime of the algorithm, the state is represented by a vector $\mu$ and a matrix $\Sigma$ (see figure 4.1).
 \dkepic{bigMatrix}{The vector of the state \cite{vec}}. 
-The first three elements of $\mu$ are the estimated x and y coordinates of the robot and the robot’s estimated rotation $\theta$. The following elements, mi,x and mi,y are the x and y coordinates of the ith landmark. If n equals the number of different landmarks observed so far, this means that $\mu$ has a size equal to $3 + 2n$.
+The first three elements of $\mu$ are the estimated x and y coordinates of the robot and the robot’s estimated rotation $\theta$. The following elements, $m_{i,x}$ and $m_{i,y}$ are the $x$ and $y$ coordinates of the $i^{th}$ landmark. If $n$ equals the number of different landmarks observed so far, this means that $\mu$ has a size equal to $3 + 2n$.
 
-The matrix $\Sigma$ contains covariances between the $3 + 2n$ elements of $\mu$. This means that it is a square matrix with dimension 3 + 2n.
+The matrix $\Sigma$ contains covariances between the $3 + 2n$ elements of $\mu$. This means that it is a square matrix with dimension $3 + 2n$.
 
 The algorithm is initialized with both $\mu$ and $\Sigma$ being filled with all zeros. This implies that all coordinates of landmarks and future robot position are relative to the robot’s starting position.
 
