@@ -132,7 +132,7 @@ class Distance():
         distance = (HB * np.tan(yAngle)) / np.cos(xAngle)
 
         print (x2, y2)
-        return (distance/100), xAngle, post
+        return (0.9*distance/100), xAngle, post
     
     def getData(self):
         return self.data
