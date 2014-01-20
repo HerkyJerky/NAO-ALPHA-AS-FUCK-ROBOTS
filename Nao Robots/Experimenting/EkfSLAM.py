@@ -287,7 +287,7 @@ class EkfSLAM(SLAM.SLAM):
                     landmark_pos = []              
 
                     for i in xrange(3, len(self.X), 2):
-                        landmark_pos.append([self.X[i], self.X[i+1]])
+                        landmark_pos.append([self.X[i], self.X[i+1], self.goal_posts[(i - 3) / 2]])
 
                     self.output[0].append(rob_pos)
                     self.output[1].append(landmark_pos)
@@ -569,7 +569,7 @@ class EkfSLAM(SLAM.SLAM):
                 landmark_pos = []              
 
                 for i in xrange(3, len(self.X), 2):
-                    landmark_pos.append([self.X[i], self.X[i+1]])
+                    landmark_pos.append([self.X[i], self.X[i+1], self.goal_posts[(i - 3) / 2]])
 
                 self.output[0].append(rob_pos)
                 self.output[1].append(landmark_pos)
@@ -583,7 +583,7 @@ class EkfSLAM(SLAM.SLAM):
             landmark_pos = []
 
             for i in xrange(3, len(self.X), 2):
-                landmark_pos.append([self.X[i], self.X[i+1]])
+                landmark_pos.append([self.X[i], self.X[i+1], self.goal_posts[(i - 3) / 2]])
 
             self.output = [[rob_pos, landmark_pos]]
         
@@ -605,7 +605,7 @@ def insertLandmark(x, y, X, reobserved_landmarks, newly_observed_landmarks, r, b
     of data in the X vector)
     '''
     for i in xrange(3, len(X), 2):
-        goalPost_other = goal_posts[(i - 3) % 2]
+        goalPost_other = goal_posts[(i - 3) / 2]
         
         if(not (goalPost_other == goalPost)):
             continue

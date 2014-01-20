@@ -13,8 +13,8 @@ distance inputs, so x and y are given in integer centimeters
 however, in the native NAOqi functions meters, are expected.
 '''
 
-robotIp = "192.168.200.17"
-#robotIp = "192.168.200.16"
+#robotIp = "192.168.200.17"
+robotIp = "192.168.200.16"
 port = 9559
 logObj = Logger()
 MAXSTEPSIZE = 8  # cm

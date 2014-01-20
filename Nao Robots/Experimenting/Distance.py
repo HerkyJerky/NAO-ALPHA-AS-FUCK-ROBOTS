@@ -158,15 +158,14 @@ class Distance():
     
     
     def straightLine(self, xA1, xA2, yA1, yA2, xB1, xB2, yB1, yB2):
-        if xA1 == xA2:
+        if np.double(xA1 - xA2) == 0:
             slopeA = 9001
         else:
             slopeA = (np.double(yA1 - yA2)/np.double(xA1 - xA2))
-        if xB1 == xB2:
+        if np.double(xB1 - xB2) == 0:
             slopeB = 9001
         else:
             slopeB = (np.double(yB1 - yB2)/np.double(xB1 - xB2))
-        #print(np.abs(slopeA - slopeB))
         if(np.abs(slopeA - slopeB) < self.min_slope):
             return True
         return False

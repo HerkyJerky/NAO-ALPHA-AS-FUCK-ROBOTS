@@ -18,7 +18,7 @@ graphSlamObj = GraphSLAMInherited()
 #mapViewer = MapViewer()
 TYPES = ["EKF", "GRAPH"]
 MODES = ["ONLINE", "OFFLINE"]
-
+# TODO be able to set ip and port in here and not in Vision and Motions
 '''
 1. LET robot walk around and then take pictures
 2. DO image processing
@@ -118,11 +118,13 @@ class ControlFlow:
         print "part 2 initializing - process the image"
         measurement_data = analyzeObj.analyse("analyzeThis.png", self.angle)
         print "part 2 COMPLETE"
+
         return measurement_data
 
     # 3. SEND data for slam
     def part_3(self, measurement_data, motion_data, kind):
         print "part 3 initializing - send data for SLAM"
+        print 'measurement_date = ', measurement_data
         if kind == TYPES[0]:
             ekfSlamObj.send_data(measurement_data, motion_data)
         elif kind == TYPES[1]:
@@ -159,6 +161,7 @@ controlThisShit = ControlFlow()
 #print "control flow made"
 #controlThisShit.flow_online()
 # TYPES = ["EKF", "GRAPH"]
-controlThisShit.flow_offline(TYPES[1])
+#controlThisShit.flow_offline(TYPES[0])
 #controlThisShit.flow_online(TYPES[1])
 #controlThisShit.flow_online()
+controlThisShit.testImage()

@@ -14,8 +14,8 @@ import vision_definitions
 import numpy as np
 from Motions import Motion
 
-robotIp = "192.168.200.17"
-#robotIp = "192.168.200.16"
+#robotIp = "192.168.200.17"
+robotIp = "192.168.200.16"
 port = 9559
 #global visionProxy
 #resolution = 2    # VGA
