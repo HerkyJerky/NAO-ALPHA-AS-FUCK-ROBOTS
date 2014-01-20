@@ -10,6 +10,9 @@
 \runningtitle{SLAM using the NAO camera}
 \author{Maastricht University \\ Group 2 \\ Taghi Aliyev, Gabri\"elle Ras, Dennis Soemers, Roel Strolenberg}
 
+% TODO: Outline of Paper needs to be fixed when everything else is done
+% TODO: With sections still being added in some places, make sure numbering is correct in all references!
+
 \newcommand{\dkepic}[2]{ %2 referes to the amount of "parameters" in this new "method"
 	\begin{figure}[H] %the H signifies that the image will be put 'Here', and can only be used by using package 'float'
 	\includegraphics[width=0.5\textwidth]{#1}
@@ -52,7 +55,21 @@ The robot used for this study is NAO, a humanoid robot developed by the company 
 \subsection{Features of the environment}
 The soccer field that is used is the half Standard Platform League soccer field. It is green field with white lines and a yellow official goal post. The aim of the robot is to localize itself within the bounds of this half soccer field using the white lines as landmarks.
 
+%---------------------------------------------------------------------------
 
+\section{Software Architecture}
+The software developed during this project consists of a Graphical User Interface, used for issuing commands to the robot from a laptop, an Image Processing module, and a module of SLAM algorithms.
+
+\subsection{Graphical User Interface}
+The Graphical User Interface (GUI) allows for easy control of the robot. It allows the user on a laptop to send motion commands to the robot, to command the robot to take a picture, and to run the SLAM algorithms.
+
+\subsection{Image Processing Module}
+After issuing motion commands, the robot should take a picture and obtain measurements from that picture. The Image Processing Module takes an image taken by the robot's camera as input, and produces a set of measurements obtained from that image as output. The algorithms used in this module are described in detail in the Image Processing section.
+
+\subsection{SLAM Module}
+The SLAM Module contains an abstract class for running SLAM algorithms. This abstract class takes motion and measurement data as input. It produces an estimate of the robot's location and rotation, and an estimate of landmark positions, as output. The motion data is equal to the motion commands issued to the robot by the user, and is therefore obtained directly from the GUI. The measurement data is the output of the Image Processing Module.
+
+This module contains different implementations of the abstract class for different algorithms. The algorithms used are described in detail in section 5.
 
 %---------------------------------------------------------------------------
 
@@ -256,8 +273,8 @@ $\bordermatrix{ 	& \cr
                  &\theta_{t-1} \cr}$
 +
 $\bordermatrix{ 	& \cr
-                 &d*cos(\theta) \cr
-                 &d*sin(\theta) \cr
+                 &d \times cos(\theta) \cr
+                 &d \times sin(\theta) \cr
                  &\Delta\theta \cr}$ \\ \\
 where $d$ is the distance the robot travelled forwards. \\ \\
 Matrices used for covariance prediction:
@@ -273,5 +290,34 @@ $G_t$ =
 $\bordermatrix{ 	& \cr
                  &G_t^x & 0 \cr
                  &0 & I \cr}$
+                 
+$\delta$ = $\bordermatrix{~ \cr
+                        & \delta_{x} \cr
+                        & \delta_{y}}$ = $\bordermatrix{~ \cr
+                                                                                                & \mu_{j,x} - \mu_{t,x} \cr
+                                                                & \mu_{j,y} - \mu_{t,y} \cr}$\\ \\
+
+$\textit{q} = \delta^{T} \times \delta$
+
+\textit{z}$^{i}_{t}$ = $\bordermatrix{~ \cr
+                        & \sqrt{q} \cr
+                        & atan2(\sigma_{y},\sigma_{x}) - \mu_{t,\theta}}$\\ \\
+                                          
+$^{low}$H$^{i}_{t}$ = $\frac{\delta h(\mu_{t})}{\delta{\mu_{t}}}$ = \\ \\ = $\frac{1}{q}$ $\times$ $\bordermatrix{~ \cr
+                                & -\sqrt{q} \times \delta_{x} & -\sqrt{q} \times \delta_{y} & 0 & +\sqrt{q} \times \delta_{x} & \sqrt{q} \times \delta_{y} \cr
+                                & \delta_{y} & -\delta_{x} & -q & -\delta_{y} & \delta_{x}} $\\ \\
+                                                  
+$^{low}$H$^{i}_{t}$ = $\frac{1}{q}$ $\times$ $\bordermatrix{~ \cr
+                                & -\sqrt{q} \times \delta_{x} & -\sqrt{q} \times \delta_{y} & 0 & +\sqrt{q} \times \delta_{x} & \sqrt{q} \times \delta_{y} \cr
+                                & \delta_{y} & -\delta_{x} & -q & -\delta_{y} & \delta_{x}} $\\ \\
+                                                  
+H$^{i}_{t}$ = $^{low}H^{i}_{t} \times F_{x,j}$
+\\ \\
+$F_{x,j}$ = $\bordermatrix{~ \cr
+                        & 1 & 0 & 0 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
+                        & 0 & 1 & 0 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
+                        & 0 & 0 & 1 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
+                        & 0 & 0 & 0 & 0 \cdots 0 & 1 & 0 & 0 \cdots 0 \cr
+                        & 0 & 0 & 0 & \underbrace{0 \cdots 0}_{2j-2} & 0 & 1 & \underbrace{0 \cdots 0}_{2N-2j} \cr}$
 
 \end{document}
