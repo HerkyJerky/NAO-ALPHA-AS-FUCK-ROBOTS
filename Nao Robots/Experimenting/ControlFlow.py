@@ -5,7 +5,7 @@ from Motions import Motion
 from Vision import Vision
 from EkfSLAM import EkfSLAM
 from GraphSLAMInherited import GraphSLAMInherited
-from ImageProcessing import ImageProcessing
+#from ImageProcessing import ImageProcessing
 #from MapViewer import MapViewer
 from AnalyseImage import AnalyseImage
 
@@ -14,7 +14,7 @@ motionObj = Motion()
 visionObj = Vision()
 ekfSlamObj = EkfSLAM()
 graphSlamObj = GraphSLAMInherited()
-imageProcObj = ImageProcessing()
+#imageProcObj = ImageProcessing()
 #mapViewer = MapViewer()
 TYPES = ["EKF", "GRAPH"]
 MODES = ["ONLINE", "OFFLINE"]
@@ -47,7 +47,7 @@ class ControlFlow:
         print "image taken"
         print self.part_2()
 
-    def flow_online(self):
+    def flow_online(self, kind):
         cntr = 0
         while True:
             #1. LET robot walk around and then take pictures
@@ -60,9 +60,9 @@ class ControlFlow:
             #2. DO image processing
             measurement_data = self.part_2()
             #3. SEND data for slam, Ekf
-            self.part_3(measurement_data, motion_data, TYPES[0])
+            self.part_3(measurement_data, motion_data, kind)
             #4. RUN slam
-            dataForMap = self.part_4(TYPES[0])
+            print self.part_4_online(kind)
             #5. DISPLAY map
             #self.part_5(dataForMap)
             #6. GO to step 1
@@ -71,7 +71,7 @@ class ControlFlow:
             if cntr == 10:
                 break
 
-    def flow_offline(self):
+    def flow_offline(self, kind):
         cntr = 0
         while True:
             #1. LET robot walk around and then take pictures
@@ -84,9 +84,9 @@ class ControlFlow:
             #2. DO image processing
             measurement_data = self.part_2()
             #3. SEND data for slam, Graph
-            self.part_3(measurement_data, motion_data, TYPES[1])
+            self.part_3(measurement_data, motion_data, kind)
             #4. RUN slam
-            dataForMap = self.part_4(TYPES[1])
+            print self.part_4_offline(kind)
             #6. GO to step 1
             cntr += 1
             print cntr
@@ -98,26 +98,31 @@ class ControlFlow:
 
     # 1. LET robot walk around and then take pictures
     def part_1(self, x, y, theta):
-        print "part 1 initializing"
+        print "part 1 initializing - walk and take pic"
         if theta == 0:
             motion_data = motionObj.moveXYCm(x, y)
-            visionObj.takePic()
-        elif x and y == 0:
+            print 'we have motiondata: ', motion_data
+            self.angle = visionObj.takePic()
+        elif ((x == 0) and (y == 0)):
             motion_data = motionObj.rotateTheta(theta)
             self.angle = visionObj.takePic()
+            print 'we have motiondata2: ', motion_data
+        else:
+            print 'no valid x y or theta'
+
         print "part 1 COMPLETE"
         return motion_data
 
     # 2. DO image processing
     def part_2(self):
-        print "part 2 initializing"
+        print "part 2 initializing - process the image"
         measurement_data = analyzeObj.analyse("analyzeThis.png", self.angle)
         print "part 2 COMPLETE"
         return measurement_data
 
     # 3. SEND data for slam
     def part_3(self, measurement_data, motion_data, kind):
-        print "part 3 initializing"
+        print "part 3 initializing - send data for SLAM"
         if kind == TYPES[0]:
             ekfSlamObj.send_data(measurement_data, motion_data)
         elif kind == TYPES[1]:
@@ -125,8 +130,8 @@ class ControlFlow:
         print "part 3 COMPLETE"
 
     # 4. RUN slam
-    def part_4(self, kind):
-        print "part 4 initializing"
+    def part_4_online(self, kind):
+        print "part 4 initializing - run SLAM"
         if kind == TYPES[0]:
             dataForMap = ekfSlamObj.run_slam()
         elif kind == TYPES[1]:
@@ -134,12 +139,26 @@ class ControlFlow:
         print "part 4 COMPLETE"
         return dataForMap
 
+    def part_4_offline(self, kind):
+        print "part 4 initializing - run SLAM"
+        if kind == TYPES[0]:
+            ekfSlamObj.set_offline()
+            dataForMap = ekfSlamObj.run_slam()
+        elif kind == TYPES[1]:
+            graphSlamObj.set_offline()
+            dataForMap = graphSlamObj.run_slam()
+        print "part 4 COMPLETE"
+        return dataForMap
+
     def part_5(self, dataForMap):
-        mapViewer.updateMapNew(dataForMap)
+        #mapViewer.updateMapNew(dataForMap)
+        pass
 
 
 controlThisShit = ControlFlow()
-print "control flow made"
+#print "control flow made"
 #controlThisShit.flow_online()
-
-controlThisShit.flow_offline()
+# TYPES = ["EKF", "GRAPH"]
+controlThisShit.flow_offline(TYPES[1])
+#controlThisShit.flow_online(TYPES[1])
+#controlThisShit.flow_online()

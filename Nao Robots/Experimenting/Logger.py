@@ -25,7 +25,7 @@ class Logger:
         log.close()
         log = open(path, "r")
         prevCont = log.read()
-        print(prevCont)
+        #print(prevCont)
         log.close()
 
     def logDelAll(self):

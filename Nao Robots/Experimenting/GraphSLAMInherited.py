@@ -4,10 +4,11 @@ Created on 9 Jan 2014
 @author: Taghi
 '''
 import SLAM
-import GraphSLAM
-import CommonFunctionality
+from GraphSLAM import GraphSLAM
+import numpy as np
+from CommonFunctionality import CommonFunctionality
 
-class GraphSLAMInherited(SLAM):
+class GraphSLAMInherited(SLAM.SLAM):
     
     def __init__(self):
         '''
@@ -39,30 +40,49 @@ class GraphSLAMInherited(SLAM):
         print "Running graph slam!"
         engine = CommonFunctionality(self.associationError)
         data = engine.make_data(self.motions,self.measurements)
-        result = self.graphSlam.graphSlam(None,data,len(data) + 1,len(engine.landmarks),self.motion_noise,self.measurement_noise)
-        motion_approximations = []
-        landmarks_approximations = []
+        [result,booleans] = self.graphSlam.graphSlam(data,len(data) + 1,len(engine.landmarks),self.motion_noise,self.measurement_noise)
         # Getting all the results.
         # One thing to clear up : data[k] goes into the k-th time step. data[k][1] goes into motion data. 
         # [0] is strange thing but you have to do it. 
         # [2] is index of orientation at that time step.
         if (self.method):
-            for k in range(len(self.motions)):
-                motion_approximations.append([result[2*k],result[2*k+1],data[k][1][0][2]])
+            motion_approximations = np.zeros((len(self.motions) + 1,3))
+            landmarks_approximations = np.zeros((len(engine.landmarks),3))
+            for k in range(len(self.motions) + 1):
+                motion_approximations[k][0] = result[2*(k)]
+                motion_approximations[k][1] = result[2*(k)+1]
+                if (k>0):
+                    motion_approximations[k][2] = data[k-1][1][0][2]
+                else:
+                    motion_approximations[k][2] = 0.0
+                #motion_approximations.append([result[2*k],result[2*k+1],data[k][1][0][2]])
                 
             for i in range(len(engine.landmarks)):
-                landmarks_approximations.append([result[2*(len(self.motions)+i)],result[2*(len(self.motions)+i) + 1]])
+                landmarks_approximations[i][0] = result[2*(len(self.motions) + i)]
+                landmarks_approximations[i][1] = result[2*(len(self.motions) + i) + 1]
+                #print booleans[i]
+                landmarks_approximations[i][2] = booleans[i]
+                #landmarks_approximations.append([result[2*(len(self.motions)+i)],result[2*(len(self.motions)+i) + 1]])
         
         # Getting only last elements
         if (self.method == False):
-            lengthOfMotion = len(self.motions)
-            motion_approximations.append([result[2*lengthOfMotion],result[2*lengthOfMotion+1],data[lengthOfMotion - 1][1][0][2]])
+            motion_approximations = np.zeros((1,3))
+            landmarks_approximations = np.zeros((len(engine.landmarks),3))
+
+            motion_approximations[0][0] = result[2*len(self.motions)]
+            motion_approximations[0][1] = result[2*len(self.motions) + 1]
+            motion_approximations[0][2] = data[len(self.motions) - 1][1][0][2]
+
             for i in range(len(engine.landmarks)):
-                landmarks_approximations.append([result[2*(len(self.motions)+i)],result[2*(len(self.motions)+i) + 1]])
+                landmarks_approximations[i][0] = result[2*(len(self.motions) + i)]
+                landmarks_approximations[i][1] = result[2*(len(self.motions) + i) + 1]
+                #print booleans[i]
+                landmarks_approximations[i][2] = booleans[i]
         
         # Returning results depending on what method is used. Return statement does not change only the way matrices are generated 
-        print "Graph SLAM is done!"  
-        return [motion_approximations,landmarks_approximations]   
+        print "Graph SLAM is done!"
+        #return result
+        return np.array([motion_approximations,landmarks_approximations])
     
     def send_data(self,measurement_data,motion_data):
         self.measurements.append(measurement_data)

@@ -42,11 +42,9 @@ class Vision:
     def takePic(self):
         action = 3
         motionObj.moveHeadPitch(0.3, 0.4)
-        print "head moved"
         time.sleep(2)
         videoClient = self.visionProxy.subscribeCamera("python_client", 0, resolution, colorSpace, 5)
         self.visionProxy.setCameraParameter(videoClient, 18, 0)
-        print( 'this camera is: ', self.visionProxy.getActiveCamera(videoClient))
         picture = self.visionProxy.getImageRemote(videoClient)
         #picture2 = self.visionProxy.getImageLocal(videoClient)
         self.visionProxy.unsubscribe(videoClient)
@@ -56,11 +54,9 @@ class Vision:
         realPicture = Image.fromstring("RGB", (picWidth, picHeight), array)
         realPicture.save("analyzeThis.png", "PNG")
         angle = motionObj.measureAngle()
-        print "angle measured"
         realPicture.show()
         logObj.logWrite(time.time().__str__() + "_{0}".format(action))
         #logObj.logWrite(time.time().__str__() + "_5_{0}_0_0_0".format(name))
-        print "finished taking pic"
         return angle
 
 
@@ -88,4 +84,3 @@ class Vision:
 #
 #vis = Vision()
 ##vis.takePic("selfie2")
-#print(vis.getDistanceFromLandMark(35, 100))

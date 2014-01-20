@@ -24,6 +24,7 @@ class GraphSLAM:
         
         #Omega = numpy.zeros(2,2)
         Omega = numpy.zeros((dim,dim))
+        booleans = numpy.zeros((num_landmarks_seen))
         Omega[0,0] = 1.0
         Omega[1,1] = 1.0
         Xi = numpy.zeros((dim,1))
@@ -43,7 +44,8 @@ class GraphSLAM:
                 # This should fix issue we had before with graph slam.
                 if (len(one_measurement)!=0):
                     m = 2 * (N + one_measurement[0])
-                    
+                    post = one_measurement[3]
+                    booleans[one_measurement[0]] = post
                     for b in range(2):
                         Omega[n+b][n+b] = Omega[n+b][n+b] + 1.0/measurement_noise
                         Omega[m+b][m+b] = Omega[m+b][m+b] + 1.0/measurement_noise
@@ -69,7 +71,7 @@ class GraphSLAM:
         #Omega = np.linalg.pinv(invOmega)
         mu = numpy.dot(invOmega,Xi)
         
-        return mu
+        return [mu,booleans]
     
     def print_result(self,num_steps, num_landmarks, result):
         print
@@ -100,7 +102,7 @@ class GraphSLAM:
         # Making calculations.
         calculation_motion_noise = 2.0
         calculation_measurement_noise = 2.0
-        mu = self.graphSlam(data,len(data) + 1,len(engine.landmarks),calculation_motion_noise,calculation_measurement_noise)
+        [mu,booleans] = self.graphSlam(data,len(data) + 1,len(engine.landmarks),calculation_motion_noise,calculation_measurement_noise)
         
         #engine.landmarks = self.post_process_landmarks(engine.landmarks)
         self.print_result(len(data) + 1,len(engine.landmarks),mu)
@@ -128,20 +130,41 @@ class GraphSLAM:
         world_size = 100.0
         measurement_range = 50.0
         walkingDistancePerStep = 3.0
-        num_landmarks = 0
+        num_landmarks = 2
         measurement_noise = 1.0
         motion_noise = 1.0
         
         #problem = AbstractSLAMProblem(world_size, measurement_range, motion_noise, measurement_noise, num_landmarks)
         engine = CommonFunctionality()
         # Moves 2 towards x, 2 towards y, turn 45 degrees and goes 4 towards x in that direction.
-        gabi_array = [[0,3,2,0,0,10],[1,3,0,2,0,10],[1,3,3,0,0,10],[1,3,0,0,0,10]] 
+        gabi_array = [[0,3,2,0,0,10],[1,3,0,2,0,10],[1,3,3,0,0,10],[1,3,0,0,math.pi/2,10]]
         # Structure of roel array : [d(r,l),relAngle] of landmarks seen at time step t.
         roel_array = [[],[],[],[]]
         #data = problem.run_simulation(numSteps, num_landmarks, world_size, measurement_range, motion_noise, measurement_noise, walkingDistancePerStep);
         data = engine.make_data(gabi_array, roel_array)
         #numSteps = len(data)
-        mu = graphSlam(None,data, len(data) + 1, len(engine.landmarks), 1, 1)
+        [mu,booleans] = graphSlam(None,data, len(data) + 1, len(engine.landmarks), 1, 1)
+        motion_approximations = numpy.zeros((5,3))
+        landmarks_approximations = numpy.zeros((num_landmarks,3))
+
+        for k in range(5):
+
+            motion_approximations[k][0] = mu[2*k]
+            motion_approximations[k][1] = mu[2*k+1]
+            if (k>0):
+                motion_approximations[k][2] = data[k - 1][1][0][2]
+            else:
+                motion_approximations[k][2] = 0.0
+        print 'length',len(engine.landmarks)
+        print booleans
+        for i in range(len(engine.landmarks)):
+            landmarks_approximations[i][0] = mu[2*(4 + i)]
+            landmarks_approximations[i][1] = mu[2*(4 + i) + 1]
+            landmarks_approximations[i][2] = booleans[i]
+
+        #print landmarks_approximations
+        #print motion_approximations
+        result = numpy.array([motion_approximations,landmarks_approximations])
         print_result(None,len(data) + 1,len(engine.landmarks), mu)
         
         

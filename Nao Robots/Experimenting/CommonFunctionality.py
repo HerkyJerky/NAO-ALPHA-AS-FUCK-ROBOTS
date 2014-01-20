@@ -62,7 +62,8 @@ class CommonFunctionality:
             dtheta = motion_info[4]
             # These are radians. And I am not taking modulo or anything.
             orientation += dtheta
-            orientation = self.normalize_angle(orientation)
+            #orientation = self.normalize_angle(orientation)
+
             dx = forwardMove * math.cos(orientation) + sideMove * math.sin(orientation)
             dy = forwardMove * math.sin(orientation) + sideMove * math.cos(orientation)
             # If orientation is zero, then y might not change.
@@ -98,8 +99,7 @@ class CommonFunctionality:
                     index = self.landmark_check(roughXlandmark,roughYlandmark,post)
                     roel_data.append([index,xDistance,yDistance,post])
             result.append([roel_data,gabi_data])
-            
-        
+
         return result
     
     def landmark_check(self,roughNewLandmarkX,roughNewLandmarkY,post):

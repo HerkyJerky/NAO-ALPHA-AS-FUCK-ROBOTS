@@ -110,7 +110,7 @@ class MapViewer(Frame):
     output[1] are landmark positions of this format : [x, y, bool]                                                                                                                                                                                                                                                                                                                                                                                                  `    `
     '''
     # normalize the output of SLAM
-    def normalizeOutputSLAM(self, output):
+    def normalizeOutputSLAM(self, output): # TODO 0 1 are false true, so check for this instead of checking for booleans
         minX = float('inf')
         maxX = -float('inf')
         minY = float('inf')

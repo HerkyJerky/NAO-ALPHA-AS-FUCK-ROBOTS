@@ -94,7 +94,6 @@ class Motion:
     '''
     # TODO figure out how many m one footstep is, for all cases so L R Bw Fw
     def moveXYCm(self, x, y):
-        print("moveXYCm")
         self.stand()
         # convert from input string to integer
         x = int(x)
@@ -108,7 +107,6 @@ class Motion:
         if x == 0:
             amountStepsY, stepSizeY = self.getSteps(y)
             #stepSizeY from cm to m
-            print(stepSizeY)
             stepSizeY = float(stepSizeY)  # / 100 apparently not necessary
             amountStepsX = 0
             stepSizeX = 0
@@ -119,13 +117,11 @@ class Motion:
                 for i in xrange(0, amountStepsY):
                     if i % 2 == 0:
                         self.setStep(LLEG, stepSizeX, stepSizeY, theta)
-                        print stepSizeY
                         lastMovedLeg = LLEG
                     else:
                         self.setStep(RLEG, stepSizeX, stepSizeY, theta)
                         lastMovedLeg = RLEG
             else:
-                print("y < 0")
                 positivity = False
                 direction = DIRECTIONS[1]
                 stepSize = -stepSizeY
@@ -140,9 +136,7 @@ class Motion:
 
         # pos is Fw, neg is Bw
         elif y == 0:
-            print("y == 0")
             amountStepsX, stepSizeX = self.getSteps(x)
-            print amountStepsX
             # convert from cm to m
             stepSizeX = float(stepSizeX) / 100
             amountStepsY = 0
@@ -182,7 +176,6 @@ class Motion:
     # ! distance already converted to m in moveXYCm method.
     # ! distance here has to be int
     def getSteps(self, distance):
-        print("getSteps")
         distance = math.fabs(distance)
         if distance % MAXSTEPSIZE == 0:
             steps = distance/(UNIT*(MAXSTEPSIZE/MINSTEPSIZE))
@@ -211,8 +204,6 @@ class Motion:
     # set the last step to complete the movement
     # DIRECTIONS = ["L", "R", "Fw", "Bw"]
     def setLastStep(self, lastMovedLeg, direction, positivity, stepSize):
-        print("setLastStep")
-        print(direction)
         theta = 0
         if lastMovedLeg == LLEG:
             legToMove = RLEG
@@ -232,8 +223,6 @@ class Motion:
     # get the amount of steps needed to rotate amount of theta in. steps is how many steps the NAO needs to take to make the turn,
     # thetaSize is the size of theta in degrees of a turn in one step
     def getThetaSteps(self, theta):
-        print("getThetaSteps")
-        print "theta: ", theta
         theta = float(theta)# math.fabs(float(theta))
         if theta % MAXTHETA == 0:
             steps = theta/(THETAUNIT*(MAXTHETA/MINTHETA))
@@ -244,8 +233,6 @@ class Motion:
         else:
             steps = 0
             print("theta is not valid; must be a multiplication of " + MINTHETA)
-        print "thetaSize: ", thetaSize
-        print "steps: ", steps
         return int(steps)*2, thetaSize
 
     # rotate an n amount of theta in degrees.
@@ -254,8 +241,6 @@ class Motion:
     # action code = 2
     def rotateTheta(self, theta):
         self.stand()
-        print("rotateTheta")
-        print(theta)
         theta = int(theta)
         action = 2
         x = 0
@@ -264,16 +249,11 @@ class Motion:
         if theta < 0:
             startLeg = [RLEG]
             otherLeg = [LLEG]
-            print "!!!!!!!!!thetaSizeD: ", thetaSize
             thetaSize = -thetaSize*DEG2RAD
-            print "thetaSizeR: ", thetaSize
         else:
-            print("theta < 0")
             startLeg = [LLEG]
             otherLeg = [RLEG]
-            print "thetaSizeD: ", thetaSize
             thetaSize = thetaSize*DEG2RAD
-            print "thetaSizeR: ", thetaSize
 
         #self.standStraight()
         self.motionProxy.walkInit()
@@ -283,7 +263,6 @@ class Motion:
 
         steps = int(math.fabs(steps))
         for i in xrange(0, steps):
-            print("steps: ", steps)
             if i % 2 == 0:
                 self.motionProxy.setFootStepsWithSpeed(startLeg, footSteps, fractionMaxSpeed, clearExisting)
             else:
@@ -292,7 +271,8 @@ class Motion:
         #  take last step?
         self.stand()
         logObj.logWrite(time.time().__str__() + "_{0}_{1}_{2}_{3}_{4}".format(action, x, y, theta, SPEED))
-        theta = theta*DEG2RAD
+        theta = theta*DEG2RAD # sends theta in radians
+
         return [time.time().__str__(), action, x, y, theta, SPEED]
 
 
@@ -321,11 +301,9 @@ class Motion:
         #self.stand()
         name = "HeadPitch"
         c = self.motionProxy.getAngles(name, True)
-        print ('angle is ', 90.0 - (180.0/math.pi)*c[0])
         return 90.0 - (180.0/math.pi)*c[0]
 
     def correctHipPitch(self):
-        print "setting hip pitch"
         names = ['LHipPitch', 'RHipPitch']
         angles = [0, 0]
         fractionMaxSpeed = 0.1
