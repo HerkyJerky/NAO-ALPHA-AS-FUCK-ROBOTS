@@ -129,17 +129,25 @@ Now that all the landmarks have been extracted the distance to these can be calc
 \section{Localization and Mapping algorithms}
 
 \subsection{EKF SLAM}
-Extended Kalman Filter SLAM is an algorithm which uses an Extended Kalman Filter (EKF) to solve the SLAM problem. EKF is an enhanced version of the Kalman Filter, which is an algorithm that estimates the current state of a linear system based on (an estimate of) the previous state and a set of transition models. Those transition models contain the physical properties of a system and describe the transitions between states. The normal Kalman Filter requires these transition models to be linear, but EKF no longer has this restriction.\\ \\
-	During the runtime of the algorithm, the state is represented by a vector $\mu$ and a matrix $\Sigma$ (see figure 3.1).\\
+Extended Kalman Filter SLAM is an algorithm which uses an Extended Kalman Filter (EKF) to solve the SLAM problem. EKF is an enhanced version of the Kalman Filter, which is an algorithm that estimates the current state of a linear system based on (an estimate of) the previous state and a set of transition models. Those transition models contain the physical properties of a system and describe the transitions between states. The normal Kalman Filter requires these transition models to be linear, but EKF no longer has this restriction.
+
+During the runtime of the algorithm, the state is represented by a vector $\mu$ and a matrix $\Sigma$ (see figure 4.1).
 \dkepic{bigMatrix}{The vector of the state \cite{vec}}. 
-The first three elements of $\mu$ are the estimated x and y coordinates of the robot and the robot’s estimated rotation $\theta$. The following elements, mi,x and mi,y are the x and y coordinates of the ith landmark. If n equals the number of different landmarks observed so far, this means that $\mu$ has a size equal to 3 + 2n.\\\\
-The matrix $\Sigma$ contains covariances between the 3 + 2n elements of $\mu$. This means that it is a square matrix with dimension 3 + 2n.\\\\
-The algorithm is initialized with both $\mu$ and $\Sigma$ being filled with all zeros. This implies that all coordinates of landmarks and future robot position are relative to the robot’s starting position. \\\\
-EKF is an iterative algorithm. Whenever new data on the robot’s motions or observed landmarks is available, the algorithm can compute an estimate of the new state using only the previous state estimate and the data obtained since the last state was estimated.\\\\
-The first step in such an iteration of the algorithm consists of using the known physical motion model to estimate the new location of the robot. This is computed using simple geometrical calculations and information of the movement commands given to the robot.\\\\
-Next, the new values for the covariance of the robot position are predicted. These values are computed using the changes in robot position and an estimate of the motion noise. That estimate of the motion noise should be determined experimentally.\\\\
-Then, the algorithm deals with observed landmarks. If a landmark has not been observed previously, it’s coordinates and covariances are computed in a similar way to the values of the robot position in the previous steps. This time, models and noise parameters specific to measurements are used.\\\\
-Finally, landmarks which have already been observed in previous iterations and have now been re-observed are dealt with. The same computations as in the step above are used to compute the coordinates where the landmark is now measured to be. These are compared to the coordinates where the algorithm would expect to see that landmark given the estimate of it’s current position, and the estimate of the location where that landmark was previously observed. This difference between expectation and reality, combined with parameters indicating how much noise we expect there to be in motion and measurement data respectively, allow the algorithm to compute how much each value of $\mu$ should be adjusted, based on how much we trust each piece of data.\\
+The first three elements of $\mu$ are the estimated x and y coordinates of the robot and the robot’s estimated rotation $\theta$. The following elements, mi,x and mi,y are the x and y coordinates of the ith landmark. If n equals the number of different landmarks observed so far, this means that $\mu$ has a size equal to $3 + 2n$.
+
+The matrix $\Sigma$ contains covariances between the $3 + 2n$ elements of $\mu$. This means that it is a square matrix with dimension 3 + 2n.
+
+The algorithm is initialized with both $\mu$ and $\Sigma$ being filled with all zeros. This implies that all coordinates of landmarks and future robot position are relative to the robot’s starting position.
+
+EKF is an iterative algorithm. Whenever new data on the robot’s motions or observed landmarks is available, the algorithm can compute an estimate of the new state using only the previous state estimate and the data obtained since the last state was estimated.
+
+The first step in such an iteration of the algorithm consists of using the known physical motion model to estimate the new location of the robot. This is computed using simple geometrical calculations and information of the movement commands given to the robot.
+
+Next, the new values for the covariance of the robot position are predicted. These values are computed using the changes in robot position and an estimate of the motion noise. That estimate of the motion noise should be determined experimentally.
+
+Then, the algorithm deals with observed landmarks. If a landmark has not been observed previously, it’s coordinates and covariances are computed in a similar way to the values of the robot position in the previous steps. This time, models and noise parameters specific to measurements are used.
+
+Finally, landmarks which have already been observed in previous iterations and have now been re-observed are dealt with. The same computations as in the step above are used to compute the coordinates where the landmark is now measured to be. These are compared to the coordinates where the algorithm would expect to see that landmark given the estimate of it’s current position, and the estimate of the location where that landmark was previously observed. This difference between expectation and reality, combined with parameters indicating how much noise we expect there to be in motion and measurement data respectively, allow the algorithm to compute how much each value of $\mu$ should be adjusted, based on how much we trust each piece of data.
 
 \subsection{Graph SLAM}
 
@@ -233,7 +241,37 @@ RoboCup Soccer SPL" \emph{University of Amsterdan}, 2013.
 % Appendices
 
 \appendix
-\section{EKF SLAM Matrices}
-This appendix shows all the matrices used by the EKF SLAM algorithm as they were implemented for this project. Some of these matrices may differ slightly from the way they are described in existing literature. For example, some matrices are often described to have a large number of zeros, guaranteeing that they only affect certain parts of the state when multiplied. Such matrix multiplications can often also be implemented to use smaller matrices without zeros, and the values can then be inserted in the correct part of a larger matrix.
+\section{EKF SLAM Matrices and Equations}
+This appendix provides a detailed view of some of the matrices and equations used by the EKF SLAM algorithm.\\ \\
+Robot state prediction:
+
+$\bordermatrix{ 	& \cr
+                 &x_{t} \cr
+                 &y_{t} \cr
+                 &\theta_{t} \cr}$
+=
+$\bordermatrix{ 	& \cr
+                 &x_{t-1} \cr
+                 &y_{t-1} \cr
+                 &\theta_{t-1} \cr}$
++
+$\bordermatrix{ 	& \cr
+                 &d*cos(\theta) \cr
+                 &d*sin(\theta) \cr
+                 &\Delta\theta \cr}$ \\ \\
+where $d$ is the distance the robot travelled forwards. \\ \\
+Matrices used for covariance prediction:
+
+$G_t^x$ = 
+$\bordermatrix{ 	& \cr
+                 &1 & 0 & -\Delta y \cr
+                 &0 & 1 & \Delta x \cr
+                 &0 & 0 & 1 \cr}$ \\ \\
+where $\Delta x$ and $\Delta y$ represent the distances travelled by the robot along the 2 axes.
+
+$G_t$ = 
+$\bordermatrix{ 	& \cr
+                 &G_t^x & 0 \cr
+                 &0 & I \cr}$
 
 \end{document}
