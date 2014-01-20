@@ -2,9 +2,14 @@
 
 \documentclass{ba-kecs}
 \usepackage[pdftex]{graphicx}
-\usepackage{graphicx, float, amsmath}
+\usepackage{graphicx, float, amsmath,xcolor,fixltx2e}
+\Huge
 \numberwithin{figure}{section}
 \numberwithin{equation}{section}
+
+\def\SPSB#1#2{\rlap{\textsuperscript{{#1}}}\SB{#2}}
+\def\SP#1{\textsuperscript{{#1}}}
+\def\SB#1{\textsubscript{{#1}}}
 
 \title{SLAM using the NAO camera}
 \runningtitle{SLAM using the NAO camera}
@@ -223,6 +228,36 @@ In cases of relative measurement constraints, $\varepsilon_{measurement}$ is use
 
 %---------------------------------------------------------------------------
 
+\section{Dennis matrices}
+
+$\delta$ = $\bordermatrix{~ \cr
+                  			& \delta_{x}  \cr
+                  			& \delta_{y}}$ = $\bordermatrix{~ \cr
+												& \mu_{j,x} - \mu_{t,x} \cr
+                  								& \mu_{j,y} - \mu_{t,y} \cr}$\\ \\
+
+$\textit{q} = \delta^{T} \times \delta$
+
+\textit{z}$^{i}_{t}$ = $\bordermatrix{~ \cr
+                  			& \sqrt{q}  \cr
+                  			& atan2(\sigma_{y},\sigma_{x}) - \mu_{t,\theta}}$\\ \\
+                  			
+$^{low}$H$^{i}_{t}$ = $\frac{\delta h(\mu_{t})}{\delta{\mu_{t}}}$ = \\ \\ = $\frac{1}{q}$ $\times$ $\bordermatrix{~ \cr
+                  				& -\sqrt{q} \times \delta_{x} & -\sqrt{q} \times \delta_{y} & 0 & +\sqrt{q} \times \delta_{x} & \sqrt{q} \times \delta_{y}  \cr
+                  				& \delta_{y} & -\delta_{x} & -q & -\delta_{y} & \delta_{x}} $\\ \\
+                  				
+$^{low}$H$^{i}_{t}$ = $\frac{1}{q}$ $\times$ $\bordermatrix{~ \cr
+                  				& -\sqrt{q} \times \delta_{x} & -\sqrt{q} \times \delta_{y} & 0 & +\sqrt{q} \times \delta_{x} & \sqrt{q} \times \delta_{y}  \cr
+                  				& \delta_{y} & -\delta_{x} & -q & -\delta_{y} & \delta_{x}} $\\ \\
+                  				
+H$^{i}_{t}$ = $^{low}H^{i}_{t} \times F_{x,j}$
+\\ \\
+$F_{x,j}$ = $\bordermatrix{~ \cr
+                  			& 1 & 0 & 0 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
+                  			& 0 & 1 & 0 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
+                  			& 0 & 0 & 1 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
+                  			& 0 & 0 & 0 & 0 \cdots 0 & 1 & 0 & 0 \cdots 0 \cr
+                  			& 0 & 0 & 0 & \underbrace{0 \cdots 0}_{2j-2} & 0 & 1 & \underbrace{0 \cdots 0}_{2N-2j} \cr}$
 
 % Bibliography
 
