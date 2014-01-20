@@ -27,9 +27,7 @@
         <entry file="file://$PROJECT_DIR$/ControlFlow.py">
           <provider selected="true" editor-type-id="text-editor">
             <state line="145" column="28" selection-start="4568" selection-end="4568" vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="3096">
-              <folding>
-                <element signature="e#61#87#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -73,7 +71,7 @@
       <file leaf-file-name="Distance.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Distance.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="115" column="52" selection-start="4850" selection-end="4850" vertical-scroll-proportion="0.23913044" vertical-offset="1697" max-vertical-offset="3056">
+            <state line="115" column="50" selection-start="4848" selection-end="4848" vertical-scroll-proportion="0.0" vertical-offset="2070" max-vertical-offset="3438">
               <folding />
             </state>
           </provider>
@@ -142,10 +140,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="49" />
+    <option name="x" value="1409" />
     <option name="y" value="24" />
-    <option name="width" value="1317" />
-    <option name="height" value="744" />
+    <option name="width" value="1871" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -176,12 +174,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
     <property name="recentsLimit" value="5" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -407,11 +405,11 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.GraphSLAM" />
-      <item index="1" class="java.lang.String" itemvalue="Python.ControlFlow" />
-      <item index="2" class="java.lang.String" itemvalue="Python.MapViewer" />
-      <item index="3" class="java.lang.String" itemvalue="Python.Main" />
-      <item index="4" class="java.lang.String" itemvalue="Python.CommonFunctionality" />
+      <item index="0" class="java.lang.String" itemvalue="Python.ControlFlow" />
+      <item index="1" class="java.lang.String" itemvalue="Python.MapViewer" />
+      <item index="2" class="java.lang.String" itemvalue="Python.Main" />
+      <item index="3" class="java.lang.String" itemvalue="Python.CommonFunctionality" />
+      <item index="4" class="java.lang.String" itemvalue="Python.GraphSLAM" />
     </list>
     <recent_temporary>
       <list size="4">
@@ -452,7 +450,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="49" y="24" width="1317" height="744" extended-state="6" />
+    <frame x="1409" y="24" width="1871" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -575,15 +573,13 @@
     <entry file="file://$PROJECT_DIR$/ControlFlow.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="145" column="28" selection-start="4568" selection-end="4568" vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="3096">
-          <folding>
-            <element signature="e#61#87#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Distance.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="52" selection-start="4850" selection-end="4850" vertical-scroll-proportion="0.23913044" vertical-offset="1697" max-vertical-offset="3056">
+        <state line="115" column="50" selection-start="4848" selection-end="4848" vertical-scroll-proportion="0.0" vertical-offset="2070" max-vertical-offset="3438">
           <folding />
         </state>
       </provider>
