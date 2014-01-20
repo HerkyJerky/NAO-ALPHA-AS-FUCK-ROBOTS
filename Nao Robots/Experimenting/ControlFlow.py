@@ -3,18 +3,18 @@ __author__ = 'redsphinx'
 #from NAOControl import NAOControl
 from Motions import Motion
 from Vision import Vision
-#from EkfSLAM import EkfSLAM
-#from GraphSLAMInherited import GraphSLAMInherited
-#from ImageProcessing import ImageProcessing
+from EkfSLAM import EkfSLAM
+from GraphSLAMInherited import GraphSLAMInherited
+from ImageProcessing import ImageProcessing
 #from MapViewer import MapViewer
 from AnalyseImage import AnalyseImage
 
 analyzeObj = AnalyseImage()
 motionObj = Motion()
 visionObj = Vision()
-#ekfSlamObj = EkfSLAM()
-#graphSlamObj = GraphSLAMInherited()
-#imageProcObj = ImageProcessing()
+ekfSlamObj = EkfSLAM()
+graphSlamObj = GraphSLAMInherited()
+imageProcObj = ImageProcessing()
 #mapViewer = MapViewer()
 TYPES = ["EKF", "GRAPH"]
 MODES = ["ONLINE", "OFFLINE"]
@@ -38,8 +38,8 @@ elif offline
 
 class ControlFlow:
     def __init__(self):
-        #ekfSlamObj.set_noise_parameters(0.1, 0.1, 0.1)
-        #graphSlamObj.set_noise_parameters(1, 1, 1)
+        ekfSlamObj.set_noise_parameters(0.1, 0.1, 0.1)
+        graphSlamObj.set_noise_parameters(1, 1, 1)
         pass
 
     def testImage(self):
@@ -64,7 +64,7 @@ class ControlFlow:
             #4. RUN slam
             dataForMap = self.part_4(TYPES[0])
             #5. DISPLAY map
-            self.part_5(dataForMap)
+            #self.part_5(dataForMap)
             #6. GO to step 1
             cntr += 1
             print cntr
@@ -92,7 +92,7 @@ class ControlFlow:
             print cntr
             if cntr == 10:
                 #5. DISPLAY map
-                self.part_5(dataForMap)
+                #self.part_5(dataForMap)
                 break
 
 
@@ -142,4 +142,4 @@ controlThisShit = ControlFlow()
 print "control flow made"
 #controlThisShit.flow_online()
 
-controlThisShit.testImage()
+controlThisShit.flow_offline()

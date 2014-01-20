@@ -8,6 +8,7 @@ make panel with live map and where the robot thinks it is
 
 from Tkinter import *
 import numpy as np
+import math
 
 #controller = MapControl()
 FIELDWIDTH = 600  # measured in cm
@@ -49,7 +50,10 @@ class MapViewer(Frame):
         self.parent = parent
         self.parent.title("[ALPHA] - SLAM")
         self.pack(fill=BOTH, expand=1)
-        self.updateMapNew([[[30, 30, 30]], [[20, 40, True], [50, 60, True], [300, 45, True], [60, 100, True]]])
+        output = [[[30, 30, 30]], [[20, 40, True], [50, 60, True], [300, 45, True], [60, 100, True]]]
+        print output
+        #self.updateMapNew(output)
+        print self.normalizeOutputSLAM(output)
         root.geometry("600x400")
         root.mainloop()
         pass
@@ -58,7 +62,7 @@ class MapViewer(Frame):
 
 
     # old method for updating the map
-    def updateMap(self, output):  
+    def updateMap(self, output):
         print output
         self.canvas = Canvas(self)
         self.canvas.create_rectangle(0, 0, FIELDWIDTH, FIELDHEIGHT, fill='#006400')
@@ -99,7 +103,60 @@ class MapViewer(Frame):
                 self.drawAt(landmarks[k][0], landmarks[k][1], 'white')
         
         pass
-        
+
+    '''
+    output is [output[0], output[1]]
+    output[0] are poses and they are of this format : [x, y, theta]
+    output[1] are landmark positions of this format : [x, y, bool]                                                                                                                                                                                                                                                                                                                                                                                                  `    `
+    '''
+    # normalize the output of SLAM
+    def normalizeOutputSLAM(self, output):
+        minX = float('inf')
+        maxX = -float('inf')
+        minY = float('inf')
+        maxY = -float('inf')
+        poses = output[0]
+        print 'poses: ', poses
+        landmarks = output[1]
+        print 'landmarks: ', landmarks
+
+        for i in xrange(0, len(poses)):
+            if poses[i][0] < minX:
+                minX = poses[i][0]
+                modeminX = 'poses'
+                indexMinX = [i, 0]
+            if poses[i][0] > maxX:
+                maxX = poses[i][0]
+                modemaxX = 'poses'
+                indexMaxX = [i, 0]
+            if poses[i][1] < minY:
+                minY = poses[i][1]
+                modeminY = 'poses'
+                indexMinY = [i, 1]
+            if poses[i][1] > maxY:
+                maxY = poses[i][1]
+                modemaxY = 'poses'
+                indexMaxY = [i, 1]
+
+        for i in xrange(0, len(landmarks)):
+            if landmarks[i][0] < minX:
+                minX = landmarks[i][0]
+                modeminX = 'landmarks'
+                indexMinX = [i, 0]
+            if landmarks[i][0] > maxX:
+                maxX = landmarks[i][0]
+                modemaxX = 'landmarks'
+                indexMaxX = [i, 0]
+            if landmarks[i][1] < minY:
+                minY = landmarks[i][1]
+                modeminY = 'landmarks'
+                indexMinY = [i, 1]
+            if landmarks[i][1] > maxY:
+                maxY = landmarks[i][1]
+                modemaxY = 'landmarks'
+                indexMaxY = [i, 1]
+        return minX, indexMinX, modeminX, maxX, indexMaxX, modemaxX, minY, indexMinY, modeminY, maxY, indexMaxY, modemaxY
+
 
     def drawAt(self, x, y, theta, color, mode):
         if mode is 'robot':

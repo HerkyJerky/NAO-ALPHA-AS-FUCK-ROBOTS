@@ -17,7 +17,6 @@ root.configure(background='black')
 frame = Frame(root, width=700, height=500)
 motionObj = Motion()
 visionObj = Vision()
-slamObj = SlamStuff()
 logObj = Logger()
 
 
