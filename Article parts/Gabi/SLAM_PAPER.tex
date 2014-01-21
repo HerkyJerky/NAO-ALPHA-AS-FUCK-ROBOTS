@@ -264,36 +264,6 @@ The best results (least $\overline{\textit{cost}}$) are obtained for $\beta$ = 1
 
 %---------------------------------------------------------------------------
 
-\section{Dennis matrices}
-
-$\delta$ = $\bordermatrix{~ \cr
-                  			& \delta_{x}  \cr
-                  			& \delta_{y}}$ = $\bordermatrix{~ \cr
-												& \mu_{j,x} - \mu_{t,x} \cr
-                  								& \mu_{j,y} - \mu_{t,y} \cr}$\\ \\
-
-$\textit{q} = \delta^{T} \times \delta$
-
-\textit{z}$^{i}_{t}$ = $\bordermatrix{~ \cr
-                  			& \sqrt{q}  \cr
-                  			& atan2(\sigma_{y},\sigma_{x}) - \mu_{t,\theta}}$\\ \\
-                  			
-$^{low}$H$^{i}_{t}$ = $\frac{\delta h(\mu_{t})}{\delta{\mu_{t}}}$ = \\ \\ = $\frac{1}{q}$ $\times$ $\bordermatrix{~ \cr
-                  				& -\sqrt{q} \times \delta_{x} & -\sqrt{q} \times \delta_{y} & 0 & +\sqrt{q} \times \delta_{x} & \sqrt{q} \times \delta_{y}  \cr
-                  				& \delta_{y} & -\delta_{x} & -q & -\delta_{y} & \delta_{x}} $\\ \\
-                  				
-$^{low}$H$^{i}_{t}$ = $\frac{1}{q}$ $\times$ $\bordermatrix{~ \cr
-                  				& -\sqrt{q} \times \delta_{x} & -\sqrt{q} \times \delta_{y} & 0 & +\sqrt{q} \times \delta_{x} & \sqrt{q} \times \delta_{y}  \cr
-                  				& \delta_{y} & -\delta_{x} & -q & -\delta_{y} & \delta_{x}} $\\ \\
-                  				
-H$^{i}_{t}$ = $^{low}H^{i}_{t} \times F_{x,j}$
-\\ \\
-$F_{x,j}$ = $\bordermatrix{~ \cr
-                  			& 1 & 0 & 0 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
-                  			& 0 & 1 & 0 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
-                  			& 0 & 0 & 1 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
-                  			& 0 & 0 & 0 & 0 \cdots 0 & 1 & 0 & 0 \cdots 0 \cr
-                  			& 0 & 0 & 0 & \underbrace{0 \cdots 0}_{2j-2} & 0 & 1 & \underbrace{0 \cdots 0}_{2N-2j} \cr}$
 
 % Bibliography
 
