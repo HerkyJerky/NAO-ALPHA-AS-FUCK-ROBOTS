@@ -34,7 +34,7 @@ class NAOControl:
 
     def createbuttons(self):
         standButton = Button(frame, text="stand up", background="orange",
-                             foreground="black", command= lambda : self.wrapper(motionObj.stand()))#lambda: motionObj.stand())
+                             foreground="black", command= lambda : self.wrapper(motionObj.fastStand()))#lambda: motionObj.stand())
         standButton.pack()
 
         moveXYButton = Button(frame, text="Walk X/Y m", background="orange",

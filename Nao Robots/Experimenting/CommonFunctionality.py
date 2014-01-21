@@ -8,7 +8,7 @@ import math
 
 class CommonFunctionality:
     
-    def __init__(self,error = 0.25):
+    def __init__(self,error = 900):
         self.landmarks = []
         self.threshold_landmark_error = error
     

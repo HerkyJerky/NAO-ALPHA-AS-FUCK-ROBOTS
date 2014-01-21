@@ -39,7 +39,7 @@ elif offline
 class ControlFlow:
     def __init__(self):
         ekfSlamObj.set_noise_parameters(0.1, 0.1, 0.1)
-        graphSlamObj.set_noise_parameters(1, 1, 1)
+        #graphSlamObj.set_noise_parameters(1, 1, 1)
         # theta from output SLAM must be in radians
         pass
 
@@ -63,7 +63,8 @@ class ControlFlow:
             #3. SEND data for slam, Ekf
             self.part_3(measurement_data, motion_data, kind)
             #4. RUN slam
-            print self.part_4_online(kind)
+            dataForMap = self.part_4_online(kind)
+            print dataForMap
             #5. DISPLAY map
             #self.part_5(dataForMap)
             #6. GO to step 1
@@ -87,7 +88,8 @@ class ControlFlow:
             #3. SEND data for slam, Graph
             self.part_3(measurement_data, motion_data, kind)
             #4. RUN slam
-            print self.part_4_offline(kind)
+            dataForMap = self.part_4_offline(kind)
+            print dataForMap
             #6. GO to step 1
             cntr += 1
             print cntr
@@ -154,7 +156,7 @@ class ControlFlow:
         return dataForMap
 
     def part_5(self, dataForMap):
-        #mapViewer.updateMapNew(dataForMap)
+        #mapViewer.mapSLAM(dataForMap)
         pass
 
 
@@ -163,6 +165,7 @@ controlThisShit = ControlFlow()
 #controlThisShit.flow_online()
 # TYPES = ["EKF", "GRAPH"]
 #controlThisShit.flow_offline(TYPES[0])
-#controlThisShit.flow_online(TYPES[1])
-#controlThisShit.flow_online()
-controlThisShit.testImage()
+#controlThisShit.flow_offline(TYPES[1])
+controlThisShit.flow_offline(TYPES[1])
+
+#controlThisShit.testImage()

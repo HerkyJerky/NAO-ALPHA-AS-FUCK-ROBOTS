@@ -17,9 +17,9 @@ class GraphSLAMInherited(SLAM.SLAM):
         self.graphSlam = GraphSLAM()
         self.motions = []
         self.measurements = []
-        self.motion_noise = 1
-        self.measurement_noise = 1
-        self.associationError = 0.25
+        self.motion_noise = 2
+        self.measurement_noise = 2
+        self.associationError = 900
         self.method = True
         print "Graph Slam is initialized!"
     
@@ -45,7 +45,7 @@ class GraphSLAMInherited(SLAM.SLAM):
         # One thing to clear up : data[k] goes into the k-th time step. data[k][1] goes into motion data. 
         # [0] is strange thing but you have to do it. 
         # [2] is index of orientation at that time step.
-        if (self.method):
+        if (self.method == False):
             motion_approximations = np.zeros((len(self.motions) + 1,3))
             landmarks_approximations = np.zeros((len(engine.landmarks),3))
             for k in range(len(self.motions) + 1):
@@ -65,7 +65,7 @@ class GraphSLAMInherited(SLAM.SLAM):
                 #landmarks_approximations.append([result[2*(len(self.motions)+i)],result[2*(len(self.motions)+i) + 1]])
         
         # Getting only last elements
-        if (self.method == False):
+        if (self.method == True):
             motion_approximations = np.zeros((1,3))
             landmarks_approximations = np.zeros((len(engine.landmarks),3))
 

@@ -62,6 +62,10 @@ class Motion:
         #motionProxy.setMotionConfig([["ENABLE_FOOT_CONTACT_PROTECTION", True]])
         #logObj.logWrite(time.time().__str__() + "_1_0_0_0_0")
 
+    def fastStand(self):  # def stand(self, name, speed):
+        self.stiffnessOn(motionProxy=self.motionProxy)
+        self.postureProxy.goToPosture("Stand", 1)
+
     # make the robot sit
     def sit(self):
         self.stiffnessOn(motionProxy=self.motionProxy)

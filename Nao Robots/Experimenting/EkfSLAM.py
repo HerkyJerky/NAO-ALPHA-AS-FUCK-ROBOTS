@@ -11,7 +11,7 @@ import SLAM;
 
 # The square root of the constant below is the minimum distance that needs to separate
 # 2 landmarks for the algorithm to treat them as being different landmarks
-ASSOCIATE_LANDMARK_THRESHOLD = 0.05
+ASSOCIATE_LANDMARK_THRESHOLD = 900
 
 '''
 TODO:
@@ -373,8 +373,8 @@ class EkfSLAM(SLAM.SLAM):
                 #        0    bd
                 #
                 # where c = measurement noise constant for range, bd = measurement noise for bearing
-                R = [[r*self.measurement_noise_range*10000,                                    0],
-                     [                                   0, self.measurement_noise_bearing*10000]]
+                R = [[r*self.measurement_noise_range*r,                                    0],
+                     [                               0,      self.measurement_noise_bearing]]
                 
                 # http://home.hit.no/~hansha/documents/control/theory/stateestimation_with_kalmanfilter.pdf
                 

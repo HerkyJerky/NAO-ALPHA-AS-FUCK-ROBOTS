@@ -15,7 +15,7 @@ FIELDX = 400  # measured in cm
 FIELDY = 300+150  # measured in cm (plus other half of field)
 OFFSET = 25 # don't think i'll use it
 alpha = 5  # thickness of lines
-beta = 2  # ?
+beta = 2  # offset of circles
 # all actual coordinates of the cornerpoints on the field
 A = [0, 0]
 B = [90, 0]
@@ -68,11 +68,29 @@ class MapViewer(Frame):
         self.parent = parent
         self.parent.title("[ALPHA] - SLAM")
         self.pack(fill=BOTH, expand=1)
-        self.makeLinesOnField()
-        theta = float(45*DEG2RAD)
-        output = [[[200, 100, theta]], [[80, 50, False], [320, 70, False], [140, 10, True], [320, 15, False]]]
-        self.boolTest(0)
-        self.updateMapNew(output)
+        #self.makeLinesOnField()
+        #theta = float(45*DEG2RAD)
+        #output = [[[200, 100, theta]], [[80, 50, False], [320, 70, False], [140, 10, True], [320, 15, False]]]
+        output = [ [[  6.39488462e-14 ,  1.42108547e-14,   0.00000000e+00],
+                 [  2.00000000e+01,   0.00000000e+00,   0.00000000e+00],
+                 [  2.00000000e+01,   1.13686838e-13,   1.57079633e+00],
+                 [  2.00000000e+01,   2.00000000e+01,   1.57079633e+00],
+                 [  2.00000000e+01,   2.00000000e+01,   3.14159265e+00],
+                 [  2.27373675e-13,   2.00000000e+01,   3.14159265e+00],
+                 [ -1.70530257e-13,   2.00000000e+01,   4.71238898e+00],
+                 [ -2.27373675e-13,   0.00000000e+00,   4.71238898e+00],
+                 [  1.13686838e-13,  -4.54747351e-13,   6.28318531e+00],
+                 [  2.00000000e+01,   0.00000000e+00,   6.28318531e+00],
+                 [  2.00000000e+01,   0.00000000e+00,   7.85398163e+00]],
+                 [[  20,          0.,            1.,        ],
+                 [-129.56712368,   26.81796177,    1.,        ],
+                 [ -88.12348779,   56.30355995,    0.,       ],
+                 [-549.72801484,  110.13412486,    1.,        ],
+                 [ -16.09687541,  -51.08031784,    0.,       ]]]
+        #print('raw output: ', output)
+        #self.boolTest(0)
+        self.mapSLAM(output)
+        #self.updateMapNew(output)
         #print output
         #self.updateMapNew(output)
         #print self.normalizeOutputSLAM(output)
@@ -103,6 +121,8 @@ class MapViewer(Frame):
     '''
     # to use when the pattern matching is complete
     def updateMapNew(self, output):
+        self.canvas = Canvas(self)
+        self.canvas.create_rectangle(0, 0, FIELDX, FIELDY, fill='#006400')
         poses = output[0]
         landmarks = output[1]
         # draw robot
@@ -111,14 +131,18 @@ class MapViewer(Frame):
 
         # draw landmarks
         for k in range(len(landmarks)):
-            if (landmarks[k][2] is True):
+            if (landmarks[k][2] == 1.0):
                 self.drawAt(landmarks[k][0], landmarks[k][1], 0, '#ffa200', 'landmark')
-            if (landmarks[k][2] is False):
+            if (landmarks[k][2] == 0.0):
                 self.drawAt(landmarks[k][0], landmarks[k][1], 0, '#ff00ae', 'landmark')
         pass
 
 
     def mapSLAM(self, output):
+        output = self.normalizeOutputSLAM(output)
+        #print('normalized: ', output)
+        self.updateMapNew(output)
+
         pass
 
     '''
@@ -131,6 +155,7 @@ class MapViewer(Frame):
         minX = float('inf')
         minY = float('inf')
         poses = output[0]
+        print poses
         landmarks = output[1]
         # check for the minX and minY
         for i in xrange(0, len(poses)):
@@ -150,8 +175,10 @@ class MapViewer(Frame):
                 print 'something wrong with getting landmarks coordinates'
 
         # how much we have to move each
-        moveX = 0 - minX
-        moveY = 0 - minY
+        moveX = 50 - minX
+        #print('moveX = ', moveX)
+        moveY = 50 - minY
+        #print('moveY = ', moveY)
 
         # move them
         for i in xrange(0, len(poses)):
@@ -163,6 +190,7 @@ class MapViewer(Frame):
             landmarks[i][1] += moveY
 
         normalizedOutput = [poses, landmarks]
+        print 'normalized', normalizedOutput
         return normalizedOutput
 
 
@@ -179,14 +207,19 @@ class MapViewer(Frame):
             self.canvas.pack(fill="both", expand=1)
             pass
         else:
-            if (x - alpha > 0) and (x + alpha < FIELDX):
-                if (y - alpha > 0) and (y + alpha < FIELDY):
-                    self.canvas.create_oval(x-2, y-2, x+4, y+4, fill=color, outline='black', width=1)
-                    self.canvas.pack(fill="both", expand=1)
-                else:
-                    print("please enter {0} > y > {1}".format(FIELDY-2, 2))
-            else:
-                print("please enter {0} > x > {1}".format(FIELDX-2, 2))
+            self.canvas.create_oval(x-beta, y-beta, x+2*beta, y+2*beta, fill=color, outline='black', width=1)
+            self.canvas.pack(fill="both", expand=1)
+
+            #if (x > 0) and (x < FIELDX):
+            #    if (y > 0) and (y < FIELDY):
+            #        self.canvas.create_oval(x-beta, y-beta, x+2*beta, y+2*beta, fill=color, outline='black', width=1)
+            #        self.canvas.pack(fill="both", expand=1)
+            #    else:
+            #        print("please enter {0} > y > {1}".format(FIELDY-2, 2))
+            #        print('your y= ', y-2)
+            #else:
+            #    print("please enter {0} > x > {1}".format(FIELDX-2, 2))
+            #    print('your x= ', x-2)
 
     def rotate(self, coor, center, theta):
         theta = -theta
@@ -214,7 +247,7 @@ class MapViewer(Frame):
         for i in xrange(len(lndmrk)):
             x = lndmrk[i][0]
             y = lndmrk[i][1]
-            print x, y
+            #print x, y
             self.canvas.create_oval(x-OKRADIUS, y-OKRADIUS, x+OKRADIUS, y+OKRADIUS, fill=color, width='0')
             self.canvas.pack(fill="both", expand=1)
 

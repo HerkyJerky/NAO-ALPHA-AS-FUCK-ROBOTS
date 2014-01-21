@@ -146,14 +146,14 @@ class Distance():
         distance = (HB * np.tan(yAngle)) / np.cos(xAngle)
 
         print (x2, y2)
-        return (0.9*distance/100), xAngle, post
+        return (0.9*distance), xAngle, post
 
     def calculateStuffTaghi(self,x,y,post):
         # TODO : test this method with actual NAO.
         # One thing : memory and motion and pitch and yaw should probably be instantiated somewhere else.
         pitch = memoryProxy.getData("Device/SubDeviceList/HeadPitch/Position/Actuator/Value")
         yaw = memoryProxy.getData("Device/SubDeviceList/HeadYaw/Position/Actuator/Value")
-        ry=math.sqrt(pow((RESH-y)/RESH, 2)+pow((x/(RESW/2.0))-1.0, 2))
+        ry=math.sqrt(pow((RESH-y)/float(RESH), 2)+pow((x/(RESW/2.0))-1.0, 2))
         alpha=ry*CAMERA_V_FOV  # angle within camera view
         beta=((math.pi/2.0) - (CAMERA_V_FOV/2)) - pitch  # angle of lower bound of camera view
         h = motionProxy.getTransform("CameraTop", 2, True)[11]
