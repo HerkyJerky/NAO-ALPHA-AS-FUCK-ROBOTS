@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.1.16)  20 JAN 2014 21:27
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.1.16)  21 JAN 2014 22:09
 entering extended mode
 **SLAM_PAPER_DENNIS.tex
 ("D:\NAO-ALPHA-AS-FUCK-ROBOTS\Article parts\Dennis\SLAM_PAPER_DENNIS.tex"
@@ -169,19 +169,42 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 LaTeX Info: Redefining \[ on input line 2665.
 LaTeX Info: Redefining \] on input line 2666.
 )
+("D:\Apps\MiKTeX 2.9\tex\latex\xcolor\xcolor.sty"
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+("D:\Apps\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+)
+("D:\Apps\MiKTeX 2.9\tex\latex\base\fixltx2e.sty"
+Package: fixltx2e 2006/09/13 v1.1m fixes to LaTeX
+LaTeX Info: Redefining \em on input line 420.
+LaTeX Info: The control sequence `\[' is already robust on input line 471.
+LaTeX Info: The control sequence `\]' is already robust on input line 472.
+)
 ("D:\NAO-ALPHA-AS-FUCK-ROBOTS\Article parts\Dennis\SLAM_PAPER_DENNIS.aux")
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
 
 ("D:\Apps\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -203,38 +226,38 @@ english
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 94--97
+Underfull \hbox (badness 10000) in paragraph at lines 104--107
 
  []
 
 <figure_IP1.png, id=9, 321.2pt x 240.9pt>
 File: figure_IP1.png Graphic file (type png)
  <use figure_IP1.png>
-Package pdftex.def Info: figure_IP1.png used on input line 120.
+Package pdftex.def Info: figure_IP1.png used on input line 130.
 (pdftex.def)             Requested size: 252.94499pt x 189.71341pt.
 
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 120--120
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 130--130
 [][] 
  []
 
 
-Underfull \hbox (badness 1231) in paragraph at lines 117--120
+Underfull \hbox (badness 1231) in paragraph at lines 127--130
 \OT1/cmr/m/n/10 adding/subtracting $\OML/cmm/m/it/10 $\OT1/cmr/m/n/10 , be-cau
 se (in the case of this
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 117--120
+Underfull \hbox (badness 10000) in paragraph at lines 127--130
 
  []
 
 <figure_IP2.png, id=10, 380.92313pt x 285.31593pt>
 File: figure_IP2.png Graphic file (type png)
  <use figure_IP2.png>
-Package pdftex.def Info: figure_IP2.png used on input line 121.
+Package pdftex.def Info: figure_IP2.png used on input line 131.
 (pdftex.def)             Requested size: 252.94499pt x 189.45844pt.
 
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 121--121
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 131--131
 [][] 
  []
 
@@ -252,126 +275,237 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 ] <figure_IP3.png, id=20, 381.67593pt x 283.81032pt>
 File: figure_IP3.png Graphic file (type png)
  <use figure_IP3.png>
-Package pdftex.def Info: figure_IP3.png used on input line 132.
+Package pdftex.def Info: figure_IP3.png used on input line 142.
 (pdftex.def)             Requested size: 252.94499pt x 188.08623pt.
 
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 132--132
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 142--142
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 131--132
+Underfull \hbox (badness 10000) in paragraph at lines 141--142
 
  []
 
 <figure_IP4.png, id=21, 380.92313pt x 278.54062pt>
 File: figure_IP4.png Graphic file (type png)
  <use figure_IP4.png>
-Package pdftex.def Info: figure_IP4.png used on input line 134.
+Package pdftex.def Info: figure_IP4.png used on input line 145.
 (pdftex.def)             Requested size: 252.94499pt x 184.95941pt.
 
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 134--134
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 145--145
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 133--134
+Underfull \hbox (badness 10000) in paragraph at lines 143--145
 
  []
 
 <figure_IP5.png, id=22, 381.67593pt x 278.54062pt>
 File: figure_IP5.png Graphic file (type png)
  <use figure_IP5.png>
-Package pdftex.def Info: figure_IP5.png used on input line 136.
+Package pdftex.def Info: figure_IP5.png used on input line 147.
 (pdftex.def)             Requested size: 252.94499pt x 184.5939pt.
 
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 136--136
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 147--147
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 135--136
+Underfull \hbox (badness 10000) in paragraph at lines 146--147
 
  []
 
 [3 <D:/NAO-ALPHA-AS-FUCK-ROBOTS/Article parts/Dennis/figure_IP2.png> <D:/NAO-AL
 PHA-AS-FUCK-ROBOTS/Article parts/Dennis/figure_IP3.png> <D:/NAO-ALPHA-AS-FUCK-R
 OBOTS/Article parts/Dennis/figure_IP4.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 137--139
-
- []
-
-
-Underfull \hbox (badness 2088) in paragraph at lines 137--139
-\OT1/cmr/m/n/10 Now that all the land-marks have been ex-tracted
- []
-
 <bigMatrix.jpg, id=26, 934.49126pt x 326.21875pt>
 File: bigMatrix.jpg Graphic file (type jpg)
  <use bigMatrix.jpg>
-Package pdftex.def Info: bigMatrix.jpg used on input line 152.
+Package pdftex.def Info: bigMatrix.jpg used on input line 182.
 (pdftex.def)             Requested size: 252.94499pt x 88.29926pt.
 
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 152--152
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 182--182
 [][] 
  []
 
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+[4 <D:/NAO-ALPHA-AS-FUCK-ROBOTS/Article parts/Dennis/figure_IP5.png> <D:/NAO-AL
+PHA-AS-FUCK-ROBOTS/Article parts/Dennis/bigMatrix.jpg>]
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ™ in font cmr10!
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ™ in font cmr10!
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ™ in font cmr10!
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ™ in font cmr10!
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ™ in font cmr10!
- [4 <D:/NAO-ALPHA-AS-FUCK-ROBOTS/Article parts/Dennis/figure_IP5.png> <D:/NAO-A
-LPHA-AS-FUCK-ROBOTS/Article parts/Dennis/bigMatrix.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 177--179
+Underfull \hbox (badness 10000) in paragraph at lines 198--213
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 182--190
+Underfull \hbox (badness 10000) in paragraph at lines 198--213
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 182--190
+Underfull \hbox (badness 10000) in paragraph at lines 214--216
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 182--190
+Underfull \hbox (badness 1014) in paragraph at lines 214--216
+\OT1/cmr/m/n/10 sec-tion, since it con-tains val-ues which need to be
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 218--219
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 182--190
+Underfull \hbox (badness 10000) in paragraph at lines 220--222
+
+ []
+
+
+Underfull \hbox (badness 3396) in paragraph at lines 220--222
+\OT1/cmr/m/n/10 where $\OML/cmm/m/it/10 Q[]$ \OT1/cmr/m/n/10 is the co-vari-anc
+e ma-trix for mea-sure-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 225--226
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 227--229
+
+ []
+
+
+Underfull \hbox (badness 6995) in paragraph at lines 227--229
+\OT1/cmr/m/n/10 where $\OML/cmm/m/it/10 z[]$ \OT1/cmr/m/n/10 con-tains the mea-
+sure-ments con-cern-ing
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 230--231
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 242--244
 
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 238--239
+Underfull \hbox (badness 10000) in paragraph at lines 247--255
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 247--255
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 247--255
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 247--255
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 256--260
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 256--260
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 265--267
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 265--267
+
+ []
+
+
+Overfull \hbox (1.56422pt too wide) in paragraph at lines 268--273
+[]$\OT1/cmr/m/n/10 
+$ = $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 268--273
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 268--273
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 274--278
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 274--278
+
+ []
+
+
+Underfull \hbox (badness 6188) in paragraph at lines 279--280
+[]\OT1/cmr/m/n/10 In cases of rel-a-tive mea-sure-ment con-straints,
+ []
+
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 304--309
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 310--322
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 340--342
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 354--355
+
+ []
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 366--367
 []\OT1/cmr/m/n/10 RoboCup Tech-ni-cal Com-mit-tee, Stan-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 238--239
+Underfull \hbox (badness 10000) in paragraph at lines 366--367
 \OT1/cmr/m/n/10 dard Plat-form League (Nao) Rule Book,
  []
 
 
-Overfull \hbox (18.66512pt too wide) in paragraph at lines 238--239
+Overfull \hbox (18.66512pt too wide) in paragraph at lines 366--367
 \OT1/cmr/m/it/10 www.tzi.de/spl/pub/Website/Downloads/Rules2012.pdf\OT1/cmr/m/n
 /10 ,
  []
@@ -387,159 +521,129 @@ Missing character: There is no ´ in font cmr10!
 Missing character: There is no Â in font cmr10!
 Missing character: There is no ´ in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 247--248
+Underfull \hbox (badness 10000) in paragraph at lines 375--376
 []\OT1/cmr/m/n/10 Giorgio Grisetti, Rainer Kum-merle, Cyrill
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 247--248
+Underfull \hbox (badness 10000) in paragraph at lines 375--376
 \OT1/cmr/m/n/10 Stach-niss, Wol-fram Bur-gard, ``A tu-to-rial
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 247--248
+Underfull \hbox (badness 10000) in paragraph at lines 375--376
 \OT1/cmr/m/n/10 on Graph SLAM," \OT1/cmr/m/it/10 http://ais.informatik.uni-
  []
 
 
-Overfull \hbox (12.74278pt too wide) in paragraph at lines 247--248
+Overfull \hbox (12.74278pt too wide) in paragraph at lines 375--376
 \OT1/cmr/m/it/10 freiburg.de/teaching/ws10/praktikum/slamtutorial.pdf\OT1/cmr/m
 /n/10 ,
  []
 
 
-Underfull \hbox (badness 1769) in paragraph at lines 249--250
+Underfull \hbox (badness 10000) in paragraph at lines 377--378
+[]\OT1/cmr/m/n/10 Emin Orhan, "Par-ti-cle Fil-ter-ing"
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 377--378
+\OT1/cmr/m/it/10 http://www.cns.nyu.edu/ eorhan/notes/particle-
+ []
+
+
+Underfull \hbox (badness 1769) in paragraph at lines 379--380
 []\OT1/cmr/m/n/10 Brian Ya-mauchi, ``Fron-tier based ex-plo-ration,"
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 249--250
+Underfull \hbox (badness 10000) in paragraph at lines 379--380
 \OT1/cmr/m/it/10 http://robotfrontier.com/frontier/index.html\OT1/cmr/m/n/10 , 
 ac-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 251--252
+Underfull \hbox (badness 10000) in paragraph at lines 381--382
 []\OT1/cmr/m/n/10 Cyrill Stach-niss, "Robot Map-ping
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 251--252
+Underfull \hbox (badness 10000) in paragraph at lines 381--382
 \OT1/cmr/m/n/10 EKF SLAM", \OT1/cmr/m/it/10 http://ais.informatik.uni-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 251--252
+Underfull \hbox (badness 10000) in paragraph at lines 381--382
 \OT1/cmr/m/it/10 freiburg.de/teaching/ws12/mapping/pdf/slam04-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--264
+Underfull \hbox (badness 10000) in paragraph at lines 431--437
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 265--281
+Underfull \vbox (badness 6157) has occurred while \output is active []
+
+ [8]
+Underfull \hbox (badness 10000) in paragraph at lines 452--457
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 265--281
+Underfull \hbox (badness 10000) in paragraph at lines 460--464
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 282--288
+Underfull \hbox (badness 1796) in paragraph at lines 460--464
+\OT1/cmr/m/n/10 Some of the val-ues com-puted above can now be
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 465--468
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 294--299
+Underfull \hbox (badness 10000) in paragraph at lines 469--475
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 294--299
+Underfull \hbox (badness 10000) in paragraph at lines 476--478
 
  []
 
+[9
 
-Underfull \hbox (badness 10000) in paragraph at lines 302--305
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 302--305
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 306--309
-
- []
-
-
-Overfull \hbox (25.7726pt too wide) in paragraph at lines 306--309
-\OT1/cmr/m/n/10 = $[]$ $\OMS/cmsy/m/n/10 $ $[] []$ 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 306--309
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 306--309
-
- []
-
-
-Overfull \hbox (67.00575pt too wide) in paragraph at lines 310--313
-[]$[]$\OT1/cmr/m/n/10 H$[]$ = $[]$ $\OMS/cmsy/m/n/10 $ $[] []$ 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 310--313
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 310--313
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 314--322
-
- []
-
-[6] ("D:\NAO-ALPHA-AS-FUCK-ROBOTS\Article parts\Dennis\SLAM_PAPER_DENNIS.aux")
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+] ("D:\NAO-ALPHA-AS-FUCK-ROBOTS\Article parts\Dennis\SLAM_PAPER_DENNIS.aux") ) 
 Here is how much of TeX's memory you used:
- 2336 strings out of 493921
- 28741 string characters out of 3150888
- 103085 words of memory out of 3000000
- 5619 multiletter control sequences out of 15000+200000
- 10067 words of font info for 36 fonts, out of 3000000 for 9000
+ 2835 strings out of 493921
+ 34343 string characters out of 3150888
+ 114805 words of memory out of 3000000
+ 6107 multiletter control sequences out of 15000+200000
+ 10665 words of font info for 38 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 31i,14n,45p,777b,240s stack positions out of 5000i,500n,10000p,200000b,50000s
-<D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/Apps/MiKTeX
- 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/
-public/amsfonts/cm/cmex10.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/c
-m/cmmi10.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><D:/A
-pps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Apps/MiKTeX 2.9/fon
-ts/type1/public/amsfonts/cm/cmr10.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/am
-sfonts/cm/cmr12.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pf
-b><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Apps/MiKTeX 2
-.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/publ
-ic/amsfonts/cm/cmsy10.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cm
-sy7.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on SLAM_PAPER_DENNIS.pdf (6 pages, 439443 bytes).
+ 31i,14n,45p,905b,280s stack positions out of 5000i,500n,10000p,200000b,50000s
+<
+D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/Apps/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/pub
+lic/amsfonts/cm/cmex10.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
+mmi10.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi5.pfb><D:/Apps
+/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/Apps/MiKTeX 2.9/fonts/
+type1/public/amsfonts/cm/cmr10.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfo
+nts/cm/cmr12.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><
+D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr5.pfb><D:/Apps/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/
+amsfonts/cm/cmr8.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr9.pf
+b><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Apps/MiKTeX
+ 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmti10.pfb><D:/Apps/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
+/cmti7.pfb>
+Output written on SLAM_PAPER_DENNIS.pdf (9 pages, 495216 bytes).
 PDF statistics:
- 83 PDF objects out of 1000 (max. 8388607)
+ 106 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
