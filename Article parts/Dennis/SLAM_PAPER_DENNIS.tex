@@ -1,5 +1,9 @@
 %\documentclass[twocolumn]{article}
 
+% NOTE FOR MERGER: Sections changed inside this branch (the Dennis branch):
+%	- Section ''EKF SLAM Matrices and Equations'' all the way down in appendices
+%	- Subsection 5.1 EKF SLAM
+
 \documentclass{ba-kecs}
 \usepackage[pdftex]{graphicx}
 \usepackage{graphicx, float, amsmath,xcolor,fixltx2e}
@@ -380,8 +384,10 @@ $\begin{tabular}{| l | c | c | c | r | }
 \end{tabular}$
 
 \section{EKF SLAM Matrices and Equations}
-This appendix provides a detailed view of some of the matrices and equations used by the EKF SLAM algorithm.\\ \\
-Robot state prediction:
+This appendix provides a detailed view of some of the matrices and equations used by the EKF SLAM algorithm.
+
+\subsection{Prediction Step}
+\subsubsection{Robot state prediction}
 
 $\bordermatrix{ 	& \cr
                  &x_{t} \cr
@@ -397,8 +403,9 @@ $\bordermatrix{ 	& \cr
                  &d \times cos(\theta) \cr
                  &d \times sin(\theta) \cr
                  &\Delta\theta \cr}$ \\ \\
-where $d$ is the distance the robot travelled forwards. \\ \\
-Matrices used for covariance prediction:
+where $d$ is the distance the robot travelled forwards.
+
+\subsubsection{Covariance prediction}
 
 $G_t^x$ = 
 $\bordermatrix{ 	& \cr
@@ -412,34 +419,41 @@ $\bordermatrix{ 	& \cr
                  &G_t^x & 0 \cr
                  &0 & I \cr}$
                  
+\subsection{Update step}
+\subsubsection{Expected observation}
+Let $\bordermatrix{~ \cr
+                        & \mu_{j,x} \cr
+                        & \mu_{j,y}}$
+be the current estimate of landmark $j$'s position, and let $\bordermatrix{~ \cr
+                        & \mu_{t,x} \cr
+                        & \mu_{t,y}}$
+be the current estimate of the robot's position. Then $z^j_t$ can be computed as follows, giving the distance and relative angle at which we would expect to observe landmark $j$.
+                        
 $\delta$ = $\bordermatrix{~ \cr
                         & \delta_{x} \cr
                         & \delta_{y}}$ = $\bordermatrix{~ \cr
                                                                                                 & \mu_{j,x} - \mu_{t,x} \cr
-                                                                & \mu_{j,y} - \mu_{t,y} \cr}$\\ \\
+                                                                & \mu_{j,y} - \mu_{t,y} \cr}$ \\
 
-$\textit{q} = \delta^{T} \times \delta$
+$q = \delta^{T} \times \delta$
 
-\textit{z}$^{i}_{t}$ = $\bordermatrix{~ \cr
+$z^{j}_{t}$ = $\bordermatrix{~ \cr
                         & \sqrt{q} \cr
-                        & atan2(\sigma_{y},\sigma_{x}) - \mu_{t,\theta}}$\\ \\
-                                          
-$^{low}$H$^{i}_{t}$ = $\frac{\delta h(\mu_{t})}{\delta{\mu_{t}}}$ = \\ \\ = $\frac{1}{q}$ $\times$ $\bordermatrix{~ \cr
-                                & -\sqrt{q} \times \delta_{x} & -\sqrt{q} \times \delta_{y} & 0 & +\sqrt{q} \times \delta_{x} & \sqrt{q} \times \delta_{y} \cr
-                                & \delta_{y} & -\delta_{x} & -q & -\delta_{y} & \delta_{x}} $\\ \\
+                        & atan2(\sigma_{y},\sigma_{x}) - \mu_{t,\theta}}$ \\ \\
+Some of the values computed above can now be used to compute $H^{j}_{t}$ for landmark $j$ as follows:
                                                   
-$^{low}$H$^{i}_{t}$ = $\frac{1}{q}$ $\times$ $\bordermatrix{~ \cr
-                                & -\sqrt{q} \times \delta_{x} & -\sqrt{q} \times \delta_{y} & 0 & +\sqrt{q} \times \delta_{x} & \sqrt{q} \times \delta_{y} \cr
-                                & \delta_{y} & -\delta_{x} & -q & -\delta_{y} & \delta_{x}} $\\ \\
-                                                  
-H$^{i}_{t}$ = $^{low}H^{i}_{t} \times F_{x,j}$
-\\ \\
+$^{low}H^{j}_{t}$ = $\frac{1}{q} \bordermatrix{~ \cr
+                                & -\sqrt{q} \delta_{x} & -\sqrt{q} \delta_{y} & 0 & \sqrt{q} \delta_{x} & \sqrt{q} \delta_{y} \cr
+                                & \delta_{y} & -\delta_{x} & -q & -\delta_{y} & \delta_{x}} $\\
+                                
 $F_{x,j}$ = $\bordermatrix{~ \cr
                         & 1 & 0 & 0 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
                         & 0 & 1 & 0 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
                         & 0 & 0 & 1 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
                         & 0 & 0 & 0 & 0 \cdots 0 & 1 & 0 & 0 \cdots 0 \cr
-                        & 0 & 0 & 0 & \underbrace{0 \cdots 0}_{2j-2} & 0 & 1 & \underbrace{0 \cdots 0}_{2N-2j} \cr}$
-
+                        & 0 & 0 & 0 & \underbrace{0 \cdots 0}_{2j-2} & 0 & 1 & \underbrace{0 \cdots 0}_{2N-2j} \cr}$ \\
+                                                  
+$H^{j}_{t}$ = $^{low}H^{j}_{t} \times F_{x,j}$ \\ \\
+where $N$ is the number of landmarks observed so far.
 
 \end{document}
