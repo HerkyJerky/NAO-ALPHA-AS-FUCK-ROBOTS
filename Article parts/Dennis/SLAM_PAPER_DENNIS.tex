@@ -3,6 +3,7 @@
 % NOTE FOR MERGER: Sections changed inside this branch (the Dennis branch):
 %	- Section ''EKF SLAM Matrices and Equations'' all the way down in appendices
 %	- Subsection 5.1 EKF SLAM
+%	- NEW SECTION: 5.3 Complexity Analysis
 
 \documentclass{ba-kecs}
 \usepackage[pdftex]{graphicx}
@@ -287,6 +288,10 @@ In cases of relative measurement constraints, $\varepsilon_{measurement}$ is use
 	x = \Omega^{-1} \times \xi \label{OMEGA_INV_TIMES_XI}
 	\end{equation}
 	Equation \eqref{OMEGA_INV_TIMES_XI} is the main calculation that returns best estimates for robot poses and landmark positions and it shows the ease of using and implementing GraphSLAM. Additionally, its computational power is proven to be quite high through experimentations\cite{sik,sik2} and it will be the one of the main focus points of experiments section of this paper as well.
+	
+\subsection{Complexity Analysis}
+As shown in {\color{red} CITE THIS: S. Thrun, W. Burgard and D. Fox,
+Probabilistic Robotics,Cambridge, MA, USA: MIT Press, 2005.}, the time complexity of each iteration in EKF SLAM is $O(n^2)$, where $n$ equals the number of landmarks observed up to that point in time. The algorithm's running time is dominated by the matrix multiplications involving $\Sigma$, which is a $(3 + 2n) \times (3 + 2n)$ matrix. $\Sigma$ also dominates the memory requirements of the algorithm, with all other used matrices being equal or smaller in size, and therefore the space complexity of the algorithm is also $O(n^2)$. It is important to observe that both time and space complexity of the algorithm only grow as a function of the number of landmarks observed, and not as a function of time.
 
 %---------------------------------------------------------------------------
 
