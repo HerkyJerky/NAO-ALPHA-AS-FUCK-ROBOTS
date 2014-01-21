@@ -225,7 +225,7 @@ class Motion:
     def getThetaSteps(self, theta):
         theta = float(theta)# math.fabs(float(theta))
         if theta % MAXTHETA == 0:
-            steps = theta/(THETAUNIT*(MAXTHETA/MINTHETA))
+            steps = theta/(THETAUNIT*(MAXTHETA/MINTHETA))*2 + 1
             thetaSize = MAXTHETA
         elif theta % MINTHETA == 0:
             steps = theta/THETAUNIT
@@ -233,7 +233,7 @@ class Motion:
         else:
             steps = 0
             print("theta is not valid; must be a multiplication of " + MINTHETA)
-        return int(steps)*2, thetaSize
+        return int(steps), thetaSize
 
     # rotate an n amount of theta in degrees.
     # one turn step = 29.9656927 deg or 0.523 radians

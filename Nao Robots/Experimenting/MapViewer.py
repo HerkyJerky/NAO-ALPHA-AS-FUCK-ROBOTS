@@ -101,7 +101,7 @@ class MapViewer(Frame):
     output[0] are poses and they are of this format : [x,y,theta]
     output[1] are landmark positions of this format : [x,y]                                                                                                                                                                                                                                                                                                                                                                                                  `    `
     '''
-
+    # to use when the pattern matching is complete
     def updateMapNew(self, output):
         poses = output[0]
         landmarks = output[1]
@@ -115,6 +115,10 @@ class MapViewer(Frame):
                 self.drawAt(landmarks[k][0], landmarks[k][1], 0, '#ffa200', 'landmark')
             if (landmarks[k][2] is False):
                 self.drawAt(landmarks[k][0], landmarks[k][1], 0, '#ff00ae', 'landmark')
+        pass
+
+
+    def mapSLAM(self, output):
         pass
 
     '''
