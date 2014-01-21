@@ -193,7 +193,7 @@ Finally, landmarks which have already been observed in previous iterations and h
 \subsection{Graph SLAM}
 
 \subsubsection{Introduction}
-GraphSLAM is a novel algorithm for mapping using sparse constraint graphs. The basic intuition behind GraphSLAM is simple: GraphSLAM extracts from the data a set of soft constraints, represented by a sparse graph. It obtains the map and the robot path by resolving these constraints into a globally consistent estimate. The constraints are generally nonlinear, but in the process of resolving them they are linearized and the resulting least squares problem is solved using standard optimization techniques\cite{sik}. For this project, GraphSLAM is used as a technique populating sparse "information" matrix of linear constraints.
+GraphSLAM is an algorithm for mapping using sparse constraint graphs. The basic intuition behind GraphSLAM is simple: GraphSLAM extracts from the data a set of constraints, represented by a graph. It obtains the map and the robot path by resolving these constraints into a globally consistent estimate. The constraints are generally nonlinear, but in the process of resolving them they are linearized and the resulting least squares problem is solved using standard optimization techniques\cite{sik}. For this project, GraphSLAM is used as a technique populating "information" matrix of linear constraints.
 
 \subsubsection{Building up matrices}
 As is the case with many other SLAM techniques, the first process that is performed by GraphSLAM is the creation of information matrices. For future reference, they will be called $\Omega$ and $\xi$ for ease. Here, $\Omega$ corresponds to the so-called "information" matrix and $\xi$ represents motions. Easier way to see it is to look any type of constraint. $\Omega$ keeps information about which poses and landmarks are represented in given constraint and $\xi$ keeps information about right hand side of these constraints.
@@ -220,7 +220,7 @@ In order to create $\Omega$ and $\xi$ matrices, first of all data from environme
 	$\Omega$ and $\xi$ are populated in this fashion with all the collected constraints.
 	
 \subsubsection{Introducing noise to environment}
-Above given description of matrices assume perfect world and perfect motors/sensors and do not include any error values or noise. However, in real-life environment there is going to be noise caused by either motion or measurement motors of robot. So, noise should be added and handled by GraphSLAM algorithm. Noise is handled by adding approximated error to $\Omega$ and $\xi$ matrices. Those error/noise values represent how much measurements and motions are trusted. For GraphSLAM, there are two types of errors, namely motion noise and measurement noise. For future reference, motion noise will be represented as $\varepsilon_{motion}$ and measurement noise will be represented as $\varepsilon_{measurement}$. Noise is added to the computations by adjusting $\Omega$ and $\xi$ matrices in following fashion. Let`s take the same constraint used in section before. Constraint is:
+Above given description of matrices assume perfect world and perfect motors/sensors and do not include any error values or noise. However, in real-life environment there is going to be noise caused by either motion or measurement motors of robot. So, noise should be added and handled by GraphSLAM algorithm. Noise is handled by adding approximated error to $\Omega$ and $\xi$ matrices. Those noise parameters represent the amount measurements and motions are trusted. For GraphSLAM, there are two types of errors, namely motion noise and measurement noise. For future reference, motion noise will be represented as $\varepsilon_{motion}$ and measurement noise will be represented as $\varepsilon_{measurement}$. Usage and approximation of these two variables will be explained more in detail in Experiments section where better values for them are obtained by experiments. Noise is added to the computations by adjusting $\Omega$ and $\xi$ matrices in following fashion. Let`s take the same constraint used in section before. Constraint is:
 \[ x_{i} = x_{i-1} + 10 \]
 For this constraint, noise is taken into account by changing set-up of $\Omega$ and $\xi$ matrices in following way:\\ \\
 
@@ -249,9 +249,6 @@ In cases of relative measurement constraints, $\varepsilon_{measurement}$ is use
 	Equation \eqref{OMEGA_INV_TIMES_XI} is the main calculation that returns best estimates for robot poses and landmark positions and it shows the ease of using and implementing GraphSLAM. Additionally, its computational power is proven to be quite high through experimentations\cite{sik,sik2} and it will be the one of the main focus points of experiments section of this paper as well.
 
 %---------------------------------------------------------------------------
-
-
-\section{Experiments}
 
 \section{Experiments}
 
