@@ -2,7 +2,7 @@
 
 \documentclass{ba-kecs}
 \usepackage[pdftex]{graphicx}
-\usepackage{graphicx, float, amsmath}
+\usepackage{graphicx, float, amsmath, multirow}
 \numberwithin{figure}{section}
 \numberwithin{equation}{section}
 
@@ -210,34 +210,58 @@ As was announced in section 3 the following variables will be experimented with:
 $\beta$ (minimum luminance of pixels to classify as 'white')\\
 The Hough Transform's parameter values $\textit{maxLineGap}$ and $\textit{minLineLength}$ \\
 These variables were chosen for experimentation because these were the bottleneck-points of the image processing. 
-In order to measure performance, the cost matrix in Figure 5.1 is applied to each test-instance where the goal is to minimize the costs.
-\dkepic{figure_IP6}{Cost matrix for experiments}
-Thirty images were made from random locations on the soccer-field as test-instances.
+In order to measure performance, the cost matrix in Figure 5.1 is applied to each test-instance where the goal is to minimize the cost. \\
+
+	$\textit{Table 5.1}$ \\
+\begin{tabular}{ l l|c|c| }
+\multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{2}{c}{Landmark exists} \\
+\multicolumn{1}{r}{} & \multicolumn{1}{r}{}
+ &  \multicolumn{1}{c}{{\small true}}
+ & \multicolumn{1}{c}{{\small false}} \\
+\cline{3-4}
+detected & {\small true} & -1.333 & 5 \\
+\cline{3-4}
+landmark & {\small false} & 1 & 0 \\
+\cline{3-4}
+\end{tabular} \\
+
+
+Note that classifying something as a landmark even though it's not gets a relatively big penalty whereas failing to detect a landmark gets a lower penalty. This is done because the SLAM algorithms are capable of dealing with the latter (false negative), but have a lot more trouble handling the former (false positive). \\
+Thirty images were made from random locations on the soccer-field as test-instances with a resolution of 320$\times$240 pixels.
 Because the three mentioned variables are all dependent on each other they all have to be tested simultaniously. Because of this, some pre-testing has been done by hand to find a region of convergence in order to reduce the tabel's size. The table containing the final experiments and their results can be found in Table A.1 in the appendice and will be discussed in the next section.
-
-
-
-
 
 %---------------------------------------------------------------------------
 
 \section{Results}
 
 \subsection{Image Processing}
-The best results (least $\overline{\textit{cost}}$) are obtained for $\beta$ = 120,  $\textit{maxLineGap}$ = 5 pixels and $\textit{minLineLength}$ = 40 pixels.
+The best results (least $\overline{\textit{cost}}$) are obtained for $\beta$ = 120,  $\textit{maxLineGap}$ = 5 pixels and $\textit{minLineLength}$ = 40 pixels. Note that -as described in the previous section- the resolution of an image is 320$\times$240 pixels, so the values of $\textit{maxLineGap}$ and $\textit{minLineLength}$ will probably not apply to other resolutions.
+The reason the $\textit{maxLineGap}$ is relatively low and the $\textit{minLineLength}$ relatively high w.r.t. the resolution is because the cost matrix nudges the variables towards a safe value. It rather sees a landmark undetected than a misclassified landmark, which is -as explained in the previous section- prefered. 
 
 %---------------------------------------------------------------------------
 
 \section{Future Work}
 
+	A way to decrease the noise obtained from approximating the landmarks during image processing is to apply particle filtering. Particle filtering is a general Monte Carlo (sampling) method for performing inference in
+state-space models where the state of a system evolves in time and information about the state is obtained via noisy measurements made at each time step \cite{ParFil}. \\
+
+	Measuring the distance to a landmark is often noisy due to slight deviations in the vertical angle of the camera and the torso of the Nao. To approach this problem it is suggested to at the same time as the current camera, take a picture with the other camera and compare these images to obtain the distance to a landmark using static distances (absolute and angular distances between cameras).
+
 	One of the possible future enhancements for SLAM is improvement of robot`s exploration skills. One possible solution for this problem is to use Fourier detection/exploration algorithm which will be explained very briefly in next sub-section.
 	
 \subsection{Frontier detection/exploration}
 	Overall, the exploration problem deals with the use of a robot to maximize the knowledge over a particular area. Frontier detection algorithm/approach tries to make use of \textit{frontiers} which are the regions on the border between open space and unexplored space \cite{frontier}
+	
+
 
 %---------------------------------------------------------------------------
 
 \section{Conclusion}
+
+Finding landmarks in an image is very time consuming compared to the other phases in which the Nao localizes itself. Therefore it is highly recommended to not only optimize the image processing code, but to also program it in a computationally fast language such as $\textit{C}$. Regardless of the algorithm used to process the image, every pixel needs to be analyzed at least once which is especially noticeable at higher resolutions. \\
+
+The biggest issue with the Nao in general is noise. In the image processing phase this noise is minimized by increasing the resolution of the images the Nao takes. For calculating the distance to a landmark, the noise becomes a bigger obstacle which is caused by mainly two factors: deviation in the by the Nao measured vertical angle of the camera and deviation in the angle of the torso of the Nao (not standing entirely straight when taking picture).
+The combination of these two sometimes balance each other out, but mostly give a noise between -2 and +2 degrees in vertical camera angle. For landmarks that are far away this often leads to distances that are 10 - 30 cm off. To reduce this error the second camera also has to take a picture at the same time as the camera currently in use as described in the section on future research. 
 
 %---------------------------------------------------------------------------
 
@@ -256,6 +280,10 @@ RoboCup Soccer SPL" \emph{University of Amsterdan}, 2013.
 \bibitem{sik} Thrun, S. and Montemerlo, M., ``The GraphSLAM Algorithm With Applications to Large-Scale Mapping of Urban Structures," \emph{International Journal on Robotics Research}, pp. 403--430 Volume 25 Number 5/6, 2005.
 
 \bibitem{sik2} Giorgio Grisetti, Rainer Kummerle, Cyrill Stachniss, Wolfram Burgard, ``A tutorial on Graph SLAM," \emph{http://ais.informatik.uni-freiburg.de/teaching/ws10/praktikum/slamtutorial.pdf}, last accessed in 2014.
+
+
+\bibitem{ParFil} Emin Orhan, "Particle Filtering" \emph{http://www.cns.nyu.edu/~eorhan/notes/particle-filtering.pdf}, 2012
+
  
 \bibitem{frontier} Brian Yamauchi, ``Frontier based exploration," \emph{http://robotfrontier.com/frontier/index.html}, accessed in 2014. 
 
@@ -272,35 +300,35 @@ $\begin{tabular}{| l | c | c | c | r | }
   \hline
   $\beta$ & $\textit{{\tiny maxLineGap}}$ & $\textit{{\tiny minLineLength}}$ & $\overline{\textit{cost}}$ & $\sigma$ \\
   \hline                       
-  	110 & 4 & 30 \\
-  120 & 4 & 30 \\
-  130 & 4 & 30 \\
-  	110 & 5 & 30 \\
-  120 & 5 & 30 \\
-  130 & 5 & 30 \\
-  	110 & 7 & 30 \\
-  120 & 7 & 30 \\
-  130 & 7 & 30 \\
+  	110 & 4 & 30 & 6.233 & 1.720 \\
+  120 & 4 & 30 & 5.333	& 1.566 \\
+  130 & 4 & 30 & 4.755 & 1.322 \\
+  	110 & 5 & 30 & 6.831 & 2.008 \\
+  120 & 5 & 30 & 5.822 & 1.611\\
+  130 & 5 & 30 & 5.133 & 1.568\\
+  	110 & 7 & 30 & 9.655 & 2.634\\
+  120 & 7 & 30 & 7.328 & 2.304\\
+  130 & 7 & 30 & 5.487 & 1.703\\
   \hline                       
-  	110 & 4 & 40 \\
-  120 & 4 & 40 \\
-  130 & 4 & 40 \\
-  	110 & 5 & 40 \\
+  	110 & 4 & 40 & 4.223 & 0.982\\
+  120 & 4 & 40 & 3.655 & 0.623\\
+  130 & 4 & 40 & 3.754 & 0.809\\
+  	110 & 5 & 40 & 3.124 & 0.510\\
   120 & 5 & 40 & 2.122 & 0.322 \\
-  130 & 5 & 40 \\
-  	110 & 7 & 40 \\
-  120 & 7 & 40 \\
-  130 & 7 & 40 \\
+  130 & 5 & 40 & 2.433 & 0.389\\
+  	110 & 7 & 40 & 4.032 & 1.343\\
+  120 & 7 & 40 & 3.422 & 0.780\\
+  130 & 7 & 40 & 3.971 & 1.084\\
   \hline                       
-  	110 & 4 & 50 \\
-  120 & 4 & 50 \\
-  130 & 4 & 50 \\
-  	110 & 5 & 50 \\
-  120 & 5 & 50 \\
-  130 & 5 & 50 \\
-  	110 & 7 & 50 \\
-  120 & 7 & 50 \\
-  130 & 7 & 50 \\
+  	110 & 4 & 50 & 5.322 & 1.472\\
+  120 & 4 & 50 & 4.932 & 1.328\\
+  130 & 4 & 50 & 5.143 & 1.407\\
+  	110 & 5 & 50 & 5.122 & 1.902\\
+  120 & 5 & 50 & 4.722 & 2.103\\
+  130 & 5 & 50 & 5.002 & 1.514\\
+  	110 & 7 & 50 & 5.483 & 1.495\\
+  120 & 7 & 50 & 4.820 & 1.278\\
+  130 & 7 & 50 & 5.103 & 1.300\\
   \hline 
 \end{tabular}$
 
