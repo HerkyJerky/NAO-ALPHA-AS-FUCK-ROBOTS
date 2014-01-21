@@ -2,14 +2,9 @@
 
 \documentclass{ba-kecs}
 \usepackage[pdftex]{graphicx}
-\usepackage{graphicx, float, amsmath,xcolor,fixltx2e}
-\Huge
+\usepackage{graphicx, float, amsmath, multirow}
 \numberwithin{figure}{section}
 \numberwithin{equation}{section}
-
-\def\SPSB#1#2{\rlap{\textsuperscript{{#1}}}\SB{#2}}
-\def\SP#1{\textsuperscript{{#1}}}
-\def\SB#1{\textsubscript{{#1}}}
 
 \title{SLAM using the NAO camera}
 \runningtitle{SLAM using the NAO camera}
@@ -45,7 +40,7 @@ The problem addressed in this paper is the real-time Simultaneous Localization a
 	In this paper, it is assumed that the NAO robot will use his camera to obtain measurements of the environment, and that it only needs to be able to operate on the soccer field. The robot will also be able to keep track of the movement commands issued to the robot.
 
 \subsection{Outline of Paper}
-Section 2 describes the important features of the environment in which the robot will act. Section 3 describes the Image Processing techniques used to obtain useful measurements from images produced by the NAO's camera. Section 4 describes the implemented algorithms for dealing with the SLAM problem, namely EKF SLAM and Graph SLAM.  Section 5 describes the experiments performed with the implemented algorithms. Section 6 describes the results of these experiments. Section 7 provides some ideas on future work. Finally, section 8 concludes the paper.
+Section 2 describes the important features of the environment in which the robot will act. Section 3 describes the implemented algorithms for dealing with the SLAM problem, namely EKF SLAM and Graph SLAM. Section 4 describes the Image Processing techniques used to obtain useful measurements from images produced by the NAO's camera. Section 5 describes the experiments performed with the implemented algorithms. Section 6 describes the results of these experiments. Section 7 provides some ideas on future work. Finally, section 8 concludes the paper.
 
 %---------------------------------------------------------------------------
 
@@ -57,26 +52,9 @@ The robot used for this study is NAO, a humanoid robot developed by the company 
 \subsection{Features of the environment}
 The soccer field that is used is the half Standard Platform League soccer field. It is green field with white lines and a yellow official goal post. The aim of the robot is to localize itself within the bounds of this half soccer field using the white lines as landmarks.
 
-%---------------------------------------------------------------------------
-
-\section{Software Architecture}
-The software developed during this project consists of a Graphical User Interface, used for issuing commands to the robot from a laptop, an Image Processing module, and a module of SLAM algorithms.
-
-\subsection{Graphical User Interface}
-The Graphical User Interface (GUI) allows for easy control of the robot. It allows the user on a laptop to send motion commands to the robot, to command the robot to take a picture, and to run the SLAM algorithms.
-
-\subsection{Image Processing Module}
-After issuing motion commands, the robot should take a picture and obtain measurements from that picture. The Image Processing Module takes an image taken by the robot's camera as input, and produces a set of measurements obtained from that image as output. The algorithms used in this module are described in detail in the Image Processing section.
-
-\subsection{SLAM Module}
-The SLAM Module contains an abstract class for running SLAM algorithms. This abstract class takes motion and measurement data as input. It produces an estimate of the robot's location and rotation, and an estimate of landmark positions, as output. The motion data is equal to the motion commands issued to the robot by the user, and is therefore obtained directly from the GUI. The measurement data is the output of the Image Processing Module.
-
-This module contains different implementations of the abstract class for different algorithms. The algorithms used are described in detail in section 5.
-
 
 
 %---------------------------------------------------------------------------
-
 
 
 \section{Image Processing}
@@ -121,7 +99,7 @@ Where \\
 	
 The value of $\beta$ has experimentally been shown (see section 5 and 6) to deliver the best results. The $G_{min}$ and $G_{max}$ are determined at the start of each run by taking a picture of the 'grass'. This image is then scanned for the minimum and maximum hue. $G_{min}$ will be set equal to this minimum hue minus some small number $\epsilon$ in order to deal with the occasional over- and under lighted areas on the field. The same is done for $G_{max}$.\\
 $Y_{min}$ and $Y_{max}$ are determined similarly but without adding/subtracting $\epsilon$, because (in the case of this project) there is only one goal and thus the difference in lighting is negligible.\\
-At this point the original image(Figure 4.1) now looks something like Figure 4.2.\\
+At this point the original image(Figure 3.1) now looks something like Figure 3.2.\\
 \dkepic{figure_IP1}{Raw image taken by NAO}
 \dkepic{figure_IP2}{Image after color filter}
 Before continuing preprocessing, the goalposts need to be extracted first.
@@ -133,15 +111,15 @@ When the algorithm has decided there are enough green pixels under a yellow one 
 After the entire image is scanned the list of goalpost-coordinates is clustered and averaged to prevent multiple landmarks at one goalpost.
 
 \subsection{Fieldline Cornerpoint Extraction}
-Before any fieldlines can be extracted the background noise needs to be removed. The details of this operation will not be explained here, but the general idea is to scan the color-filtered image from top to bottom for the color green. Once a safe amount of green pixels in a row has been encountered (7 pixels in this specific case), 'erase' all the pixels above this point and continue to the next column. More details about this operation can be found in \cite{ref1}. To finish any remaining green and yellow pixels are removed because they aren't needed anymore. At this point the image will look something like Figure 4.3.\\
+Before any fieldlines can be extracted the background noise needs to be removed. The details of this operation will not be explained here, but the general idea is to scan the color-filtered image from top to bottom for the color green. Once a safe amount of green pixels in a row has been encountered (7 pixels in this specific case), 'erase' all the pixels above this point and continue to the next column. More details about this operation can be found in \cite{ref1}. To finish any remaining green and yellow pixels are removed because they aren't needed anymore. At this point the image will look something like Figure 3.3.\\
 \dkepic{figure_IP3}{Background noise removed}
 There are quite some ways of obtaining the - in this example - three landmarks, but one in particular seems to be favored in the world of robotics which is based on edge-detection and Hough transforms \cite{ref2}\cite{ref3}: OpenCV's built-in 'cv.Canny' and 'cv.HoughLinesP' methods. \\
-Canny is an edge-detection algorithm and returns an 8-bit image, see Figure 4.4.\\
+Canny is an edge-detection algorithm and returns an 8-bit image, see Figure 3.4.\\
 \dkepic{figure_IP4}{Image after applying Canny}
-After using the Canny method the second method - cv.HoughLinesP - is applied to the newly obtained image which returns a list of line-segments. These lines drawn on top of Figure 3.4 results in Figure 4.5.\\
+After using the Canny method the second method - cv.HoughLinesP - is applied to the newly obtained image which returns a list of line-segments. These lines drawn on top of Figure 3.4 results in Figure 3.5.\\
 \dkepic{figure_IP5}{Image after applying Hough Transform}
 The thicker lines are the lines generated by the Hough Transform method.
-OpenCV's method for creating these lines takes a few parameters of which the following are of great importance because they form bottleneck-points on the performance of the entire image processing operation: '$\textit{maxLineGap}$ and '$\textit{minLineLength}$'. $\textit{maxLineGap}$ is the maximum distance between two points to still be considered as a line. $\textit{minLineLength}$ is the minimum length a line should have. These parameters will be discussed in-depth in sections 6 and 7. \\
+OpenCV's method for creating these lines takes a few parameters of which the following are of great importance because they form bottleneck-points on the performance of the entire image processing operation: '$\textit{maxLineGap}$ and '$\textit{minLineLength}$'. $\textit{maxLineGap}$ is the maximum distance between two points to still be considered as a line. $\textit{minLineLength}$ is the minimum length a line should have. These parameters will be discussed in-depth in sections 5 and 6. \\
 The only thing left to do is finding the intersections of these lines and deleting those that are relatively close to each other in order to avoid double landmarks.
 
 
@@ -163,32 +141,24 @@ $\angle_{\mathrm{y}}$ = $\angle_{\mathrm{c}}$ + $\frac{y \times fov_{\mathrm{v}}
 Finally to get the distance: \\
 $\textit{distance}$ = $\frac{h_{\mathrm{c}} \times \textit{tan} \angle_{\mathrm{y}}}{\textit{cos} \angle_{\mathrm{x}}}$
 These distances combined with the third landmark parameter (boolean goalpost or not) are then passed onto the SLAM algorithm. \\
-This concludes the section on Image Processing. The experiments on the earlier-mentioned variables and their results will be discussed in sections 6 and 7. 
+This concludes the section on Image Processing. The experiments on the earlier-mentioned variables and their results will be discussed in sections five and six. 
 
 %---------------------------------------------------------------------------
 
 \section{Localization and Mapping algorithms}
 
 \subsection{EKF SLAM}
-Extended Kalman Filter SLAM is an algorithm which uses an Extended Kalman Filter (EKF) to solve the SLAM problem. EKF is an enhanced version of the Kalman Filter, which is an algorithm that estimates the current state of a linear system based on (an estimate of) the previous state and a set of transition models. Those transition models contain the physical properties of a system and describe the transitions between states. The normal Kalman Filter requires these transition models to be linear, but EKF no longer has this restriction.
-
-During the runtime of the algorithm, the state is represented by a vector $\mu$ and a matrix $\Sigma$ (see figure 4.1).
+Extended Kalman Filter SLAM is an algorithm which uses an Extended Kalman Filter (EKF) to solve the SLAM problem. EKF is an enhanced version of the Kalman Filter, which is an algorithm that estimates the current state of a linear system based on (an estimate of) the previous state and a set of transition models. Those transition models contain the physical properties of a system and describe the transitions between states. The normal Kalman Filter requires these transition models to be linear, but EKF no longer has this restriction.\\ \\
+	During the runtime of the algorithm, the state is represented by a vector $\mu$ and a matrix $\Sigma$ (see figure 3.1).\\
 \dkepic{bigMatrix}{The vector of the state \cite{vec}}. 
-The first three elements of $\mu$ are the estimated x and y coordinates of the robot and the robot’s estimated rotation $\theta$. The following elements, $m_{i,x}$ and $m_{i,y}$ are the $x$ and $y$ coordinates of the $i^{th}$ landmark. If $n$ equals the number of different landmarks observed so far, this means that $\mu$ has a size equal to $3 + 2n$.
-
-The matrix $\Sigma$ contains covariances between the $3 + 2n$ elements of $\mu$. This means that it is a square matrix with dimension $3 + 2n$.
-
-The algorithm is initialized with both $\mu$ and $\Sigma$ being filled with all zeros. This implies that all coordinates of landmarks and future robot position are relative to the robot’s starting position.
-
-EKF is an iterative algorithm. Whenever new data on the robot’s motions or observed landmarks is available, the algorithm can compute an estimate of the new state using only the previous state estimate and the data obtained since the last state was estimated.
-
-The first step in such an iteration of the algorithm consists of using the known physical motion model to estimate the new location of the robot. This is computed using simple geometrical calculations and information of the movement commands given to the robot.
-
-Next, the new values for the covariance of the robot position are predicted. These values are computed using the changes in robot position and an estimate of the motion noise. That estimate of the motion noise should be determined experimentally.
-
-Then, the algorithm deals with observed landmarks. If a landmark has not been observed previously, it’s coordinates and covariances are computed in a similar way to the values of the robot position in the previous steps. This time, models and noise parameters specific to measurements are used.
-
-Finally, landmarks which have already been observed in previous iterations and have now been re-observed are dealt with. The same computations as in the step above are used to compute the coordinates where the landmark is now measured to be. These are compared to the coordinates where the algorithm would expect to see that landmark given the estimate of it’s current position, and the estimate of the location where that landmark was previously observed. This difference between expectation and reality, combined with parameters indicating how much noise we expect there to be in motion and measurement data respectively, allow the algorithm to compute how much each value of $\mu$ should be adjusted, based on how much we trust each piece of data.
+The first three elements of $\mu$ are the estimated x and y coordinates of the robot and the robot’s estimated rotation $\theta$. The following elements, mi,x and mi,y are the x and y coordinates of the ith landmark. If n equals the number of different landmarks observed so far, this means that $\mu$ has a size equal to 3 + 2n.\\\\
+The matrix $\Sigma$ contains covariances between the 3 + 2n elements of $\mu$. This means that it is a square matrix with dimension 3 + 2n.\\\\
+The algorithm is initialized with both $\mu$ and $\Sigma$ being filled with all zeros. This implies that all coordinates of landmarks and future robot position are relative to the robot’s starting position. \\\\
+EKF is an iterative algorithm. Whenever new data on the robot’s motions or observed landmarks is available, the algorithm can compute an estimate of the new state using only the previous state estimate and the data obtained since the last state was estimated.\\\\
+The first step in such an iteration of the algorithm consists of using the known physical motion model to estimate the new location of the robot. This is computed using simple geometrical calculations and information of the movement commands given to the robot.\\\\
+Next, the new values for the covariance of the robot position are predicted. These values are computed using the changes in robot position and an estimate of the motion noise. That estimate of the motion noise should be determined experimentally.\\\\
+Then, the algorithm deals with observed landmarks. If a landmark has not been observed previously, it’s coordinates and covariances are computed in a similar way to the values of the robot position in the previous steps. This time, models and noise parameters specific to measurements are used.\\\\
+Finally, landmarks which have already been observed in previous iterations and have now been re-observed are dealt with. The same computations as in the step above are used to compute the coordinates where the landmark is now measured to be. These are compared to the coordinates where the algorithm would expect to see that landmark given the estimate of it’s current position, and the estimate of the location where that landmark was previously observed. This difference between expectation and reality, combined with parameters indicating how much noise we expect there to be in motion and measurement data respectively, allow the algorithm to compute how much each value of $\mu$ should be adjusted, based on how much we trust each piece of data.\\
 
 \subsection{Graph SLAM}
 
@@ -215,27 +185,9 @@ In order to create $\Omega$ and $\xi$ matrices, first of all data from environme
     $\xi$ = $\bordermatrix{~ \vdots & \dots \cr
                   			x_{i-1} & -10 \cr
                   			x_{i}  & +10 \cr
-                  			\vdots & \dots \cr}$\\ \\
+                  			\vdots & \dots \cr}$
                   
 	$\Omega$ and $\xi$ are populated in this fashion with all the collected constraints.
-	
-\subsubsection{Introducing noise to environment}
-Above given description of matrices assume perfect world and perfect motors/sensors and do not include any error values or noise. However, in real-life environment there is going to be noise caused by either motion or measurement motors of robot. So, noise should be added and handled by GraphSLAM algorithm. Noise is handled by adding approximated error to $\Omega$ and $\xi$ matrices. Those error/noise values represent how much measurements and motions are trusted. For GraphSLAM, there are two types of errors, namely motion noise and measurement noise. For future reference, motion noise will be represented as $\varepsilon_{motion}$ and measurement noise will be represented as $\varepsilon_{measurement}$. Noise is added to the computations by adjusting $\Omega$ and $\xi$ matrices in following fashion. Let`s take the same constraint used in section before. Constraint is:
-\[ x_{i} = x_{i-1} + 10 \]
-For this constraint, noise is taken into account by changing set-up of $\Omega$ and $\xi$ matrices in following way:\\ \\
-
-$\Omega$ = $\bordermatrix{~ & \dots & x_{i-1} & x_{i} & \dots \cr
-							\vdots & \vdots & \vdots & \vdots & \vdots \cr
-                  			x_{i-1} & \vdots & +1 \times \frac{1}{\varepsilon_{motion}} & -1 \times \frac{1}{\varepsilon_{motion}} & \vdots \cr
-                  			x_{i} & \vdots & -1 \times \frac{1}{\varepsilon_{motion}} & +1 \times \frac{1}{\varepsilon_{motion}} & \vdots \cr
-                  			\vdots & \dots & \dots & \dots & \dots \cr}$ \\ \\
-                  			
-    $\xi$ = $\bordermatrix{~ \vdots & \dots \cr
-                  			x_{i-1} & -10 \times \frac{1}{\varepsilon_{motion}} \cr
-                  			x_{i}  & +10 \times \frac{1}{\varepsilon_{motion}} \cr
-                  			\vdots & \dots \cr}$\\ \\
-                  			
-In cases of relative measurement constraints, $\varepsilon_{measurement}$ is used instead of $\varepsilon_{motion}$.
 	
 \subsubsection{Getting results from $\Omega$ and $\xi$}
 	After matrices are created, last part of GraphSLAM can be executed. Referring to \cite{sik2}, it is known that if \textit{x} represents best estimates of robot poses and landmark positions, the following equation holds :
@@ -253,16 +205,14 @@ In cases of relative measurement constraints, $\varepsilon_{measurement}$ is use
 
 \section{Experiments}
 
-\section{Experiments}
-
 \subsection{Image Processing}
 As was announced in section 3 the following variables will be experimented with: \\
 $\beta$ (minimum luminance of pixels to classify as 'white')\\
 The Hough Transform's parameter values $\textit{maxLineGap}$ and $\textit{minLineLength}$ \\
 These variables were chosen for experimentation because these were the bottleneck-points of the image processing. 
-In order to measure performance, the cost matrix in Table 6.1 is applied to each test-instance where the goal is to minimize the cost. \\
+In order to measure performance, the cost matrix in Figure 5.1 is applied to each test-instance where the goal is to minimize the cost. \\
 
-	$\textit{Table 6.1}$ \\
+	$\textit{Table 5.1}$ \\
 \begin{tabular}{ l l|c|c| }
 \multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{2}{c}{Landmark exists} \\
 \multicolumn{1}{r}{} & \multicolumn{1}{r}{}
@@ -286,21 +236,23 @@ Because the three mentioned variables are all dependent on each other they all h
 
 \subsection{Image Processing}
 The best results (least $\overline{\textit{cost}}$) are obtained for $\beta$ = 120,  $\textit{maxLineGap}$ = 5 pixels and $\textit{minLineLength}$ = 40 pixels. Note that -as described in the previous section- the resolution of an image is 320$\times$240 pixels, so the values of $\textit{maxLineGap}$ and $\textit{minLineLength}$ will probably not apply to other resolutions.
-The reason the $\textit{maxLineGap}$ is relatively low and the $\textit{minLineLength}$ relatively high w.r.t. the resolution is because the cost matrix nudges the variables towards a safe value. It rather sees a landmark undetected than a misclassified landmark, which is -as explained in the previous section- prefered.
-
+The reason the $\textit{maxLineGap}$ is relatively low and the $\textit{minLineLength}$ relatively high w.r.t. the resolution is because the cost matrix nudges the variables towards a safe value. It rather sees a landmark undetected than a misclassified landmark, which is -as explained in the previous section- prefered. 
 
 %---------------------------------------------------------------------------
 
 \section{Future Work}
+
 	A way to decrease the noise obtained from approximating the landmarks during image processing is to apply particle filtering. Particle filtering is a general Monte Carlo (sampling) method for performing inference in
 state-space models where the state of a system evolves in time and information about the state is obtained via noisy measurements made at each time step \cite{ParFil}. \\
 
 	Measuring the distance to a landmark is often noisy due to slight deviations in the vertical angle of the camera and the torso of the Nao. To approach this problem it is suggested to at the same time as the current camera, take a picture with the other camera and compare these images to obtain the distance to a landmark using static distances (absolute and angular distances between cameras).
-	
+
 	One of the possible future enhancements for SLAM is improvement of robot`s exploration skills. One possible solution for this problem is to use Fourier detection/exploration algorithm which will be explained very briefly in next sub-section.
 	
 \subsection{Frontier detection/exploration}
 	Overall, the exploration problem deals with the use of a robot to maximize the knowledge over a particular area. Frontier detection algorithm/approach tries to make use of \textit{frontiers} which are the regions on the border between open space and unexplored space \cite{frontier}
+	
+
 
 %---------------------------------------------------------------------------
 
@@ -329,7 +281,9 @@ RoboCup Soccer SPL" \emph{University of Amsterdan}, 2013.
 
 \bibitem{sik2} Giorgio Grisetti, Rainer Kummerle, Cyrill Stachniss, Wolfram Burgard, ``A tutorial on Graph SLAM," \emph{http://ais.informatik.uni-freiburg.de/teaching/ws10/praktikum/slamtutorial.pdf}, last accessed in 2014.
 
+
 \bibitem{ParFil} Emin Orhan, "Particle Filtering" \emph{http://www.cns.nyu.edu/~eorhan/notes/particle-filtering.pdf}, 2012
+
  
 \bibitem{frontier} Brian Yamauchi, ``Frontier based exploration," \emph{http://robotfrontier.com/frontier/index.html}, accessed in 2014. 
 
@@ -340,7 +294,6 @@ RoboCup Soccer SPL" \emph{University of Amsterdan}, 2013.
 
 \appendix
 \section{Image Processing}
-
 
 $\textit{Table A.1}$ \\
 $\begin{tabular}{| l | c | c | c | r | }
@@ -378,68 +331,6 @@ $\begin{tabular}{| l | c | c | c | r | }
   130 & 7 & 50 & 5.103 & 1.300\\
   \hline 
 \end{tabular}$
-
-\section{EKF SLAM Matrices and Equations}
-This appendix provides a detailed view of some of the matrices and equations used by the EKF SLAM algorithm.\\ \\
-Robot state prediction:
-
-$\bordermatrix{ 	& \cr
-                 &x_{t} \cr
-                 &y_{t} \cr
-                 &\theta_{t} \cr}$
-=
-$\bordermatrix{ 	& \cr
-                 &x_{t-1} \cr
-                 &y_{t-1} \cr
-                 &\theta_{t-1} \cr}$
-+
-$\bordermatrix{ 	& \cr
-                 &d \times cos(\theta) \cr
-                 &d \times sin(\theta) \cr
-                 &\Delta\theta \cr}$ \\ \\
-where $d$ is the distance the robot travelled forwards. \\ \\
-Matrices used for covariance prediction:
-
-$G_t^x$ = 
-$\bordermatrix{ 	& \cr
-                 &1 & 0 & -\Delta y \cr
-                 &0 & 1 & \Delta x \cr
-                 &0 & 0 & 1 \cr}$ \\ \\
-where $\Delta x$ and $\Delta y$ represent the distances travelled by the robot along the 2 axes.
-
-$G_t$ = 
-$\bordermatrix{ 	& \cr
-                 &G_t^x & 0 \cr
-                 &0 & I \cr}$
-                 
-$\delta$ = $\bordermatrix{~ \cr
-                        & \delta_{x} \cr
-                        & \delta_{y}}$ = $\bordermatrix{~ \cr
-                                                                                                & \mu_{j,x} - \mu_{t,x} \cr
-                                                                & \mu_{j,y} - \mu_{t,y} \cr}$\\ \\
-
-$\textit{q} = \delta^{T} \times \delta$
-
-\textit{z}$^{i}_{t}$ = $\bordermatrix{~ \cr
-                        & \sqrt{q} \cr
-                        & atan2(\sigma_{y},\sigma_{x}) - \mu_{t,\theta}}$\\ \\
-                                          
-$^{low}$H$^{i}_{t}$ = $\frac{\delta h(\mu_{t})}{\delta{\mu_{t}}}$ = \\ \\ = $\frac{1}{q}$ $\times$ $\bordermatrix{~ \cr
-                                & -\sqrt{q} \times \delta_{x} & -\sqrt{q} \times \delta_{y} & 0 & +\sqrt{q} \times \delta_{x} & \sqrt{q} \times \delta_{y} \cr
-                                & \delta_{y} & -\delta_{x} & -q & -\delta_{y} & \delta_{x}} $\\ \\
-                                                  
-$^{low}$H$^{i}_{t}$ = $\frac{1}{q}$ $\times$ $\bordermatrix{~ \cr
-                                & -\sqrt{q} \times \delta_{x} & -\sqrt{q} \times \delta_{y} & 0 & +\sqrt{q} \times \delta_{x} & \sqrt{q} \times \delta_{y} \cr
-                                & \delta_{y} & -\delta_{x} & -q & -\delta_{y} & \delta_{x}} $\\ \\
-                                                  
-H$^{i}_{t}$ = $^{low}H^{i}_{t} \times F_{x,j}$
-\\ \\
-$F_{x,j}$ = $\bordermatrix{~ \cr
-                        & 1 & 0 & 0 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
-                        & 0 & 1 & 0 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
-                        & 0 & 0 & 1 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
-                        & 0 & 0 & 0 & 0 \cdots 0 & 1 & 0 & 0 \cdots 0 \cr
-                        & 0 & 0 & 0 & \underbrace{0 \cdots 0}_{2j-2} & 0 & 1 & \underbrace{0 \cdots 0}_{2N-2j} \cr}$
 
 
 \end{document}
