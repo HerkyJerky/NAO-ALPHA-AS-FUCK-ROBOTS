@@ -35,7 +35,7 @@
       <file leaf-file-name="MapViewer.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MapViewer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="103" column="35" selection-start="3892" selection-end="3892" vertical-scroll-proportion="0.54697984" vertical-offset="1290" max-vertical-offset="3632">
+            <state line="155" column="0" selection-start="6149" selection-end="6149" vertical-scroll-proportion="0.34395972" vertical-offset="2243" max-vertical-offset="3728">
               <folding />
             </state>
           </provider>
@@ -71,8 +71,8 @@
         <option value="$PROJECT_DIR$/Vision.py" />
         <option value="$PROJECT_DIR$/Motions.py" />
         <option value="$PROJECT_DIR$/Distance.py" />
-        <option value="$PROJECT_DIR$/MapViewer.py" />
         <option value="$PROJECT_DIR$/ControlFlow.py" />
+        <option value="$PROJECT_DIR$/MapViewer.py" />
       </list>
     </option>
   </component>
@@ -517,7 +517,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MapViewer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="35" selection-start="3892" selection-end="3892" vertical-scroll-proportion="0.54697984" vertical-offset="1290" max-vertical-offset="3632">
+        <state line="155" column="0" selection-start="6149" selection-end="6149" vertical-scroll-proportion="0.34395972" vertical-offset="2243" max-vertical-offset="3728">
           <folding />
         </state>
       </provider>

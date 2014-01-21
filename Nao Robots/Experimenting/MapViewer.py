@@ -29,6 +29,7 @@ I = [200, 300]
 J = [200, 180]
 K = [130, 0]
 L = [270, 0]
+ACT_LNDMRKS = [A, B, C, D, E, F, G, H, J, K, L]
 
 # acceptable region. the minimal distance between two cornerpoints [LE for example] is 40 cm. so radius is then 20 cm
 # the detected landmark must be within this region to be accepted as a well observed landmark
@@ -68,8 +69,8 @@ class MapViewer(Frame):
         self.parent.title("[ALPHA] - SLAM")
         self.pack(fill=BOTH, expand=1)
         self.makeLinesOnField()
-        theta = float(200*DEG2RAD)
-        output = [[[200, 200, theta]], [[20, 40, True], [50, 60, True], [300, 45, True], [60, 100, True]]]
+        theta = float(45*DEG2RAD)
+        output = [[[200, 100, theta]], [[80, 50, False], [320, 70, False], [140, 10, True], [320, 15, False]]]
         self.boolTest(0)
         self.updateMapNew(output)
         #print output
@@ -111,9 +112,9 @@ class MapViewer(Frame):
         # draw landmarks
         for k in range(len(landmarks)):
             if (landmarks[k][2] is True):
-                self.drawAt(landmarks[k][0], landmarks[k][1], 0, '#ffd500', 'landmark')
+                self.drawAt(landmarks[k][0], landmarks[k][1], 0, '#ffa200', 'landmark')
             if (landmarks[k][2] is False):
-                self.drawAt(landmarks[k][0], landmarks[k][1], 0, 'white', 'landmark')
+                self.drawAt(landmarks[k][0], landmarks[k][1], 0, '#ff00ae', 'landmark')
         pass
 
     '''
@@ -218,6 +219,11 @@ class MapViewer(Frame):
             print 'answer is true'
         else:
             print 'answer is not valid'
+
+    # approximate where the robot thinks it is on the field by finding a pattern that could match the actual landmarks
+    def findPattern(self, normalizedOutput):
+
+        pass
 
 mappie = MapViewer(root)
 
