@@ -224,10 +224,11 @@ class Motion:
     # thetaSize is the size of theta in degrees of a turn in one step
     def getThetaSteps(self, theta):
         theta = float(theta)# math.fabs(float(theta))
-        if theta % MAXTHETA == 0:
-            steps = theta/(THETAUNIT*(MAXTHETA/MINTHETA))*2 + 1
-            thetaSize = MAXTHETA
-        elif theta % MINTHETA == 0:
+        #if theta % MAXTHETA == 0:
+        #    steps = theta/(THETAUNIT*(MAXTHETA/MINTHETA))*2 + 1
+        #    thetaSize = MAXTHETA
+        #el
+        if theta % MINTHETA == 0:
             steps = theta/THETAUNIT
             thetaSize = MINTHETA
         else:
