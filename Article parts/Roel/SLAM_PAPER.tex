@@ -2,7 +2,7 @@
 
 \documentclass{ba-kecs}
 \usepackage[pdftex]{graphicx}
-\usepackage{graphicx, float, amsmath}
+\usepackage{graphicx, float, amsmath, multirow}
 \numberwithin{figure}{section}
 \numberwithin{equation}{section}
 
@@ -210,9 +210,23 @@ As was announced in section 3 the following variables will be experimented with:
 $\beta$ (minimum luminance of pixels to classify as 'white')\\
 The Hough Transform's parameter values $\textit{maxLineGap}$ and $\textit{minLineLength}$ \\
 These variables were chosen for experimentation because these were the bottleneck-points of the image processing. 
-In order to measure performance, the cost matrix in Figure 5.1 is applied to each test-instance where the goal is to minimize the costs.
-\dkepic{figure_IP6}{Cost matrix for experiments}
-Note that classifying something as a landmark even though it's not gets a relatively big penalty, whereas failing to detect a landmark gets a lower penalty. This is done because the SLAM algorithms are capable of dealing with the latter (false negative), but have a lot more trouble handling the former (false positive). \\
+In order to measure performance, the cost matrix in Figure 5.1 is applied to each test-instance where the goal is to minimize the cost. \\
+
+	$\textit{Table 5.1}$ \\
+\begin{tabular}{ l l|c|c| }
+\multicolumn{1}{r}{} & \multicolumn{1}{r}{} & \multicolumn{2}{c}{Landmark exists} \\
+\multicolumn{1}{r}{} & \multicolumn{1}{r}{}
+ &  \multicolumn{1}{c}{{\small true}}
+ & \multicolumn{1}{c}{{\small false}} \\
+\cline{3-4}
+detected & {\small true} & -1.333 & 5 \\
+\cline{3-4}
+landmark & {\small false} & 1 & 0 \\
+\cline{3-4}
+\end{tabular} \\
+
+
+Note that classifying something as a landmark even though it's not gets a relatively big penalty whereas failing to detect a landmark gets a lower penalty. This is done because the SLAM algorithms are capable of dealing with the latter (false negative), but have a lot more trouble handling the former (false positive). \\
 Thirty images were made from random locations on the soccer-field as test-instances with a resolution of 320$\times$240 pixels.
 Because the three mentioned variables are all dependent on each other they all have to be tested simultaniously. Because of this, some pre-testing has been done by hand to find a region of convergence in order to reduce the tabel's size. The table containing the final experiments and their results can be found in Table A.1 in the appendice and will be discussed in the next section.
 
@@ -286,35 +300,35 @@ $\begin{tabular}{| l | c | c | c | r | }
   \hline
   $\beta$ & $\textit{{\tiny maxLineGap}}$ & $\textit{{\tiny minLineLength}}$ & $\overline{\textit{cost}}$ & $\sigma$ \\
   \hline                       
-  	110 & 4 & 30 \\
-  120 & 4 & 30 \\
-  130 & 4 & 30 \\
-  	110 & 5 & 30 \\
-  120 & 5 & 30 \\
-  130 & 5 & 30 \\
-  	110 & 7 & 30 \\
-  120 & 7 & 30 \\
-  130 & 7 & 30 \\
+  	110 & 4 & 30 & 6.233 & 1.720 \\
+  120 & 4 & 30 & 5.333	& 1.566 \\
+  130 & 4 & 30 & 4.755 & 1.322 \\
+  	110 & 5 & 30 & 6.831 & 2.008 \\
+  120 & 5 & 30 & 5.822 & 1.611\\
+  130 & 5 & 30 & 5.133 & 1.568\\
+  	110 & 7 & 30 & 9.655 & 2.634\\
+  120 & 7 & 30 & 7.328 & 2.304\\
+  130 & 7 & 30 & 5.487 & 1.703\\
   \hline                       
-  	110 & 4 & 40 \\
-  120 & 4 & 40 \\
-  130 & 4 & 40 \\
-  	110 & 5 & 40 \\
+  	110 & 4 & 40 & 4.223 & 0.982\\
+  120 & 4 & 40 & 3.655 & 0.623\\
+  130 & 4 & 40 & 3.754 & 0.809\\
+  	110 & 5 & 40 & 3.124 & 0.510\\
   120 & 5 & 40 & 2.122 & 0.322 \\
-  130 & 5 & 40 \\
-  	110 & 7 & 40 \\
-  120 & 7 & 40 \\
-  130 & 7 & 40 \\
+  130 & 5 & 40 & 2.433 & 0.389\\
+  	110 & 7 & 40 & 4.032 & 1.343\\
+  120 & 7 & 40 & 3.422 & 0.780\\
+  130 & 7 & 40 & 3.971 & 1.084\\
   \hline                       
-  	110 & 4 & 50 \\
-  120 & 4 & 50 \\
-  130 & 4 & 50 \\
-  	110 & 5 & 50 \\
-  120 & 5 & 50 \\
-  130 & 5 & 50 \\
-  	110 & 7 & 50 \\
-  120 & 7 & 50 \\
-  130 & 7 & 50 \\
+  	110 & 4 & 50 & 5.322 & 1.472\\
+  120 & 4 & 50 & 4.932 & 1.328\\
+  130 & 4 & 50 & 5.143 & 1.407\\
+  	110 & 5 & 50 & 5.122 & 1.902\\
+  120 & 5 & 50 & 4.722 & 2.103\\
+  130 & 5 & 50 & 5.002 & 1.514\\
+  	110 & 7 & 50 & 5.483 & 1.495\\
+  120 & 7 & 50 & 4.820 & 1.278\\
+  130 & 7 & 50 & 5.103 & 1.300\\
   \hline 
 \end{tabular}$
 
