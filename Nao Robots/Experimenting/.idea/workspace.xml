@@ -26,16 +26,16 @@
       <file leaf-file-name="ControlFlow.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ControlFlow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="145" column="28" selection-start="4568" selection-end="4568" vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="3096">
+            <state line="42" column="51" selection-start="1154" selection-end="1154" vertical-scroll-proportion="0.0" vertical-offset="528" max-vertical-offset="2720">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ImageProcessing.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ImageProcessing.py">
+      <file leaf-file-name="MapViewer.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/MapViewer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="24" selection-start="163" selection-end="163" vertical-scroll-proportion="0.0" vertical-offset="126" max-vertical-offset="6336">
+            <state line="103" column="35" selection-start="3892" selection-end="3892" vertical-scroll-proportion="0.54697984" vertical-offset="1290" max-vertical-offset="3632">
               <folding />
             </state>
           </provider>
@@ -44,70 +44,7 @@
       <file leaf-file-name="Vision.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Vision.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="11" selection-start="265" selection-end="265" vertical-scroll-proportion="0.0" vertical-offset="324" max-vertical-offset="1638">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Motions.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Motions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="11" selection-start="363" selection-end="363" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="5742">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AnalyseImage.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AnalyseImage.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="47" selection-start="244" selection-end="244" vertical-scroll-proportion="0.0" vertical-offset="198" max-vertical-offset="414">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Distance.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Distance.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="115" column="50" selection-start="4848" selection-end="4848" vertical-scroll-proportion="0.0" vertical-offset="2070" max-vertical-offset="3438">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NAOControl.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/NAOControl.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="0" selection-start="546" selection-end="546" vertical-scroll-proportion="0.0" vertical-offset="522" max-vertical-offset="2988">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="0" selection-start="743" selection-end="743" vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="450">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MapViewer.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MapViewer.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="96" column="12" selection-start="3837" selection-end="3837" vertical-scroll-proportion="0.0" vertical-offset="1728" max-vertical-offset="3348">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EkfSLAM.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/EkfSLAM.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="289" column="94" selection-start="12832" selection-end="12832" vertical-scroll-proportion="0.0" vertical-offset="5202" max-vertical-offset="13320">
+            <state line="26" column="0" selection-start="508" selection-end="552" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1344">
               <folding />
             </state>
           </provider>
@@ -130,20 +67,20 @@
         <option value="$PROJECT_DIR$/GraphSLAM.py" />
         <option value="$PROJECT_DIR$/CommonFunctionality.py" />
         <option value="$PROJECT_DIR$/GraphSLAMInherited.py" />
-        <option value="$PROJECT_DIR$/MapViewer.py" />
         <option value="$PROJECT_DIR$/EkfSLAM.py" />
         <option value="$PROJECT_DIR$/Vision.py" />
         <option value="$PROJECT_DIR$/Motions.py" />
-        <option value="$PROJECT_DIR$/ControlFlow.py" />
         <option value="$PROJECT_DIR$/Distance.py" />
+        <option value="$PROJECT_DIR$/MapViewer.py" />
+        <option value="$PROJECT_DIR$/ControlFlow.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1409" />
-    <option name="y" value="24" />
-    <option name="width" value="1871" />
-    <option name="height" value="1056" />
+    <option name="x" value="1416" />
+    <option name="y" value="52" />
+    <option name="width" value="935" />
+    <option name="height" value="1028" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -174,19 +111,19 @@
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <PyConsoleSettings />
     </option>
   </component>
-  <component name="RunManager" selected="Python.ControlFlow">
+  <component name="RunManager" selected="Python.MapViewer">
     <configuration default="false" name="ControlFlow" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -201,25 +138,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Experimenting" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ControlFlow.py" />
-      <option name="PARAMETERS" value="" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="MapViewer" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="PYTHONPATH" value="$USER_HOME$/Downloads/Python-2.7.5/ " />
-      </envs>
-      <option name="SDK_HOME" value="/usr/bin/python" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Experimenting" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MapViewer.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -385,6 +303,27 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
+    <configuration default="false" name="MapViewer" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="PYTHONPATH" value="$USER_HOME$/Downloads/Python-2.7.5/ " />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Experimenting" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/MapViewer.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
     <configuration default="false" name="GraphSLAM" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -405,18 +344,17 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.ControlFlow" />
-      <item index="1" class="java.lang.String" itemvalue="Python.MapViewer" />
-      <item index="2" class="java.lang.String" itemvalue="Python.Main" />
-      <item index="3" class="java.lang.String" itemvalue="Python.CommonFunctionality" />
-      <item index="4" class="java.lang.String" itemvalue="Python.GraphSLAM" />
+      <item index="0" class="java.lang.String" itemvalue="Python.MapViewer" />
+      <item index="1" class="java.lang.String" itemvalue="Python.GraphSLAM" />
+      <item index="2" class="java.lang.String" itemvalue="Python.ControlFlow" />
+      <item index="3" class="java.lang.String" itemvalue="Python.Main" />
+      <item index="4" class="java.lang.String" itemvalue="Python.CommonFunctionality" />
     </list>
     <recent_temporary>
-      <list size="4">
+      <list size="3">
         <item index="0" class="java.lang.String" itemvalue="Python.ControlFlow" />
         <item index="1" class="java.lang.String" itemvalue="Python.Main" />
         <item index="2" class="java.lang.String" itemvalue="Python.CommonFunctionality" />
-        <item index="3" class="java.lang.String" itemvalue="Python.MapViewer" />
       </list>
     </recent_temporary>
   </component>
@@ -450,7 +388,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1409" y="24" width="1871" height="1056" extended-state="6" />
+    <frame x="1416" y="52" width="935" height="1028" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -461,7 +399,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.96927804" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="1.0" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31764707" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -514,51 +452,9 @@
         <state line="63" column="26" selection-start="2546" selection-end="2546" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1696" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MapViewer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="12" selection-start="3837" selection-end="3837" vertical-scroll-proportion="0.0" vertical-offset="1392" max-vertical-offset="2944">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ImageProcessing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="24" selection-start="163" selection-end="163" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5632">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AnalyseImage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="47" selection-start="244" selection-end="244" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="414">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/EkfSLAM.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="289" column="94" selection-start="12832" selection-end="12832" vertical-scroll-proportion="0.0" vertical-offset="3306" max-vertical-offset="11792">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NAOControl.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="0" selection-start="546" selection-end="546" vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="2916">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Vision.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="11" selection-start="265" selection-end="265" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1512">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Motions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="11" selection-start="363" selection-end="363" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5652">
           <folding />
         </state>
       </provider>
@@ -570,16 +466,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ControlFlow.py">
+    <entry file="file://$PROJECT_DIR$/NAOControl.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="145" column="28" selection-start="4568" selection-end="4568" vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="3096">
+        <state line="29" column="0" selection-start="546" selection-end="546" vertical-scroll-proportion="-0.13062099" vertical-offset="522" max-vertical-offset="2592">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Distance.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="50" selection-start="4848" selection-end="4848" vertical-scroll-proportion="0.0" vertical-offset="2070" max-vertical-offset="3438">
+        <state line="138" column="38" selection-start="5741" selection-end="5741" vertical-scroll-proportion="2.3640256" vertical-offset="0" max-vertical-offset="3488">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AnalyseImage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="47" selection-start="244" selection-end="244" vertical-scroll-proportion="0.21199143" vertical-offset="0" max-vertical-offset="934">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Motions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="11" selection-start="363" selection-end="363" vertical-scroll-proportion="-0.096359745" vertical-offset="306" max-vertical-offset="5652">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ImageProcessing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="24" selection-start="163" selection-end="163" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5632">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Vision.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="0" selection-start="508" selection-end="552" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1344">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ControlFlow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="51" selection-start="1154" selection-end="1154" vertical-scroll-proportion="0.0" vertical-offset="528" max-vertical-offset="2720">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MapViewer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="103" column="35" selection-start="3892" selection-end="3892" vertical-scroll-proportion="0.54697984" vertical-offset="1290" max-vertical-offset="3632">
           <folding />
         </state>
       </provider>

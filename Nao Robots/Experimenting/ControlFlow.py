@@ -40,6 +40,7 @@ class ControlFlow:
     def __init__(self):
         ekfSlamObj.set_noise_parameters(0.1, 0.1, 0.1)
         graphSlamObj.set_noise_parameters(1, 1, 1)
+        # theta from output SLAM must be in radians
         pass
 
     def testImage(self):
