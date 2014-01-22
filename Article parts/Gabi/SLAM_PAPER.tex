@@ -331,16 +331,22 @@ The reason the $\textit{maxLineGap}$ is relatively low and the $\textit{minLineL
 %---------------------------------------------------------------------------
 
 \section{Future Work}
+
+\subsection{Image Processing}
 	A way to decrease the noise obtained from approximating the landmarks during image processing is to apply particle filtering. Particle filtering is a general Monte Carlo (sampling) method for performing inference in
 state-space models where the state of a system evolves in time and information about the state is obtained via noisy measurements made at each time step \cite{ParFil}. \\
 
 	Measuring the distance to a landmark is often noisy due to slight deviations in the vertical angle of the camera and the torso of the Nao. To approach this problem it is suggested to at the same time as the current camera, take a picture with the other camera and compare these images to obtain the distance to a landmark using static distances (absolute and angular distances between cameras).
+\subsection{SLAM algorithms}	
+	One of the possible future enhancements for SLAM is improvement of robot`s exploration skills. One possible solution for this problem is to use Frontier detection/exploration algorithm which will be explained very briefly in next sub-section.
 	
-	One of the possible future enhancements for SLAM is improvement of robot`s exploration skills. One possible solution for this problem is to use Fourier detection/exploration algorithm which will be explained very briefly in next sub-section.
-	
-\subsection{Frontier detection/exploration}
+\subsubsection{Frontier detection/exploration}
 	Overall, the exploration problem deals with the use of a robot to maximize the knowledge over a particular area. Frontier detection algorithm/approach tries to make use of \textit{frontiers} which are the regions on the border between open space and unexplored space \cite{frontier}
-
+	
+\subsubsection{Landmark Association}
+One of the problems faced by both SLAM algorithms discussed in this paper is about association of landmarks. Using euclidean distances between approximated landmarks in order to find which ones might be same does not work in all the cases. One possible improvement to this problem is to use Mahalanobis distance. Mahalanobis distance is a descriptive statistic that provides a relative measure of a data point's distance from a common point. Its main difference from Euclidean distance that it takes into account the correlations of the data set and is scale-invariant. In other words, it has a multivariate effect size.
+\subsubsection{Active and Fast SLAM}
+Also, there exist some other approaches to solve SLAM problem. One of them is Active SLAM. Main advantage of Active SLAM is that it also tries to solve exploration problem by finding best next move in order to build the map as efficiently as possible. Second possible algorithm is FastSLAM. Advantage of FastSLAM over GraphSLAM and EKF SLAM is that it also deals with kidnapping problem. Kidnapping problem refers to the case where robot is placed somewhere else in the world during the simulation without robot knowing about it. So, these two approaches might be interesting alternatives to solution of SLAM problem.
 %---------------------------------------------------------------------------
 
 \section{Conclusion}
