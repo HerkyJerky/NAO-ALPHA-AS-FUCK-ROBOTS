@@ -208,13 +208,13 @@ $\bordermatrix{ 	& \cr
 where $d$ is the distance the robot travelled forwards. $\Sigma_t$ is computed as follows: \\
 
 $\Sigma_t = G_t \times \Sigma_{t-1} \times G_t^T + R_t$ \\ \\
-where $R_t$ is the covariance matrix for motion noise. More details on $R_t$ can be found in the Experiments section, since it contains values which need to be experimentally tuned.
+where $R_t$ is the covariance matrix for motion noise. It contains values which need to be experimentally tuned.
 
 \subsubsection{Update Step}
 In the update step, the algorithm loops through the landmarks observed in this time-step. The following calculations will be performed for each landmark $j$. First, the Kalman Gain $K_t^j$ is computed: \\
 
 $K_t^j = \Sigma_t \times H_t^j (H_t^j \times \Sigma_t \times H_t^{jT} + Q_t)^{-1}$ \\ \\
-where $Q_t$ is the covariance matrix for measurement noise. More details on $Q_t$ can be found in the Experiments section, since it contains values which need to be experimentally tuned. 
+where $Q_t$ is the covariance matrix for measurement noise. It contains values which need to be experimentally tuned. 
 
 The Kalman Gain can intuitively be thought of as a matrix with numbers indicating how much information we want to gain from differences between expected measurements and actual measurements. 
 
@@ -334,6 +334,15 @@ In a similar way, the influence of noise on measurements from image processing w
 \subsection{Image Processing}
 The best results (least $\overline{\textit{cost}}$) are obtained for $\beta$ = 120,  $\textit{maxLineGap}$ = 5 pixels and $\textit{minLineLength}$ = 40 pixels. Note that -as described in the previous section- the resolution of an image is 320$\times$240 pixels, so the values of $\textit{maxLineGap}$ and $\textit{minLineLength}$ will probably not apply to other resolutions.
 The reason the $\textit{maxLineGap}$ is relatively low and the $\textit{minLineLength}$ relatively high w.r.t. the resolution is because the cost matrix nudges the variables towards a safe value. It rather sees a landmark undetected than a misclassified landmark, which is -as explained in the previous section- prefered.
+
+\subsection{Noise Parameters}
+In the experiment to examine the motion-related noise, it was observed that the NAO would often walk in a curve slightly towards the left, as opposed to completely straight ahead. It would also walk roughly 15\% too far.
+	The image processing was observed to always overestimate the distance to a landmark. This error seemed to grow as a function of the true distance, but more testing would be required to fit a function to this relation. It was not immediately clear whether or not the relation was linear, quadratic, or something else. It was observed, however, that the error always seemed to be at least a 10\% overestimation. 
+	
+\subsection{DUMMY SECTION, SHOULD PUT THIS IN SLAM stuff}
+
+\subsubsection{EKF SLAM}
+Testing the entire software package on the NAO on the football field did not result in accurate results. Many coordinates of both the robot and the landmarks would diverge to lie outside the actual dimensions of the soccer field. Similar errors were observed in earlier experiments using a simulated world when the noise parameters were incorrect. After tuning the noise parameters for the simulated world, the EKF SLAM algorithm did give accurate result. It is likely that, with more testing for noise parameters, accurate results could be obtained with the NAO.
 
 
 %---------------------------------------------------------------------------
