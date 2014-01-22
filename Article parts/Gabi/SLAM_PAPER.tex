@@ -169,6 +169,7 @@ This concludes the section on Image Processing. The experiments on the earlier-m
 
 \section{Localization and Mapping algorithms}
 
+
 \subsection{EKF SLAM}
 Extended Kalman Filter SLAM is an algorithm which uses an Extended Kalman Filter (EKF) to solve the SLAM problem. EKF is an enhanced version of the Kalman Filter, which is an algorithm that estimates the current state of a linear system based on (an estimate of) the previous state and a set of transition models. Those transition models contain the physical properties of a system and describe the transitions between states. The normal Kalman Filter requires these transition models to be linear, but EKF no longer has this restriction.
 
@@ -318,6 +319,13 @@ landmark & {\small false} & 1 & 0 \\
 Note that classifying something as a landmark even though it's not gets a relatively big penalty whereas failing to detect a landmark gets a lower penalty. This is done because the SLAM algorithms are capable of dealing with the latter (false negative), but have a lot more trouble handling the former (false positive). \\
 Thirty images were made from random locations on the soccer-field as test-instances with a resolution of 320$\times$240 pixels.
 Because the three mentioned variables are all dependent on each other they all have to be tested simultaniously. Because of this, some pre-testing has been done by hand to find a region of convergence in order to reduce the tabel's size. The table containing the final experiments and their results can be found in Table A.1 in the appendice and will be discussed in the next section.
+
+\subsection{Noise Parameters}
+Both of the implemented SLAM algorithms have parameters which need to be experimentally determined, to give the algorithms information on how much noise we expect in motion and measurements.
+
+In order to estimate the influence of noise on motion, the robot was ordered to move a variety of distances forwards. When the robot finished his movement, the actual distance he moved was measured and compared to the given command.
+
+In a similar way, the influence of noise on measurements from image processing was estimated. The robot was tasked to print distances to landmarks obtained through image processing, and these distances were compared to distances measured in reality.
 
 %---------------------------------------------------------------------------
 
