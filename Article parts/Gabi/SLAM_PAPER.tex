@@ -169,6 +169,7 @@ This concludes the section on Image Processing. The experiments on the earlier-m
 
 \section{Localization and Mapping algorithms}
 
+
 \subsection{EKF SLAM}
 Extended Kalman Filter SLAM is an algorithm which uses an Extended Kalman Filter (EKF) to solve the SLAM problem. EKF is an enhanced version of the Kalman Filter, which is an algorithm that estimates the current state of a linear system based on (an estimate of) the previous state and a set of transition models. Those transition models contain the physical properties of a system and describe the transitions between states. The normal Kalman Filter requires these transition models to be linear, but EKF no longer has this restriction.
 
@@ -319,6 +320,24 @@ Note that classifying something as a landmark even though it's not gets a relati
 Thirty images were made from random locations on the soccer-field as test-instances with a resolution of 320$\times$240 pixels.
 Because the three mentioned variables are all dependent on each other they all have to be tested simultaniously. Because of this, some pre-testing has been done by hand to find a region of convergence in order to reduce the tabel's size. The table containing the final experiments and their results can be found in Table A.1 in the appendice and will be discussed in the next section.
 
+\subsection{Noise Parameters}
+Both of the implemented SLAM algorithms have parameters which need to be experimentally determined, to give the algorithms information on how much noise we expect in motion and measurements.
+
+In order to estimate the influence of noise on motion, the robot was ordered to move a variety of distances forwards. When the robot finished his movement, the actual distance he moved was measured and compared to the given command.
+
+In a similar way, the influence of noise on measurements from image processing was estimated. The robot was tasked to print distances to landmarks obtained through image processing, and these distances were compared to distances measured in reality.
+
+\subsection{Running SLAM}
+After image processing and noise parameters are experimented and values for parameters are found, last experimentation step is to run SLAM algorithms on NAO. Couple of experiments are done and results are plotted on User Interface. Those pictures will be included in results section. One important thing to recognise is that, number of experiments are not high meaning more improvements could have been made on parameters and computations which will be the topic of next section.\\ \\
+
+Three types of setup for experiments were created:\\ \\
+
+In first setup, noise parameters were set to 1, meaning measurements and motion motors are completely trusted. So, assumption was that there is no noise in world. Landmark association was set to 30cm, meaning if two landmarks were at most 30 cm off from each other, they will be recognized as being same landmark.\\ \\
+
+In second setup, noise parameters were adjusted to better value using results of previous experimentations. In this setup, noise was introduced to computations. However, data association value was not changed.\\ \\
+
+In third setup, data association value is adjusted to more realistic value as well using both results of previous two setups and results of previous experiments.
+
 %---------------------------------------------------------------------------
 
 \section{Results}
@@ -326,6 +345,11 @@ Because the three mentioned variables are all dependent on each other they all h
 \subsection{Image Processing}
 The best results (least $\overline{\textit{cost}}$) are obtained for $\beta$ = 120,  $\textit{maxLineGap}$ = 5 pixels and $\textit{minLineLength}$ = 40 pixels. Note that -as described in the previous section- the resolution of an image is 320$\times$240 pixels, so the values of $\textit{maxLineGap}$ and $\textit{minLineLength}$ will probably not apply to other resolutions.
 The reason the $\textit{maxLineGap}$ is relatively low and the $\textit{minLineLength}$ relatively high w.r.t. the resolution is because the cost matrix nudges the variables towards a safe value. It rather sees a landmark undetected than a misclassified landmark, which is -as explained in the previous section- prefered.
+
+\subsection{Running SLAM}
+\subsubsection{GraphSLAM}
+First, GraphSLAM was experimented as an offline solver for SLAM problem. In first experiment, as mentioned, noise parameters were set to 1.0, meaning no noise is expected in computations. Results, as expected, were off. Following image shows result of this first experiment.
+\dkepic{1graphoffline}{Result of first GraphSLAM experiment}
 
 
 %---------------------------------------------------------------------------
