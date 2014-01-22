@@ -1,10 +1,5 @@
 %\documentclass[twocolumn]{article}
 
-% NOTE FOR MERGER: Sections changed inside this branch (the Dennis branch):
-%	- Section ''EKF SLAM Matrices and Equations'' all the way down in appendices
-%	- Subsection 5.1 EKF SLAM
-%	- NEW SECTION: 5.3 Complexity Analysis
-
 \documentclass{ba-kecs}
 \usepackage[pdftex]{graphicx}
 \usepackage{graphicx, float, amsmath,xcolor,fixltx2e}
@@ -174,6 +169,7 @@ This concludes the section on Image Processing. The experiments on the earlier-m
 
 \section{Localization and Mapping algorithms}
 
+
 \subsection{EKF SLAM}
 Extended Kalman Filter SLAM is an algorithm which uses an Extended Kalman Filter (EKF) to solve the SLAM problem. EKF is an enhanced version of the Kalman Filter, which is an algorithm that estimates the current state of a linear system based on (an estimate of) the previous state and a set of transition models. Those transition models contain the physical properties of a system and describe the transitions between states. The normal Kalman Filter requires these transition models to be linear, but EKF no longer has this restriction.
 
@@ -231,10 +227,11 @@ Finally, $\Sigma_t$ is updated for the last time in this iteration: \\
 
 $\Sigma_t = (I - K_t^j \times H_t^j) \Sigma_t$
 
+
 \subsection{Graph SLAM}
 
 \subsubsection{Introduction}
-GraphSLAM is a novel algorithm for mapping using sparse constraint graphs. The basic intuition behind GraphSLAM is simple: GraphSLAM extracts from the data a set of soft constraints, represented by a sparse graph. It obtains the map and the robot path by resolving these constraints into a globally consistent estimate. The constraints are generally nonlinear, but in the process of resolving them they are linearized and the resulting least squares problem is solved using standard optimization techniques\cite{sik}. For this project, GraphSLAM is used as a technique populating sparse "information" matrix of linear constraints.
+GraphSLAM is an algorithm for mapping using sparse constraint graphs. The basic intuition behind GraphSLAM is simple: GraphSLAM extracts from the data a set of constraints, represented by a graph. It obtains the map and the robot path by resolving these constraints into a globally consistent estimate. The constraints are generally nonlinear, but in the process of resolving them they are linearized and the resulting least squares problem is solved using standard optimization techniques\cite{sik}. For this project, GraphSLAM is used as a technique populating "information" matrix of linear constraints.
 
 \subsubsection{Building up matrices}
 As is the case with many other SLAM techniques, the first process that is performed by GraphSLAM is the creation of information matrices. For future reference, they will be called $\Omega$ and $\xi$ for ease. Here, $\Omega$ corresponds to the so-called "information" matrix and $\xi$ represents motions. Easier way to see it is to look any type of constraint. $\Omega$ keeps information about which poses and landmarks are represented in given constraint and $\xi$ keeps information about right hand side of these constraints.
@@ -261,7 +258,7 @@ In order to create $\Omega$ and $\xi$ matrices, first of all data from environme
 	$\Omega$ and $\xi$ are populated in this fashion with all the collected constraints.
 	
 \subsubsection{Introducing noise to environment}
-Above given description of matrices assume perfect world and perfect motors/sensors and do not include any error values or noise. However, in real-life environment there is going to be noise caused by either motion or measurement motors of robot. So, noise should be added and handled by GraphSLAM algorithm. Noise is handled by adding approximated error to $\Omega$ and $\xi$ matrices. Those error/noise values represent how much measurements and motions are trusted. For GraphSLAM, there are two types of errors, namely motion noise and measurement noise. For future reference, motion noise will be represented as $\varepsilon_{motion}$ and measurement noise will be represented as $\varepsilon_{measurement}$. Noise is added to the computations by adjusting $\Omega$ and $\xi$ matrices in following fashion. Let`s take the same constraint used in section before. Constraint is:
+Above given description of matrices assume perfect world and perfect motors/sensors and do not include any error values or noise. However, in real-life environment there is going to be noise caused by either motion or measurement motors of robot. So, noise should be added and handled by GraphSLAM algorithm. Noise is handled by adding approximated error to $\Omega$ and $\xi$ matrices. Those noise parameters represent the amount measurements and motions are trusted. For GraphSLAM, there are two types of errors, namely motion noise and measurement noise. For future reference, motion noise will be represented as $\varepsilon_{motion}$ and measurement noise will be represented as $\varepsilon_{measurement}$. Usage and approximation of these two variables will be explained more in detail in Experiments section where better values for them are obtained by experiments. Noise is added to the computations by adjusting $\Omega$ and $\xi$ matrices in following fashion. Let`s take the same constraint used in section before. Constraint is:
 \[ x_{i} = x_{i-1} + 10 \]
 For this constraint, noise is taken into account by changing set-up of $\Omega$ and $\xi$ matrices in following way:\\ \\
 
@@ -288,15 +285,13 @@ In cases of relative measurement constraints, $\varepsilon_{measurement}$ is use
 	x = \Omega^{-1} \times \xi \label{OMEGA_INV_TIMES_XI}
 	\end{equation}
 	Equation \eqref{OMEGA_INV_TIMES_XI} is the main calculation that returns best estimates for robot poses and landmark positions and it shows the ease of using and implementing GraphSLAM. Additionally, its computational power is proven to be quite high through experimentations\cite{sik,sik2} and it will be the one of the main focus points of experiments section of this paper as well.
-	
+
+
 \subsection{Complexity Analysis}
-As shown in {\color{red} CITE THIS: S. Thrun, W. Burgard and D. Fox,
-Probabilistic Robotics,Cambridge, MA, USA: MIT Press, 2005.}, the time complexity of each iteration in EKF SLAM is $O(n^2)$, where $n$ equals the number of landmarks observed up to that point in time. The algorithm's running time is dominated by the matrix multiplications involving $\Sigma$, which is a $(3 + 2n) \times (3 + 2n)$ matrix. $\Sigma$ also dominates the memory requirements of the algorithm, with all other used matrices being equal or smaller in size, and therefore the space complexity of the algorithm is also $O(n^2)$. It is important to observe that both time and space complexity of the algorithm only grow as a function of the number of landmarks observed, and not as a function of time.
+As shown in \cite{dennis}, the time complexity of each iteration in EKF SLAM is $O(n^2)$, where $n$ equals the number of landmarks observed up to that point in time. The algorithm's running time is dominated by the matrix multiplications involving $\Sigma$, which is a $(3 + 2n) \times (3 + 2n)$ matrix. $\Sigma$ also dominates the memory requirements of the algorithm, with all other used matrices being equal or smaller in size, and therefore the space complexity of the algorithm is also $O(n^2)$. It is important to observe that both time and space complexity of the algorithm only grow as a function of the number of landmarks observed, and not as a function of time.\\ \\
+In GraphSLAM, dominating matrix is $\Omega$ as all the other matrices and vectors used in computations are smaller in size. Size of $\Omega$ at any time step $t_{i}$ is $(i+num_landmarks) \times (i+num_landmarks)$. This can be represented as function of time as it grows per each time step. This leads to the fact that, space complexity of GraphSLAM is $O(N(t)^2)$. As for time complexity, computationally most intensive part of GraphSLAM is inversion of $\Omega$ matrix, which leads time complexity to be $O(N(t)^3)$. It is important to observe that time and space complexity of GraphSLAM grow as a function of time and observed landmarks, which is not the case in EKF SLAM.
 
 %---------------------------------------------------------------------------
-
-
-\section{Experiments}
 
 \section{Experiments}
 
@@ -344,16 +339,23 @@ The reason the $\textit{maxLineGap}$ is relatively low and the $\textit{minLineL
 %---------------------------------------------------------------------------
 
 \section{Future Work}
+
+\subsection{Image Processing}
 	A way to decrease the noise obtained from approximating the landmarks during image processing is to apply particle filtering. Particle filtering is a general Monte Carlo (sampling) method for performing inference in
 state-space models where the state of a system evolves in time and information about the state is obtained via noisy measurements made at each time step \cite{ParFil}. \\
 
 	Measuring the distance to a landmark is often noisy due to slight deviations in the vertical angle of the camera and the torso of the Nao. To approach this problem it is suggested to at the same time as the current camera, take a picture with the other camera and compare these images to obtain the distance to a landmark using static distances (absolute and angular distances between cameras).
+\subsection{SLAM algorithms}	
+	One of the possible future enhancements for SLAM is improvement of robot`s exploration skills. One possible solution for this problem is to use Frontier detection/exploration algorithm which will be explained very briefly in next sub-section.
 	
-	One of the possible future enhancements for SLAM is improvement of robot`s exploration skills. One possible solution for this problem is to use Fourier detection/exploration algorithm which will be explained very briefly in next sub-section.
-	
-\subsection{Frontier detection/exploration}
+\subsubsection{Frontier detection/exploration}
 	Overall, the exploration problem deals with the use of a robot to maximize the knowledge over a particular area. Frontier detection algorithm/approach tries to make use of \textit{frontiers} which are the regions on the border between open space and unexplored space \cite{frontier}
-
+	
+\subsubsection{Landmark Association}
+One of the problems faced by both SLAM algorithms discussed in this paper is about association of landmarks. Using euclidean distances between approximated landmarks in order to find which ones might be same does not work in all the cases. One possible improvement to this problem is to use Mahalanobis distance. Mahalanobis distance is a descriptive statistic that provides a relative measure of a data point's distance from a common point. Its main difference from Euclidean distance that it takes into account the correlations of the data set and is scale-invariant. In other words, it has a multivariate effect size.\\ \\
+Intuitively, Mahalanobis distance estimates the probability of some point belonging to set of points. So, first step is to find center or mass of the set of points and then comparing given point with those centers. One issue with this approach is the fact that set might be spread out over large or small ranges. In order to fix this problem, simplistic approach that is used in many cases is estimation of standard deviation of the distances of sample points from center of mass. If, distance is smaller than one standard deviation then we can conclude it is highly probable that point belongs to that set.
+\subsubsection{Active and Fast SLAM}
+Also, there exist some other approaches to solve SLAM problem. One of them is Active SLAM. Main advantage of Active SLAM is that it also tries to solve exploration problem by finding best next move in order to build the map as efficiently as possible. Second possible algorithm is FastSLAM. Advantage of FastSLAM over GraphSLAM and EKF SLAM is that it also deals with kidnapping problem. Kidnapping problem refers to the case where robot is placed somewhere else in the world during the simulation without robot knowing about it. So, these two approaches might be interesting alternatives to solution of SLAM problem.
 %---------------------------------------------------------------------------
 
 \section{Conclusion}
@@ -386,6 +388,7 @@ RoboCup Soccer SPL" \emph{University of Amsterdan}, 2013.
 \bibitem{frontier} Brian Yamauchi, ``Frontier based exploration," \emph{http://robotfrontier.com/frontier/index.html}, accessed in 2014. 
 
 \bibitem{vec} Cyrill Stachniss, "Robot Mapping EKF SLAM", \emph{http://ais.informatik.uni-freiburg.de/teaching/ws12/mapping/pdf/slam04-ekf-slam.pdf }
+\bibitem{dennis} S. Thrun, W. Burgard and D. Fox, \emph{Probabilistic Robotics. Cambridge, MA, USA: MIT Press}, 2005.
 
 
 \end{thebibliography}
