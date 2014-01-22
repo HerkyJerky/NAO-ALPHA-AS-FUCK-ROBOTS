@@ -169,7 +169,6 @@ This concludes the section on Image Processing. The experiments on the earlier-m
 
 \section{Localization and Mapping algorithms}
 
-
 \subsection{EKF SLAM}
 Extended Kalman Filter SLAM is an algorithm which uses an Extended Kalman Filter (EKF) to solve the SLAM problem. EKF is an enhanced version of the Kalman Filter, which is an algorithm that estimates the current state of a linear system based on (an estimate of) the previous state and a set of transition models. Those transition models contain the physical properties of a system and describe the transitions between states. The normal Kalman Filter requires these transition models to be linear, but EKF no longer has this restriction.
 
@@ -191,30 +190,30 @@ On a high level, each iteration of the algorithm can be split up in two steps; a
 \subsubsection{Prediction Step}
 In this step, first the new robot position is predicted as follows, and the new values are entered in the first three positions of $\mu$:
 
-$\bordermatrix{ 	& \cr
+$\bordermatrix{         & \cr
                  &x_{t} \cr
                  &y_{t} \cr
                  &\theta_{t} \cr}$
 =
-$\bordermatrix{ 	& \cr
+$\bordermatrix{         & \cr
                  &x_{t-1} \cr
                  &y_{t-1} \cr
                  &\theta_{t-1} \cr}$
 +
-$\bordermatrix{ 	& \cr
+$\bordermatrix{         & \cr
                  &d \times cos(\theta) \cr
                  &d \times sin(\theta) \cr
                  &\Delta\theta \cr}$ \\ \\
 where $d$ is the distance the robot travelled forwards. $\Sigma_t$ is computed as follows: \\
 
 $\Sigma_t = G_t \times \Sigma_{t-1} \times G_t^T + R_t$ \\ \\
-where $R_t$ is the covariance matrix for motion noise. More details on $R_t$ can be found in the Experiments section, since it contains values which need to be experimentally tuned.
+where $R_t$ is the covariance matrix for motion noise. It contains values which need to be experimentally tuned.
 
 \subsubsection{Update Step}
 In the update step, the algorithm loops through the landmarks observed in this time-step. The following calculations will be performed for each landmark $j$. First, the Kalman Gain $K_t^j$ is computed: \\
 
 $K_t^j = \Sigma_t \times H_t^j (H_t^j \times \Sigma_t \times H_t^{jT} + Q_t)^{-1}$ \\ \\
-where $Q_t$ is the covariance matrix for measurement noise. More details on $Q_t$ can be found in the Experiments section, since it contains values which need to be experimentally tuned. 
+where $Q_t$ is the covariance matrix for measurement noise. It contains values which need to be experimentally tuned. 
 
 The Kalman Gain can intuitively be thought of as a matrix with numbers indicating how much information we want to gain from differences between expected measurements and actual measurements. 
 
@@ -226,6 +225,8 @@ where $z_t^j$ contains the measurements concerning landmark $j$ in the current t
 Finally, $\Sigma_t$ is updated for the last time in this iteration: \\
 
 $\Sigma_t = (I - K_t^j \times H_t^j) \Sigma_t$
+
+
 
 
 \subsection{Graph SLAM}
@@ -289,7 +290,7 @@ In cases of relative measurement constraints, $\varepsilon_{measurement}$ is use
 
 \subsection{Complexity Analysis}
 As shown in \cite{dennis}, the time complexity of each iteration in EKF SLAM is $O(n^2)$, where $n$ equals the number of landmarks observed up to that point in time. The algorithm's running time is dominated by the matrix multiplications involving $\Sigma$, which is a $(3 + 2n) \times (3 + 2n)$ matrix. $\Sigma$ also dominates the memory requirements of the algorithm, with all other used matrices being equal or smaller in size, and therefore the space complexity of the algorithm is also $O(n^2)$. It is important to observe that both time and space complexity of the algorithm only grow as a function of the number of landmarks observed, and not as a function of time.\\ \\
-In GraphSLAM, dominating matrix is $\Omega$ as all the other matrices and vectors used in computations are smaller in size. Size of $\Omega$ at any time step $t_{i}$ is $(i+num_landmarks) \times (i+num_landmarks)$. This can be represented as function of time as it grows per each time step. This leads to the fact that, space complexity of GraphSLAM is $O(N(t)^2)$. As for time complexity, computationally most intensive part of GraphSLAM is inversion of $\Omega$ matrix, which leads time complexity to be $O(N(t)^3)$. It is important to observe that time and space complexity of GraphSLAM grow as a function of time and observed landmarks, which is not the case in EKF SLAM.
+In GraphSLAM, dominating matrix is $\Omega$ as all the other matrices and vectors used in computations are smaller in size. Size of $\Omega$ at any time step $t_{i}$ is $(i+numLandmarks) \times (i+numLandmarks)$. This can be represented as function of time as it grows per each time step. This leads to the fact that, space complexity of GraphSLAM is $O(N(t)^2)$. As for time complexity, computationally most intensive part of GraphSLAM is inversion of $\Omega$ matrix, which leads time complexity to be $O(N(t)^3)$. It is important to observe that time and space complexity of GraphSLAM grow as a function of time and observed landmarks, which is not the case in EKF SLAM.
 
 %---------------------------------------------------------------------------
 
@@ -362,6 +363,9 @@ Even though, NAO did not see any goal posts during the experimentation(again bec
 
 As already mentioned, the biggest reason why experiments did not yield more meaningful results was the lack of more time steps during experimentations.
 
+\subsubsection{EKF SLAM}
+Testing the entire software package on the NAO on the football field did not result in accurate results. Many coordinates of both the robot and the landmarks would diverge to lie outside the actual dimensions of the soccer field. Similar errors were observed in earlier experiments using a simulated world when the noise parameters were incorrect. After tuning the noise parameters for the simulated world, the EKF SLAM algorithm did give accurate result. It is likely that, with more testing for noise parameters, accurate results could be obtained with the NAO.
+
 
 %---------------------------------------------------------------------------
 
@@ -385,10 +389,16 @@ Intuitively, Mahalanobis distance estimates the probability of some point belong
 Also, there exist some other approaches to solve SLAM problem. One of them is Active SLAM. Main advantage of Active SLAM is that it also tries to solve exploration problem by finding best next move in order to build the map as efficiently as possible. Second possible algorithm is FastSLAM. Advantage of FastSLAM over GraphSLAM and EKF SLAM is that it also deals with kidnapping problem. Kidnapping problem refers to the case where robot is placed somewhere else in the world during the simulation without robot knowing about it. So, these two approaches might be interesting alternatives to solution of SLAM problem.
 %---------------------------------------------------------------------------
 
-\section{Conclusion}
-
+\section{Conclusions}
+\subsection{Image Processing}
 The biggest issue with the Nao in general is noise. In the image processing phase this noise is minimized by increasing the resolution of the images the Nao takes. For calculating the distance to a landmark, the noise becomes a bigger obstacle which is caused by mainly two factors: deviation in the by the Nao measured vertical angle of the camera and deviation in the angle of the torso of the Nao (not standing entirely straight when taking picture).
 The combination of these two sometimes balance each other out, but mostly give a noise between -2 and +2 degrees in vertical camera angle. For landmarks that are far away this often leads to distances that are 10 - 30 cm off. To reduce this error the second camera also has to take a picture at the same time as the camera currently in use as described in the section on future research. 
+
+\subsection{SLAM Algorithms}
+As described in section 5.3, the running time and memory requirements of the EKF SLAM algorithm are affected by the number of landmarks, whereas the running time and memory requirements of the Graph SLAM algorithm are mostly affected by the number of time steps. Because the number of landmarks on the football field is relatively small, EKF SLAM does not have any difficulties with respect to running time and memory. In the experiments carried out for this project, there was no noticeable difference in running time between EKF SLAM and Graph SLAM, which can be explained by the fact that the experiments had a relatively low amount of time-steps.
+
+Ideally, the algorithms should be tested with a much larger number of time-steps. This would allow both algorithms to deal better with noisy data. This was not possible to do due to time concerns. Such experiments would likely show a more noticeable difference in running time between EKF SLAM and Graph SLAM. It would most likely also lead to higher quality maps.
+
 
 %---------------------------------------------------------------------------
 
