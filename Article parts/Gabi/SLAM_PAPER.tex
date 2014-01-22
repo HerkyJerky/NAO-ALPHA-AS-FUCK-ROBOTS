@@ -292,6 +292,7 @@ As shown in \cite{dennis}, the time complexity of each iteration in EKF SLAM is 
 In GraphSLAM, dominating matrix is $\Omega$ as all the other matrices and vectors used in computations are smaller in size. Size of $\Omega$ at any time step $t_{i}$ is $(i+numLandmarks) \times (i+numLandmarks)$. This can be represented as function of time as it grows per each time step. This leads to the fact that, space complexity of GraphSLAM is $O(N(t)^2)$. As for time complexity, computationally most intensive part of GraphSLAM is inversion of $\Omega$ matrix, which leads time complexity to be $O(N(t)^3)$. It is important to observe that time and space complexity of GraphSLAM grow as a function of time and observed landmarks, which is not the case in EKF SLAM.
 
 %---------------------------------------------------------------------------
+\section{Experiments}
 
 \subsection{Image Processing}
 As was announced in section 3, the following variables will be experimented with: \\
