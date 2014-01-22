@@ -231,7 +231,7 @@ $\Sigma_t = (I - K_t^j \times H_t^j) \Sigma_t$
 \subsection{Graph SLAM}
 
 \subsubsection{Introduction}
-GraphSLAM is an algorithm for mapping using sparse constraint graphs. The basic intuition behind GraphSLAM is simple: GraphSLAM extracts from the data a set of constraints, represented by a graph. It obtains the map and the robot path by resolving these constraints into a globally consistent estimate. The constraints are generally nonlinear, but in the process of resolving them they are linearized and the resulting least squares problem is solved using standard optimization techniques\cite{sik}. For this project, GraphSLAM is used as a technique populating "information" matrix of linear constraints.
+GraphSLAM is an algorithm for mapping using sparse constraint graphs. The basic intuition behind GraphSLAM is simple: GraphSLAM extracts from the data a set of constraints, represented by a graph. It obtains the map and the robot path by resolving these constraints into a globally consistent estimate. The constraints are generally nonlinear, but in the process of resolving them they are linearized and the resulting least squares problem is solved using standard optimization techniques\cite{sik}. For this project, GraphSLAM is used as a technique populating sparse "information" matrix of linear constraints.
 
 \subsubsection{Building up matrices}
 As is the case with many other SLAM techniques, the first process that is performed by GraphSLAM is the creation of information matrices. For future reference, they will be called $\Omega$ and $\xi$ for ease. Here, $\Omega$ corresponds to the so-called "information" matrix and $\xi$ represents motions. Easier way to see it is to look any type of constraint. $\Omega$ keeps information about which poses and landmarks are represented in given constraint and $\xi$ keeps information about right hand side of these constraints.
@@ -348,8 +348,19 @@ The reason the $\textit{maxLineGap}$ is relatively low and the $\textit{minLineL
 
 \subsection{Running SLAM}
 \subsubsection{GraphSLAM}
-First, GraphSLAM was experimented as an offline solver for SLAM problem. In first experiment, as mentioned, noise parameters were set to 1.0, meaning no noise is expected in computations. Results, as expected, were off. Following image shows result of this first experiment.
+First, GraphSLAM was experimented as an offline solver for SLAM problem. It should be mentioned that number of time steps was too small for GraphSLAM to yield any good results but algorithms still managed to improve their results even with small number of time steps with adjustments made in each test setup.\\ \\ 
+In first experiment, as mentioned, noise parameters were set to 1.0, meaning no noise is expected in computations. Results, as expected, were off. Following image shows result of this first experiment.
 \dkepic{1graphoffline}{Result of first GraphSLAM experiment}
+As it can be seen from image, results are quite off and it sees more than two goal posts. These relates to the fact that, image processing sometimes accidentally recognises walls of room as being goal post as their colours are very similar. Also, as noise is not introduced, placement of objects do not make much sense at this point.\\ \\
+In second experiment that we ran using GraphSLAM yielded a little bit more stable results.
+\dkepic{4graphoffline}{Result of second GraphSLAM experiment}
+As it can be seen from this image, results are making more sense, as data association starts to work better as number of landmarks and goal posts that are very close to each other are counted as being one landmark, noise is introduced helping GraphSLAM localize and create map of surrounding better.\\ \\
+
+In last experiment performed using GraphSLAM results are also compared to actual football field in order to see if results can be related to actual field in some way.
+\dkepic{7graphoffline}{Results of last experiment using GraphSLAM}
+Even though, NAO did not see any goal posts during the experimentation(again because of small number of time steps), landmarks found by it seem to be better mapped onto the world. As expected, there is still noise in results.\\ \\
+
+As already mentioned, the biggest reason why experiments did not yield more meaningful results was the lack of more time steps during experimentations.
 
 
 %---------------------------------------------------------------------------
