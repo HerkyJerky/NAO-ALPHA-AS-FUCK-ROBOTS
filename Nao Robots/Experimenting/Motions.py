@@ -6,6 +6,7 @@ from Logger import Logger
 import math
 import almath
 import re
+import sys
 
 '''
 !--IMPORTANT--!   -> keep this in mind
@@ -13,8 +14,8 @@ distance inputs, so x and y are given in integer centimeters
 however, in the native NAOqi functions meters, are expected.
 '''
 
-#robotIp = "192.168.200.17"
-robotIp = "192.168.200.16"
+robotIp = "192.168.200.17"
+#robotIp = "192.168.200.16"
 port = 9559
 logObj = Logger()
 MAXSTEPSIZE = 8  # cm
@@ -35,9 +36,9 @@ class Motion:
         self.motionProxy = ALProxy("ALMotion", robotIp, port)
         self.postureProxy = ALProxy("ALRobotPosture", robotIp, port)
         self.talkProxy = ALProxy("ALTextToSpeech", robotIp, port)
-        #robotConfig = self.motionProxy.getRobotConfig()
-        #for i in range(len(robotConfig[0])):
-        #    print robotConfig[0][i], ": ", robotConfig[1][i]
+        robotConfig = self.motionProxy.getRobotConfig()
+        for i in range(len(robotConfig[0])):
+            print robotConfig[0][i], ": ", robotConfig[1][i]
 
     # turn on stiffness of body
     # harden
@@ -295,6 +296,7 @@ class Motion:
         theta = float(theta)
         speed = float(speed)
         self.motionProxy.setAngles("HeadPitch", theta, 0.1)
+
 
     def lieDownRelax(self):
         self.stiffnessOn(motionProxy=self.motionProxy)

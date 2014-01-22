@@ -30,3 +30,8 @@ rotation
 360	323	37
 360-2	360	0	
 
+Roels shit sorta works
+
+1.46 - 1.58
+2.49 - 2.60
+1.95 - 2

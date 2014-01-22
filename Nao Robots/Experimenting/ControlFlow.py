@@ -44,7 +44,7 @@ class ControlFlow:
         pass
 
     def testImage(self):
-        self.angle = visionObj.takePic()
+        self.angle, self.cameraHeight = visionObj.takePic()
         print "image taken"
         print self.part_2()
 
@@ -105,10 +105,10 @@ class ControlFlow:
         if theta == 0:
             motion_data = motionObj.moveXYCm(x, y)
             print 'we have motiondata: ', motion_data
-            self.angle = visionObj.takePic()
+            self.angle, self.cameraHeight = visionObj.takePic()
         elif ((x == 0) and (y == 0)):
             motion_data = motionObj.rotateTheta(theta)
-            self.angle = visionObj.takePic()
+            self.angle, self.cameraHeight = visionObj.takePic()
             print 'we have motiondata2: ', motion_data
         else:
             print 'no valid x y or theta'
@@ -119,7 +119,7 @@ class ControlFlow:
     # 2. DO image processing
     def part_2(self):
         print "part 2 initializing - process the image"
-        measurement_data = analyzeObj.analyse("analyzeThis.png", self.angle)
+        measurement_data = analyzeObj.analyse("analyzeThis.png", self.angle, self.cameraHeight)
         print "part 2 COMPLETE"
 
         return measurement_data
@@ -166,6 +166,6 @@ controlThisShit = ControlFlow()
 # TYPES = ["EKF", "GRAPH"]
 #controlThisShit.flow_offline(TYPES[0])
 #controlThisShit.flow_offline(TYPES[1])
-controlThisShit.flow_offline(TYPES[1])
+#controlThisShit.flow_offline(TYPES[1])
 
-#controlThisShit.testImage()
+controlThisShit.testImage()

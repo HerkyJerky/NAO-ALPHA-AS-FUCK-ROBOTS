@@ -8,8 +8,8 @@ class AnalyseImage:
         self.data = []
         #self.angle = a
     
-    def analyse(self, imageName, a):
-        self.d = distance.Distance(imageName, a)
+    def analyse(self, imageName, a, cameraHeight):
+        self.d = distance.Distance(imageName, a, cameraHeight)
         return self.d.getData()
 
 #an = AnalyseImage()

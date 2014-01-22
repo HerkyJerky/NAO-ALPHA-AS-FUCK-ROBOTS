@@ -8,6 +8,31 @@ __author__ = 'redsphinx'
 # -> Logger         Everything to do with saving and retrieving the data we need
 # they all come together in the class GUI which functions like a controller for the NAO
 
+#Model Type :  naoH25
+#Head Version :  VERSION_32
+#Body Version :  VERSION_32
+#Laser :  False
+#Legs :  True
+#Arms :  True
+#Extended Arms :  False
+#Hands :  True
+#Arm Version :  VERSION_32
+#Number of Legs :  2
+#Number of Arms :  2
+#Number of Hands :  2
+#Model Type :  naoH25
+#Head Version :  VERSION_32
+#Body Version :  VERSION_32
+#Laser :  False
+#Legs :  True
+#Arms :  True
+#Extended Arms :  False
+#Hands :  True
+#Arm Version :  VERSION_32
+#Number of Legs :  2
+#Number of Arms :  2
+#Number of Hands :  2
+
 
 #from SuperGUI import SuperGUI
 #from MapControl import  MapGUI

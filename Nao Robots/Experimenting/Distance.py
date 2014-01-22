@@ -8,26 +8,27 @@ import ImageProcessing as ip
 import cv2.cv as cv
 import math
 
-DEG2RAD = np.pi/180.0
-#robotIp = "192.168.200.17"
-robotIp = "192.168.200.16"
-port = 9559
-memoryProxy =  ALProxy('ALMemory', robotIp, port)
-motionProxy = ALProxy("ALMotion", robotIp, port)
-RESW = 320.0 #320.0 #Capture width
-RESH = 240.0 #240.0 #Capture height
-CAMERA_H_FOV=46.4*DEG2RAD # Horizontal field of view
-CAMERA_V_FOV=34.8*DEG2RAD # Vertical field of view
-CAMERA_FOV_BEND_COEFFICIENT=pow(math.sin(CAMERA_H_FOV/2.0), 2) # X-Coefficient for circle segments within FOV
+#DEG2RAD = np.pi/180.0
+##robotIp = "192.168.200.17"
+#robotIp = "192.168.200.16"
+#port = 9559
+#memoryProxy =  ALProxy('ALMemory', robotIp, port)
+#motionProxy = ALProxy("ALMotion", robotIp, port)
+#RESW = 320.0 #320.0 #Capture width
+#RESH = 240.0 #240.0 #Capture height
+#CAMERA_H_FOV=46.4*DEG2RAD # Horizontal field of view
+#CAMERA_V_FOV=34.8*DEG2RAD # Vertical field of view
+#CAMERA_FOV_BEND_COEFFICIENT=pow(math.sin(CAMERA_H_FOV/2.0), 2) # X-Coefficient for circle segments within FOV
 
 class Distance():
 
 
-    def __init__(self, imgString, a):
+    def __init__(self, imgString, a, cameraHeight):
 
         self.min_slope = 0.3
         self.scalar = 0.001
         self.ang = a
+        self.cameraHeight = cameraHeight
 
         self.IP = ip.ImageProcessing(imgString)
         self.IP.setThreshold(120)
@@ -136,10 +137,10 @@ class Distance():
 
         angle = self.ang * DEG2RAD
         B = angle - 0.5 * FOVVER # angle between ground to bottom of image
-        HB = 50.6 #47.5 # height of camera
+        HB = self.cameraHeight #height bot
         x = RESW - x # rotation counter clockwise
         x = x - RESW/2 # relative to center of image
-        xAngle = (x/(RESW/2)) * (FOVHOR/2) # in degrees
+        xAngle = (x/(RESW/2)) * (FOVHOR/2)  # in degrees
         y = RESH - y
         yAngle = B + (y/RESH) * FOVVER
         #print("yAngle", yAngle* RAD2DEG)
@@ -148,21 +149,21 @@ class Distance():
         print (x2, y2)
         return (0.9*distance), xAngle, post
 
-    def calculateStuffTaghi(self,x,y,post):
-        # TODO : test this method with actual NAO.
-        # One thing : memory and motion and pitch and yaw should probably be instantiated somewhere else.
-        pitch = memoryProxy.getData("Device/SubDeviceList/HeadPitch/Position/Actuator/Value")
-        yaw = memoryProxy.getData("Device/SubDeviceList/HeadYaw/Position/Actuator/Value")
-        ry=math.sqrt(pow((RESH-y)/float(RESH), 2)+pow((x/(RESW/2.0))-1.0, 2))
-        alpha=ry*CAMERA_V_FOV  # angle within camera view
-        beta=((math.pi/2.0) - (CAMERA_V_FOV/2)) - pitch  # angle of lower bound of camera view
-        h = motionProxy.getTransform("CameraTop", 2, True)[11]
-        dist=h*math.tan(alpha+beta)
-        angle=-yaw+((x-(RESW/2.0))/RESW)*CAMERA_H_FOV  # calculate angle to object
-        #ypos=-math.sin(angle)*dist  # calculate rel. y position
-        #xpos=math.cos(angle)*dist  # calculate rel. x position
-        print (x, y)
-        return dist-1,angle,post
+    #def calculateStuffTaghi(self,x,y,post):
+    #    # TODO : test this method with actual NAO.
+    #    # One thing : memory and motion and pitch and yaw should probably be instantiated somewhere else.
+    #    pitch = memoryProxy.getData("Device/SubDeviceList/HeadPitch/Position/Actuator/Value")
+    #    yaw = memoryProxy.getData("Device/SubDeviceList/HeadYaw/Position/Actuator/Value")
+    #    ry=math.sqrt(pow((RESH-y)/float(RESH), 2)+pow((x/(RESW/2.0))-1.0, 2))
+    #    alpha=ry*CAMERA_V_FOV  # angle within camera view
+    #    beta=((math.pi/2.0) - (CAMERA_V_FOV/2)) - pitch  # angle of lower bound of camera view
+    #    h = motionProxy.getTransform("CameraTop", 2, True)[11]
+    #    dist=h*math.tan(alpha+beta)
+    #    angle=-yaw+((x-(RESW/2.0))/RESW)*CAMERA_H_FOV  # calculate angle to object
+    #    #ypos=-math.sin(angle)*dist  # calculate rel. y position
+    #    #xpos=math.cos(angle)*dist  # calculate rel. x position
+    #    print (x, y)
+    #    return dist-1,angle,post
 
     def getData(self):
         return self.data

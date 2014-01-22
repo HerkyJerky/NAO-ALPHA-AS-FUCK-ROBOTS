@@ -14,9 +14,10 @@ import vision_definitions
 import numpy as np
 from Motions import Motion
 
-#robotIp = "192.168.200.17"
-robotIp = "192.168.200.16"
+robotIp = "192.168.200.17"
+#robotIp = "192.168.200.16"
 port = 9559
+
 #global visionProxy
 #resolution = 2    # VGA
 resolution = vision_definitions.kQVGA#kVGA #kQVGA  # QQVGA (160 * 120)
@@ -36,6 +37,7 @@ FOVVER = 34.80 #"vertical" field of view
 class Vision:
     def __init__(self):
         self.visionProxy = ALProxy("ALVideoDevice", robotIp, port)
+        self.motionProxy = ALProxy("ALMotion", robotIp, port)
 
         pass
 
@@ -53,11 +55,13 @@ class Vision:
         array = picture[6]
         realPicture = Image.fromstring("RGB", (picWidth, picHeight), array)
         realPicture.save("analyzeThis.png", "PNG")
+        time.sleep(2)
+        cameraHeight = self.motionProxy.getTransform('CameraTop', 2, True)[11] #in meters
         angle = motionObj.measureAngle()
         realPicture.show()
         logObj.logWrite(time.time().__str__() + "_{0}".format(action))
         #logObj.logWrite(time.time().__str__() + "_5_{0}_0_0_0".format(name))
-        return angle
+        return angle, cameraHeight
 
 
     #def analyze(self):
