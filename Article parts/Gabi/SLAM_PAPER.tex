@@ -30,8 +30,8 @@
 
 \begin{abstract}
 
-This paper researches the use of two Simultaneous Localization And Mapping (SLAM) algorithms, namely the GraphSLAM and the EKF SLAM. The SLAM algorithms are used for the localization and mapping of a NAO robot on a Standard Platform League soccer field \cite{cd1}. The camera of the robot is used as the main source of input for gaining information about the environment. 
-
+This paper researches the use of two Simultaneous Localization And Mapping (SLAM) algorithms, namely the Graph SLAM and the EKF SLAM. The SLAM algorithms are used for the localization and mapping of a NAO robot on a Standard Platform League soccer field \cite{cd1}. The camera of the robot is used as the main source of input for gaining information about the environment.
+...
 
 \end{abstract}
 
@@ -41,12 +41,12 @@ This paper researches the use of two Simultaneous Localization And Mapping (SLAM
 
 
 \subsection{Problem Definition}
-The problem addressed in this paper is the real-time Simultaneous Localization and Mapping (SLAM) problem, using a NAO robot on a soccer field. The SLAM problem concerns building a map of the environment around the robot, while simultaneously localizing the robot on that map. To achieve this the NAO needs to take images of its environment during runtime and analyse these in order to find the location of landmarks. Next the distance to these landmarks is calculated. These distances are used as information input for the SLAM algorithm (EKF or Graph, see section 4) which has as output an array containing the position of the robot and the positions of the observed landmarks.
+The problem addressed in this paper is the real-time Simultaneous Localization and Mapping (SLAM) problem, using a NAO robot on a soccer field. The SLAM problem concerns building a map of the environment around the robot, whilst simultaneously localizing the robot on that map. To achieve this the Nao needs to take images of its environment during runtime and analyze these in order to find the location of landmarks. Next the distance to these landmarks is calculated. These distances are used as input for the SLAM algorithm (EKF or Graph, see section 4) which has as output the next set of moves the Nao should make to maximize the localization efficiency and to locate itself on the map it created.
 	In this paper, it is assumed that the NAO robot will use his camera to obtain measurements of the environment, and that it only needs to be able to operate on the soccer field. The robot will also be able to keep track of the movement commands issued to the robot.
 
 
 \subsection{Outline of Paper}
-Section 2 describes the important features of the environment in which the robot will act. Section 3 describes the Image Processing techniques used to obtain useful measurements from images produced by the NAO's camera. Section 4 describes the implemented algorithms for dealing with the SLAM problem, namely EKF SLAM and GraphSLAM.  Section 5 describes the experiments performed with the implemented algorithms. Section 6 describes the results of these experiments. Section 7 provides some ideas on future work. Finally, section 8 concludes the paper.
+Section 2 describes the important features of the environment in which the robot will act. Section 3 describes the Image Processing techniques used to obtain useful measurements from images produced by the NAO's camera. Section 4 describes the implemented algorithms for dealing with the SLAM problem, namely EKF SLAM and Graph SLAM.  Section 5 describes the experiments performed with the implemented algorithms. Section 6 describes the results of these experiments. Section 7 provides some ideas on future work. Finally, section 8 concludes the paper.
 
 %---------------------------------------------------------------------------
 
