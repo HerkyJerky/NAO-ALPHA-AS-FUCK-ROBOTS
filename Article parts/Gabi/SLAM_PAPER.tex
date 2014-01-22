@@ -30,8 +30,8 @@
 
 \begin{abstract}
 
-This paper researches the use of two Simultaneous Localization And Mapping (SLAM) algorithms, namely the Graph SLAM and the EKF SLAM. The SLAM algorithms are used for the localization and mapping of a NAO robot on a Standard Platform League soccer field \cite{cd1}. The camera of the robot is used as the main source of input for gaining information about the environment.
-...
+This paper researches the use of two SLAM algorithms, namely the Graph SLAM and the EKF SLAM. The SLAM algorithms are used for the localization and mapping of a NAO robot on a Standard Platform League soccer field \cite{cd1}. The camera of the robot was used as the main source of input for gaining information about the environment. By first preprocessing the image the NAO takes to reduce noise and then using OpenCV's \emph{Canny} and \emph{Hough Transform} methods, the data is extracted from the image and used in the SLAM algorithms. Experiments were done mainly to estimate the influence of the noise based on the distance deviations of the movements of the NAO. The findings show that the number of time steps and correct landmark associations are essential for the performance of the SLAM algorithms. The main conclusion is that more extensive experiments need to be performed. 
+
 
 \end{abstract}
 
@@ -41,32 +41,33 @@ This paper researches the use of two Simultaneous Localization And Mapping (SLAM
 
 
 \subsection{Problem Definition}
-The problem addressed in this paper is the real-time Simultaneous Localization and Mapping (SLAM) problem, using a NAO robot on a soccer field. The SLAM problem concerns building a map of the environment around the robot, whilst simultaneously localizing the robot on that map. To achieve this the Nao needs to take images of its environment during runtime and analyze these in order to find the location of landmarks. Next the distance to these landmarks is calculated. These distances are used as input for the SLAM algorithm (EKF or Graph, see section 4) which has as output the next set of moves the Nao should make to maximize the localization efficiency and to locate itself on the map it created.
-	In this paper, it is assumed that the NAO robot will use his camera to obtain measurements of the environment, and that it only needs to be able to operate on the soccer field. The robot will also be able to keep track of the movement commands issued to the robot.
+The problem addressed in this paper is the real-time Simultaneous Localization and Mapping (SLAM) problem, using a NAO robot on a soccer field. The SLAM problem concerns building a map of the environment around the robot, while simultaneously localizing the robot on that map. To achieve this the NAO needs to take images of its environment during runtime and analyse these in order to find the location of landmarks. Next the distance to these landmarks is calculated. These distances are used as information input for the SLAM algorithm (EKF or Graph, see section 4) which has as output an array containing the position of the robot and the positions of the observed landmarks.
+
 
 \subsection{Outline of Paper}
-Section 2 describes the important features of the environment in which the robot will act. Section 3 describes the Image Processing techniques used to obtain useful measurements from images produced by the NAO's camera. Section 4 describes the implemented algorithms for dealing with the SLAM problem, namely EKF SLAM and Graph SLAM.  Section 5 describes the experiments performed with the implemented algorithms. Section 6 describes the results of these experiments. Section 7 provides some ideas on future work. Finally, section 8 concludes the paper.
+Section 2 describes the important features of the environment in which the robot will act. Section 3 describes the Image Processing techniques used to obtain useful measurements from images produced by the NAO's camera. Section 4 describes the implemented algorithms for dealing with the SLAM problem, namely EKF SLAM and GraphSLAM.  Section 5 describes the experiments performed with the implemented algorithms. Section 6 describes the results of these experiments. Section 7 provides some ideas on future work. Finally, section 8 concludes the paper.
 
 %---------------------------------------------------------------------------
 
 \section{Environment}
 \subsection{The NAO}
-The robot used for this study is NAO, a humanoid robot developed by the company Aldebaran Robotics. This robot has been the standard robot used for the standard platform competition of the RoboCup since 2008.
+
+The robot used for this study is a NAO V3.2, a humanoid robot developed by the Aldebaran Robotics. This robot has been the robot used for the RoboCup Standard Platform League since 2008 \cite{cd2}. 
 
 
 \subsection{Features of the environment}
-The soccer field that is used is the half Standard Platform League soccer field. It is green field with white lines and a yellow official goal post. The aim of the robot is to localize itself within the bounds of this half soccer field using the white lines as landmarks.
+The soccer field that is used is the half Standard Platform League soccer field. It is a green field with white lines and a yellow official goal post. The aim of the robot is to localize itself within the bounds of this half soccer field using the white lines as landmarks.
 
 %---------------------------------------------------------------------------
 
 \section{Software Architecture}
-The software developed during this project consists of a Graphical User Interface, used for issuing commands to the robot from a laptop, an Image Processing module, and a module of SLAM algorithms.
+The software developed during this project consists of a Graphical User Interface, used for issuing commands to the robot from a computer, an Image Processing module, and a module of SLAM algorithms. All programming has been done in Python using the NAOqi Framework to control the NAO.
 
 \subsection{Graphical User Interface}
 The Graphical User Interface (GUI) allows for easy control of the robot. It allows the user on a laptop to send motion commands to the robot, to command the robot to take a picture, and to run the SLAM algorithms.
 
 \subsection{Image Processing Module}
-After issuing motion commands, the robot should take a picture and obtain measurements from that picture. The Image Processing Module takes an image taken by the robot's camera as input, and produces a set of measurements obtained from that image as output. The algorithms used in this module are described in detail in the Image Processing section.
+After issuing motion commands, the robot takes a picture of it's environment and obtains measurements from that picture. The Image Processing Module accepts the image taken by the robot's camera as input and produces a set of measurements obtained from that image as output. The algorithms used in this module are described in detail in the Image Processing section.
 
 \subsection{SLAM Module}
 The SLAM Module contains an abstract class for running SLAM algorithms. This abstract class takes motion and measurement data as input. It produces an estimate of the robot's location and rotation, and an estimate of landmark positions, as output. The motion data is equal to the motion commands issued to the robot by the user, and is therefore obtained directly from the GUI. The measurement data is the output of the Image Processing Module.
@@ -81,22 +82,22 @@ This module contains different implementations of the abstract class for differe
 
 \section{Image Processing}
 
-This section's purpose is to explain the mechanisms, algorithms and mathematics behind the processing of images made by the NAO.
-After an image is processed the obtained distances to landmarks (goalposts/fieldline cornerpoints) are passed onto the SLAM algorithm which uses these distances to determine the Nao's next moves.
+The purpose of this section is to explain the mechanisms, algorithms and mathematics behind the processing of images made by the NAO.
+After an image is processed, the obtained distances to landmarks (goalposts or field line corner points) are passed onto the SLAM algorithms, which uses this as input to compute the positions of the robot and the landmarks.
 A brief introduction to the subsections follows before heading into the details.
 
-First the image is preprocessed. In this step the image is converted into a new image consisting only of green, yellow and white pixels. Any background noise is removed.
+First, the image is preprocessed. In this step the image is converted into a new image consisting only of green, yellow and white pixels. Any background noise is removed.
 
-Second the goalposts get isolated and the location of the foot of each post - if visible - gets determined.
+Second, the goalposts get isolated and the location of the foot of each post, if visible, gets determined.
 
-Third the field lines get isolated and using Hough Transforms the corner points are extracted.
+Third, the field lines get isolated and the corner points are extracted using Hough Transforms.
 
-Lastly the distance gets calculated using the camera angle and height, the resolution of the image and the coordinates of the previously extracted landmarks.
+Finally, the distance gets calculated using the camera angle and height, the resolution of the image and the coordinates of the previously extracted landmarks.
 
-\subsection{Image Preprocessing}
-Before any kind of extraction can be made, the image first needs to be preprocessed. First a random sampling of pixels is made from which the average light intensity is calculated using the luminence from the HSL color-space.
+\subsection{Preprocessing}
+Before any kind of extraction can be made, the image needs to be preprocessed. A random sampling of pixels is made from which the average light intensity is calculated using the luminance from the HSL color-space.
 
-Next the white, green and yellow (goal) pixels are extracted by converting them to the HSL color-space and by using the following thresholds and bounds:\\ \\
+Next the white, green and yellow pixels are extracted by converting them to the HSL color-space and by using the following thresholds and bounds:\\ \\
 White:
 %\[ L_{\mathrm{p}} > 120 + (L_{max}-120) \times \frac{L_{avg}}{L_{max}} \]
 	\begin{equation}
@@ -116,42 +117,40 @@ Where \\
 	$L_{\mathrm{p}}$ = $\textit{luminance of pixel}$ \\
 	$L_{\mathrm{avg}}$ = $\textit{average luminance}$ \\
 	$\textit{H}$ = $\textit{hue of pixel}$ \\
-	$G_{\mathrm{min}}$, $G_{\mathrm{max}}$ = $\textit{lower upper bounds for 		the hue of green}$
-	$Y_{\mathrm{min}}$, $Y_{\mathrm{max}}$ = $\textit{lower upper bounds for 		the hue of yellow}$
+	$G_{\mathrm{min}}$, $G_{\mathrm{max}}$ = $\textit{lower and upper bounds for 		the hue of green}$
+	$Y_{\mathrm{min}}$, $Y_{\mathrm{max}}$ = $\textit{lower and upper bounds for 		the hue of yellow}$
 	
-The value of $\beta$ has experimentally been shown (see section 5 and 6) to deliver the best results. The $G_{min}$ and $G_{max}$ are determined at the start of each run by taking a picture of the 'grass'. This image is then scanned for the minimum and maximum hue. $G_{min}$ will be set equal to this minimum hue minus some small number $\epsilon$ in order to deal with the occasional over- and under lighted areas on the field. The same is done for $G_{max}$.\\
+The value of $\beta$ has experimentally been shown (section 5 and 6) to deliver the best results. The $G_{min}$ and $G_{max}$ are determined at the start of each run by taking a picture of a green area on the field. This image is then scanned for the minimum and maximum hue. $G_{min}$ will be set equal to this minimum hue minus a small number $\epsilon$ in order to deal with the occasional over- and under lighted areas on the field. The same is done for $G_{max}$.\\
 $Y_{min}$ and $Y_{max}$ are determined similarly but without adding/subtracting $\epsilon$, because (in the case of this project) there is only one goal and thus the difference in lighting is negligible.\\
-At this point the original image(Figure 4.1) now looks something like Figure 4.2.\\
+At this point the original image(Figure 4.1) looks like Figure 4.2.\\
 \dkepic{figure_IP1}{Raw image taken by NAO}
 \dkepic{figure_IP2}{Image after color filter}
 Before continuing preprocessing, the goalposts need to be extracted first.
 
 
 \subsection{Goalpost Extraction}
-The only parts of the goal that are of interest for this project are the locations of each foot of the posts, because the localisation algorithms use a 2D map. To find these the image is scanned from bottom to top. If a yellow (in this case red because of optimisation) pixel is spotted the algorithm looks a few pixels down to see if there are some green pixels. If there are sufficient green pixels the algorithm continues, if there aren't the algorithm stops scanning this column and proceeds to the next one. This heuristic was added to avoid getting parts of the goal's mast or some random noise in the background.\\
-When the algorithm has decided there are enough green pixels under a yellow one it continues to climb the vertical axis and count the amount of adjacent yellow pixels. If this counter surpasses a certain predefined threshold (somewhere between 10 and 20 percent of the height of the image) the first-encountered yellow pixel is saved in a list of goalpost-coordinates and the algorithm continues to the next column.\\
+The only parts of the goal that are of interest for this project are the locations of each foot of the posts, because the localisation algorithms use a 2D map. To find these the image is scanned from bottom to top. If a yellow (in this case red because of optimisation) pixel is spotted, the algorithm looks {a few pixels down to see if there are some green pixels. If there are sufficient green pixels the algorithm continues. If not, the algorithm stops scanning this column of pixels and proceeds to the next one. This heuristic was added to avoid scanning parts of the goal's mast or noise in the background.\\
+When the algorithm has decided that there are enough green pixels under a yellow one it continues to climb the vertical axis and counts the amount of adjacent yellow pixels. If this counter surpasses a certain predefined threshold (somewhere between 10 and 20 percent of the height of the image) the first-encountered yellow pixel is saved in a list of goalpost-coordinates and the algorithm continues to the next column.\\
 After the entire image is scanned the list of goalpost-coordinates is clustered and averaged to prevent multiple landmarks at one goalpost.
 
-\subsection{Fieldline Cornerpoint Extraction}
-Before any fieldlines can be extracted the background noise needs to be removed. The details of this operation will not be explained here, but the general idea is to scan the color-filtered image from top to bottom for the color green. Once a safe amount of green pixels in a row has been encountered (7 pixels in this specific case), 'erase' all the pixels above this point and continue to the next column. More details about this operation can be found in \cite{ref1}. To finish any remaining green and yellow pixels are removed because they aren't needed anymore. At this point the image will look something like Figure 4.3.\\
+\subsection{Field Line Corner Point Extraction} 
+Before any fieldlines can be extracted the background noise needs to be removed. The details of this operation will not be explained here. The general idea is to scan the color-filtered image from top to bottom for the color green. Once a safe amount of green pixels in a row has been encountered (7 pixels in this specific case), erase all the pixels above this point and continue to the next column. More details about this operation can be found in \cite{ref1}. Finally, any remaining green and yellow pixels are removed because they aren't needed any more. At this point the image will look like Figure 4.3.\\
 \dkepic{figure_IP3}{Background noise removed}
-There are quite some ways of obtaining the - in this example - three landmarks, but one in particular seems to be favored in the world of robotics which is based on edge-detection and Hough transforms \cite{ref2}\cite{ref3}: OpenCV's built-in 'cv.Canny' and 'cv.HoughLinesP' methods. \\
+There are quite some ways of obtaining the landmarks, three in this example. One in particular seems to be favoured in the world of robotics which is based on edge-detection and Hough transforms \cite{ref2}\cite{ref3}: OpenCV's built-in \emph{cv.Canny} and \emph{cv.HoughLinesP} methods. \\
 Canny is an edge-detection algorithm and returns an 8-bit image, see Figure 4.4.\\
 \dkepic{figure_IP4}{Image after applying Canny}
-After using the Canny method the second method - cv.HoughLinesP - is applied to the newly obtained image which returns a list of line-segments. These lines drawn on top of Figure 3.4 results in Figure 4.5.\\
+After using the Canny method the second method is applied to the newly obtained image which returns a list of line-segments. These lines drawn on top of Figure 4.4 results in Figure 4.5.\\
 \dkepic{figure_IP5}{Image after applying Hough Transform}
 The thicker lines are the lines generated by the Hough Transform method.
-OpenCV's method for creating these lines takes a few parameters of which the following are of great importance because they form bottleneck-points on the performance of the entire image processing operation: '$\textit{maxLineGap}$ and '$\textit{minLineLength}$'. $\textit{maxLineGap}$ is the maximum distance between two points to still be considered as a line. $\textit{minLineLength}$ is the minimum length a line should have. These parameters will be discussed in-depth in sections 6 and 7. \\
-The only thing left to do is finding the intersections of these lines and deleting those that are relatively close to each other in order to avoid double landmarks.
-
-
+OpenCV's method for creating these lines takes a few parameters of which the following are of great importance because they form bottlenecks on the performance of the entire image processing operation: $\textit{maxLineGap}$ and $\textit{minLineLength}$. $\textit{maxLineGap}$ is the maximum distance between two points to still be considered as a line. $\textit{minLineLength}$ is the minimum length a line should have. These parameters will be discussed in-depth in sections 6 and 7. \\
+The only thing left to do is to find the intersections of these lines and deleting those that are relatively close to each other in order to avoid double landmarks. \\
 Now that all the landmarks have been extracted the distance to these can be calculated. 
 
 
 \subsection{Distance Calculation}
-A landmark is represented by three parameters: the x and y coordinates of the landmark on the image and a boolean which is true if this landmark is a goalpost and false if it's a fieldline-cornerpoint. The last parameter has no value in calculating distance, but the first two do.\\
+A landmark is represented by three parameters: the x and y coordinates of the landmark on the image and a boolean which is true if this landmark is a goalpost and false if it is a corner point. The last parameter has no value in calculating distance, but the first two do.\\
 To calculate this distance the height, vertical angle and the horizontal and vertical fields of view of the camera and the dimensions of the image are required. For the sake of readability these are abbreviated as $h_{\mathrm{c}}$, $\angle_{\mathrm{c}}$, $fov_{\mathrm{h}}$, $fov_{\mathrm{v}}$, $w_{\mathrm{img}}$ and $h_{\mathrm{img}}$ respectively. \\
-To further ease the readability a few prior operations are executed.
+To further ease the readability, a few prior operations are executed.
 First the $\angle_{\mathrm{c}}$ is adjusted such that it equals the angle of the bottom of the image:\\
 $\angle_{\mathrm{c}}$ = $\angle_{\mathrm{c}}$ - $\frac{fov_{\mathrm{v}}}{2}$ \\
 Then the offset of the x-coordinate from the center of the image is calculated: \\
@@ -229,7 +228,7 @@ $\Sigma_t = (I - K_t^j \times H_t^j) \Sigma_t$
 
 
 
-\subsection{Graph SLAM}
+\subsection{GraphSLAM}
 
 \subsubsection{Introduction}
 GraphSLAM is an algorithm for mapping using sparse constraint graphs. The basic intuition behind GraphSLAM is simple: GraphSLAM extracts from the data a set of constraints, represented by a graph. It obtains the map and the robot path by resolving these constraints into a globally consistent estimate. The constraints are generally nonlinear, but in the process of resolving them they are linearized and the resulting least squares problem is solved using standard optimization techniques\cite{sik}. For this project, GraphSLAM is used as a technique populating sparse "information" matrix of linear constraints.
@@ -294,12 +293,10 @@ In GraphSLAM, dominating matrix is $\Omega$ as all the other matrices and vector
 
 %---------------------------------------------------------------------------
 
-\section{Experiments}
-
 \subsection{Image Processing}
-As was announced in section 3 the following variables will be experimented with: \\
+As was announced in section 3, the following variables will be experimented with: \\
 $\beta$ (minimum luminance of pixels to classify as 'white')\\
-The Hough Transform's parameter values $\textit{maxLineGap}$ and $\textit{minLineLength}$ \\
+The parameter values of the Hough Transform $\textit{maxLineGap}$ and $\textit{minLineLength}$ \\
 These variables were chosen for experimentation because these were the bottleneck-points of the image processing. 
 In order to measure performance, the cost matrix in Table 6.1 is applied to each test-instance where the goal is to minimize the cost. \\
 
@@ -318,8 +315,9 @@ landmark & {\small false} & 1 & 0 \\
 
 
 Note that classifying something as a landmark even though it's not gets a relatively big penalty whereas failing to detect a landmark gets a lower penalty. This is done because the SLAM algorithms are capable of dealing with the latter (false negative), but have a lot more trouble handling the former (false positive). \\
-Thirty images were made from random locations on the soccer-field as test-instances with a resolution of 320$\times$240 pixels.
-Because the three mentioned variables are all dependent on each other they all have to be tested simultaniously. Because of this, some pre-testing has been done by hand to find a region of convergence in order to reduce the tabel's size. The table containing the final experiments and their results can be found in Table A.1 in the appendice and will be discussed in the next section.
+Thirty images were made from random locations on the soccer field as test-instances with a resolution of 320$\times$240 pixels.
+Because the three mentioned variables are all dependent on each other they all have to be tested simultaneously. Because of this, some pre-testing has been done by hand to find a region of convergence in order to reduce the table's size. The table containing the final experiments and their results can be found in Table A.1 in the appendix and will be discussed in the next section.
+
 
 \subsection{Noise Parameters}
 Both of the implemented SLAM algorithms have parameters which need to be experimentally determined, to give the algorithms information on how much noise we expect in motion and measurements.
@@ -345,7 +343,7 @@ In third setup, data association value is adjusted to more realistic value as we
 
 \subsection{Image Processing}
 The best results (least $\overline{\textit{cost}}$) are obtained for $\beta$ = 120,  $\textit{maxLineGap}$ = 5 pixels and $\textit{minLineLength}$ = 40 pixels. Note that -as described in the previous section- the resolution of an image is 320$\times$240 pixels, so the values of $\textit{maxLineGap}$ and $\textit{minLineLength}$ will probably not apply to other resolutions.
-The reason the $\textit{maxLineGap}$ is relatively low and the $\textit{minLineLength}$ relatively high w.r.t. the resolution is because the cost matrix nudges the variables towards a safe value. It rather sees a landmark undetected than a misclassified landmark, which is -as explained in the previous section- prefered.
+The reason the $\textit{maxLineGap}$ is relatively low and the $\textit{minLineLength}$ relatively high w.r.t. the resolution is because the cost matrix nudges the variables towards a safe value. It rather sees a landmark undetected than a misclassified landmark, which is -as explained in the previous section- preferred.
 
 \subsection{Running SLAM}
 \subsubsection{GraphSLAM}
@@ -408,10 +406,13 @@ Ideally, the algorithms should be tested with a much larger number of time-steps
 \begin{thebibliography}{99}
 
 \bibitem{cd1} RoboCup Technical Committee, Standard Platform League (Nao) Rule Book, \emph{www.tzi.de/spl/pub/Website/Downloads/Rules2012.pdf}, (May 2012)
+
+\bibitem{cd2} For RoboCup History, \emph{http://www.aldebaran-robotics.com/For-Robocup/history.html},last accessed on 22-01-2014
+
 \bibitem{ref1} Amogh Gudi, Patrick de Kok, GeorgiosK. Methenitis, Nikolaas Steenbergen, "Visual Goal Detection for the RoboCup Standard Platform League" \emph{X WORKSHOP DE AGENTES FI´SICOS}, 2009.
 
 \bibitem{ref2} Jos´e M. Ca˜nas, Domenec Puig, Eduardo Perdices and Tom´as Gonz´alez, "Feature Detection and Localization for the
-RoboCup Soccer SPL" \emph{University of Amsterdan}, 2013.
+RoboCup Soccer SPL" \emph{University of Amsterdam}, 2013.
 
 \bibitem{ref3} Lukasz Przytula, "On Simulation of NAO Soccer Robots in Webots: A Preliminary Report" \emph{Department of Mathematics and Computer Science University of Warmia and Mazury}, 2011
 \bibitem{sik} Thrun, S. and Montemerlo, M., ``The GraphSLAM Algorithm With Applications to Large-Scale Mapping of Urban Structures," \emph{International Journal on Robotics Research}, pp. 403--430 Volume 25 Number 5/6, 2005.

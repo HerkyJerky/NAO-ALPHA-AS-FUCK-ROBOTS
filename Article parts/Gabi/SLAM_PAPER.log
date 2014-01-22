@@ -1,29 +1,26 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.10.8)  22 JAN 2014 10:31
 =======
 <<<<<<< HEAD
 This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.10.8)  21 JAN 2014 18:15
 >>>>>>> refs/heads/feature-11-TaghiPartReport
+=======
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.1.9)  22 JAN 2014 14:48
+>>>>>>> refs/heads/feature-11-GabiPartReport
 entering extended mode
+ %&-line parsing enabled.
 **SLAM_PAPER.tex
-("D:\NewWorkspace\NAO-ALPHA-AS-FUCK-ROBOTS\Article parts\Gabi\SLAM_PAPER.tex"
-LaTeX2e <2011/06/27>
-Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
-abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
-croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
-lician, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, iceland
-ic, indonesian, interlingua, irish, italian, kannada, kurmanji, lao, latin, lat
-vian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerm
-an, ngerman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, 
-romanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swis
-sgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, u
-senglishmax, welsh, loaded.
-("D:\NewWorkspace\NAO-ALPHA-AS-FUCK-ROBOTS\Article parts\Gabi\ba-kecs.cls"
+(./SLAM_PAPER.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, loaded.
+(./ba-kecs.cls
 Document Class: ba-kecs 2005/01/04
 Conference Style, KECS Bachelor
-("D:\MiKTeX 2.9.2\tex\latex\base\article.cls"
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-("D:\MiKTeX 2.9.2\tex\latex\base\size10.clo"
+(/usr/share/texmf-texlive/tex/latex/base/size10.clo
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -37,8 +34,7 @@ File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
-)
-("D:\NewWorkspace\NAO-ALPHA-AS-FUCK-ROBOTS\Article parts\Gabi\fancyhdr.sty"
+) (./fancyhdr.sty
 \fancy@headwidth=\skip43
 \f@ncyO@elh=\skip44
 \f@ncyO@erh=\skip45
@@ -49,66 +45,60 @@ File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \f@ncyO@olf=\skip50
 \f@ncyO@orf=\skip51
 )
-("D:\MiKTeX 2.9.2\tex\generic\babel\babel.sty"
-Package: babel 2008/07/08 v3.8m The Babel package
+(/usr/share/texmf-texlive/tex/generic/babel/babel.sty
+Package: babel 2008/07/06 v3.8l The Babel package
 
-*************************************
-* Local config file bblopts.cfg used
-*
-("D:\MiKTeX 2.9.2\tex\latex\00miktex\bblopts.cfg"
-File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
-)
-("D:\MiKTeX 2.9.2\tex\generic\babel\dutch.ldf"
+(/usr/share/texmf-texlive/tex/generic/babel/dutch.ldf
 Language: dutch 2005/03/30 v3.8i Dutch support from the babel system
 
-("D:\MiKTeX 2.9.2\tex\generic\babel\babel.def"
-File: babel.def 2008/07/08 v3.8m Babel common definitions
+(/usr/share/texmf-texlive/tex/generic/babel/babel.def
+File: babel.def 2008/07/06 v3.8l Babel common definitions
 \babel@savecnt=\count87
 \U@D=\dimen103
 )
+
+Package babel Warning: No hyphenation patterns were loaded for
+(babel)                the language `Dutch'
+(babel)                I will use the patterns loaded for \language=0 instead.
+
+\l@dutch = a dialect from \language0
 Package babel Info: Making " an active character on input line 132.
-)
-("D:\MiKTeX 2.9.2\tex\generic\babel\english.ldf"
+) (/usr/share/texmf-texlive/tex/generic/babel/english.ldf
 Language: english 2005/03/30 v3.3o English support from the babel system
+\l@british = a dialect from \language\l@english 
+\l@UKenglish = a dialect from \language\l@english 
 \l@canadian = a dialect from \language\l@american 
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
 ))
 \titlebox=\skip52
 )
-("D:\MiKTeX 2.9.2\tex\latex\graphics\graphicx.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-("D:\MiKTeX 2.9.2\tex\latex\graphics\keyval.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-("D:\MiKTeX 2.9.2\tex\latex\graphics\graphics.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-("D:\MiKTeX 2.9.2\tex\latex\graphics\trig.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-("D:\MiKTeX 2.9.2\tex\latex\00miktex\graphics.cfg"
-File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 
-("D:\MiKTeX 2.9.2\tex\latex\pdftex-def\pdftex.def"
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-
-("D:\MiKTeX 2.9.2\tex\generic\oberdiek\infwarerr.sty"
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
-)
-("D:\MiKTeX 2.9.2\tex\generic\oberdiek\ltxcmds.sty"
-Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
-)
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
 \Gread@gobject=\count88
 ))
 \Gin@req@height=\dimen104
 \Gin@req@width=\dimen105
 )
-("D:\MiKTeX 2.9.2\tex\latex\float\float.sty"
+(/usr/share/texmf-texlive/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count89
 \float@exts=\toks15
@@ -116,24 +106,24 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks16
 \@floatcapt=\box27
 )
-("D:\MiKTeX 2.9.2\tex\latex\ams\math\amsmath.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip53
 
 For additional information on amsmath, use the `?' option.
-("D:\MiKTeX 2.9.2\tex\latex\ams\math\amstext.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-("D:\MiKTeX 2.9.2\tex\latex\ams\math\amsgen.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks17
 \ex@=\dimen106
 ))
-("D:\MiKTeX 2.9.2\tex\latex\ams\math\amsbsy.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen107
 )
-("D:\MiKTeX 2.9.2\tex\latex\ams\math\amsopn.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count90
@@ -174,10 +164,10 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 LaTeX Info: Redefining \[ on input line 2666.
 LaTeX Info: Redefining \] on input line 2667.
 )
-(C:\Users\Shutt\AppData\Roaming\MiKTeX\2.9\tex\latex\xcolor\xcolor.sty
+(/usr/share/texmf/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
 
-("D:\MiKTeX 2.9.2\tex\latex\00miktex\color.cfg"
+(/etc/texmf/tex/latex/config/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package xcolor Info: Driver file: pdftex.def on input line 225.
@@ -191,13 +181,14 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
 )
-("D:\MiKTeX 2.9.2\tex\latex\base\fixltx2e.sty"
+(/usr/share/texmf-texlive/tex/latex/base/fixltx2e.sty
 Package: fixltx2e 2006/09/13 v1.1m fixes to LaTeX
 LaTeX Info: Redefining \em on input line 420.
 LaTeX Info: The control sequence `\[' is already robust on input line 471.
 LaTeX Info: The control sequence `\]' is already robust on input line 472.
-)
-("D:\NewWorkspace\NAO-ALPHA-AS-FUCK-ROBOTS\Article parts\Gabi\SLAM_PAPER.aux")
+) (./SLAM_PAPER.aux)
+\openout1 = `SLAM_PAPER.aux'.
+
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
 LaTeX Font Info:    ... okay on input line 26.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
@@ -211,50 +202,71 @@ LaTeX Font Info:    ... okay on input line 26.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
 LaTeX Font Info:    ... okay on input line 26.
 
+(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count102
+\scratchdimen=\dimen115
+\scratchbox=\box30
+\nofMPsegments=\count103
+\nofMParguments=\count104
+\everyMPshowfont=\toks22
+\MPscratchCnt=\count105
+\MPscratchDim=\dimen116
+\MPnumerator=\count106
+\everyMPtoPDFconversion=\toks23
+)
 english
-[1{C:/Users/Shutt/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 99--102
+Underfull \hbox (badness 10000) in paragraph at lines 100--103
 
  []
 
-<figure_IP1.png, id=9, 321.2pt x 240.9pt>
+
+Overfull \hbox (10.44164pt too wide) in paragraph at lines 113--122
+\OML/cmm/m/it/10 G[]$\OT1/cmr/m/n/10 , $\OML/cmm/m/it/10 G[]$ \OT1/cmr/m/n/10 =
+ $[]$
+ []
+
+
+Overfull \hbox (10.54448pt too wide) in paragraph at lines 113--122
+\OML/cmm/m/it/10 Y[]$\OT1/cmr/m/n/10 , $\OML/cmm/m/it/10 Y[]$ \OT1/cmr/m/n/10 =
+ $[]$ 
+ []
+
+<figure_IP1.png, id=10, 321.2pt x 240.9pt>
 File: figure_IP1.png Graphic file (type png)
  <use figure_IP1.png>
-Package pdftex.def Info: figure_IP1.png used on input line 125.
-(pdftex.def)             Requested size: 252.94499pt x 189.71341pt.
-
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 125--125
-[][] 
- []
-
-
-Underfull \hbox (badness 1231) in paragraph at lines 122--125
-\OT1/cmr/m/n/10 adding/subtracting $\OML/cmm/m/it/10 $\OT1/cmr/m/n/10 , be-cau
-se (in the case of this
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 122--125
-
- []
-
-<figure_IP2.png, id=10, 380.92313pt x 285.31593pt>
-File: figure_IP2.png Graphic file (type png)
- <use figure_IP2.png>
-Package pdftex.def Info: figure_IP2.png used on input line 126.
-(pdftex.def)             Requested size: 252.94499pt x 189.45844pt.
-
 Overfull \hbox (9.03374pt too wide) in paragraph at lines 126--126
 [][] 
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \hbox (badness 1024) in paragraph at lines 123--126
+[]\OT1/cmr/m/n/10 The value of $\OML/cmm/m/it/10 ^^L$ \OT1/cmr/m/n/10 has ex-pe
+r-i-men-tally been shown
+ []
 
+
+Underfull \hbox (badness 1231) in paragraph at lines 123--126
+\OT1/cmr/m/n/10 adding/subtracting $\OML/cmm/m/it/10 ^^O$\OT1/cmr/m/n/10 , be-c
+ause (in the case of this
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 123--126
+
+ []
+
+<figure_IP2.png, id=11, 380.92313pt x 285.31593pt>
+File: figure_IP2.png Graphic file (type png)
+ <use figure_IP2.png>
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 127--127
+[][] 
+ []
 
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -262,71 +274,59 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[2 <D:/NewWorkspace/NAO-ALPHA-AS-FUCK-ROBOTS/Article parts/Gabi/figure_IP1.png 
-(PNG copy)>] <figure_IP3.png, id=20, 381.67593pt x 283.81032pt>
+[2 <./figure_IP1.png (PNG copy)>]
+<figure_IP3.png, id=20, 381.67593pt x 283.81032pt>
 File: figure_IP3.png Graphic file (type png)
-
-<use figure_IP3.png>
-Package pdftex.def Info: figure_IP3.png used on input line 137.
-(pdftex.def)             Requested size: 252.94499pt x 188.08623pt.
-
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 137--137
+ <use figure_IP3.png>
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 138--138
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 136--137
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
 
  []
 
 <figure_IP4.png, id=21, 380.92313pt x 278.54062pt>
 File: figure_IP4.png Graphic file (type png)
  <use figure_IP4.png>
-Package pdftex.def Info: figure_IP4.png used on input line 140.
-(pdftex.def)             Requested size: 252.94499pt x 184.95941pt.
-
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 140--140
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 141--141
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 138--140
+Underfull \hbox (badness 10000) in paragraph at lines 139--141
 
  []
 
 <figure_IP5.png, id=22, 381.67593pt x 278.54062pt>
 File: figure_IP5.png Graphic file (type png)
  <use figure_IP5.png>
-Package pdftex.def Info: figure_IP5.png used on input line 142.
-(pdftex.def)             Requested size: 252.94499pt x 184.5939pt.
-
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 142--142
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 143--143
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 141--142
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
 
  []
 
-[3 <D:/NewWorkspace/NAO-ALPHA-AS-FUCK-ROBOTS/Article parts/Gabi/figure_IP2.png>
- <D:/NewWorkspace/NAO-ALPHA-AS-FUCK-ROBOTS/Article parts/Gabi/figure_IP3.png> <
-D:/NewWorkspace/NAO-ALPHA-AS-FUCK-ROBOTS/Article parts/Gabi/figure_IP4.png>]
-<bigMatrix.jpg, id=26, 934.49126pt x 326.21875pt>
+[3 <./figure_IP2.png (PNG copy)> <./figure_IP3.png (PNG copy)> <./figure_IP4.pn
+g (PNG copy)>] <bigMatrix.jpg, id=26, 934.49126pt x 326.21875pt>
 File: bigMatrix.jpg Graphic file (type jpg)
- <use bigMatrix.jpg>
-Package pdftex.def Info: bigMatrix.jpg used on input line 176.
-(pdftex.def)             Requested size: 252.94499pt x 88.29926pt.
 
-Overfull \hbox (9.03374pt too wide) in paragraph at lines 176--176
+<use bigMatrix.jpg>
+Overfull \hbox (9.03374pt too wide) in paragraph at lines 175--175
 [][] 
  []
 
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
-[4 <D:/NewWorkspace/NAO-ALPHA-AS-FUCK-ROBOTS/Article parts/Gabi/figure_IP5.png>
- <D:/NewWorkspace/NAO-ALPHA-AS-FUCK-ROBOTS/Article parts/Gabi/bigMatrix.jpg>]
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+[4 <./figure_IP5.png (PNG copy)> <./bigMatrix.jpg>]
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
@@ -336,118 +336,132 @@ Missing character: There is no ™ in font cmr10!
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
-Missing character: There is no â in font cmr10!
-Missing character: There is no € in font cmr10!
-Missing character: There is no ™ in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 201--203
+Underfull \hbox (badness 10000) in paragraph at lines 200--202
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 206--214
+Underfull \hbox (badness 10000) in paragraph at lines 205--213
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 206--214
+Underfull \hbox (badness 10000) in paragraph at lines 205--213
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 206--214
+Underfull \hbox (badness 10000) in paragraph at lines 205--213
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 206--214
+Underfull \hbox (badness 10000) in paragraph at lines 205--213
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 215--219
+Underfull \hbox (badness 10000) in paragraph at lines 214--218
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 215--219
+Underfull \hbox (badness 10000) in paragraph at lines 214--218
 
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 224--226
+Underfull \hbox (badness 10000) in paragraph at lines 223--225
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 224--226
+Underfull \hbox (badness 10000) in paragraph at lines 223--225
 
  []
 
 
-Overfull \hbox (1.56422pt too wide) in paragraph at lines 227--232
+Overfull \hbox (1.56422pt too wide) in paragraph at lines 226--231
 []$\OT1/cmr/m/n/10 
 $ = $[] []$ 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 227--232
+Underfull \hbox (badness 10000) in paragraph at lines 226--231
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 227--232
+Underfull \hbox (badness 10000) in paragraph at lines 226--231
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 233--237
+Underfull \hbox (badness 10000) in paragraph at lines 232--236
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 233--237
+Underfull \hbox (badness 10000) in paragraph at lines 232--236
 
  []
 
 
-Underfull \hbox (badness 6188) in paragraph at lines 238--239
+Underfull \hbox (badness 6188) in paragraph at lines 237--238
 []\OT1/cmr/m/n/10 In cases of rel-a-tive mea-sure-ment con-straints,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 259--264
+Underfull \hbox (badness 6428) in paragraph at lines 256--261
+\OT1/cmr/m/n/10 The pa-ram-e-ter val-ues of the Hough Trans-form
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 256--261
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 265--277
+Underfull \hbox (badness 10000) in paragraph at lines 262--274
 
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 295--297
+Underfull \hbox (badness 10000) in paragraph at lines 293--295
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 319--320
+Underfull \hbox (badness 10000) in paragraph at lines 327--328
 []\OT1/cmr/m/n/10 RoboCup Tech-ni-cal Com-mit-tee, Stan-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 319--320
+Underfull \hbox (badness 10000) in paragraph at lines 327--328
 \OT1/cmr/m/n/10 dard Plat-form League (Nao) Rule Book,
  []
 
 
-Overfull \hbox (18.66512pt too wide) in paragraph at lines 319--320
+Overfull \hbox (18.66512pt too wide) in paragraph at lines 327--328
 \OT1/cmr/m/it/10 www.tzi.de/spl/pub/Website/Downloads/Rules2012.pdf\OT1/cmr/m/n
 /10 ,
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 329--330
+[]\OT1/cmr/m/n/10 For RoboCup His-tory, \OT1/cmr/m/it/10 http://www.aldebaran-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 329--330
+\OT1/cmr/m/it/10 robotics.com/For-Robocup/history.html\OT1/cmr/m/n/10 ,last ac-
+
+ []
+
 Missing character: There is no Â in font cmti10!
 Missing character: There is no ´ in font cmti10!
+[7]
 Missing character: There is no Â in font cmr10!
 Missing character: There is no ´ in font cmr10!
 Missing character: There is no Ë in font cmr10!
@@ -457,171 +471,178 @@ Missing character: There is no ´ in font cmr10!
 Missing character: There is no Â in font cmr10!
 Missing character: There is no ´ in font cmr10!
 
-Underfull \hbox (badness 10000) in paragraph at lines 328--329
+Underfull \hbox (badness 10000) in paragraph at lines 339--340
 []\OT1/cmr/m/n/10 Giorgio Grisetti, Rainer Kum-merle, Cyrill
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 328--329
+Underfull \hbox (badness 10000) in paragraph at lines 339--340
 \OT1/cmr/m/n/10 Stach-niss, Wol-fram Bur-gard, ``A tu-to-rial
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 328--329
+Underfull \hbox (badness 10000) in paragraph at lines 339--340
 \OT1/cmr/m/n/10 on Graph SLAM," \OT1/cmr/m/it/10 http://ais.informatik.uni-
  []
 
 
-Overfull \hbox (12.74278pt too wide) in paragraph at lines 328--329
+Overfull \hbox (12.74278pt too wide) in paragraph at lines 339--340
 \OT1/cmr/m/it/10 freiburg.de/teaching/ws10/praktikum/slamtutorial.pdf\OT1/cmr/m
 /n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 330--331
+Underfull \hbox (badness 10000) in paragraph at lines 341--342
 []\OT1/cmr/m/n/10 Emin Orhan, "Par-ti-cle Fil-ter-ing"
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 330--331
+Underfull \hbox (badness 10000) in paragraph at lines 341--342
 \OT1/cmr/m/it/10 http://www.cns.nyu.edu/ eorhan/notes/particle-
  []
 
 
-Underfull \hbox (badness 1769) in paragraph at lines 332--333
+Underfull \hbox (badness 1769) in paragraph at lines 343--344
 []\OT1/cmr/m/n/10 Brian Ya-mauchi, ``Fron-tier based ex-plo-ration,"
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 332--333
+Underfull \hbox (badness 10000) in paragraph at lines 343--344
 \OT1/cmr/m/it/10 http://robotfrontier.com/frontier/index.html\OT1/cmr/m/n/10 , 
 ac-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 334--335
+Underfull \hbox (badness 10000) in paragraph at lines 345--346
 []\OT1/cmr/m/n/10 Cyrill Stach-niss, "Robot Map-ping
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 334--335
+Underfull \hbox (badness 10000) in paragraph at lines 345--346
 \OT1/cmr/m/n/10 EKF SLAM", \OT1/cmr/m/it/10 http://ais.informatik.uni-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 334--335
+Underfull \hbox (badness 10000) in paragraph at lines 345--346
 \OT1/cmr/m/it/10 freiburg.de/teaching/ws12/mapping/pdf/slam04-
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [7]
-Underfull \hbox (badness 10000) in paragraph at lines 381--383
+
+Underfull \hbox (badness 10000) in paragraph at lines 392--394
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 384--400
+Underfull \hbox (badness 10000) in paragraph at lines 395--411
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 384--400
+Underfull \hbox (badness 10000) in paragraph at lines 395--411
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 401--407
+Underfull \hbox (badness 10000) in paragraph at lines 412--418
+
+ []
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 424--429
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 413--418
+Underfull \hbox (badness 10000) in paragraph at lines 424--429
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 413--418
+Underfull \hbox (badness 10000) in paragraph at lines 432--435
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 421--424
+Underfull \hbox (badness 10000) in paragraph at lines 432--435
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 421--424
+Underfull \hbox (badness 10000) in paragraph at lines 436--439
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--428
+Overfull \hbox (25.7726pt too wide) in paragraph at lines 436--439
+\OT1/cmr/m/n/10 = $[]$ $\OMS/cmsy/m/n/10 ^^B$ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 436--439
 
  []
 
 
-Overfull \hbox (25.7726pt too wide) in paragraph at lines 425--428
-\OT1/cmr/m/n/10 = $[]$ $\OMS/cmsy/m/n/10 $ $[] []$ 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 425--428
+Underfull \hbox (badness 10000) in paragraph at lines 436--439
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 425--428
+Overfull \hbox (67.00575pt too wide) in paragraph at lines 440--443
+[]$[]$\OT1/cmr/m/n/10 H$[]$ = $[]$ $\OMS/cmsy/m/n/10 ^^B$ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 440--443
 
  []
 
 
-Overfull \hbox (67.00575pt too wide) in paragraph at lines 429--432
-[]$[]$\OT1/cmr/m/n/10 H$[]$ = $[]$ $\OMS/cmsy/m/n/10 $ $[] []$ 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 429--432
+Underfull \hbox (badness 10000) in paragraph at lines 440--443
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 429--432
+Underfull \hbox (badness 10000) in paragraph at lines 444--452
 
  []
 
+[9
 
-Underfull \hbox (badness 10000) in paragraph at lines 433--441
+] (./SLAM_PAPER.aux) )
+(\end occurred inside a group at level 1)
 
- []
-
-[8] ("D:\NewWorkspace\NAO-ALPHA-AS-FUCK-ROBOTS\Article parts\Gabi\SLAM_PAPER.au
-x") ) 
+### simple group (level 1) entered at line 132 ({)
+### bottom level 
 Here is how much of TeX's memory you used:
- 2539 strings out of 494045
- 30473 string characters out of 3154029
- 121098 words of memory out of 3000000
- 5810 multiletter control sequences out of 15000+200000
+ 2610 strings out of 495061
+ 30668 string characters out of 1182622
+ 110123 words of memory out of 3000000
+ 5774 multiletter control sequences out of 15000+50000
  10665 words of font info for 38 fonts, out of 3000000 for 9000
- 715 hyphenation exceptions out of 8191
- 31i,14n,45p,898b,280s stack positions out of 5000i,500n,10000p,200000b,50000s
-<D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/MiKTeX 2.9.
-2/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/MiKTeX 2.9.2/fonts/type1/public
-/amsfonts/cm/cmex10.pfb><D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts/cm/cmmi10.
-pfb><D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts/cm/cmmi5.pfb><D:/MiKTeX 2.9.2/
-fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/MiKTeX 2.9.2/fonts/type1/public/am
-sfonts/cm/cmr10.pfb><D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts/cm/cmr12.pfb><
-D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts/cm/cmr17.pfb><D:/MiKTeX 2.9.2/fonts
-/type1/public/amsfonts/cm/cmr5.pfb><D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts
-/cm/cmr7.pfb><D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:/MiKTe
-X 2.9.2/fonts/type1/public/amsfonts/cm/cmr9.pfb><D:/MiKTeX 2.9.2/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb><D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts/cm/cms
-y7.pfb><D:/MiKTeX 2.9.2/fonts/type1/public/amsfonts/cm/cmti10.pfb><D:/MiKTeX 2.
-9.2/fonts/type1/public/amsfonts/cm/cmti7.pfb>
-Output written on SLAM_PAPER.pdf (8 pages, 488737 bytes).
+ 28 hyphenation exceptions out of 8191
+ 31i,14n,45p,919b,404s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10
+.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/
+share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf
+-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fo
+nts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-texlive/fonts/type1/pu
+blic/amsfonts/cm/cmmi7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfont
+s/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.p
+fb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/sha
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texmf-texl
+ive/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-texlive/fonts/typ
+e1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
+fonts/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy
+10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr
+/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texm
+f-texlive/fonts/type1/public/amsfonts/cm/cmti7.pfb>
+Output written on SLAM_PAPER.pdf (9 pages, 513885 bytes).
 PDF statistics:
- 103 PDF objects out of 1000 (max. 8388607)
+ 106 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
