@@ -172,28 +172,65 @@ This concludes the section on Image Processing. The experiments on the earlier-m
 \subsection{EKF SLAM}
 Extended Kalman Filter SLAM is an algorithm which uses an Extended Kalman Filter (EKF) to solve the SLAM problem. EKF is an enhanced version of the Kalman Filter, which is an algorithm that estimates the current state of a linear system based on (an estimate of) the previous state and a set of transition models. Those transition models contain the physical properties of a system and describe the transitions between states. The normal Kalman Filter requires these transition models to be linear, but EKF no longer has this restriction.
 
+\subsubsection{State Representation}
 During the runtime of the algorithm, the state is represented by a vector $\mu$ and a matrix $\Sigma$ (see figure 4.1).
-\dkepic{bigMatrix}{The vector of the state \cite{vec}}. 
+\dkepic{bigMatrix}{The vector of the state \cite{vec}}
 The first three elements of $\mu$ are the estimated x and y coordinates of the robot and the robot’s estimated rotation $\theta$. The following elements, $m_{i,x}$ and $m_{i,y}$ are the $x$ and $y$ coordinates of the $i^{th}$ landmark. If $n$ equals the number of different landmarks observed so far, this means that $\mu$ has a size equal to $3 + 2n$.
 
 The matrix $\Sigma$ contains covariances between the $3 + 2n$ elements of $\mu$. This means that it is a square matrix with dimension $3 + 2n$.
 
+\subsubsection{Algorithm Initialization}
 The algorithm is initialized with both $\mu$ and $\Sigma$ being filled with all zeros. This implies that all coordinates of landmarks and future robot position are relative to the robot’s starting position.
 
-EKF is an iterative algorithm. Whenever new data on the robot’s motions or observed landmarks is available, the algorithm can compute an estimate of the new state using only the previous state estimate and the data obtained since the last state was estimated.
+EKF is an iterative algorithm. Whenever new data on the robot’s motions or observed landmarks is available, the algorithm can run a new iteration to compute an estimate of the new state using only the previous state estimate and the data obtained since the last state was estimated.
 
-The first step in such an iteration of the algorithm consists of using the known physical motion model to estimate the new location of the robot. This is computed using simple geometrical calculations and information of the movement commands given to the robot.
+\subsubsection{Algorithm Iteration}
+On a high level, each iteration of the algorithm can be split up in two steps; a prediction step, in which transition models of the system are applied to make a prediction of the new state vector $\mu$ and covariance matrix $\Sigma$, and an update step, in which information on previously observed landmarks and estimates of noise are used in an attempt to counteract noise. Any matrices used in this section are defined in more detail in appendix B, unless otherwise is stated.
 
-Next, the new values for the covariance of the robot position are predicted. These values are computed using the changes in robot position and an estimate of the motion noise. That estimate of the motion noise should be determined experimentally.
+\subsubsection{Prediction Step}
+In this step, first the new robot position is predicted as follows, and the new values are entered in the first three positions of $\mu$:
 
-Then, the algorithm deals with observed landmarks. If a landmark has not been observed previously, it’s coordinates and covariances are computed in a similar way to the values of the robot position in the previous steps. This time, models and noise parameters specific to measurements are used.
+$\bordermatrix{ 	& \cr
+                 &x_{t} \cr
+                 &y_{t} \cr
+                 &\theta_{t} \cr}$
+=
+$\bordermatrix{ 	& \cr
+                 &x_{t-1} \cr
+                 &y_{t-1} \cr
+                 &\theta_{t-1} \cr}$
++
+$\bordermatrix{ 	& \cr
+                 &d \times cos(\theta) \cr
+                 &d \times sin(\theta) \cr
+                 &\Delta\theta \cr}$ \\ \\
+where $d$ is the distance the robot travelled forwards. $\Sigma_t$ is computed as follows: \\
 
-Finally, landmarks which have already been observed in previous iterations and have now been re-observed are dealt with. The same computations as in the step above are used to compute the coordinates where the landmark is now measured to be. These are compared to the coordinates where the algorithm would expect to see that landmark given the estimate of it’s current position, and the estimate of the location where that landmark was previously observed. This difference between expectation and reality, combined with parameters indicating how much noise we expect there to be in motion and measurement data respectively, allow the algorithm to compute how much each value of $\mu$ should be adjusted, based on how much we trust each piece of data.
+$\Sigma_t = G_t \times \Sigma_{t-1} \times G_t^T + R_t$ \\ \\
+where $R_t$ is the covariance matrix for motion noise. More details on $R_t$ can be found in the Experiments section, since it contains values which need to be experimentally tuned.
+
+\subsubsection{Update Step}
+In the update step, the algorithm loops through the landmarks observed in this time-step. The following calculations will be performed for each landmark $j$. First, the Kalman Gain $K_t^j$ is computed: \\
+
+$K_t^j = \Sigma_t \times H_t^j (H_t^j \times \Sigma_t \times H_t^{jT} + Q_t)^{-1}$ \\ \\
+where $Q_t$ is the covariance matrix for measurement noise. More details on $Q_t$ can be found in the Experiments section, since it contains values which need to be experimentally tuned. 
+
+The Kalman Gain can intuitively be thought of as a matrix with numbers indicating how much information we want to gain from differences between expected measurements and actual measurements. 
+
+Next, $\mu_t$ is updated: \\
+
+$\mu_t = \mu_t + K_t^j(z_t^j - \hat{z}_t^j)$ \\ \\
+where $z_t^j$ contains the measurements concerning landmark $j$ in the current time-step. The subtraction $(z_t^j - \hat{z}_t^j)$ is the difference between the measurement performed at this time-step and the measurement which the robot would expect given previous information, so this computation clearly shows the intuition behind the Kalman Gain described above.
+
+Finally, $\Sigma_t$ is updated for the last time in this iteration: \\
+
+$\Sigma_t = (I - K_t^j \times H_t^j) \Sigma_t$
+
 
 \subsection{Graph SLAM}
 
 \subsubsection{Introduction}
-GraphSLAM is a novel algorithm for mapping using sparse constraint graphs. The basic intuition behind GraphSLAM is simple: GraphSLAM extracts from the data a set of soft constraints, represented by a sparse graph. It obtains the map and the robot path by resolving these constraints into a globally consistent estimate. The constraints are generally nonlinear, but in the process of resolving them they are linearized and the resulting least squares problem is solved using standard optimization techniques\cite{sik}. For this project, GraphSLAM is used as a technique populating sparse "information" matrix of linear constraints.
+GraphSLAM is an algorithm for mapping using sparse constraint graphs. The basic intuition behind GraphSLAM is simple: GraphSLAM extracts from the data a set of constraints, represented by a graph. It obtains the map and the robot path by resolving these constraints into a globally consistent estimate. The constraints are generally nonlinear, but in the process of resolving them they are linearized and the resulting least squares problem is solved using standard optimization techniques\cite{sik}. For this project, GraphSLAM is used as a technique populating "information" matrix of linear constraints.
 
 \subsubsection{Building up matrices}
 As is the case with many other SLAM techniques, the first process that is performed by GraphSLAM is the creation of information matrices. For future reference, they will be called $\Omega$ and $\xi$ for ease. Here, $\Omega$ corresponds to the so-called "information" matrix and $\xi$ represents motions. Easier way to see it is to look any type of constraint. $\Omega$ keeps information about which poses and landmarks are represented in given constraint and $\xi$ keeps information about right hand side of these constraints.
@@ -220,7 +257,7 @@ In order to create $\Omega$ and $\xi$ matrices, first of all data from environme
 	$\Omega$ and $\xi$ are populated in this fashion with all the collected constraints.
 	
 \subsubsection{Introducing noise to environment}
-Above given description of matrices assume perfect world and perfect motors/sensors and do not include any error values or noise. However, in real-life environment there is going to be noise caused by either motion or measurement motors of robot. So, noise should be added and handled by GraphSLAM algorithm. Noise is handled by adding approximated error to $\Omega$ and $\xi$ matrices. Those error/noise values represent how much measurements and motions are trusted. For GraphSLAM, there are two types of errors, namely motion noise and measurement noise. For future reference, motion noise will be represented as $\varepsilon_{motion}$ and measurement noise will be represented as $\varepsilon_{measurement}$. Noise is added to the computations by adjusting $\Omega$ and $\xi$ matrices in following fashion. Let`s take the same constraint used in section before. Constraint is:
+Above given description of matrices assume perfect world and perfect motors/sensors and do not include any error values or noise. However, in real-life environment there is going to be noise caused by either motion or measurement motors of robot. So, noise should be added and handled by GraphSLAM algorithm. Noise is handled by adding approximated error to $\Omega$ and $\xi$ matrices. Those noise parameters represent the amount measurements and motions are trusted. For GraphSLAM, there are two types of errors, namely motion noise and measurement noise. For future reference, motion noise will be represented as $\varepsilon_{motion}$ and measurement noise will be represented as $\varepsilon_{measurement}$. Usage and approximation of these two variables will be explained more in detail in Experiments section where better values for them are obtained by experiments. Noise is added to the computations by adjusting $\Omega$ and $\xi$ matrices in following fashion. Let`s take the same constraint used in section before. Constraint is:
 \[ x_{i} = x_{i-1} + 10 \]
 For this constraint, noise is taken into account by changing set-up of $\Omega$ and $\xi$ matrices in following way:\\ \\
 
@@ -248,10 +285,12 @@ In cases of relative measurement constraints, $\varepsilon_{measurement}$ is use
 	\end{equation}
 	Equation \eqref{OMEGA_INV_TIMES_XI} is the main calculation that returns best estimates for robot poses and landmark positions and it shows the ease of using and implementing GraphSLAM. Additionally, its computational power is proven to be quite high through experimentations\cite{sik,sik2} and it will be the one of the main focus points of experiments section of this paper as well.
 
+
+\subsection{Complexity Analysis}
+As shown in \cite{dennis}, the time complexity of each iteration in EKF SLAM is $O(n^2)$, where $n$ equals the number of landmarks observed up to that point in time. The algorithm's running time is dominated by the matrix multiplications involving $\Sigma$, which is a $(3 + 2n) \times (3 + 2n)$ matrix. $\Sigma$ also dominates the memory requirements of the algorithm, with all other used matrices being equal or smaller in size, and therefore the space complexity of the algorithm is also $O(n^2)$. It is important to observe that both time and space complexity of the algorithm only grow as a function of the number of landmarks observed, and not as a function of time.\\ \\
+In GraphSLAM, dominating matrix is $\Omega$ as all the other matrices and vectors used in computations are smaller in size. Size of $\Omega$ at any time step $t_{i}$ is $(i+num_landmarks) \times (i+num_landmarks)$. This can be represented as function of time as it grows per each time step. This leads to the fact that, space complexity of GraphSLAM is $O(N(t)^2)$. As for time complexity, computationally most intensive part of GraphSLAM is inversion of $\Omega$ matrix, which leads time complexity to be $O(N(t)^3)$. It is important to observe that time and space complexity of GraphSLAM grow as a function of time and observed landmarks, which is not the case in EKF SLAM.
+
 %---------------------------------------------------------------------------
-
-
-\section{Experiments}
 
 \section{Experiments}
 
@@ -292,16 +331,23 @@ The reason the $\textit{maxLineGap}$ is relatively low and the $\textit{minLineL
 %---------------------------------------------------------------------------
 
 \section{Future Work}
+
+\subsection{Image Processing}
 	A way to decrease the noise obtained from approximating the landmarks during image processing is to apply particle filtering. Particle filtering is a general Monte Carlo (sampling) method for performing inference in
 state-space models where the state of a system evolves in time and information about the state is obtained via noisy measurements made at each time step \cite{ParFil}. \\
 
 	Measuring the distance to a landmark is often noisy due to slight deviations in the vertical angle of the camera and the torso of the Nao. To approach this problem it is suggested to at the same time as the current camera, take a picture with the other camera and compare these images to obtain the distance to a landmark using static distances (absolute and angular distances between cameras).
+\subsection{SLAM algorithms}	
+	One of the possible future enhancements for SLAM is improvement of robot`s exploration skills. One possible solution for this problem is to use Frontier detection/exploration algorithm which will be explained very briefly in next sub-section.
 	
-	One of the possible future enhancements for SLAM is improvement of robot`s exploration skills. One possible solution for this problem is to use Fourier detection/exploration algorithm which will be explained very briefly in next sub-section.
-	
-\subsection{Frontier detection/exploration}
+\subsubsection{Frontier detection/exploration}
 	Overall, the exploration problem deals with the use of a robot to maximize the knowledge over a particular area. Frontier detection algorithm/approach tries to make use of \textit{frontiers} which are the regions on the border between open space and unexplored space \cite{frontier}
-
+	
+\subsubsection{Landmark Association}
+One of the problems faced by both SLAM algorithms discussed in this paper is about association of landmarks. Using euclidean distances between approximated landmarks in order to find which ones might be same does not work in all the cases. One possible improvement to this problem is to use Mahalanobis distance. Mahalanobis distance is a descriptive statistic that provides a relative measure of a data point's distance from a common point. Its main difference from Euclidean distance that it takes into account the correlations of the data set and is scale-invariant. In other words, it has a multivariate effect size.\\ \\
+Intuitively, Mahalanobis distance estimates the probability of some point belonging to set of points. So, first step is to find center or mass of the set of points and then comparing given point with those centers. One issue with this approach is the fact that set might be spread out over large or small ranges. In order to fix this problem, simplistic approach that is used in many cases is estimation of standard deviation of the distances of sample points from center of mass. If, distance is smaller than one standard deviation then we can conclude it is highly probable that point belongs to that set.
+\subsubsection{Active and Fast SLAM}
+Also, there exist some other approaches to solve SLAM problem. One of them is Active SLAM. Main advantage of Active SLAM is that it also tries to solve exploration problem by finding best next move in order to build the map as efficiently as possible. Second possible algorithm is FastSLAM. Advantage of FastSLAM over GraphSLAM and EKF SLAM is that it also deals with kidnapping problem. Kidnapping problem refers to the case where robot is placed somewhere else in the world during the simulation without robot knowing about it. So, these two approaches might be interesting alternatives to solution of SLAM problem.
 %---------------------------------------------------------------------------
 
 \section{Conclusion}
@@ -334,6 +380,7 @@ RoboCup Soccer SPL" \emph{University of Amsterdan}, 2013.
 \bibitem{frontier} Brian Yamauchi, ``Frontier based exploration," \emph{http://robotfrontier.com/frontier/index.html}, accessed in 2014. 
 
 \bibitem{vec} Cyrill Stachniss, "Robot Mapping EKF SLAM", \emph{http://ais.informatik.uni-freiburg.de/teaching/ws12/mapping/pdf/slam04-ekf-slam.pdf }
+\bibitem{dennis} S. Thrun, W. Burgard and D. Fox, \emph{Probabilistic Robotics. Cambridge, MA, USA: MIT Press}, 2005.
 
 
 \end{thebibliography}
@@ -380,26 +427,9 @@ $\begin{tabular}{| l | c | c | c | r | }
 \end{tabular}$
 
 \section{EKF SLAM Matrices and Equations}
-This appendix provides a detailed view of some of the matrices and equations used by the EKF SLAM algorithm.\\ \\
-Robot state prediction:
+This appendix provides a detailed view of some of the matrices and equations used by the EKF SLAM algorithm.
 
-$\bordermatrix{ 	& \cr
-                 &x_{t} \cr
-                 &y_{t} \cr
-                 &\theta_{t} \cr}$
-=
-$\bordermatrix{ 	& \cr
-                 &x_{t-1} \cr
-                 &y_{t-1} \cr
-                 &\theta_{t-1} \cr}$
-+
-$\bordermatrix{ 	& \cr
-                 &d \times cos(\theta) \cr
-                 &d \times sin(\theta) \cr
-                 &\Delta\theta \cr}$ \\ \\
-where $d$ is the distance the robot travelled forwards. \\ \\
-Matrices used for covariance prediction:
-
+\subsection{Prediction Step Matrices}
 $G_t^x$ = 
 $\bordermatrix{ 	& \cr
                  &1 & 0 & -\Delta y \cr
@@ -412,34 +442,40 @@ $\bordermatrix{ 	& \cr
                  &G_t^x & 0 \cr
                  &0 & I \cr}$
                  
+\subsection{Update Step Matrices}
+Let $\bordermatrix{~ \cr
+                        & \mu_{j,x} \cr
+                        & \mu_{j,y}}$
+be the current estimate of landmark $j$'s position, and let $\bordermatrix{~ \cr
+                        & \mu_{t,x} \cr
+                        & \mu_{t,y}}$
+be the current estimate of the robot's position. Then $\hat{z}^j_t$ can be computed as follows, giving the distance and relative angle at which we would expect to observe landmark $j$.
+                        
 $\delta$ = $\bordermatrix{~ \cr
                         & \delta_{x} \cr
                         & \delta_{y}}$ = $\bordermatrix{~ \cr
                                                                                                 & \mu_{j,x} - \mu_{t,x} \cr
-                                                                & \mu_{j,y} - \mu_{t,y} \cr}$\\ \\
+                                                                & \mu_{j,y} - \mu_{t,y} \cr}$ \\
 
-$\textit{q} = \delta^{T} \times \delta$
+$q = \delta^{T} \times \delta$
 
-\textit{z}$^{i}_{t}$ = $\bordermatrix{~ \cr
+$\hat{z}^{j}_{t}$ = $\bordermatrix{~ \cr
                         & \sqrt{q} \cr
-                        & atan2(\sigma_{y},\sigma_{x}) - \mu_{t,\theta}}$\\ \\
-                                          
-$^{low}$H$^{i}_{t}$ = $\frac{\delta h(\mu_{t})}{\delta{\mu_{t}}}$ = \\ \\ = $\frac{1}{q}$ $\times$ $\bordermatrix{~ \cr
-                                & -\sqrt{q} \times \delta_{x} & -\sqrt{q} \times \delta_{y} & 0 & +\sqrt{q} \times \delta_{x} & \sqrt{q} \times \delta_{y} \cr
-                                & \delta_{y} & -\delta_{x} & -q & -\delta_{y} & \delta_{x}} $\\ \\
+                        & atan2(\sigma_{y},\sigma_{x}) - \mu_{t,\theta}}$ \\ \\
+Some of the values computed above can now be used to compute $H^{j}_{t}$ for landmark $j$ as follows:
                                                   
-$^{low}$H$^{i}_{t}$ = $\frac{1}{q}$ $\times$ $\bordermatrix{~ \cr
-                                & -\sqrt{q} \times \delta_{x} & -\sqrt{q} \times \delta_{y} & 0 & +\sqrt{q} \times \delta_{x} & \sqrt{q} \times \delta_{y} \cr
-                                & \delta_{y} & -\delta_{x} & -q & -\delta_{y} & \delta_{x}} $\\ \\
-                                                  
-H$^{i}_{t}$ = $^{low}H^{i}_{t} \times F_{x,j}$
-\\ \\
+$^{low}H^{j}_{t}$ = $\frac{1}{q} \bordermatrix{~ \cr
+                                & -\sqrt{q} \delta_{x} & -\sqrt{q} \delta_{y} & 0 & \sqrt{q} \delta_{x} & \sqrt{q} \delta_{y} \cr
+                                & \delta_{y} & -\delta_{x} & -q & -\delta_{y} & \delta_{x}} $\\
+                                
 $F_{x,j}$ = $\bordermatrix{~ \cr
                         & 1 & 0 & 0 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
                         & 0 & 1 & 0 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
                         & 0 & 0 & 1 & 0 \cdots 0 & 0 & 0 & 0 \cdots 0 \cr
                         & 0 & 0 & 0 & 0 \cdots 0 & 1 & 0 & 0 \cdots 0 \cr
-                        & 0 & 0 & 0 & \underbrace{0 \cdots 0}_{2j-2} & 0 & 1 & \underbrace{0 \cdots 0}_{2N-2j} \cr}$
-
+                        & 0 & 0 & 0 & \underbrace{0 \cdots 0}_{2j-2} & 0 & 1 & \underbrace{0 \cdots 0}_{2N-2j} \cr}$ \\
+                                                  
+$H^{j}_{t}$ = $^{low}H^{j}_{t} \times F_{x,j}$ \\ \\
+where $N$ is the number of landmarks observed so far.
 
 \end{document}
