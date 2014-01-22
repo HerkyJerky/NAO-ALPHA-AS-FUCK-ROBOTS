@@ -373,8 +373,8 @@ class EkfSLAM(SLAM.SLAM):
                 #        0    bd
                 #
                 # where c = measurement noise constant for range, bd = measurement noise for bearing
-                R = [[r*self.measurement_noise_range*r,                                    0],
-                     [                               0,      self.measurement_noise_bearing]]
+                R = [[10*r*self.measurement_noise_range*r,                                    0],
+                     [                               0,      10*self.measurement_noise_bearing]]
                 
                 # http://home.hit.no/~hansha/documents/control/theory/stateestimation_with_kalmanfilter.pdf
                 

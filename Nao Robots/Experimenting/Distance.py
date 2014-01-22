@@ -147,7 +147,7 @@ class Distance():
         distance = (HB * np.tan(yAngle)) / np.cos(xAngle)
 
         print (x2, y2)
-        return (0.9*distance), xAngle, post
+        return (0.9*distance*100), xAngle, post
 
     #def calculateStuffTaghi(self,x,y,post):
     #    # TODO : test this method with actual NAO.

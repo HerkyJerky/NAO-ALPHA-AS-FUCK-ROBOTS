@@ -164,8 +164,8 @@ controlThisShit = ControlFlow()
 #print "control flow made"
 #controlThisShit.flow_online()
 # TYPES = ["EKF", "GRAPH"]
-#controlThisShit.flow_offline(TYPES[0])
+#controlThisShit.flow_online(TYPES[0])
 #controlThisShit.flow_offline(TYPES[1])
-#controlThisShit.flow_offline(TYPES[1])
+controlThisShit.flow_offline(TYPES[1])
 
-controlThisShit.testImage()
+#controlThisShit.testImage()

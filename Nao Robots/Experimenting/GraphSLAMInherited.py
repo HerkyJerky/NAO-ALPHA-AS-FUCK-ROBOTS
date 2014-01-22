@@ -17,9 +17,9 @@ class GraphSLAMInherited(SLAM.SLAM):
         self.graphSlam = GraphSLAM()
         self.motions = []
         self.measurements = []
-        self.motion_noise = 2
-        self.measurement_noise = 2
-        self.associationError = 900
+        self.motion_noise = 2.0
+        self.measurement_noise = 2.0
+        self.associationError = 400
         self.method = True
         print "Graph Slam is initialized!"
     
@@ -29,9 +29,9 @@ class GraphSLAMInherited(SLAM.SLAM):
         self.graphSlam = GraphSLAM() 
         self.motions = []
         self.measurements = []
-        self.motion_noise = 1
-        self.measurement_noise = 1
-        self.associationError = 0.25
+        self.motion_noise = 2.0
+        self.measurement_noise = 2.0
+        self.associationError = 400
         self.method = True
         print "Reseting done!"
         
@@ -93,8 +93,8 @@ class GraphSLAMInherited(SLAM.SLAM):
         # TODO : Not sure about this part.
         
     def set_noise_parameters(self,measurement_noise_range,measurement_noise_bearing,motion_noise):
-        self.motion_noise = motion_noise
-        self.measurement_noise = measurement_noise_bearing
+        self.motion_noise = 2.0
+        self.measurement_noise = 2.0
         
     def set_offline(self):
         self.method = False
