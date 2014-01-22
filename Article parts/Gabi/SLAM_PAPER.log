@@ -1,8 +1,12 @@
+<<<<<<< 83e930cab4dd31e76c01034ca60a816cdf2e49e4
 <<<<<<< HEAD
 This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.1.9)  22 JAN 2014 10:31
 =======
 This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2012.10.8)  22 JAN 2014 10:31
 >>>>>>> refs/heads/feature-11-EKF-SLAM-report
+=======
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.1.9)  22 JAN 2014 10:54
+>>>>>>> 85784a4fa050a87ab95aa74b3edf1329ffa8156a
 entering extended mode
  %&-line parsing enabled.
 **SLAM_PAPER.tex
