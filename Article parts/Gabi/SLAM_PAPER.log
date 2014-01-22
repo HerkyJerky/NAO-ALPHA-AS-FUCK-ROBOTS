@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.1.9)  22 JAN 2014 08:25
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.1.9)  22 JAN 2014 10:31
 entering extended mode
  %&-line parsing enabled.
 **SLAM_PAPER.tex
@@ -408,49 +408,60 @@ Underfull \hbox (badness 6188) in paragraph at lines 238--239
  []
 
 
-Underfull \hbox (badness 6428) in paragraph at lines 259--264
+Underfull \hbox (badness 6428) in paragraph at lines 257--262
 \OT1/cmr/m/n/10 The pa-ram-e-ter val-ues of the Hough Trans-form
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 259--264
+Underfull \hbox (badness 10000) in paragraph at lines 257--262
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 265--277
+Underfull \hbox (badness 10000) in paragraph at lines 263--275
 
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 295--297
+Underfull \hbox (badness 10000) in paragraph at lines 293--295
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 314--315
+Underfull \hbox (badness 1248) in paragraph at lines 312--313
+\OT1/cmr/m/n/10 com-pared to the other phases in which the NAO
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 312--313
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 326--327
+Underfull \hbox (badness 10000) in paragraph at lines 324--325
 []\OT1/cmr/m/n/10 RoboCup Tech-ni-cal Com-mit-tee, Stan-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 326--327
+Underfull \hbox (badness 10000) in paragraph at lines 324--325
 \OT1/cmr/m/n/10 dard Plat-form League (Nao) Rule Book,
  []
 
 
-Overfull \hbox (18.66512pt too wide) in paragraph at lines 326--327
+Overfull \hbox (18.66512pt too wide) in paragraph at lines 324--325
 \OT1/cmr/m/it/10 www.tzi.de/spl/pub/Website/Downloads/Rules2012.pdf\OT1/cmr/m/n
 /10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 328--329
-[]\OT1/cmr/m/n/10 For RoboCup His-tory \OT1/cmr/m/it/10 http://www.aldebaran-
+Underfull \hbox (badness 10000) in paragraph at lines 326--327
+[]\OT1/cmr/m/n/10 For RoboCup His-tory, \OT1/cmr/m/it/10 http://www.aldebaran-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 326--327
+\OT1/cmr/m/it/10 robotics.com/For-Robocup/history.html\OT1/cmr/m/n/10 ,last ac-
+
  []
 
 Missing character: There is no Â in font cmti10!
@@ -464,156 +475,157 @@ Missing character: There is no ´ in font cmr10!
 Missing character: There is no Â in font cmr10!
 Missing character: There is no ´ in font cmr10!
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 338--339
+Underfull \hbox (badness 10000) in paragraph at lines 336--337
 []\OT1/cmr/m/n/10 Giorgio Grisetti, Rainer Kum-merle, Cyrill
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 338--339
+Underfull \hbox (badness 10000) in paragraph at lines 336--337
 \OT1/cmr/m/n/10 Stach-niss, Wol-fram Bur-gard, ``A tu-to-rial
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 338--339
+Underfull \hbox (badness 10000) in paragraph at lines 336--337
 \OT1/cmr/m/n/10 on Graph SLAM," \OT1/cmr/m/it/10 http://ais.informatik.uni-
  []
 
 
-Overfull \hbox (12.74278pt too wide) in paragraph at lines 338--339
+Overfull \hbox (12.74278pt too wide) in paragraph at lines 336--337
 \OT1/cmr/m/it/10 freiburg.de/teaching/ws10/praktikum/slamtutorial.pdf\OT1/cmr/m
 /n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 340--341
+Underfull \hbox (badness 10000) in paragraph at lines 338--339
 []\OT1/cmr/m/n/10 Emin Orhan, "Par-ti-cle Fil-ter-ing"
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 340--341
+Underfull \hbox (badness 10000) in paragraph at lines 338--339
 \OT1/cmr/m/it/10 http://www.cns.nyu.edu/ eorhan/notes/particle-
  []
 
 
-Underfull \hbox (badness 1769) in paragraph at lines 342--343
+Underfull \hbox (badness 1769) in paragraph at lines 340--341
 []\OT1/cmr/m/n/10 Brian Ya-mauchi, ``Fron-tier based ex-plo-ration,"
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 342--343
+Underfull \hbox (badness 10000) in paragraph at lines 340--341
 \OT1/cmr/m/it/10 http://robotfrontier.com/frontier/index.html\OT1/cmr/m/n/10 , 
 ac-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 344--345
+Underfull \hbox (badness 10000) in paragraph at lines 342--343
 []\OT1/cmr/m/n/10 Cyrill Stach-niss, "Robot Map-ping
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 344--345
+Underfull \hbox (badness 10000) in paragraph at lines 342--343
 \OT1/cmr/m/n/10 EKF SLAM", \OT1/cmr/m/it/10 http://ais.informatik.uni-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 344--345
+Underfull \hbox (badness 10000) in paragraph at lines 342--343
 \OT1/cmr/m/it/10 freiburg.de/teaching/ws12/mapping/pdf/slam04-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 389--391
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 392--408
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 392--408
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 409--415
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 421--426
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 421--426
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 429--432
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 429--432
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 433--436
+
+ []
+
+
+Overfull \hbox (25.7726pt too wide) in paragraph at lines 433--436
+\OT1/cmr/m/n/10 = $[]$ $\OMS/cmsy/m/n/10 ^^B$ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 433--436
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 433--436
+
+ []
+
+
+Overfull \hbox (67.00575pt too wide) in paragraph at lines 437--440
+[]$[]$\OT1/cmr/m/n/10 H$[]$ = $[]$ $\OMS/cmsy/m/n/10 ^^B$ $[] []$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 437--440
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 437--440
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 441--449
+
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 391--393
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 394--410
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 394--410
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 411--417
-
- []
-
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 423--428
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 423--428
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 431--434
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 431--434
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 435--438
-
- []
-
-
-Overfull \hbox (25.7726pt too wide) in paragraph at lines 435--438
-\OT1/cmr/m/n/10 = $[]$ $\OMS/cmsy/m/n/10 ^^B$ $[] []$ 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 435--438
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 435--438
-
- []
-
-
-Overfull \hbox (67.00575pt too wide) in paragraph at lines 439--442
-[]$[]$\OT1/cmr/m/n/10 H$[]$ = $[]$ $\OMS/cmsy/m/n/10 ^^B$ $[] []$ 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 439--442
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 439--442
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 443--451
-
- []
-
+ [8]
 [9
 
 ] (./SLAM_PAPER.aux) ) 
 Here is how much of TeX's memory you used:
  2610 strings out of 495061
  30668 string characters out of 1182622
- 108123 words of memory out of 3000000
+ 120123 words of memory out of 3000000
  5774 multiletter control sequences out of 15000+50000
  10665 words of font info for 38 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 31i,14n,45p,897b,360s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 31i,14n,45p,897b,362s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/
 cmbx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share
@@ -629,7 +641,7 @@ ic/amsfonts/cm/cmr9.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/c
 m/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy7.pfb
 ></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/shar
 e/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti7.pfb>
-Output written on SLAM_PAPER.pdf (9 pages, 513341 bytes).
+Output written on SLAM_PAPER.pdf (9 pages, 513102 bytes).
 PDF statistics:
  106 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
