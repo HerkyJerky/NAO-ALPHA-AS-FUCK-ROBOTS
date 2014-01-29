@@ -1,0 +1,32 @@
+instructions	reality
+20 fw		24.5 fw
+48 fw		53.5 fw 13 left
+100 fw		106 fw 35.5 left
+
+20 fw		24.5 fw 8 left
+48 fw		53 fw 12 left
+100 fw		106 fw 39 left
+
+measurements
+real distance	measured distance
+87		100
+97		110
+118		146
+155		215
+165		224
+
+rotation
+90	79	11
+90-2	81	9	
+100	87	13
+130	121	9
+150	140	10
+150-2	138	12	
+180	154	26
+180-2	166	14 
+230	216	14
+280	261	19
+320	303	17
+360	323	37
+360-2	360	0	
+
